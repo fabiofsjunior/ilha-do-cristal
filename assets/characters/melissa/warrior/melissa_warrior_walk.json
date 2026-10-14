@@ -1,0 +1,29 @@
+{
+  "id": "melissa_warrior_walk",
+  "atlas": "melissa_warrior_walk.png",
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "N",
+    "S"
+  ],
+  "animations": {
+    "walk": {
+      "frames": 6,
+      "fps": 8,
+      "loop": true
+    }
+  },
+  "stage": "technical_test",
+  "status": "needs_correction",
+  "offset": [
+    0,
+    0
+  ]
+}

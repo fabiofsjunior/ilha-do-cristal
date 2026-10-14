@@ -1,0 +1,29 @@
+{
+  "id": "melissa_warrior_idle",
+  "atlas": "melissa_warrior_idle.png",
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "N",
+    "S"
+  ],
+  "animations": {
+    "idle": {
+      "frames": 4,
+      "fps": 4,
+      "loop": true
+    }
+  },
+  "stage": "technical_test",
+  "status": "needs_correction",
+  "offset": [
+    0,
+    0
+  ]
+}

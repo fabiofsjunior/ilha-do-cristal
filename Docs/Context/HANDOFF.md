@@ -1,9 +1,9 @@
-# Handoff — estado atual
+# Handoff — teste técnico Melissa Warrior
 
-**Status:** pré-produção documentada; nenhum APK ou sprite de produção pronto. **Branch:** `docs/gdd-mvp-producao`; **PR:** [#1](https://github.com/fabiofsjunior/ilha-do-cristal/pull/1), rascunho. Confirmar HEAD ao iniciar; não presumir que este arquivo esteja atualizado após outros commits.
+**Branch:** `feature/s00-melissa-sprite-test`, derivada de `docs/gdd-mvp-producao`. Consultar HEAD real; não há merge autorizado.
 
-**Próxima tarefa independente:** fechar revisão documental desta PR; depois iniciar S0 em `feature/s00-godot-android`: fixar versão estável Godot, criar projeto importável em `game/`, cena de boot/controle de orientação horizontal, preset de export Android, testar APK instalado. Não iniciar procedurais, Firebase ou nove habilidades antes de validar APK e controles.
+Ferramenta de QA em `project.godot`, Godot 4.5.1 stable. Cena e instruções em `tools/art/sprite_test/`. O projeto na raiz é desvio documentado para importar `assets/` diretamente; `game/` segue reservado ao futuro jogo.
 
-**Fontes:** `Docs/Main/GDD_MVP.md`, `Docs/Main/CONTENT_DATA.md`, `Docs/Main/CATALOGS_MVP.md`, `data/catalogs/mvp.json`, `Docs/Main/ROADMAP.md`; detalhes de engenharia em `docs/technical/ARCHITECTURE.md`, arte em `docs/art/ART_DIRECTION_AND_SPRITES.md`. Ler `AGENTS.md`.
+**Próxima ação:** revisar os atlas N/S de Melissa Warrior, idle4/walk6, no harness; registrar quadro a quadro, escala em SQM32/48, zoom50/75/100/125, alpha e pivô48,80; obter validação visual e Android antes de oito direções ou variantes. Se um atlas não existe, o harness mostra pendência. Não transformar concept em folha utilizável.
 
-**Riscos a resolver no sprint adequado:** densidade e escala de SQM em Android, joystick/zoom em aparelhos reais; PNG de conceito não é atlas; integração Firebase com Godot Android precisa de prova; descoberta LAN e saves sob encerramento abrupto precisam de testes. Não publicar fotos originais.
+**Limites:** não há APK exportado/testado, gameplay ou S0 completo. Nenhuma evidência headless equivale à validação em Android. Vael/exército e sprites fora do MVP não entram neste lote. Fotos privadas não devem ser commitadas. Usar tabela de produção para estado real.

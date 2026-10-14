@@ -1,0 +1,18 @@
+; Technical sprite QA harness only. No gameplay implemented.
+config_version=5
+
+[application]
+config/name="A Ilha do Cristal — Sprite QA"
+run/main_scene="res://tools/art/sprite_test/sprite_test.tscn"
+config/features=PackedStringArray("4.5", "GL Compatibility")
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/handheld/orientation=0
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+textures/canvas_textures/default_texture_filter=0

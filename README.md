@@ -15,6 +15,6 @@ RPG 2D cooperativo de sobrevivência em pixel art. Melissa e Helena sobrevivem a
 - [Arte e sprites](docs/art/ART_DIRECTION_AND_SPRITES.md) — identidade visual, atlas e prompts.
 - [AGENTS.md](AGENTS.md) — instruções de implementação por sprint.
 
-Estrutura prevista: `game/` (projeto Godot), `data/` (conteúdo versionado), `assets/references/` (conceitos), `assets/characters/`, `assets/environments/`, `assets/ui/`, `Docs/Main/` (referência durável), `Docs/Context/` (journal/handoff), `docs/art/` e `docs/technical/`. A criação do projeto Godot será a primeira entrega técnica.
+Estrutura prevista: `game/` (projeto Godot), `data/` (conteúdo versionado), `assets/references/` (conceitos), `assets/characters/`, `assets/environments/`, `assets/ui/`, `Docs/Main/` (referência durável), `Docs/Context/` (journal/handoff), `docs/art/` e `docs/technical/`. A ferramenta técnica de QA de sprites pode ser aberta pelo `project.godot` da raiz; instruções em [teste de sprites](tools/art/sprite_test/README.md). Não é build jogável e não conclui S0.
 
 Não publicar fotos originais das crianças, credenciais, keystores ou saves pessoais. A prancha conceitual não substitui sprites de produção.
