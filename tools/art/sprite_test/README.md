@@ -14,3 +14,20 @@ godot --path .
 ```
 
 Revisão obrigatória: cada frame N/S, ausência de bleed entre células, alpha, mecha única frontal, escala nos SQMs, pivô, arma e silhueta em 50/75/100/125%. A execução headless verifica importação/código; não substitui teste visual ou Android. APK/export templates e teste em aparelho não foram entregues neste incremento.
+
+## Evidência renderizada da etapa 1
+
+O harness permite alternar candidatos v1/v2 (v2 inicial), direção, animação e fundos claro/escuro. Os seletores acompanham também mudanças programáticas das capturas. Todos os candidatos continuam **corrigir**.
+
+`docs/art/evidence/godot_v2/all_20_frames_3x.png` contém os vinte quadros reais de V2, desenhados em Godot com `AtlasTexture` nearest 3×. Os outros 16 PNGs mostram N/S × idle/walk × zoom50/75/100/125. Foram capturados via X11/Xvfb e OpenGL4.5 llvmpipe no Godot4.5.1, após reimportação. Não são imagens reconstruídas fora da engine e não comprovam Android.
+
+Scripts reproduzíveis com um display X11/Wayland disponível:
+
+```sh
+godot --path . --script tools/art/sprite_test/capture_scene.gd
+godot --path . --script tools/art/sprite_test/capture_all_frames.gd
+godot --headless --path . --script tools/art/sprite_test/check_scene.gd
+python tools/art/validate_sprite_atlases.py
+```
+
+Os scripts de captura rejeitam `headless` porque o driver dummy não renderiza. O validator calcula limites de alpha16/128/240 e deslocamentos geométricos do contorno inferior relativos ao pivô; isso não reconhece botas e pode incluir espada/sombra. Não altera os PNGs e não aprova anatomia, identidade ou movimento. Código de saída1 é esperado enquanto houver suavização alpha ou outro defeito contratual.

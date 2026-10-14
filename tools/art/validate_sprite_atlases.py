@@ -3,6 +3,7 @@
 import json
 import pathlib
 import sys
+import statistics
 from PIL import Image
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
@@ -38,11 +39,27 @@ for metadata_path in sorted((ROOT / 'assets/characters').rglob('*.json')):
             frame = image.crop((column*cell_w,row*cell_h,(column+1)*cell_w,(row+1)*cell_h))
             bbox = frame.getchannel('A').getbbox()
             entry = {'direction': direction, 'frame': column, 'bbox': bbox}
+            entry['alpha_threshold_measurements'] = {}
+            for cutoff in [16, 128, 240]:
+                mask = frame.getchannel('A').point(lambda a: 255 if a >= cutoff else 0)
+                solid_bbox = mask.getbbox()
+                measurement = {'bbox': solid_bbox}
+                if solid_bbox:
+                    bottom = solid_bbox[3] - 1
+                    # Median alpha silhouette on last 3 occupied rows; geometric proxy,
+                    # not a claim that boots were identified (weapon can reach lower).
+                    xs = [x for y in range(max(solid_bbox[1], bottom - 2), bottom + 1)
+                          for x in range(solid_bbox[0], solid_bbox[2]) if mask.getpixel((x, y))]
+                    center = statistics.median(xs)
+                    measurement.update(bottom_y=bottom, bottom_center_x=center,
+                                       pivot_delta=[center-metadata['pivot'][0], bottom-metadata['pivot'][1]],
+                                       width=solid_bbox[2]-solid_bbox[0], height=solid_bbox[3]-solid_bbox[1])
+                entry['alpha_threshold_measurements'][str(cutoff)] = measurement
             report['frames'].append(entry)
             if bbox is None:
                 errors.append(f'{image_path.name} {direction}/{column}: empty frame')
             elif bbox[0] == 0 or bbox[1] == 0 or bbox[2] == cell_w or bbox[3] == cell_h:
                 errors.append(f'{image_path.name} {direction}/{column}: visible pixels touch cell boundary; inspect clipping/bleed')
     reports.append(report)
-print(json.dumps({'reports': reports, 'errors': errors, 'note': 'Bboxes cannot prove correct anatomy, pivot, direction or temporal identity. Review in Godot and Android.'}, indent=2))
+print(json.dumps({'reports': reports, 'errors': errors, 'note': 'Alpha threshold geometry is a diagnostic only: bottom silhouette can include weapon or shadow; it does not identify feet. Bboxes cannot prove correct anatomy, pivot, direction or temporal identity. Review in Godot and Android.'}, indent=2))
 sys.exit(bool(errors))

@@ -10,35 +10,53 @@ var sqm := 48
 var zoom_value := 0.75
 var specimen := Node2D.new()
 var available := false
+var candidate_suffix := "_candidate_v2"
 
 func _ready() -> void:
 	RenderingServer.set_default_clear_color(Color("333a43"))
 	add_child(specimen)
-	specimen.position = Vector2(640, 400)
+	specimen.position = Vector2(900, 400)
 	specimen.add_child(actor)
 	actor.position = Vector2(-48, -80)
 	actor.centered = false
 	actor.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	var ui := CanvasLayer.new()
+	ui.name = "CanvasLayer"
 	add_child(ui)
 	var box := VBoxContainer.new()
+	box.name = "VBoxContainer"
 	box.position = Vector2(24, 20)
 	ui.add_child(box)
 	var title := Label.new()
 	title.text = "Melissa Warrior — CANDIDATO CORRIGIR; aprovação visual/Android pendente"
 	box.add_child(title)
+	var candidate := OptionButton.new()
+	candidate.name = "Candidate"
+	candidate.add_item("v1 — candidato anterior")
+	candidate.add_item("v2 — candidato overhead")
+	candidate.select(1)
+	candidate.item_selected.connect(func(index: int): candidate_suffix = ["", "_candidate_v2"][index]; _refresh())
+	box.add_child(candidate)
+	var background := OptionButton.new()
+	background.add_item("Fundo escuro")
+	background.add_item("Fundo claro")
+	background.item_selected.connect(func(index: int): RenderingServer.set_default_clear_color([Color("333a43"), Color("e9e0cc")][index]))
+	box.add_child(background)
 	var directions := OptionButton.new()
+	directions.name = "Direction"
 	for d in DIRECTIONS:
 		directions.add_item(d)
 	directions.select(4)
 	directions.item_selected.connect(func(index: int): direction = DIRECTIONS[index]; _refresh())
 	box.add_child(directions)
 	var states := OptionButton.new()
+	states.name = "State"
 	for state in ["idle", "walk"]:
 		states.add_item(state)
 	states.item_selected.connect(func(index: int): animation_name = ["idle", "walk"][index]; _refresh())
 	box.add_child(states)
 	var zoom := HSlider.new()
+	zoom.name = "Zoom"
 	zoom.min_value = 0.5
 	zoom.max_value = 1.25
 	zoom.step = 0.01
@@ -71,10 +89,15 @@ func _ready() -> void:
 	_refresh()
 
 func _refresh() -> void:
+	var controls := get_node("CanvasLayer/VBoxContainer")
+	controls.get_node("Candidate").select(1 if candidate_suffix else 0)
+	controls.get_node("Direction").select(DIRECTIONS.find(direction))
+	controls.get_node("State").select(["idle", "walk"].find(animation_name))
+	controls.get_node("Zoom").set_value_no_signal(zoom_value)
 	specimen.scale = Vector2.ONE * zoom_value
 	actor.stop()
 	available = false
-	var path := BASE + "melissa_warrior_" + animation_name + ".json"
+	var path := BASE + "melissa_warrior_" + animation_name + candidate_suffix + ".json"
 	if not FileAccess.file_exists(path):
 		info.text = "Metadados ausentes: " + path
 		push_error(info.text)
@@ -123,7 +146,7 @@ func _refresh() -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	var origin := Vector2(640, 400)
+	var origin := Vector2(900, 400)
 	var unit := float(sqm) * zoom_value
 	for offset in range(-5, 6):
 		draw_line(origin + Vector2(offset * unit, -5 * unit), origin + Vector2(offset * unit, 5 * unit), Color("53614c"))
