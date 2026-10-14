@@ -2,6 +2,7 @@ extends Node2D
 ## Technical QA only; missing atlases stay visible as an error, never placeholders.
 const BASE := "res://assets/characters/melissa/warrior/"
 const DIRECTIONS := ["N", "NE", "E", "SE", "S", "SO", "O", "NO"]
+const CANDIDATE_SUFFIXES := ["", "_candidate_v2", "_candidate_v3"]
 var actor := AnimatedSprite2D.new()
 var info := Label.new()
 var direction := "S"
@@ -10,7 +11,7 @@ var sqm := 48
 var zoom_value := 0.75
 var specimen := Node2D.new()
 var available := false
-var candidate_suffix := "_candidate_v2"
+var candidate_index := 1
 
 func _ready() -> void:
 	RenderingServer.set_default_clear_color(Color("333a43"))
@@ -28,14 +29,15 @@ func _ready() -> void:
 	box.position = Vector2(24, 20)
 	ui.add_child(box)
 	var title := Label.new()
-	title.text = "Melissa Warrior — CANDIDATO CORRIGIR; aprovação visual/Android pendente"
+	title.text = "Melissa Warrior — candidatos V1/V2/V3 CORRIGIR; aprovação visual/Android pendente"
 	box.add_child(title)
 	var candidate := OptionButton.new()
 	candidate.name = "Candidate"
-	candidate.add_item("v1 — candidato anterior")
-	candidate.add_item("v2 — candidato overhead")
-	candidate.select(1)
-	candidate.item_selected.connect(func(index: int): candidate_suffix = ["", "_candidate_v2"][index]; _refresh())
+	candidate.add_item("V1 — candidato original (CORRIGIR)")
+	candidate.add_item("V2 — candidato overhead (CORRIGIR)")
+	candidate.add_item("V3 — candidato unificado (CORRIGIR)")
+	candidate.select(candidate_index)
+	candidate.item_selected.connect(func(index: int): candidate_index = index; _refresh())
 	box.add_child(candidate)
 	var background := OptionButton.new()
 	background.add_item("Fundo escuro")
@@ -90,13 +92,14 @@ func _ready() -> void:
 
 func _refresh() -> void:
 	var controls := get_node("CanvasLayer/VBoxContainer")
-	controls.get_node("Candidate").select(1 if candidate_suffix else 0)
+	controls.get_node("Candidate").select(candidate_index)
 	controls.get_node("Direction").select(DIRECTIONS.find(direction))
 	controls.get_node("State").select(["idle", "walk"].find(animation_name))
 	controls.get_node("Zoom").set_value_no_signal(zoom_value)
 	specimen.scale = Vector2.ONE * zoom_value
 	actor.stop()
 	available = false
+	var candidate_suffix: String = CANDIDATE_SUFFIXES[candidate_index]
 	var path := BASE + "melissa_warrior_" + animation_name + candidate_suffix + ".json"
 	if not FileAccess.file_exists(path):
 		info.text = "Metadados ausentes: " + path
@@ -142,7 +145,7 @@ func _refresh() -> void:
 	actor.visible = true
 	actor.play(animation_name)
 	available = true
-	info.text = "%s / %s | zoom %.0f%% | célula 96×96 | pivô 48,80\nPausar + próximo frame: revisar cada quadro. Android pendente." % [animation_name, direction, zoom_value * 100]
+	info.text = "V%d CORRIGIR | %s / %s | zoom %.0f%% | célula 96×96 | pivô 48,80\nPausar + próximo frame: revisar cada quadro. Android pendente." % [candidate_index + 1, animation_name, direction, zoom_value * 100]
 	queue_redraw()
 
 func _draw() -> void:
