@@ -164,3 +164,15 @@ Foi testada uma edição focada sobre a fonte V2 para tornar S mais cardinal e e
 | Revalidação | pendente | reimportar em Godot e rever todos os quadros, os ciclos 6→1, pivô, fundos, SQM e zoom antes de apresentar o teste para validação |
 
 Não ampliar a produção enquanto esses três defeitos de arte continuarem. Não registrar a tentativa descartada como candidata nem como aprovação.
+
+## Avaliação do Pixel Engine — 2026-10-14
+
+Com autorização explícita do usuário, a V2 foi enviada ao Pixel Engine para avaliar a conversão em pixel art. O serviço concluiu o atlas idle, mas reduziu a grade e não eliminou o alpha intermediário. O atlas walk completo foi recusado pelo limite de proporção do serviço. Uma amostra de uma célula também foi testada para medir a resolução de saída.
+
+| Entrada | Resultado do serviço | Decisão |
+|---|---|---|
+| Idle V2, 384×192 | PNG de 80×40; cada célula ficou em 20×20 px; 742 pixels têm alpha entre 1–254 e o alpha máximo é 253 | descartar como atlas; resolução e transparência não atendem à célula 96×96 |
+| Uma célula idle S, 96×96 | saída de 22×22 px | descartar como fonte de produção; personagem perde detalhe e tamanho |
+| Walk V2, 576×192 | recusado: proporção 3:1, acima do limite 2:1 | sem candidato; dividir a folha não resolveria a saída pequena observada na amostra |
+
+As saídas ficaram fora dos assets e não foram importadas no Godot. Nenhum PNG V2 foi substituído. Este teste confirma que essa conversão do Pixel Engine não serve para corrigir a etapa 1; retomar somente com retoque de pixels que preserve o modelo e a grade do projeto.
