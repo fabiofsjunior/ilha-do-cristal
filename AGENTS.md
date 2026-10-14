@@ -1,6 +1,6 @@
 # Agent working rules
 
-Read `README.md`, `Docs/Main/GDD_MVP.md`, `Docs/Main/CONTENT_DATA.md`, `Docs/Main/ROADMAP.md`, `docs/technical/ARCHITECTURE.md`, and `Docs/Context/HANDOFF.md` before changing the game. The GDD defines MVP scope; record deviations in `Docs/Context/DECISIONS.md`.
+Read `README.md`, `Docs/Main/GDD_MVP.md`, `Docs/Main/CATALOGS_MVP.md`, `Docs/Main/ROADMAP.md`, `docs/technical/ARCHITECTURE.md`, and `Docs/Context/HANDOFF.md` before changing the game. The GDD defines MVP scope; record deviations in `Docs/Context/DECISIONS.md`.
 
 - Work in one small `feature/sNN-name` branch and PR per verifiable increment. Finish the next unchecked roadmap item; avoid unrelated systems and speculative abstractions. Use the simplest cohesive Godot scene/script that meets the current acceptance criterion. Separate camera, movement, world generation and saves by actual responsibility, not by framework fashion.
 - Consult official Godot documentation when an engine API or Android behavior is uncertain. Pin the chosen stable Godot version in S0. Keep source-of-truth balance data versioned and validate its IDs.

@@ -8,6 +8,7 @@ RPG 2D cooperativo de sobrevivência em pixel art. Melissa e Helena sobrevivem a
 
 - [GDD do MVP](Docs/Main/GDD_MVP.md) — regras e critérios de aceite.
 - [Conteúdo e balanceamento](Docs/Main/CONTENT_DATA.md) — atributos, armas, XP, drops, bestiário e árvore.
+- [Doze listas de produção](Docs/Main/CATALOGS_MVP.md) e [catálogo JSON](data/catalogs/mvp.json) — conteúdo inicial versionado.
 - [Roadmap](Docs/Main/ROADMAP.md) — sprints e validações.
 - [Handoff](Docs/Context/HANDOFF.md) e [Journal](Docs/Context/JOURNAL.md) — continuidade entre sessões.
 - [Arquitetura](docs/technical/ARCHITECTURE.md) — Godot, rede local, saves e dados.
