@@ -41,6 +41,17 @@ Não inventar regra ou conteúdo para deixar uma tela mais completa. Identificar
 
 O mapa da fase no [roadmap](ROADMAP.md) pode ampliar essa lista de acordo com as telas realmente afetadas. Cada alteração visual material depois do gate reabre a validação daquela tela.
 
+## Liberação do MVP final
+
+Não chamar um build de MVP final enquanto houver fase ou tela dependente sem protótipo revisado e aprovado. Antes da entrega final, conferir que:
+
+- os protótipos de todas as fases implementadas foram validados explicitamente e as decisões estão no registro;
+- cada fase cumpriu os critérios técnicos e funcionais do roadmap, com diferenças entre protótipo aprovado e implementação explicadas;
+- o fluxo ponta a ponta foi testado em dois aparelhos Android em paisagem, incluindo estados offline/erro/salvamento previstos;
+- arte, áudio, conteúdo e acessibilidade não foram tratados como aprovados apenas por constarem no protótipo.
+
+Prototipagem reduz retrabalho, mas não substitui testes de aceitação, teste de aparelho nem revisão final do usuário.
+
 ## Protótipo de arte e sprites
 
 Para personagens, monstros ou VFX, tratar a primeira peça representativa como protótipo. Validar silhueta/identidade, escala na SQM, célula, pivô, transparência, leitura nos zooms e renderização no Godot antes de ampliar direções, vocações, espécies ou efeitos. Para a arte técnica do MVP, preservar os critérios em [`docs/art/ART_DIRECTION_AND_SPRITES.md`](../../docs/art/ART_DIRECTION_AND_SPRITES.md) e o gate da etapa 1 em [`docs/art/MELISSA_TECHNICAL_QA.md`](../../docs/art/MELISSA_TECHNICAL_QA.md). Pixelorama, nearest-neighbor ou uma importação válida não corrigem anatomia, antialias embutido ou identidade por si sós; registrar defeitos e corrigi-los na fonte.
