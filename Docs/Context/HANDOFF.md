@@ -2,6 +2,8 @@
 
 **Branch deste incremento:** `docs/mvp-prototyping-gates`, baseada em `feature/s00-melissa-sprite-test`; [PR #3 em rascunho](https://github.com/fabiofsjunior/ilha-do-cristal/pull/3). O commit principal do incremento é `2c3b4e921c0d1f862f7557040cc954668d598f80`; após esta atualização do handoff, consultar o HEAD do PR para o SHA exato. Ainda não fazer merge antes da validação do usuário.
 
+**Revisão visual:** HTML, JavaScript e links passaram a checagem estrutural. O navegador remoto bloqueou a abertura de arquivos locais (`file://`), então não há captura de tela revisada nesta sessão; avaliação visual do protótipo continua pendente com o usuário.
+
 ## Próxima ação
 
 Apresentar `docs/prototypes/mvp_ui_v0_1.html` ao usuário e coletar validação/correções de fluxo, hierarquia, controles e telas. Registrar as respostas em `Docs/Context/PROTOTYPE_LOG.md`, atualizar a versão do protótipo se necessário e **não implementar as telas de produção antes dessa validação**.
