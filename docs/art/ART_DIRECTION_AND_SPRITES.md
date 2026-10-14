@@ -2,6 +2,8 @@
 
 Estilo aprovado: **RPG Clássico 2D pixel art**, câmera top-down levemente oblíqua sobre grade ortogonal de SQMs; contornos nítidos, pixels deliberados, contraste legível em Android, paleta acolhedora na área segura e violeta na corrupção. Ver [prancha](../../assets/references/concept-rpg-classico.png). A imagem é conceito: não foi segmentada nem validada como sprite ou tileset. Não publicar fotos originais; o responsável de arte pode usá-las em fluxo privado para referência de identidade.
 
+Assets simples e determinísticos (molduras de UI, marcadores de colisão e testes de escala, barras, alguns efeitos geométricos de slash) podem ser gerados com scripts Python/Pillow em `tools/art/` com parâmetros e seed versionados. Revisar o PNG visualmente em Android e conservar o script-fonte. Retratos, personagens e monstros requerem direção artística, consistência entre quadros e correção manual; Python não substitui essa validação. Não modificar a imagem conceitual aprovada para fabricar uma folha de sprites.
+
 Melissa: 8 anos, um pouco mais alta, cabelos **castanho-escuros com uma mecha roxa frontal** (não cabelo inteiro roxo), olhos castanhos, roupa/acento lilás. Helena: 7 anos, cabelos castanhos ondulados com tiara clara, olhos castanhos, roupa/acento creme-rosa. Manter identidade e idade em todas as vocações. Warrior espada, Archer arco, Mage cajado; trajes de vocação são aparência escolhida na criação, equipamentos posteriores não mudam visual. Tom familiar sem violência gráfica.
 
 ## Contrato de atlas para Godot

@@ -2,7 +2,7 @@
 
 ## Estrutura
 
-`game/project.godot`; `game/scenes/{boot,menus,world,actors,ui}`; `game/scripts/{core,world,combat,inventory,network,save,cloud}`; `game/assets` referencia assets aprovados. `data/*.json` define conteúdo e balanceamento. Scenes são pequenas e compostas; regras puras de dano, XP, drops e inventário são testáveis sem interface. IDs estáveis e versão de schema em cada save. Criar arquivos Godot no S0, sem marcar esta arquitetura como implementada.
+`game/project.godot`; `game/scenes/{boot,menus,world,actors,ui}`; `game/scripts/{core,world,combat,inventory,network,save,cloud}`; `game/assets` referencia assets aprovados. `data/*.json` define conteúdo e balanceamento. Scenes são pequenas e compostas; regras puras de dano, XP, drops e inventário são testáveis sem interface. Isolar câmera, movimentação e geração de chunks por responsabilidade, integrando por contratos mínimos; não criar camadas genéricas antes de haver uma segunda necessidade real. Falhas de save, parsing ou rede devem aparecer em log e interface com causa identificável, nunca ser engolidas silenciosamente. IDs estáveis e versão de schema em cada save. Criar arquivos Godot no S0, sem marcar esta arquitetura como implementada.
 
 ## Mundo e renderização
 

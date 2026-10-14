@@ -26,7 +26,7 @@ HP/MP iniciais: Warrior 200/100; Archer 150/150; Mage 100/200. Força → dano f
 
 Cada subida dá 1 ponto bruto de atributo. Árvore: 3 pontos na criação e 3 por subida até nível 50, 150 pontos no total; após 50 continua 1 ponto bruto/subida. Por vocação, plano de 60 nós pequenos (1 ponto), 25 grandes (2) e 15 especiais (5): 185 pontos para comprar tudo. Conexões desde o centro e escolhas exclusivas dão identidade às builds. No nível 10: 30 pontos de árvore; implementar primeiro ~18 nós acessíveis por vocação, conforme `CONTENT_DATA.md`.
 
-XP para sair do nível n: `round(100 × 1,3^(n-1))`. Custos níveis 1→10: 100, 130, 169, 220, 286, 371, 483, 627, 816; total 3.202. Raposa 10 XP, lobo 20, urso 50. Cada participante próximo recebe XP integral por derrota, uma vez. Outras fontes e proteções anti-farm: `CONTENT_DATA.md`.
+XP para sair do nível n: `round(100 × 1,3^(n-1))`. Custos níveis 1→10: 100, 130, 169, 220, 286, 371, 483, 627, 816; total 3.202. Raposa 10 XP, lobo 20, urso 50. Cada participante próximo recebe XP integral por derrota, uma vez. Outras fontes e proteções anti-farm: [CONTENT_DATA.md](CONTENT_DATA.md).
 
 ## Habilidades
 
@@ -50,7 +50,7 @@ Recursos básicos: madeira, pedra, fibra, erva, carne, couro, presa e fragmento 
 
 Ao chegar a 0 HP, caído por 60 s; aliado reanima em 5 s. Esgotado o prazo: retorna à barraca e deixa metade dos materiais coletados na expedição numa mochila persistente. Equipamentos/XP ficam. Se todos caírem, expedição termina e retornam ao acampamento; mochilas permanecem e nova queda não apaga mochila antiga.
 
-Host Android controla mundo, dano, drops, inventário e construções; cliente envia intenções. Até dois participantes na mesma rede Wi-Fi. Saída do host salva mundo e encerra sessão. Mundo/inventário daquele mundo ficam no dispositivo do host; personagem, vocação, nível, atributos e árvore na conta quando online. Começo visitante e vínculo posterior; LAN deve funcionar sem internet. Plano detalhado de save e conflitos em `ARCHITECTURE.md`.
+Host Android controla mundo, dano, drops, inventário e construções; cliente envia intenções. Até dois participantes na mesma rede Wi-Fi. Saída do host salva mundo e encerra sessão. Mundo/inventário daquele mundo ficam no dispositivo do host; personagem, vocação, nível, atributos e árvore na conta quando online. Começo visitante e vínculo posterior; LAN deve funcionar sem internet. Plano detalhado de save e conflitos em [ARCHITECTURE.md](../../docs/technical/ARCHITECTURE.md).
 
 ## Aceite do MVP
 
