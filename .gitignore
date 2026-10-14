@@ -1,0 +1,21 @@
+# Godot generated state
+.godot/
+.import/
+*.tmp
+
+# Local builds and secrets
+build/
+dist/
+*.apk
+*.aab
+*.keystore
+*.jks
+google-services.json
+.env
+.env.*
+!*.example
+
+# Private references and game saves
+assets/private/
+*.save
+*.save.bak
