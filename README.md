@@ -10,6 +10,8 @@ RPG 2D cooperativo de sobrevivência em pixel art. Melissa e Helena sobrevivem a
 - [Conteúdo e balanceamento](Docs/Main/CONTENT_DATA.md) — atributos, armas, XP, drops, bestiário e árvore.
 - [Doze listas de produção](Docs/Main/CATALOGS_MVP.md) e [catálogo JSON](data/catalogs/mvp.json) — conteúdo inicial versionado.
 - [Roadmap](Docs/Main/ROADMAP.md) — sprints e validações.
+- [Metodologia de prototipagem](Docs/Main/PROTOTYPING_METHODOLOGY.md) — protótipo e validação antes de cada fase.
+- [Registro de protótipos](Docs/Context/PROTOTYPE_LOG.md) e [protótipo navegável das telas do MVP](docs/prototypes/mvp_ui_v0_1.html).
 - [Handoff](Docs/Context/HANDOFF.md) e [Journal](Docs/Context/JOURNAL.md) — continuidade entre sessões.
 - [Arquitetura](docs/technical/ARCHITECTURE.md) — Godot, rede local, saves e dados.
 - [Arte e sprites](docs/art/ART_DIRECTION_AND_SPRITES.md) — identidade visual, atlas e prompts.

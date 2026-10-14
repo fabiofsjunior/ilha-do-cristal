@@ -1,13 +1,21 @@
-# Handoff — teste técnico Melissa Warrior
+# Handoff — protótipos MVP e teste de sprites
 
-**Branch:** `feature/s00-melissa-sprite-test`, derivada de `docs/gdd-mvp-producao`. Consultar HEAD real; não há merge autorizado.
+**Branch deste incremento:** `docs/mvp-prototyping-gates`, baseada em `feature/s00-melissa-sprite-test`. Consultar o PR rascunho e seu HEAD para o SHA atual; ainda não fazer merge.
 
-Ferramenta de QA em `project.godot`, Godot 4.5.1 stable. Cena e instruções em `tools/art/sprite_test/`. O projeto na raiz é desvio documentado para importar `assets/` diretamente; `game/` segue reservado ao futuro jogo.
+## Próxima ação
 
-**Próxima ação:** corrigir os candidatos V2 N/S de Melissa Warrior (idle 4/walk 6), conforme `docs/art/MELISSA_TECHNICAL_QA.md`: acabamento pixel sem suavização, direção sul e continuidade das passadas/pés. A V2 é a base preferida para correção; V1 está preservada. Não ampliar direções ou variantes até validação visual e Android. Não transformar concept em folha utilizável.
+Apresentar `docs/prototypes/mvp_ui_v0_1.html` ao usuário e coletar validação/correções de fluxo, hierarquia, controles e telas. Registrar as respostas em `Docs/Context/PROTOTYPE_LOG.md`, atualizar a versão do protótipo se necessário e **não implementar as telas de produção antes dessa validação**.
 
-**Evidência atual:** PR [#2](https://github.com/fabiofsjunior/ilha-do-cristal/pull/2), rascunho. `docs/art/evidence/godot_v2/` contém 16 capturas reais do Godot em zoom 50/75/100/125 e `all_20_frames_3x.png`. Importação/execução e 80 seleções na V2 passaram. Diagnóstico em `stage1_asset_validation.json` continua reprovando alpha suave. Âncoras são estimativas documentadas, sem certificação dos pés. Abrir `project.godot`; seletor permite comparar V1/V2.
+## Estado do protótipo de interface
 
-**Limites:** não há APK exportado/testado, gameplay ou S0 completo. Nenhuma evidência headless equivale à validação em Android. Vael/exército e sprites fora do MVP não entram neste lote. Fotos privadas não devem ser commitadas. Usar tabela de produção para estado real.
+`Docs/Main/PROTOTYPING_METHODOLOGY.md` define o gate pré-implementação em cada fase S0–S6; `AGENTS.md` torna esse fluxo obrigatório. O HTML v0.1 cobre abertura, conta/visitante, personagens/vocações, LAN, HUD, mochila/craft, talentos, acampamento, pausa/salvamento, aliado caído, resultado, erro recuperável, configurações e divergência de sincronização. Interações e valores são ilustrativos; todas as telas aguardam validação. Nenhum gameplay foi implementado.
 
-**Delegação:** nas próximas tarefas desta sessão, usar GPT-6 Luna com raciocínio máximo, conforme instrução do usuário. A V3 foi gerada antes da troca; sua revisão e integração foram transferidas para subagentes Luna. Não interpretar existência de V3 como aprovação ou liberação do lote.
+## Teste de sprites em andamento
+
+A outra branch, `feature/s00-melissa-sprite-test`, mantém o [PR #2](https://github.com/fabiofsjunior/ilha-do-cristal/pull/2) em rascunho. A V2 segue como base de correção para Melissa Warrior N/S, `idle` 4 e `walk` 6. Faltam pixels opacos/nítidos, S cardinal inequívoco e passada alternada legível. Godot 4.5.1 importou/renderizou os atlas; Android não foi testado.
+
+**Bloqueio atual:** Pixelorama não está instalado no workspace e não há display gráfico local; o editor web oficial ficou numa tela preta nesta sessão. A revisão Luna confirma que não há projeto `.pxo`; o fluxo manual precisa ser retomado em ambiente com Pixelorama aberto. Não declarar o teste artístico aprovado e não ampliar o lote.
+
+## Limites
+
+Não há APK, gameplay, nem S0 concluído. O conceito não é atlas. Não incluir fotos privadas. Vael/exército e conteúdo fora do MVP permanecem excluídos.

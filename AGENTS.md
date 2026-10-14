@@ -10,4 +10,12 @@ Read `README.md`, `Docs/Main/GDD_MVP.md`, `Docs/Main/CATALOGS_MVP.md`, `Docs/Mai
 - Do not commit source photos of children, local saves, keystores, secrets, or credentials. The approved image under `assets/references/` is concept reference only.
 - At the end of every session update `Docs/Context/JOURNAL.md` with changes, tests and decisions; replace `Docs/Context/HANDOFF.md` with the exact next action, current branch/commit, blockers and open questions. Update the roadmap checklist and README when behavior changes.
 
+## Protótipo e validação antes de implementar
+
+- Before implementing any MVP phase or material UI/flow change, create and present a visual or navigable prototype for the affected screens, states and transitions. The required process is in `Docs/Main/PROTOTYPING_METHODOLOGY.md`; record version, review and decision in `Docs/Context/PROTOTYPE_LOG.md`.
+- Wait for explicit user validation of the prototype before implementing its production UI or dependent flow. If feedback requests changes, revise the prototype and present the new version first. Continue only independent work while validation is pending.
+- Prototypes use placeholder data/art and must be clearly labeled as prototypes. They do not count as implemented gameplay, approved production art, Godot import validation, Android validation, or a passed roadmap phase.
+- After implementation, compare the running Godot scene with the approved prototype, document intentional deviations, and validate the phase on the target device when the roadmap requires it.
+- For visual assets, apply the same gate: prove one representative asset/animation in its target scene and scale, get the requested review, and only then expand to the production batch.
+
 Definition of done: affected tests pass, Godot imports without errors, Android APK is tested for UI/network/save work, the acceptance flow is demonstrated, docs and handoff are current. Do not claim features are implemented when they are only specified.
