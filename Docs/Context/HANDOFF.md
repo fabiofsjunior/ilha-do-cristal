@@ -1,6 +1,6 @@
 # Handoff — protótipos MVP e teste de sprites
 
-**Branch deste incremento:** `docs/mvp-prototyping-gates`, baseada em `feature/s00-melissa-sprite-test`. Consultar o PR rascunho e seu HEAD para o SHA atual; ainda não fazer merge.
+**Branch deste incremento:** `docs/mvp-prototyping-gates`, baseada em `feature/s00-melissa-sprite-test`; [PR #3 em rascunho](https://github.com/fabiofsjunior/ilha-do-cristal/pull/3). O commit principal do incremento é `2c3b4e921c0d1f862f7557040cc954668d598f80`; após esta atualização do handoff, consultar o HEAD do PR para o SHA exato. Ainda não fazer merge antes da validação do usuário.
 
 ## Próxima ação
 
