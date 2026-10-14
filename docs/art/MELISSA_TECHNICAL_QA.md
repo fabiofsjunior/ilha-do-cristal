@@ -151,3 +151,16 @@ Inspecionados todos os 20 quadros de `melissa_warrior_idle_candidate_v3.png` e `
 | SQM/zoom 50–125% e Android horizontal | pendente | quatro capturas V3 a 100% sobre grade SQM48 candidata; faixa completa de zoom, terreno e aparelho físico ainda não validados nesta versão. Registrar legibilidade e dispositivo quando testado; não inferir aprovação Android de screenshots desktop. |
 
 **Decisão V3:** manter `corrigir`; não aprovar nem ampliar a produção. A frontalização de S é uma melhora pequena sobre V2, mas não resolve a direção cardinal; o walk continua sem alternância legível e o alpha segue suave. **V2 continua sendo a base de correção preferida** por já ter evidência de importação/escala no Godot e um baseline de âncora mais revisado. V3 serve como referência visual para tentar aproximar S de frente, sem substituir a base enquanto não demonstrar passada melhor e pivô consistente. Aprovação do usuário para ampliar o teste permanece pendente.
+
+## Disposição após tentativa focada de correção — 2026-10-14
+
+Foi testada uma edição focada sobre a fonte V2 para tornar S mais cardinal e explicitar a alternância do walk. A saída não demonstrou melhora verificável nesses defeitos; foi descartada e nenhum PNG novo substituiu os candidatos do branch. A V2 continua como base de correção, não como arte pronta.
+
+| Próximo critério | Estado | Ação exigida |
+|---|---|---|
+| Direção S | corrigir | redesenhar cabeça, tronco e distribuição visível das duas mãos no eixo sul cardinal, mantendo a câmera oblíqua e diferenciando claramente da futura SE |
+| Walk N/S | corrigir | criar seis fases legíveis com contato alternado esquerdo/direito, passagem e retorno, preservando arma e escudo nas mesmas mãos |
+| Pixel art | corrigir | corrigir contornos e sombreado na fonte com desenho deliberado de pixels; `nearest` no reamostramento ou no Godot não remove suavização embutida |
+| Revalidação | pendente | reimportar em Godot e rever todos os quadros, os ciclos 6→1, pivô, fundos, SQM e zoom antes de apresentar o teste para validação |
+
+Não ampliar a produção enquanto esses três defeitos de arte continuarem. Não registrar a tentativa descartada como candidata nem como aprovação.
