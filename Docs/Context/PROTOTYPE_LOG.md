@@ -2,9 +2,17 @@
 
 Esta lista registra a aprovação por fase. **Nenhuma tela de produção está aprovada nesta versão.** O protótipo mostra composição e transições ilustrativas, sem gameplay, contas, rede ou save real.
 
-## Telas do MVP — v0.3 (atual)
+## Telas do MVP — v0.4 (atual)
 
-**Artefato atual:** [`docs/prototypes/mvp_ui_v0_3.html`](../../docs/prototypes/mvp_ui_v0_3.html)
+**Artefato atual:** [`docs/prototypes/mvp_ui_v0_4.html`](../../docs/prototypes/mvp_ui_v0_4.html)
+
+Fábio foi incluído como quarto personagem jogável após aprovação explícita do usuário. A tela acrescenta perfil e silhueta geométrica placeholder, preservando as três vocações selecionáveis. O protótipo aguarda validação; não representa sprite final e nenhuma tela de produção foi implementada.
+
+**Ponto de validação desta versão:** confirmar se o perfil curto de Fábio e sua posição junto às outras três opções deixam clara a escolha de personagem.
+
+## Telas do MVP — v0.3 (arquivada para comparação)
+
+**Artefato desta versão:** [`docs/prototypes/mvp_ui_v0_3.html`](../../docs/prototypes/mvp_ui_v0_3.html)
 
 **Versão anterior:** [`docs/prototypes/mvp_ui_v0_2.html`](../../docs/prototypes/mvp_ui_v0_2.html)
 
@@ -18,7 +26,7 @@ Maíra foi adicionada à escolha de personagem depois de o usuário aprová-la c
 
 **Viewport-base:** Android em paisagem, proporção 16:9; layout adapta-se ao viewport.
 
-**Estado geral:** revisão de v0.2 pendente; v0.3 é a versão atual.
+**Estado geral:** v0.1–v0.3 permanecem arquivadas; v0.4 é a versão atual e aguarda validação explícita.
 **Sprites:** placeholders geométricos; não representam sprites aprovados.
 
 | Fase | Telas/estados cobertos | Estado | Próximo passo |

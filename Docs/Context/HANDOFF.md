@@ -4,15 +4,15 @@
 
 ## Próxima ação
 
-Revisar `docs/art/evidence/fabio/fabio_warrior_stage1_contact.png` e o relatório adjacente. O teste segue em **corrigir**. Resolver acabamento/alpha intermediário, escala relativa N/S, alinhamento e leitura de ciclo; só depois importar os atlas na cena de teste Godot e conferir direção, pés/pivô, fundo claro/escuro, SQM32/48 e zoom50–125%. Teste Android continua obrigatório antes de aprovar arte ou ampliar. Não gerar Archer/Mage, direções adicionais ou efeitos nesta etapa.
+Validar o protótipo navegável `docs/prototypes/mvp_ui_v0_4.html` (quatro aparências) e revisar a candidata técnica Fábio Warrior etapa 1. A alternativa v2 reduz a diferença de altura N/S, mas o acabamento/alpha, o alinhamento de pés e o ciclo continuam em **corrigir**. Comparar v1/v2 e executar `tools/art/sprite_test/fabio_stage1_test.tscn` quando Godot estiver disponível, conferindo SQM, fundos, cada quadro e zoom 50–125%. Teste Android permanece pendente antes da aprovação ou expansão. Não produzir outras vocações, direções, efeitos ou personagens além do MVP.
 
-## Fábio — concept e Warrior etapa 1
+## Fábio — personagem jogável aprovado, arte etapa 1 pendente
 
-- O concept de três vocações em `assets/references/generated-candidates/fabio_vocations_concept.png` é referência aprovada, intacta e não é atlas. A fonte de poses bruta, separada, está em `assets/references/generated-candidates/fabio_warrior_stage1_source_v1.png`.
-- Descrição aprovada para o concept: “Fábio é alto e forte, tem presença serena e olhar atento. Inteligente e reservado, prefere observar, analisar os riscos e planejar a estratégia antes de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes.”
-- GDD e catálogo MVP continuam listando Melissa, Helena e Maíra. Não há decisão clara para inclusão de Fábio no elenco; tratar como pendente, sem atualizar os documentos de elenco.
-- O protótipo contém somente Warrior N/S, `idle`4 e `walk`6, células96×96, pivô candidato (48,80); atlases/metadados estão em `assets/characters/fabio/warrior/`. Relatório, evidência xadrez e empacotador estão em `docs/art/evidence/fabio/fabio_warrior_stage1_review.md`, `fabio_warrior_stage1_contact.png` e `tools/art/pack_fabio_stage1.py`.
-- Alpha intermediário foi medido e preservado; o teste está em **corrigir**. Godot e Android não foram validados. Não incluir fotos reais.
+- Em 2026-10-15, o usuário aprovou Fábio como quarto personagem jogável do MVP. GDD e catálogo agora incluem Fábio, pai de Melissa, com as três vocações.
+- O concept de três vocações em `assets/references/generated-candidates/fabio_vocations_concept.png` é referência aprovada, intacta e não é atlas. A fonte bruta de poses, separada, está em `assets/references/generated-candidates/fabio_warrior_stage1_source_v1.png`.
+- Descrição aprovada: “Fábio é alto e forte, tem presença serena e olhar atento. Inteligente e reservado, prefere observar, analisar os riscos e planejar a estratégia antes de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes.”
+- Os protótipos v1/v2 contêm somente Warrior N/S, `idle`4 e `walk`6, células 96×96, pivô candidato (48,80); v2 aplica escala uniforme 1,075× às linhas norte e mantém alpha original. Atlases/metadados estão em `assets/characters/fabio/warrior/`. Relatório, evidência xadrez e empacotador estão em `docs/art/evidence/fabio/fabio_warrior_stage1_review.md`, `fabio_warrior_stage1_contact.png` e `tools/art/pack_fabio_stage1.py`.
+- Alpha intermediário, alinhamento dos pés e revisão da passada/loop continuam pendentes; o teste está em **corrigir**. Godot e Android não foram validados. Não incluir fotos reais.
 
 ## Maíra — checkpoint anterior
 
@@ -20,5 +20,5 @@ Maíra está registrada como personagem jogável do MVP, irmã de Helena, com co
 
 ## Outros gates pendentes
 
-- `docs/prototypes/mvp_ui_v0_3.html` é o protótipo navegável atual; aprovação do usuário continua pendente.
+- `docs/prototypes/mvp_ui_v0_4.html` é o protótipo navegável atual; aprovação do usuário continua pendente.
 - Não iniciar implementação dependente do protótipo nem expandir lotes de arte antes das revisões correspondentes. Nenhum conteúdo futuro de Vael/exército entra nesta etapa MVP.

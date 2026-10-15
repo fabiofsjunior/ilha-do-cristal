@@ -71,10 +71,14 @@ o concept: “Fábio é alto e forte, tem presença serena e olhar atento. Intel
 e reservado, prefere observar, analisar os riscos e planejar a estratégia antes
 de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes.”
 
-O elenco jogável do MVP documentado continua com Melissa, Helena e Maíra; não
-há decisão registrada para incluir Fábio. Sua entrada no elenco fica pendente.
+Fábio foi aprovado pelo usuário como quarto personagem jogável do MVP em
+2026-10-15. GDD, catálogo Markdown/JSON e protótipo de seleção v0.4 foram
+atualizados; a aprovação do protótipo de interface ainda está pendente.
 O teste Warrior isolado é somente etapa 1 (N/S, `idle` 4 e `walk` 6) e permanece
 em **corrigir**. A fonte integral gerada, sem edição de alpha, é
-`fabio_warrior_stage1_source_v1.png`; atlases/metadados estão em
-`assets/characters/fabio/warrior/` e a prancha/revisão em
-`docs/art/evidence/fabio/`. Não incluir fotos reais.
+`fabio_warrior_stage1_source_v1.png`; atlases/metadados candidatos v1/v2 estão em
+`assets/characters/fabio/warrior/`. A revisão está em
+`docs/art/evidence/fabio/fabio_warrior_stage1_review.md`; a prancha v1 e o
+contato da tentativa geométrica v2 ficam em `docs/art/evidence/fabio/`. A v2
+altera somente a escala da linha norte via nearest-neighbor; alpha suave e
+validação Godot/Android continuam pendentes. Não incluir fotos reais.

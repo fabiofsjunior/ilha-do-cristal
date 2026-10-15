@@ -5,7 +5,8 @@
   "characters": [
     {"id": "melissa", "visual": "levemente mais alta; cabelo predominantemente castanho-escuro com uma única mecha roxa frontal; acentos lilases", "description": "Meiga e doce, é esperta e muito observadora; diante de imprevistos, costuma manter a calma e pensar com clareza."},
     {"id": "helena", "visual": "cabelo castanho ondulado, tiara clara, acentos creme e rosa", "description": "Carismática e inteligente, tem pavio curto e reage com intensidade; seu jeito espontâneo também a torna uma companheira cheia de iniciativa."},
-    {"id": "maira", "visual": "cabelos longos castanho-escuros; traje amarelo e dourado", "description": "Irmã de Helena, é bonita, carismática e muito falante. Atenciosa com os outros, anima o grupo e observa o ambiente antes de agir."}
+    {"id": "maira", "visual": "cabelos longos castanho-escuros; traje amarelo e dourado", "description": "Irmã de Helena, é bonita, carismática e muito falante. Atenciosa com os outros, anima o grupo e observa o ambiente antes de agir."},
+    {"id": "fabio", "visual": "pele morena; cabelo curto escuro com fios grisalhos nas têmporas; barba aparada; trajes vermelho/dourado, verde ou azul conforme o concept das vocações", "description": "Pai de Melissa, é alto e forte, tem presença serena e olhar atento. Inteligente e reservado, observa, analisa riscos e planeja a estratégia antes de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes."}
   ],
   "vocations": [
     {"id": "warrior", "hp": 200, "mp": 100, "stat_multiplier": {"str": 2, "agi": 0.75, "int": 0.5}},

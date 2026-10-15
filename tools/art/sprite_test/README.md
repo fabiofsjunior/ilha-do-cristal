@@ -8,6 +8,10 @@ Nesta etapa os atlas contêm **duas linhas N, S**, em ordem. Não são folhas co
 
 PNGs esperados em `assets/characters/melissa/warrior/`, cada um acompanhado de JSON. As folhas ausentes não são substituídas por concepts. Importação usa nearest; manter mipmaps desativados nos PNGs.
 
+## Fábio Warrior — etapa 1
+
+Para revisar somente as duas direções disponíveis (`N`, `S`) e `idle`/`walk`, abra a cena isolada `fabio_stage1_test.tscn`. Ela permite comparar candidatas v1/v2, zoom 50–125%, fundos claro/escuro, SQM 32/48, pausar e avançar quadro a quadro. A cena exige as duas candidatas em `assets/characters/fabio/warrior/`; continua sendo uma ferramenta de QA, não uma tela do jogo nem aprovação da arte. Godot/Android ainda precisam ser executados e revisados.
+
 ```sh
 godot --headless --editor --path . --import --quit
 godot --path .

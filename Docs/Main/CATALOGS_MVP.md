@@ -1,6 +1,6 @@
 # Catálogos do MVP — A Ilha do Cristal
 
-**v0.2 · 2026-10-15.** Esta é a lista de produção das doze famílias de conteúdo. Regras narrativas, identidade das personagens, vocações e magias seguem o [GDD](GDD_MVP.md). Valores numéricos de armas, drops, receitas e construções são **provisórios** para playtest. A representação legível por máquina está em [`data/catalogs/mvp.json`](../../data/catalogs/mvp.json). IDs não devem mudar depois de aparecerem em saves.
+**v0.3 · 2026-10-15.** Esta é a lista de produção das doze famílias de conteúdo. Regras narrativas, identidade das personagens, vocações e magias seguem o [GDD](GDD_MVP.md). Valores numéricos de armas, drops, receitas e construções são **provisórios** para playtest. A representação legível por máquina está em [`data/catalogs/mvp.json`](../../data/catalogs/mvp.json). IDs não devem mudar depois de aparecerem em saves.
 
 ## 1. Personagens e vocações
 
@@ -9,6 +9,7 @@
 | `melissa` | Melissa | Levemente mais alta, cabelo castanho-escuro com **uma única mecha roxa frontal**, acentos lilases | Meiga e doce, esperta e muito observadora; costuma manter a calma e pensar com clareza diante de imprevistos. | Warrior/Archer/Mage |
 | `helena` | Helena | Cabelo castanho ondulado, tiara clara, acentos creme-rosa | Carismática e inteligente, tem pavio curto e reage com intensidade; seu jeito espontâneo a torna cheia de iniciativa. | Warrior/Archer/Mage |
 | `maira` | Maíra | Cabelos longos castanho-escuros e traje amarelo/dourado, conforme conceito aprovado | Irmã de Helena, é bonita, carismática e muito falante. Atenciosa com os outros, anima o grupo e observa o ambiente antes de agir. | Warrior/Archer/Mage |
+| `fabio` | Fábio | Pele morena, cabelo curto escuro com fios grisalhos nas têmporas, barba aparada; trajes vermelho/dourado, verde ou azul conforme o concept das vocações | Pai de Melissa, é alto e forte, tem presença serena e olhar atento. Inteligente e reservado, observa, analisa riscos e planeja a estratégia antes de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes. | Warrior/Archer/Mage |
 
 Qualquer conta pode usar qualquer aparência, inclusive repetida na LAN. O equipamento não altera o visual. `warrior`: HP/MP 200/100, FOR/AGI/INT ×2/0,75/0,5; `archer`: 150/150, ×1/2/0,75; `mage`: 100/200, ×0,5/0,75/2. Vocação permanente **por personagem**.
 
