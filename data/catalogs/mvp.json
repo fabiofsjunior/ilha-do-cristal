@@ -3,18 +3,72 @@
   "status": "planning_provisional",
   "note": "Catálogo de planejamento; não consumir como balanceamento de produção antes do sprint de validação.",
   "characters": [
-    {"id": "melissa", "visual": "levemente mais alta; cabelo predominantemente castanho-escuro com uma única mecha roxa frontal; acentos lilases", "description": "Meiga e doce, é esperta e muito observadora; diante de imprevistos, costuma manter a calma e pensar com clareza."},
-    {"id": "helena", "visual": "cabelo castanho ondulado, tiara clara, acentos creme e rosa", "description": "Carismática e inteligente, tem pavio curto e reage com intensidade; seu jeito espontâneo também a torna uma companheira cheia de iniciativa."},
-    {"id": "maira", "visual": "cabelos longos castanho-escuros; traje amarelo e dourado", "description": "Irmã de Helena, é bonita, carismática e muito falante. Atenciosa com os outros, anima o grupo e observa o ambiente antes de agir."}
+    {
+      "id": "melissa",
+      "visual": "levemente mais alta; cabelo predominantemente castanho-escuro com uma única mecha roxa frontal; acentos lilases",
+      "description": "Meiga e doce, é esperta e muito observadora; diante de imprevistos, costuma manter a calma e pensar com clareza."
+    },
+    {
+      "id": "helena",
+      "visual": "cabelo castanho ondulado, tiara clara, acentos creme e rosa",
+      "description": "Carismática e inteligente, tem pavio curto e reage com intensidade; seu jeito espontâneo também a torna uma companheira cheia de iniciativa."
+    },
+    {
+      "id": "maira",
+      "visual": "cabelos longos castanho-escuros; traje amarelo e dourado",
+      "description": "Irmã de Helena, é bonita, carismática e muito falante. Atenciosa com os outros, anima o grupo e observa o ambiente antes de agir."
+    },
+    {
+      "id": "fabio",
+      "visual": "pele morena; cabelo curto escuro com fios grisalhos nas têmporas; barba aparada; trajes vermelho/dourado, verde ou azul conforme o concept das vocações",
+      "description": "Pai de Melissa, é alto e forte, tem presença serena e olhar atento. Inteligente e reservado, observa, analisa riscos e planeja a estratégia antes de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes."
+    }
   ],
   "vocations": [
-    {"id": "warrior", "hp": 200, "mp": 100, "stat_multiplier": {"str": 2, "agi": 0.75, "int": 0.5}},
-    {"id": "archer", "hp": 150, "mp": 150, "stat_multiplier": {"str": 1, "agi": 2, "int": 0.75}},
-    {"id": "mage", "hp": 100, "mp": 200, "stat_multiplier": {"str": 0.5, "agi": 0.75, "int": 2}}
+    {
+      "id": "warrior",
+      "hp": 200,
+      "mp": 100,
+      "stat_multiplier": {
+        "str": 2,
+        "agi": 0.75,
+        "int": 0.5
+      }
+    },
+    {
+      "id": "archer",
+      "hp": 150,
+      "mp": 150,
+      "stat_multiplier": {
+        "str": 1,
+        "agi": 2,
+        "int": 0.75
+      }
+    },
+    {
+      "id": "mage",
+      "hp": 100,
+      "mp": 200,
+      "stat_multiplier": {
+        "str": 0.5,
+        "agi": 0.75,
+        "int": 2
+      }
+    }
   ],
   "attributes_and_levels": {
     "level_cap_mvp": 10,
-    "xp_to_next_level_from_1_to_9": [100, 130, 169, 220, 286, 371, 483, 627, 816],
+    "xp_to_next_level_from_1_to_9": [
+      100,
+      130,
+      169,
+      220,
+      286,
+      371,
+      483,
+      627,
+      816
+    ],
     "attribute_points_per_level_up": 1,
     "talent_points_at_creation": 3,
     "talent_points_per_level_up_until_50": 3,
@@ -24,60 +78,1403 @@
     "hp_regen_cap_inside_combat_percent_per_sec": 0.5
   },
   "weapons_and_tools": [
-    {"id": "sword_basic", "vocation": "warrior", "damage_type": "physical", "damage": 12, "range_tiles": 1},
-    {"id": "sword_reinforced", "vocation": "warrior", "damage_type": "physical", "damage": 18, "range_tiles": 1},
-    {"id": "bow_basic", "vocation": "archer", "damage_type": "physical", "damage": 10, "range_tiles": 5},
-    {"id": "bow_reinforced", "vocation": "archer", "damage_type": "physical", "damage": 15, "range_tiles": 5},
-    {"id": "staff_basic", "vocation": "mage", "damage_type": "magic", "damage": 10, "range_tiles": 5},
-    {"id": "staff_crystal", "vocation": "mage", "damage_type": "magic", "damage": 16, "range_tiles": 5},
-    {"id": "axe_basic", "role": "wood_harvest"},
-    {"id": "pickaxe_basic", "role": "stone_harvest"}
+    {
+      "id": "sword_basic",
+      "vocation": "warrior",
+      "damage_type": "physical",
+      "damage": 12,
+      "range_tiles": 1
+    },
+    {
+      "id": "sword_reinforced",
+      "vocation": "warrior",
+      "damage_type": "physical",
+      "damage": 18,
+      "range_tiles": 1
+    },
+    {
+      "id": "bow_basic",
+      "vocation": "archer",
+      "damage_type": "physical",
+      "damage": 10,
+      "range_tiles": 5
+    },
+    {
+      "id": "bow_reinforced",
+      "vocation": "archer",
+      "damage_type": "physical",
+      "damage": 15,
+      "range_tiles": 5
+    },
+    {
+      "id": "staff_basic",
+      "vocation": "mage",
+      "damage_type": "magic",
+      "damage": 10,
+      "range_tiles": 5
+    },
+    {
+      "id": "staff_crystal",
+      "vocation": "mage",
+      "damage_type": "magic",
+      "damage": 16,
+      "range_tiles": 5
+    },
+    {
+      "id": "axe_basic",
+      "role": "wood_harvest"
+    },
+    {
+      "id": "pickaxe_basic",
+      "role": "stone_harvest"
+    }
   ],
   "skills": [
-    {"id": "war_combo", "vocation": "warrior", "target": "single", "physical_percent_each_hit": 120, "hits": 3, "cooldown_sec": 10, "mp": 10},
-    {"id": "war_circle", "vocation": "warrior", "target": "adjacent_aoe", "physical_percent": 100, "status": "bleed", "cooldown_sec": 15, "mp": 15},
-    {"id": "war_quake", "vocation": "warrior", "target": "aoe", "physical_percent": 150, "magic_percent": 50, "status": "stun", "status_duration_sec": 3, "cooldown_sec": 90, "mp": 35},
-    {"id": "arc_precise", "vocation": "archer", "target": "single", "physical_percent": 100, "magic_percent": 50, "status": "invisible", "status_duration_sec": 3, "cooldown_sec": 10, "mp": 10},
-    {"id": "arc_bounce", "vocation": "archer", "target": "chain", "physical_percent_each_target": [100, 90, 80, 70, 60], "cooldown_sec": 14, "mp": 15},
-    {"id": "arc_pierce", "vocation": "archer", "target": "line", "physical_percent": 125, "magic_percent": 100, "status": "attack_speed_up", "status_duration_sec": 6, "cooldown_sec": 90, "mp": 35},
-    {"id": "mag_bolt", "vocation": "mage", "target": "single", "magic_percent": 150, "cooldown_sec": 5, "mp": 8},
-    {"id": "mag_fire", "vocation": "mage", "target": "aoe", "magic_percent": 100, "status": "burn", "status_duration_sec": 6, "cooldown_sec": 14, "mp": 18},
-    {"id": "mag_ice", "vocation": "mage", "target": "radius", "magic_percent": 300, "cooldown_sec": 90, "mp": 40}
+    {
+      "id": "war_combo",
+      "vocation": "warrior",
+      "target": "single",
+      "physical_percent_each_hit": 120,
+      "hits": 3,
+      "cooldown_sec": 10,
+      "mp": 10
+    },
+    {
+      "id": "war_circle",
+      "vocation": "warrior",
+      "target": "adjacent_aoe",
+      "physical_percent": 100,
+      "status": "bleed",
+      "cooldown_sec": 15,
+      "mp": 15
+    },
+    {
+      "id": "war_quake",
+      "vocation": "warrior",
+      "target": "aoe",
+      "physical_percent": 150,
+      "magic_percent": 50,
+      "status": "stun",
+      "status_duration_sec": 3,
+      "cooldown_sec": 90,
+      "mp": 35
+    },
+    {
+      "id": "arc_precise",
+      "vocation": "archer",
+      "target": "single",
+      "physical_percent": 100,
+      "magic_percent": 50,
+      "status": "invisible",
+      "status_duration_sec": 3,
+      "cooldown_sec": 10,
+      "mp": 10
+    },
+    {
+      "id": "arc_bounce",
+      "vocation": "archer",
+      "target": "chain",
+      "physical_percent_each_target": [
+        100,
+        90,
+        80,
+        70,
+        60
+      ],
+      "cooldown_sec": 14,
+      "mp": 15
+    },
+    {
+      "id": "arc_pierce",
+      "vocation": "archer",
+      "target": "line",
+      "physical_percent": 125,
+      "magic_percent": 100,
+      "status": "attack_speed_up",
+      "status_duration_sec": 6,
+      "cooldown_sec": 90,
+      "mp": 35
+    },
+    {
+      "id": "mag_bolt",
+      "vocation": "mage",
+      "target": "single",
+      "magic_percent": 150,
+      "cooldown_sec": 5,
+      "mp": 8
+    },
+    {
+      "id": "mag_fire",
+      "vocation": "mage",
+      "target": "aoe",
+      "magic_percent": 100,
+      "status": "burn",
+      "status_duration_sec": 6,
+      "cooldown_sec": 14,
+      "mp": 18
+    },
+    {
+      "id": "mag_ice",
+      "vocation": "mage",
+      "target": "radius",
+      "magic_percent": 300,
+      "cooldown_sec": 90,
+      "mp": 40
+    }
   ],
-  "status_effects": ["bleed", "burn", "stun", "invisible", "attack_speed_up", "downed"],
+  "status_effects": [
+    "bleed",
+    "burn",
+    "stun",
+    "invisible",
+    "attack_speed_up",
+    "downed"
+  ],
   "monsters": [
-    {"id": "fox", "region": "beach_spawn", "hp": 35, "attack": 5, "xp": 10, "drops": [{"item": "meat", "quantity": 1, "chance": 1}, {"item": "hide", "quantity": 1, "chance": 0.5}]},
-    {"id": "wolf", "region": "green_forest", "hp": 90, "attack": 12, "xp": 20, "drops": [{"item": "meat", "quantity": 1, "chance": 1}, {"item": "hide", "quantity": 1, "chance": 1}, {"item": "fang", "quantity": 1, "chance": 0.3}]},
-    {"id": "bear", "region": "bear_interior", "hp": 240, "attack": 22, "xp": 50, "drops": [{"item": "meat", "quantity": 2, "chance": 1}, {"item": "hide", "quantity": 2, "chance": 1}, {"item": "crystal_shard", "quantity": 1, "chance": 1}]}
+    {
+      "id": "fox",
+      "region": "beach_spawn",
+      "hp": 35,
+      "attack": 5,
+      "xp": 10,
+      "drops": [
+        {
+          "item": "meat",
+          "quantity": 1,
+          "chance": 1
+        },
+        {
+          "item": "hide",
+          "quantity": 1,
+          "chance": 0.5
+        }
+      ]
+    },
+    {
+      "id": "wolf",
+      "region": "green_forest",
+      "hp": 90,
+      "attack": 12,
+      "xp": 20,
+      "drops": [
+        {
+          "item": "meat",
+          "quantity": 1,
+          "chance": 1
+        },
+        {
+          "item": "hide",
+          "quantity": 1,
+          "chance": 1
+        },
+        {
+          "item": "fang",
+          "quantity": 1,
+          "chance": 0.3
+        }
+      ]
+    },
+    {
+      "id": "bear",
+      "region": "bear_interior",
+      "hp": 240,
+      "attack": 22,
+      "xp": 50,
+      "drops": [
+        {
+          "item": "meat",
+          "quantity": 2,
+          "chance": 1
+        },
+        {
+          "item": "hide",
+          "quantity": 2,
+          "chance": 1
+        },
+        {
+          "item": "crystal_shard",
+          "quantity": 1,
+          "chance": 1
+        }
+      ]
+    }
   ],
   "resources": [
-    {"id": "wood", "xp_per_extraction": 2}, {"id": "stone", "xp_per_extraction": 2},
-    {"id": "fiber", "xp_per_extraction": null}, {"id": "herb", "xp_per_extraction": 1},
-    {"id": "meat"}, {"id": "hide"}, {"id": "fang"}, {"id": "crystal_shard"}
+    {
+      "id": "wood",
+      "xp_per_extraction": 2
+    },
+    {
+      "id": "stone",
+      "xp_per_extraction": 2
+    },
+    {
+      "id": "fiber",
+      "xp_per_extraction": null
+    },
+    {
+      "id": "herb",
+      "xp_per_extraction": 1
+    },
+    {
+      "id": "meat"
+    },
+    {
+      "id": "hide"
+    },
+    {
+      "id": "fang"
+    },
+    {
+      "id": "crystal_shard"
+    }
   ],
-  "consumables": [{"id": "bandage", "healing_hp": 40, "duration_sec": 4, "interrupted_by_attack": true}],
+  "consumables": [
+    {
+      "id": "bandage",
+      "healing_hp": 40,
+      "duration_sec": 4,
+      "interrupted_by_attack": true
+    }
+  ],
   "recipes": [
-    {"id": "recipe_bandage", "output": "bandage", "requires": {"herb": 3, "fiber": 1}},
-    {"id": "recipe_axe", "output": "axe_basic", "requires": {"wood": 5, "stone": 3}},
-    {"id": "recipe_pickaxe", "output": "pickaxe_basic", "requires": {"wood": 4, "stone": 4}},
-    {"id": "recipe_sword_upgrade", "output": "sword_reinforced", "requires": {"wood": 12, "stone": 8, "crystal_shard": 2}},
-    {"id": "recipe_bow_upgrade", "output": "bow_reinforced", "requires": {"wood": 12, "stone": 8, "crystal_shard": 2}},
-    {"id": "recipe_staff_upgrade", "output": "staff_crystal", "requires": {"wood": 12, "stone": 8, "crystal_shard": 2}}
+    {
+      "id": "recipe_bandage",
+      "output": "bandage",
+      "requires": {
+        "herb": 3,
+        "fiber": 1
+      }
+    },
+    {
+      "id": "recipe_axe",
+      "output": "axe_basic",
+      "requires": {
+        "wood": 5,
+        "stone": 3
+      }
+    },
+    {
+      "id": "recipe_pickaxe",
+      "output": "pickaxe_basic",
+      "requires": {
+        "wood": 4,
+        "stone": 4
+      }
+    },
+    {
+      "id": "recipe_sword_upgrade",
+      "output": "sword_reinforced",
+      "requires": {
+        "wood": 12,
+        "stone": 8,
+        "crystal_shard": 2
+      }
+    },
+    {
+      "id": "recipe_bow_upgrade",
+      "output": "bow_reinforced",
+      "requires": {
+        "wood": 12,
+        "stone": 8,
+        "crystal_shard": 2
+      }
+    },
+    {
+      "id": "recipe_staff_upgrade",
+      "output": "staff_crystal",
+      "requires": {
+        "wood": 12,
+        "stone": 8,
+        "crystal_shard": 2
+      }
+    }
   ],
   "buildings": [
-    {"id": "pure_crystal", "camp_level": 1}, {"id": "campfire", "camp_level": 1}, {"id": "tent", "camp_level": 1},
-    {"id": "workbench", "camp_level": 2}, {"id": "shared_chest", "camp_level": 2}, {"id": "well", "camp_level": 2},
-    {"id": "palisade", "camp_level": 3}, {"id": "watchtower", "camp_level": 3, "max_count": 2}
+    {
+      "id": "pure_crystal",
+      "camp_level": 1
+    },
+    {
+      "id": "campfire",
+      "camp_level": 1
+    },
+    {
+      "id": "tent",
+      "camp_level": 1
+    },
+    {
+      "id": "workbench",
+      "camp_level": 2
+    },
+    {
+      "id": "shared_chest",
+      "camp_level": 2
+    },
+    {
+      "id": "well",
+      "camp_level": 2
+    },
+    {
+      "id": "palisade",
+      "camp_level": 3
+    },
+    {
+      "id": "watchtower",
+      "camp_level": 3,
+      "max_count": 2
+    }
   ],
   "camp_upgrades": [
-    {"to_level": 2, "requires": {"wood": 30, "stone": 20, "fiber": 10}},
-    {"to_level": 3, "requires": {"wood": 60, "stone": 40, "fiber": 20, "crystal_shard": 5}}
+    {
+      "to_level": 2,
+      "requires": {
+        "wood": 30,
+        "stone": 20,
+        "fiber": 10
+      }
+    },
+    {
+      "to_level": 3,
+      "requires": {
+        "wood": 60,
+        "stone": 40,
+        "fiber": 20,
+        "crystal_shard": 5
+      }
+    }
   ],
-  "talents": {"planned_per_vocation": {"small": 60, "large": 25, "special": 15}, "mvp_candidates_per_vocation": 18, "small_cost": 1, "large_cost": 2, "special_cost": 5, "individual_node_ids": "pending_S3_design"},
+  "talents": {
+    "planned_per_vocation": {
+      "small": 60,
+      "large": 25,
+      "special": 15
+    },
+    "mvp_candidates_per_vocation": 18,
+    "small_cost": 1,
+    "large_cost": 2,
+    "special_cost": 5,
+    "individual_node_ids": "pending_S3_design",
+    "prototype_graph_candidate": {
+      "status": "archived_in_v0_5",
+      "model": "shared_passive_constellation",
+      "coordinate_space": {
+        "view_box": [
+          1000,
+          620
+        ],
+        "origin": "top-left"
+      },
+      "counts": {
+        "small_circles": 25,
+        "large_squares": 6,
+        "actor_origin_diamonds": 3,
+        "total_nodes": 34,
+        "bidirectional_connections": 61
+      },
+      "costs": {
+        "small": 1,
+        "large": 2,
+        "origin": 0,
+        "all_passives_total": 37
+      },
+      "roadmap": [
+        {
+          "stage": 1,
+          "name": "Origens",
+          "nodes": [
+            "origin_warrior",
+            "origin_archer",
+            "origin_mage"
+          ]
+        },
+        {
+          "stage": 2,
+          "name": "Núcleo de combate e atributos",
+          "nodes": [
+            "s01-s12",
+            "l01-l04"
+          ]
+        },
+        {
+          "stage": 3,
+          "name": "Sobrevivência e coleta",
+          "nodes": [
+            "s13-s21",
+            "l05-l06"
+          ]
+        },
+        {
+          "stage": 4,
+          "name": "Especialização externa",
+          "nodes": [
+            "s22-s25"
+          ]
+        }
+      ],
+      "rules": {
+        "connections": "bidirectional",
+        "unlock": "node must be adjacent to an unlocked node",
+        "origin_cost": 0,
+        "starting_points_per_vocation": 3,
+        "points_are_separate_per_vocation": true,
+        "progress_persists": false,
+        "node_text_inside_shapes": false,
+        "actor_label_below_origin": "Actor"
+      },
+      "nodes": [
+        {
+          "id": "origin_warrior",
+          "kind": "origin",
+          "vocation": "warrior",
+          "name": "Origem da Warrior",
+          "effect": "+2 Força inicial; abre a rota superior da rede.",
+          "x": 500,
+          "y": 48,
+          "cost": 0,
+          "shape": "actor_diamond",
+          "textLabel": "Actor"
+        },
+        {
+          "id": "origin_archer",
+          "kind": "origin",
+          "vocation": "archer",
+          "name": "Origem da Archer",
+          "effect": "+2 Agilidade inicial; abre a rota esquerda da rede.",
+          "x": 64,
+          "y": 302,
+          "cost": 0,
+          "shape": "actor_diamond",
+          "textLabel": "Actor"
+        },
+        {
+          "id": "origin_mage",
+          "kind": "origin",
+          "vocation": "mage",
+          "name": "Origem da Mage",
+          "effect": "+2 Inteligência inicial; abre a rota direita da rede.",
+          "x": 936,
+          "y": 302,
+          "cost": 0,
+          "shape": "actor_diamond",
+          "textLabel": "Actor"
+        },
+        {
+          "id": "s01",
+          "kind": "small",
+          "name": "Força I",
+          "effect": "+2 Força. Aumenta o dano físico básico.",
+          "x": 500,
+          "y": 130,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s02",
+          "kind": "small",
+          "name": "Agilidade I",
+          "effect": "+2 Agilidade. Melhora precisão e esquiva.",
+          "x": 400,
+          "y": 160,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s03",
+          "kind": "small",
+          "name": "Inteligência I",
+          "effect": "+2 Inteligência. Aumenta o dano mágico.",
+          "x": 600,
+          "y": 160,
+          "radius": 19,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s04",
+          "kind": "small",
+          "name": "Fio Afiado",
+          "effect": "+2% de dano com espada.",
+          "x": 298,
+          "y": 212,
+          "radius": 16,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s05",
+          "kind": "small",
+          "name": "Mira Estável",
+          "effect": "+2% de precisão com arco.",
+          "x": 702,
+          "y": 212,
+          "radius": 16,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s06",
+          "kind": "small",
+          "name": "Passo Ágil",
+          "effect": "+2% de velocidade de movimento.",
+          "x": 170,
+          "y": 258,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s07",
+          "kind": "small",
+          "name": "Guarda Firme",
+          "effect": "+2 de defesa.",
+          "x": 292,
+          "y": 295,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s08",
+          "kind": "small",
+          "name": "Reserva de Mana",
+          "effect": "+3 de mana máxima.",
+          "x": 398,
+          "y": 258,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s09",
+          "kind": "small",
+          "name": "Ponto Crítico",
+          "effect": "+1% de chance crítica.",
+          "x": 500,
+          "y": 230,
+          "radius": 19,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s10",
+          "kind": "small",
+          "name": "Foco Arcano",
+          "effect": "+2% de dano mágico.",
+          "x": 602,
+          "y": 258,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s11",
+          "kind": "small",
+          "name": "Reflexos",
+          "effect": "+2% de esquiva.",
+          "x": 708,
+          "y": 295,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s12",
+          "kind": "small",
+          "name": "Tiro Longo",
+          "effect": "+1 tile de alcance com arco.",
+          "x": 830,
+          "y": 258,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s13",
+          "kind": "small",
+          "name": "Madeireiro",
+          "effect": "+4% de madeira por coleta.",
+          "x": 170,
+          "y": 390,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s14",
+          "kind": "small",
+          "name": "Vigor",
+          "effect": "+4 HP máximo.",
+          "x": 280,
+          "y": 390,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s15",
+          "kind": "small",
+          "name": "Recuperação",
+          "effect": "+0,2 HP/s fora de combate.",
+          "x": 392,
+          "y": 365,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s16",
+          "kind": "small",
+          "name": "Resistência",
+          "effect": "+2% de redução de dano físico.",
+          "x": 500,
+          "y": 354,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s17",
+          "kind": "small",
+          "name": "Meditação",
+          "effect": "+0,2 MP/s fora de combate.",
+          "x": 608,
+          "y": 365,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s18",
+          "kind": "small",
+          "name": "Minerador",
+          "effect": "+4% de pedra por coleta.",
+          "x": 720,
+          "y": 390,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s19",
+          "kind": "small",
+          "name": "Afinidade Cristalina",
+          "effect": "+3% de chance de encontrar fragmento de cristal.",
+          "x": 830,
+          "y": 390,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s20",
+          "kind": "small",
+          "name": "Herbologista",
+          "effect": "+4% de ervas por coleta.",
+          "x": 282,
+          "y": 488,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s21",
+          "kind": "small",
+          "name": "Tratamento",
+          "effect": "+3% de cura recebida.",
+          "x": 395,
+          "y": 488,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s22",
+          "kind": "small",
+          "name": "Sobrevivência",
+          "effect": "+3% de HP máximo.",
+          "x": 500,
+          "y": 486,
+          "radius": 19,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s23",
+          "kind": "small",
+          "name": "Eficiência de Mana",
+          "effect": "-2% no custo de habilidades.",
+          "x": 605,
+          "y": 488,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s24",
+          "kind": "small",
+          "name": "Cadência",
+          "effect": "+2% de velocidade de ataque.",
+          "x": 718,
+          "y": 488,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s25",
+          "kind": "small",
+          "name": "Conhecedor do Terreno",
+          "effect": "+3% de chance de encontrar recursos raros.",
+          "x": 500,
+          "y": 566,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "l01",
+          "kind": "large",
+          "name": "Mestre das Lâminas",
+          "effect": "+12% de dano com espada.",
+          "x": 500,
+          "y": 184,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        },
+        {
+          "id": "l02",
+          "kind": "large",
+          "name": "Sentinela",
+          "effect": "+12 de defesa e +5% de bloqueio.",
+          "x": 300,
+          "y": 338,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        },
+        {
+          "id": "l03",
+          "kind": "large",
+          "name": "Condutor Arcano",
+          "effect": "+10% de dano mágico e +10 MP.",
+          "x": 500,
+          "y": 302,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        },
+        {
+          "id": "l04",
+          "kind": "large",
+          "name": "Atirador de Elite",
+          "effect": "+10% de precisão e +1 tile de alcance com arco.",
+          "x": 700,
+          "y": 338,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        },
+        {
+          "id": "l05",
+          "kind": "large",
+          "name": "Inquebrável",
+          "effect": "+12% de HP e +0,2 HP/s fora de combate.",
+          "x": 396,
+          "y": 438,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        },
+        {
+          "id": "l06",
+          "kind": "large",
+          "name": "Explorador Experiente",
+          "effect": "+12% de rendimento nas coletas.",
+          "x": 604,
+          "y": 438,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        }
+      ],
+      "connections": [
+        {
+          "from": "origin_warrior",
+          "to": "s01",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "origin_archer",
+          "to": "s06",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "origin_archer",
+          "to": "s13",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "origin_mage",
+          "to": "s12",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "origin_mage",
+          "to": "s19",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s01",
+          "to": "l01",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s01",
+          "to": "s02",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s01",
+          "to": "s03",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s02",
+          "to": "s04",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s02",
+          "to": "s08",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s03",
+          "to": "s05",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s03",
+          "to": "s10",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s04",
+          "to": "s06",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s04",
+          "to": "s07",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s05",
+          "to": "s11",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s05",
+          "to": "s12",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s06",
+          "to": "s07",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s06",
+          "to": "s13",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s07",
+          "to": "l02",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s07",
+          "to": "s08",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s08",
+          "to": "s09",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s08",
+          "to": "s15",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s09",
+          "to": "l01",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s09",
+          "to": "l03",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s09",
+          "to": "s10",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s09",
+          "to": "s16",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s10",
+          "to": "s11",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s10",
+          "to": "s17",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s11",
+          "to": "l04",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s11",
+          "to": "s12",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s12",
+          "to": "s19",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s13",
+          "to": "s14",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s13",
+          "to": "s20",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s14",
+          "to": "l02",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s14",
+          "to": "s15",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s14",
+          "to": "s20",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s15",
+          "to": "l02",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s15",
+          "to": "s16",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s15",
+          "to": "l05",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s15",
+          "to": "s21",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s16",
+          "to": "l03",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s16",
+          "to": "s17",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s16",
+          "to": "s22",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s17",
+          "to": "l04",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s17",
+          "to": "s18",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s17",
+          "to": "s23",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s18",
+          "to": "l04",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s18",
+          "to": "s19",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s18",
+          "to": "s24",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s19",
+          "to": "s12",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s20",
+          "to": "s21",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s20",
+          "to": "l05",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s21",
+          "to": "l05",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s21",
+          "to": "s22",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s22",
+          "to": "l05",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s22",
+          "to": "l06",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s22",
+          "to": "s25",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s23",
+          "to": "l06",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s23",
+          "to": "s24",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s24",
+          "to": "l06",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s24",
+          "to": "s25",
+          "direction": "bidirectional",
+          "bend": 0
+        }
+      ],
+      "note": "Grafo candidato preservado para comparação; não é a referência visual atual nem uma topologia aprovada."
+    },
+    "prototype_visual_v0_6": {
+      "status": "user_selected_visual_reference",
+      "asset": "docs/prototypes/assets/passive_skill_tree_endgame_reference.png",
+      "sha256": "51b511eec2f98714bca7a9379f7bc4b84ad78b7475d30d1952c951f1ab8d2e0e",
+      "dimensions_px": [
+        1672,
+        941
+      ],
+      "format": "PNG RGBA",
+      "scope": "Conceptual endgame tree reference; the image is not an exact graph-data export.",
+      "unlock_rules": {
+        "vocation_origin": "unlocked_by_default",
+        "other_nodes": "automatic_by_character_level",
+        "prototype_level_range": [
+          1,
+          10
+        ],
+        "generation_level_preview": {
+          "generation_1": 2,
+          "generation_2": 4,
+          "generation_3": 6,
+          "generation_4": 8,
+          "generation_5": 10
+        },
+        "preview_status": "illustrative_pending_validation"
+      }
+    }
+  },
   "regions": [
-    {"id": "beach_spawn", "playable_mvp": true}, {"id": "green_forest", "playable_mvp": true},
-    {"id": "bear_interior", "playable_mvp": true}, {"id": "corrupted_castle", "playable_mvp": false}
+    {
+      "id": "beach_spawn",
+      "playable_mvp": true
+    },
+    {
+      "id": "green_forest",
+      "playable_mvp": true
+    },
+    {
+      "id": "bear_interior",
+      "playable_mvp": true
+    },
+    {
+      "id": "corrupted_castle",
+      "playable_mvp": false
+    }
   ],
-  "animations_and_vfx": {"directions": ["N", "NE", "E", "SE", "S", "SO", "O", "NO"], "character_states_frames": {"idle": 4, "walk": 6, "attack": 6, "hit": 3, "death": 6, "cast": 6}, "candidate_cell_px": [96, 96], "candidate_pivot_px": [48, 80], "vfx_ids": ["slash", "bleed", "quake", "invisibility", "ricochet", "pierce", "arcane_bolt", "fire", "ice", "harvest", "heal", "crystal", "build"]},
-  "ui_and_audio": {"screens": ["boot", "visitor_link_account", "character_select", "lobby", "gameplay", "inventory_craft", "talent_tree", "pause_save", "expedition_result", "recoverable_error"], "hud": ["portrait", "hp", "mp", "objective", "minimap", "joystick", "attack", "skills", "bandage", "backpack", "interact", "zoom"], "audio_groups": ["music", "ambience", "combat", "harvest", "ui", "alerts"]}
+  "animations_and_vfx": {
+    "directions": [
+      "N",
+      "NE",
+      "E",
+      "SE",
+      "S",
+      "SO",
+      "O",
+      "NO"
+    ],
+    "character_states_frames": {
+      "idle": 4,
+      "walk": 6,
+      "attack": 6,
+      "hit": 3,
+      "death": 6,
+      "cast": 6
+    },
+    "candidate_cell_px": [
+      96,
+      96
+    ],
+    "candidate_pivot_px": [
+      48,
+      80
+    ],
+    "vfx_ids": [
+      "slash",
+      "bleed",
+      "quake",
+      "invisibility",
+      "ricochet",
+      "pierce",
+      "arcane_bolt",
+      "fire",
+      "ice",
+      "harvest",
+      "heal",
+      "crystal",
+      "build"
+    ]
+  },
+  "ui_and_audio": {
+    "screens": [
+      "boot",
+      "visitor_link_account",
+      "character_select",
+      "lobby",
+      "gameplay",
+      "inventory_craft",
+      "talent_tree",
+      "pause_save",
+      "expedition_result",
+      "recoverable_error"
+    ],
+    "hud": [
+      "portrait",
+      "hp",
+      "mp",
+      "objective",
+      "minimap",
+      "joystick",
+      "attack",
+      "skills",
+      "bandage",
+      "backpack",
+      "interact",
+      "zoom"
+    ],
+    "audio_groups": [
+      "music",
+      "ambience",
+      "combat",
+      "harvest",
+      "ui",
+      "alerts"
+    ],
+    "inventory_prototype_v0_7": {
+      "status": "interface_candidate_pending_user_review",
+      "prototype_only": true,
+      "character_level": 4,
+      "available_attribute_points": 3,
+      "raw_attributes_at_start": {
+        "FOR": 0,
+        "AGI": 0,
+        "INT": 0
+      },
+      "attribute_points_per_level_up": 1,
+      "base_hp_mp_by_vocation": {
+        "warrior": {
+          "hp": 200,
+          "mp": 100
+        },
+        "archer": {
+          "hp": 150,
+          "mp": 150
+        },
+        "mage": {
+          "hp": 100,
+          "mp": 200
+        }
+      },
+      "equipment_grid_4x3": [
+        [
+          "slot",
+          "helmet",
+          "amulet"
+        ],
+        [
+          "weapon_main",
+          "armor",
+          "offhand"
+        ],
+        [
+          "jewel_left",
+          "pants",
+          "jewel_right"
+        ],
+        [
+          "slot",
+          "boots",
+          "slot"
+        ]
+      ],
+      "bag_slots": 24,
+      "right_panel": {
+        "default": "attribute_allocation",
+        "selected_item": [
+          "description",
+          "location_status",
+          "attributes",
+          "context_action"
+        ]
+      },
+      "attribute_derived_effects": {
+        "FOR": {
+          "max_hp_per_effective_point": 3,
+          "melee_damage_per_effective_point": 0.6
+        },
+        "AGI": {
+          "ranged_damage_per_effective_point": 0.6,
+          "critical_chance_percentage_points_per_effective_point": 0.05,
+          "dodge_percentage_points_per_effective_point": 0.05
+        },
+        "INT": {
+          "max_mp_per_effective_point": 3,
+          "magic_damage_per_effective_point": 0.6
+        }
+      },
+      "multipliers_source": "vocations[].stat_multiplier",
+      "saves_progress": false
+    }
+  }
 }

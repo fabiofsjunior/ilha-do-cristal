@@ -1,6 +1,6 @@
 # A Ilha do Cristal
 
-RPG 2D cooperativo de sobrevivência em pixel art. Melissa, Helena e Maíra sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
+RPG 2D cooperativo de sobrevivência em pixel art. Melissa, Helena, Maíra e Fábio sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
 
 **Estado:** pré-produção, sem build jogável. **Primeira plataforma:** Android em paisagem; desktop depois. **Arte aprovada:** RPG Clássico. [Prancha conceitual](assets/references/concept-rpg-classico.png) (referência, não sprites utilizáveis).
 
@@ -11,7 +11,7 @@ RPG 2D cooperativo de sobrevivência em pixel art. Melissa, Helena e Maíra sobr
 - [Doze listas de produção](Docs/Main/CATALOGS_MVP.md) e [catálogo JSON](data/catalogs/mvp.json) — conteúdo inicial versionado.
 - [Roadmap](Docs/Main/ROADMAP.md) — sprints e validações.
 - [Metodologia de prototipagem](Docs/Main/PROTOTYPING_METHODOLOGY.md) — protótipo e validação antes de cada fase.
-- [Registro de protótipos](Docs/Context/PROTOTYPE_LOG.md) e [protótipo navegável atual das telas do MVP](docs/prototypes/mvp_ui_v0_2.html).
+- [Registro de protótipos](Docs/Context/PROTOTYPE_LOG.md) e [protótipo navegável atual das telas do MVP](docs/prototypes/mvp_ui_v0_7.html). A imagem conceitual escolhida para a árvore está em [passive_skill_tree_endgame_reference.png](docs/prototypes/assets/passive_skill_tree_endgame_reference.png).
 - [Handoff](Docs/Context/HANDOFF.md) e [Journal](Docs/Context/JOURNAL.md) — continuidade entre sessões.
 - [Arquitetura](docs/technical/ARCHITECTURE.md) — Godot, rede local, saves e dados.
 - [Arte e sprites](docs/art/ART_DIRECTION_AND_SPRITES.md) — identidade visual, atlas e prompts.

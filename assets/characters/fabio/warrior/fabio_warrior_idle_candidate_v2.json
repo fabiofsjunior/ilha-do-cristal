@@ -1,0 +1,384 @@
+{
+  "id": "fabio_warrior_idle_candidate_v2",
+  "atlas": "fabio_warrior_idle_candidate_v2.png",
+  "status": "corrigir",
+  "approved": false,
+  "candidate_version": "v2_geometry_trial",
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "N",
+    "S"
+  ],
+  "frames": 4,
+  "fps": 6,
+  "loop": true,
+  "animation": "idle",
+  "animations": {
+    "idle": {
+      "frames": 4,
+      "fps": 6,
+      "loop": true
+    }
+  },
+  "derived_from": {
+    "atlas": "fabio_warrior_idle_candidate_v1.png",
+    "sha256": "26de85e37392530afb7ff2927ed2714750691c48941b054ab536dc6a5f3033da",
+    "source_sheet": "assets/references/generated-candidates/fabio_warrior_stage1_source_v1.png",
+    "source_sheet_sha256": "3e167ab828cd9e0ad4063a88e230ef157bff5e86f10b84f013a48fa1ce8160a8",
+    "source_sheet_grid": {
+      "columns": 6,
+      "rows": 4,
+      "cell": [
+        256,
+        256
+      ]
+    }
+  },
+  "dimensions": [
+    384,
+    192
+  ],
+  "repair": {
+    "defect_targeted": "North-facing character silhouette was shorter than south in both states.",
+    "operation": "Apply one uniform nearest-neighbor scale to every N-row frame in this animation, around the shared candidate feet pivot; keep S row unchanged.",
+    "scale_N": 1.075,
+    "scale_S": 1.0,
+    "anchor_px": [
+      48.0,
+      80.0
+    ],
+    "cell_size_unchanged": true,
+    "alpha_policy": "Alpha sampled by nearest-neighbor from v1; no binarization, thresholding, matte removal, or manual pixel repaint.",
+    "redraw": false,
+    "trim": false,
+    "mirror": false
+  },
+  "output_sha256": "20a5f78c1c79cc2597e14454500f2421e01b3dfd8c2f7cf085a00dccf09f2e9e",
+  "alpha_summary": {
+    "alpha_unique_values": 251,
+    "alpha_min": 0,
+    "alpha_max": 254,
+    "transparent_pixels": 54118,
+    "intermediate_alpha_pixels": 19610,
+    "opaque_255_pixels": 0,
+    "bbox_alpha_gt_0": [
+      21,
+      15,
+      370,
+      177
+    ],
+    "bbox_alpha_gte_128": [
+      23,
+      18,
+      363,
+      176
+    ],
+    "bbox_alpha_gte_240": [
+      23,
+      18,
+      363,
+      176
+    ]
+  },
+  "frame_regions": {
+    "N": [
+      {
+        "frame": 0,
+        "output_cell": [
+          0,
+          0,
+          96,
+          96
+        ],
+        "diagnostics": {
+          "alpha_unique_values": 132,
+          "alpha_min": 0,
+          "alpha_max": 254,
+          "transparent_pixels": 6803,
+          "intermediate_alpha_pixels": 2413,
+          "opaque_255_pixels": 0,
+          "bbox_alpha_gt_0": [
+            21,
+            17,
+            85,
+            82
+          ],
+          "bbox_alpha_gte_128": [
+            23,
+            18,
+            72,
+            80
+          ],
+          "bbox_alpha_gte_240": [
+            24,
+            18,
+            72,
+            79
+          ]
+        }
+      },
+      {
+        "frame": 1,
+        "output_cell": [
+          96,
+          0,
+          192,
+          96
+        ],
+        "diagnostics": {
+          "alpha_unique_values": 142,
+          "alpha_min": 0,
+          "alpha_max": 254,
+          "transparent_pixels": 6763,
+          "intermediate_alpha_pixels": 2453,
+          "opaque_255_pixels": 0,
+          "bbox_alpha_gt_0": [
+            7,
+            17,
+            76,
+            82
+          ],
+          "bbox_alpha_gte_128": [
+            23,
+            18,
+            73,
+            80
+          ],
+          "bbox_alpha_gte_240": [
+            23,
+            18,
+            73,
+            80
+          ]
+        }
+      },
+      {
+        "frame": 2,
+        "output_cell": [
+          192,
+          0,
+          288,
+          96
+        ],
+        "diagnostics": {
+          "alpha_unique_values": 137,
+          "alpha_min": 0,
+          "alpha_max": 253,
+          "transparent_pixels": 6785,
+          "intermediate_alpha_pixels": 2431,
+          "opaque_255_pixels": 0,
+          "bbox_alpha_gt_0": [
+            7,
+            15,
+            85,
+            82
+          ],
+          "bbox_alpha_gte_128": [
+            23,
+            18,
+            74,
+            80
+          ],
+          "bbox_alpha_gte_240": [
+            23,
+            18,
+            74,
+            80
+          ]
+        }
+      },
+      {
+        "frame": 3,
+        "output_cell": [
+          288,
+          0,
+          384,
+          96
+        ],
+        "diagnostics": {
+          "alpha_unique_values": 134,
+          "alpha_min": 0,
+          "alpha_max": 254,
+          "transparent_pixels": 6752,
+          "intermediate_alpha_pixels": 2464,
+          "opaque_255_pixels": 0,
+          "bbox_alpha_gt_0": [
+            7,
+            15,
+            76,
+            83
+          ],
+          "bbox_alpha_gte_128": [
+            24,
+            18,
+            75,
+            80
+          ],
+          "bbox_alpha_gte_240": [
+            24,
+            18,
+            75,
+            79
+          ]
+        }
+      }
+    ],
+    "S": [
+      {
+        "frame": 0,
+        "output_cell": [
+          0,
+          96,
+          96,
+          192
+        ],
+        "diagnostics": {
+          "alpha_unique_values": 144,
+          "alpha_min": 0,
+          "alpha_max": 254,
+          "transparent_pixels": 6693,
+          "intermediate_alpha_pixels": 2523,
+          "opaque_255_pixels": 0,
+          "bbox_alpha_gt_0": [
+            22,
+            12,
+            86,
+            81
+          ],
+          "bbox_alpha_gte_128": [
+            23,
+            16,
+            73,
+            80
+          ],
+          "bbox_alpha_gte_240": [
+            23,
+            16,
+            73,
+            80
+          ]
+        }
+      },
+      {
+        "frame": 1,
+        "output_cell": [
+          96,
+          96,
+          192,
+          192
+        ],
+        "diagnostics": {
+          "alpha_unique_values": 143,
+          "alpha_min": 0,
+          "alpha_max": 254,
+          "transparent_pixels": 6768,
+          "intermediate_alpha_pixels": 2448,
+          "opaque_255_pixels": 0,
+          "bbox_alpha_gt_0": [
+            14,
+            14,
+            85,
+            81
+          ],
+          "bbox_alpha_gte_128": [
+            23,
+            16,
+            73,
+            80
+          ],
+          "bbox_alpha_gte_240": [
+            23,
+            16,
+            72,
+            80
+          ]
+        }
+      },
+      {
+        "frame": 2,
+        "output_cell": [
+          192,
+          96,
+          288,
+          192
+        ],
+        "diagnostics": {
+          "alpha_unique_values": 140,
+          "alpha_min": 0,
+          "alpha_max": 254,
+          "transparent_pixels": 6764,
+          "intermediate_alpha_pixels": 2452,
+          "opaque_255_pixels": 0,
+          "bbox_alpha_gt_0": [
+            14,
+            14,
+            84,
+            81
+          ],
+          "bbox_alpha_gte_128": [
+            22,
+            16,
+            72,
+            80
+          ],
+          "bbox_alpha_gte_240": [
+            23,
+            16,
+            71,
+            80
+          ]
+        }
+      },
+      {
+        "frame": 3,
+        "output_cell": [
+          288,
+          96,
+          384,
+          192
+        ],
+        "diagnostics": {
+          "alpha_unique_values": 137,
+          "alpha_min": 0,
+          "alpha_max": 254,
+          "transparent_pixels": 6790,
+          "intermediate_alpha_pixels": 2426,
+          "opaque_255_pixels": 0,
+          "bbox_alpha_gt_0": [
+            14,
+            13,
+            82,
+            81
+          ],
+          "bbox_alpha_gte_128": [
+            23,
+            16,
+            72,
+            80
+          ],
+          "bbox_alpha_gte_240": [
+            23,
+            16,
+            72,
+            80
+          ]
+        }
+      }
+    ]
+  },
+  "godot_validation": "pendente",
+  "android_validation": "pendente",
+  "notes": [
+    "Stage-1 candidate only: Warrior N/S; no extra directions, vocations, effects, or production approval.",
+    "This isolated geometry pass addresses the measured N/S silhouette height mismatch only; it does not repair soft alpha, shaded/soft pixel clusters, cardinal direction, walk phase, or loop continuity.",
+    "Review the rendered frames at native size and in Godot before accepting this adjustment. The pivot remains a candidate and alpha boxes do not identify foot contact.",
+    "The original v1 atlases and source sheet are preserved unchanged."
+  ]
+}

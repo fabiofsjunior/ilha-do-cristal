@@ -2,7 +2,7 @@
 
 Sem datas arbitrárias. Cada etapa fecha com demonstração no aparelho e critérios verificáveis. Trabalho em PRs pequenos por sprint; a fase seguinte começa após validação da anterior. A ordem vem do processo mecânica → escala/visão → arte técnica → loop → persistência → rede → nuvem. GDD e catálogo permanecem em `Docs/Main/`; Journal e Handoff em `Docs/Context/` registram continuidade.
 
-**Gate transversal obrigatório:** antes da implementação de cada sprint, prototipar as telas, estados e transições que serão afetados e obter validação explícita do usuário. Correções voltam ao protótipo antes de virar código. A metodologia completa está em [PROTOTYPING_METHODOLOGY.md](PROTOTYPING_METHODOLOGY.md); versões, comentários e decisões ficam em [PROTOTYPE_LOG.md](../Context/PROTOTYPE_LOG.md). O protótipo navegável atual está em [`docs/prototypes/mvp_ui_v0_2.html`](../../docs/prototypes/mvp_ui_v0_2.html). Ele é uma proposta de interface, não implementação nem evidência de aceite técnico.
+**Gate transversal obrigatório:** antes da implementação de cada sprint, prototipar as telas, estados e transições que serão afetados e obter validação explícita do usuário. Correções voltam ao protótipo antes de virar código. A metodologia completa está em [PROTOTYPING_METHODOLOGY.md](PROTOTYPING_METHODOLOGY.md); versões, comentários e decisões ficam em [PROTOTYPE_LOG.md](../Context/PROTOTYPE_LOG.md). O protótipo navegável atual está em [`docs/prototypes/mvp_ui_v0_7.html`](../../docs/prototypes/mvp_ui_v0_7.html). A v0.7 acrescenta inventário, distribuição de atributos e inspeção de itens; o usuário validou esse protótipo em 2026-10-15. O aceite é somente da interface simulada, não valida implementação, gameplay, arte, Godot ou Android.
 
 | Fase | Prototipar antes do código |
 |---|---|
@@ -14,14 +14,14 @@ Sem datas arbitrárias. Cada etapa fecha com demonstração no aparelho e crité
 | S5 | Visitante, vínculo de conta, operação offline, sincronização e divergência de progresso |
 | S6 | Tutorial, acessibilidade, áudio, feedback, erros recuperáveis e ajustes finais de UX |
 
-Prototipagem atual: **telas MVP v0.3 aguardando validação do usuário**. Nenhuma tela de produção deve ser implementada antes do retorno.
+Prototipagem atual: **UI navegável v0.7 validada como protótipo em 2026-10-15; árvore endgame segue como imagem conceitual com regras de nível ilustrativas**. O aceite do protótipo não conclui nenhuma fase técnica nem valida UI de produção.
 
 | Sprint | Entrega | Aceite |
 |---|---|---|
 | S0 — Preparação | Fixar versão Godot 4, projeto importável, preset Android, orientação horizontal, tela base e CI leve de importação/export debug; criar script opcional Pillow para asset geométrico de teste | Projeto abre sem erros e APK inicial instala em aparelho |
 | S1 — Movimento | Tilemap pequeno, câmera 50–125%, joystick 8 direções, colisão, toque em objeto | Jogar em paisagem por 10 min sem travar; botões legíveis em dois tamanhos de tela |
 | S2 — Loop vertical | Melissa, uma vocação, raposa, madeira/erva, ataque, drop, curativo, fogueira/baú | Coletar → enfrentar → curar → retornar → salvar/reabrir no Android |
-| S3 — Mundo e conteúdo | Seed/chunks, praia/floresta/interior, Helena e Maíra, três vocações/nove skills, raposa/lobo/urso, crafting, acampamento I–III, XP/árvore parcial | Meta do MVP concluída solo, progressão e construção persistem |
+| S3 — Mundo e conteúdo | Seed/chunks, praia/floresta/interior, Helena, Maíra e Fábio, três vocações/nove skills, raposa/lobo/urso, crafting, acampamento I–III, XP/árvore parcial | Meta do MVP concluída solo, progressão e construção persistem |
 | S4 — LAN | Host autoritativo, entrada por IP/código local ou descoberta testada, sincronização de combate/itens, reanimação | Dois Androids na mesma rede sem duplicar drops; desconexão salva mundo |
 | S5 — Contas | Prova Firebase Auth, vínculo de visitante, progressão na nuvem, fila offline e resolução de conflitos | Troca de aparelho recupera personagem; mundo continua no host; internet ausente não bloqueia LAN |
 | S6 — Beta | UX, acessibilidade, áudio, otimização, save interrompido, tutorial, correção e build distribuível | Bateria de testes em aparelhos reais e sessão 30 min sem perda de progresso |

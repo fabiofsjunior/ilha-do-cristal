@@ -1,31 +1,39 @@
 # Handoff — protótipos MVP e sprites
 
-**Branch:** `feature/maira-warrior-stage1`, baseada na PR #3 `docs/mvp-prototyping-gates`. **PR #4:** [art: protótipo técnico de Maíra Warrior](https://github.com/fabiofsjunior/ilha-do-cristal/pull/4), em rascunho. Commit do artefato principal: `cce7507a575e982d243fc12b29e0a779e67c1283`.
+**Branch atual:** `feature/fabio-warrior-stage1`, baseada em `feature/maira-warrior-stage1` (PR #4 Maíra, em rascunho). **PR #5 Fábio:** [rascunho](https://github.com/fabiofsjunior/ilha-do-cristal/pull/5), sem merge.
 
 ## Próxima ação
 
-Solicitar revisão da prancha técnica Maíra Warrior em `docs/art/evidence/maira/maira_warrior_stage1_contact.png`. Aplicar feedback e, em seguida, importar a cena `tools/art/sprite_test/maira_stage1_test.tscn` no Godot 4.5.1 para conferir os 20 quadros, pés/pivô, fundo claro/escuro, SQM 32/48 e zoom 50–125%. Não ampliar para oito direções ou outras vocações até a revisão e validação técnica.
+O protótipo navegável v0.7 foi validado pelo usuário em 2026-10-15. O aceite cobre a composição/interação de protótipo e não aprova UI de produção, gameplay, sprites, Godot ou Android.
 
-**Questão aberta:** aguardar se o usuário aprova a direção visual do protótipo e quais correções de identidade/movimento deseja antes de qualquer ampliação.
+1. Importar o candidato de terreno em uma cena de QA no Godot, quando o projeto S0 estiver importável; avaliar filtro nearest, contornos de areia/água e grama/solo, overlays e zoom 50–125%.
+2. Comparar a cena com a prancha de contato e a amostra scripted em `docs/art/evidence/terrain/`; validar no Android e pedir revisão visual do candidato antes de expandir o lote ou marcá-lo aprovado.
+3. Manter a candidata em `assets/environments/terrain_mvp_candidate_v1/` sem colisão/navegação, e preservar separados os gates das sprites de personagem, que continuam pendentes/corrigir.
 
-## Estado da arte de Maíra
+## Fábio — personagem jogável aprovado, arte etapa 1 pendente
 
-Maíra foi incluída como personagem jogável do MVP, irmã de Helena, com identidade visual de cabelos longos castanho-escuros e traje amarelo/dourado. O conceito das três vocações foi aprovado e está em `assets/references/generated-candidates/maira_vocations_concept.png` como referência, não como atlas.
+- Em 2026-10-15, o usuário aprovou Fábio como quarto personagem jogável do MVP. GDD e catálogo agora incluem Fábio, pai de Melissa, com as três vocações.
+- O concept de três vocações em `assets/references/generated-candidates/fabio_vocations_concept.png` é referência aprovada, intacta e não é atlas. A fonte bruta de poses, separada, está em `assets/references/generated-candidates/fabio_warrior_stage1_source_v1.png`.
+- Descrição aprovada: “Fábio é alto e forte, tem presença serena e olhar atento. Inteligente e reservado, prefere observar, analisar os riscos e planejar a estratégia antes de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes.”
+- Os protótipos v1/v2 contêm somente Warrior N/S, `idle`4 e `walk`6, células 96×96, pivô candidato (48,80); v2 aplica escala uniforme 1,075× às linhas norte e mantém alpha original. Atlases/metadados estão em `assets/characters/fabio/warrior/`. Relatório, evidência xadrez e empacotador estão em `docs/art/evidence/fabio/fabio_warrior_stage1_review.md`, `fabio_warrior_stage1_contact.png` e `tools/art/pack_fabio_stage1.py`.
+- Alpha intermediário, alinhamento dos pés e revisão da passada/loop continuam pendentes; o teste está em **corrigir**. Godot e Android não foram validados. Não incluir fotos reais.
 
-| Animação | Escopo atual | Estado |
-|---|---|---|
-| `idle` | N/S, 4 quadros por direção | **corrigir** — movimento sutil e escala N/S desigual |
-| `walk` | N/S, 6 quadros por direção | **corrigir** — confirmar passada, apoio dos pés, pivô e loop |
 
-Atlas e JSON candidatos ficam em `assets/characters/maira/warrior/`. A ferramenta de empacotamento está em `tools/art/pack_maira_stage1.py`; avaliação visual e técnica: `docs/art/evidence/maira/maira_warrior_stage1_review.md`. A cena isolada usa nearest, seleção de direção/animação, pause/frame-step, SQM e zoom.
+## Helena — candidata técnica Warrior etapa 1
 
-## Validação e bloqueios
+- O GDD não define uma vocação padrão para Helena; Warrior foi escolhido somente como suposição operacional para o primeiro exemplar, sem alterar a regra de escolha livre de vocação.
+- A referência oficial `assets/references/concept-rpg-classico.png` foi validada pelo Git blob SHA `82a60ab282c23d0e6846a10a2d8b5e8614537ac3`; o concept está intacto e não foi recortado.
+- Fontes geradas, atlas, JSONs, empacotador, validador e revisão estão em `assets/references/generated-candidates/helena_warrior_*_source_v1.png`, `assets/characters/helena/warrior/`, `tools/art/pack_helena_stage1.py`, `tools/art/validate_helena_stage1.py` e `docs/art/evidence/helena/`.
+- O escopo segue N/S, `idle` 4 e `walk` 6; células 96×96 e pivô (48,80) são candidatos do contrato técnico, não parâmetros aprovados. A revisão permanece **corrigir** por alpha suave/halo e deriva horizontal no walk S.
+- Próximo passo: corrigir ou refazer as passadas e validar pivô/escala em Godot antes de expandir. Godot, zoom/SQM e Android não foram validados; não foram geradas outras vocações ou direções.
 
-- Catálogo MVP e JS do protótipo v0.3 passaram validação estrutural.
-- Os dois atlas Maíra são RGBA 96×96 por célula e têm alpha somente 0/255; validador não registra erro específico para Maíra.
-- A execução global do validador continua com seis erros pré-existentes de alpha intermediário nos atlas Melissa V1–V3.
-- Revisão visual delegada a GPT-6 Luna max confirma que o estado deve continuar **corrigir**: N é menor que S, idle é quase estático e a passada precisa revisão quadro a quadro.
-- Godot não está instalado no workspace; importação/captura na engine e validação Android estão pendentes. Não há APK nem gameplay implementado.
-- O protótipo de UI atual é `docs/prototypes/mvp_ui_v0_3.html`; v0.1 e v0.2 permanecem preservadas e a aprovação das telas segue pendente.
+## Maíra — checkpoint anterior
 
-`Vael`, exército e conteúdo fora do MVP continuam fora do lote. Não incluir fotos privadas no repositório.
+Maíra está registrada como personagem jogável do MVP, irmã de Helena, com concept de três vocações em `assets/references/generated-candidates/maira_vocations_concept.png`. O protótipo Warrior etapa 1 segue **corrigir**; relatório e prancha estão em `docs/art/evidence/maira/maira_warrior_stage1_review.md` e `maira_warrior_stage1_contact.png`. A PR #4 permanece em rascunho.
+
+## Outros gates pendentes
+
+- Protótipo navegável v0.7 validado em 2026-10-15 como protótipo; nenhuma UI de produção ou gameplay foi validada pela aprovação do protótipo.
+- Tileset de terreno v1 é candidato: falta cena TileMap no Godot, revisão em zoom 50–125% e teste Android. Não inclui colisão/navegação.
+- Melissa, Maíra, Fábio e Helena mantêm seus gates de sprite próprios; este incremento não modificou sprites de personagens.
+- S0 (projeto Godot importável/APK) e demais fases do roadmap continuam pendentes. Nenhum conteúdo futuro de Vael/exército entra nesta etapa MVP.

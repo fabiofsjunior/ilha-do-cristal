@@ -1,0 +1,1023 @@
+{
+  "id": "terrain_mvp_candidate_v1",
+  "status": "candidate_pending_visual_and_engine_review",
+  "created": "2026-10-15",
+  "cell_px_candidate": [
+    32,
+    32
+  ],
+  "fixed_scale": false,
+  "project": "A Ilha do Cristal",
+  "art_direction": "RPG Classico 2D pixel art; orthogonal grid; top-down slightly oblique; hard pixel clusters; no antialiasing",
+  "scope": [
+    "beach/spawn",
+    "forest",
+    "inland/interior ground"
+  ],
+  "atlas": {
+    "file": "terrain_mvp_candidate_v1.png",
+    "size_px": [
+      256,
+      224
+    ],
+    "columns": 8,
+    "rows": 7,
+    "tile_count": 56,
+    "tile_order": "row-major; see tiles[].atlas_xy_tiles"
+  },
+  "rendering": {
+    "filter": "nearest",
+    "mipmaps": "disabled for candidate test",
+    "tile_layers": "surface base + optional path overlay; collision/navigation not encoded",
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  "generation": {
+    "script": "tools/art/generate_mvp_terrain_tileset.py",
+    "seed": 20261015,
+    "method": "Pillow integer-coordinate raster drawing at native cell resolution; no resampling of source artwork; source does not overwrite concepts or character sprites",
+    "prompt": "RPG Classico 2D top-down slightly oblique orthogonal terrain for a family-friendly island survival RPG; readable warm beach/spawn, forest and inland surfaces; compact repeat-safe pixel clusters; crisp pixel edges, no anti-aliasing, no characters, no props, no labels in atlas; 32x32 px candidate cell only."
+  },
+  "validation": {
+    "png_rgba": true,
+    "dimensions_multiple_of_cell": true,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "alpha_binary": true,
+    "base_tiles_seam_edge_check": "all base-cell edge pixels equal that tile's corner/base color; repeats without boundary discontinuity",
+    "base_tiles_checked": 17,
+    "base_repeat_failures": [],
+    "transitions_checked": "N/E/S/W connectors plus four corners per boundary family; composition only, not auto-tile engine tested",
+    "engine_validation": "pending; no Godot render or device test",
+    "sample_render": "scripted tile composition, not a Godot screenshot"
+  },
+  "tiles": [
+    {
+      "id": "water_deep_01",
+      "group": "water_deep",
+      "role": "base",
+      "atlas_xy_tiles": [
+        0,
+        0
+      ],
+      "rect_px": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "water_deep_02",
+      "group": "water_deep",
+      "role": "base",
+      "atlas_xy_tiles": [
+        1,
+        0
+      ],
+      "rect_px": [
+        32,
+        0,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "water_deep_03",
+      "group": "water_deep",
+      "role": "base",
+      "atlas_xy_tiles": [
+        2,
+        0
+      ],
+      "rect_px": [
+        64,
+        0,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "water_shallow_01",
+      "group": "water_shallow",
+      "role": "base",
+      "atlas_xy_tiles": [
+        3,
+        0
+      ],
+      "rect_px": [
+        96,
+        0,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "water_shallow_02",
+      "group": "water_shallow",
+      "role": "base",
+      "atlas_xy_tiles": [
+        4,
+        0
+      ],
+      "rect_px": [
+        128,
+        0,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "sand_01",
+      "group": "sand",
+      "role": "base",
+      "atlas_xy_tiles": [
+        5,
+        0
+      ],
+      "rect_px": [
+        160,
+        0,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "sand_02",
+      "group": "sand",
+      "role": "base",
+      "atlas_xy_tiles": [
+        6,
+        0
+      ],
+      "rect_px": [
+        192,
+        0,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "sand_03",
+      "group": "sand",
+      "role": "base",
+      "atlas_xy_tiles": [
+        7,
+        0
+      ],
+      "rect_px": [
+        224,
+        0,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "grass_01",
+      "group": "grass",
+      "role": "base",
+      "atlas_xy_tiles": [
+        0,
+        1
+      ],
+      "rect_px": [
+        0,
+        32,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "grass_02",
+      "group": "grass",
+      "role": "base",
+      "atlas_xy_tiles": [
+        1,
+        1
+      ],
+      "rect_px": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "grass_03",
+      "group": "grass",
+      "role": "base",
+      "atlas_xy_tiles": [
+        2,
+        1
+      ],
+      "rect_px": [
+        64,
+        32,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "forest_01",
+      "group": "forest",
+      "role": "base",
+      "atlas_xy_tiles": [
+        3,
+        1
+      ],
+      "rect_px": [
+        96,
+        32,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "forest_02",
+      "group": "forest",
+      "role": "base",
+      "atlas_xy_tiles": [
+        4,
+        1
+      ],
+      "rect_px": [
+        128,
+        32,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "forest_03",
+      "group": "forest",
+      "role": "base",
+      "atlas_xy_tiles": [
+        5,
+        1
+      ],
+      "rect_px": [
+        160,
+        32,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "soil_01",
+      "group": "soil",
+      "role": "base",
+      "atlas_xy_tiles": [
+        6,
+        1
+      ],
+      "rect_px": [
+        192,
+        32,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "soil_02",
+      "group": "soil",
+      "role": "base",
+      "atlas_xy_tiles": [
+        7,
+        1
+      ],
+      "rect_px": [
+        224,
+        32,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "soil_03",
+      "group": "soil",
+      "role": "base",
+      "atlas_xy_tiles": [
+        0,
+        2
+      ],
+      "rect_px": [
+        0,
+        64,
+        32,
+        32
+      ],
+      "note": "base surface; seamless repeat",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "shore_sand_water_edge_n",
+      "group": "sand_water",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        1,
+        2
+      ],
+      "rect_px": [
+        32,
+        64,
+        32,
+        32
+      ],
+      "note": "single-cell interface connector",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "shore_sand_water_edge_e",
+      "group": "sand_water",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        2,
+        2
+      ],
+      "rect_px": [
+        64,
+        64,
+        32,
+        32
+      ],
+      "note": "single-cell interface connector",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "shore_sand_water_edge_s",
+      "group": "sand_water",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        3,
+        2
+      ],
+      "rect_px": [
+        96,
+        64,
+        32,
+        32
+      ],
+      "note": "single-cell interface connector",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "shore_sand_water_edge_w",
+      "group": "sand_water",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        4,
+        2
+      ],
+      "rect_px": [
+        128,
+        64,
+        32,
+        32
+      ],
+      "note": "single-cell interface connector",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "shore_sand_water_corner_nw",
+      "group": "sand_water",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        5,
+        2
+      ],
+      "rect_px": [
+        160,
+        64,
+        32,
+        32
+      ],
+      "note": "single-cell interface corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "shore_sand_water_corner_ne",
+      "group": "sand_water",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        6,
+        2
+      ],
+      "rect_px": [
+        192,
+        64,
+        32,
+        32
+      ],
+      "note": "single-cell interface corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "shore_sand_water_corner_se",
+      "group": "sand_water",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        7,
+        2
+      ],
+      "rect_px": [
+        224,
+        64,
+        32,
+        32
+      ],
+      "note": "single-cell interface corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "shore_sand_water_corner_sw",
+      "group": "sand_water",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        0,
+        3
+      ],
+      "rect_px": [
+        0,
+        96,
+        32,
+        32
+      ],
+      "note": "single-cell interface corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "beach_grass_edge_n",
+      "group": "sand_grass",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        1,
+        3
+      ],
+      "rect_px": [
+        32,
+        96,
+        32,
+        32
+      ],
+      "note": "single-cell beach-to-meadow interface",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "beach_grass_edge_e",
+      "group": "sand_grass",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        2,
+        3
+      ],
+      "rect_px": [
+        64,
+        96,
+        32,
+        32
+      ],
+      "note": "single-cell beach-to-meadow interface",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "beach_grass_edge_s",
+      "group": "sand_grass",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        3,
+        3
+      ],
+      "rect_px": [
+        96,
+        96,
+        32,
+        32
+      ],
+      "note": "single-cell beach-to-meadow interface",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "beach_grass_edge_w",
+      "group": "sand_grass",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        4,
+        3
+      ],
+      "rect_px": [
+        128,
+        96,
+        32,
+        32
+      ],
+      "note": "single-cell beach-to-meadow interface",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "beach_grass_corner_nw",
+      "group": "sand_grass",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        5,
+        3
+      ],
+      "rect_px": [
+        160,
+        96,
+        32,
+        32
+      ],
+      "note": "single-cell beach-to-meadow corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "beach_grass_corner_ne",
+      "group": "sand_grass",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        6,
+        3
+      ],
+      "rect_px": [
+        192,
+        96,
+        32,
+        32
+      ],
+      "note": "single-cell beach-to-meadow corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "beach_grass_corner_se",
+      "group": "sand_grass",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        7,
+        3
+      ],
+      "rect_px": [
+        224,
+        96,
+        32,
+        32
+      ],
+      "note": "single-cell beach-to-meadow corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "beach_grass_corner_sw",
+      "group": "sand_grass",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        0,
+        4
+      ],
+      "rect_px": [
+        0,
+        128,
+        32,
+        32
+      ],
+      "note": "single-cell beach-to-meadow corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "grass_soil_edge_n",
+      "group": "grass_soil",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        1,
+        4
+      ],
+      "rect_px": [
+        32,
+        128,
+        32,
+        32
+      ],
+      "note": "single-cell meadow-to-inland-soil interface",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "grass_soil_edge_e",
+      "group": "grass_soil",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        2,
+        4
+      ],
+      "rect_px": [
+        64,
+        128,
+        32,
+        32
+      ],
+      "note": "single-cell meadow-to-inland-soil interface",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "grass_soil_edge_s",
+      "group": "grass_soil",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        3,
+        4
+      ],
+      "rect_px": [
+        96,
+        128,
+        32,
+        32
+      ],
+      "note": "single-cell meadow-to-inland-soil interface",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "grass_soil_edge_w",
+      "group": "grass_soil",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        4,
+        4
+      ],
+      "rect_px": [
+        128,
+        128,
+        32,
+        32
+      ],
+      "note": "single-cell meadow-to-inland-soil interface",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "grass_soil_corner_nw",
+      "group": "grass_soil",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        5,
+        4
+      ],
+      "rect_px": [
+        160,
+        128,
+        32,
+        32
+      ],
+      "note": "single-cell meadow-to-inland-soil corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "grass_soil_corner_ne",
+      "group": "grass_soil",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        6,
+        4
+      ],
+      "rect_px": [
+        192,
+        128,
+        32,
+        32
+      ],
+      "note": "single-cell meadow-to-inland-soil corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "grass_soil_corner_se",
+      "group": "grass_soil",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        7,
+        4
+      ],
+      "rect_px": [
+        224,
+        128,
+        32,
+        32
+      ],
+      "note": "single-cell meadow-to-inland-soil corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "grass_soil_corner_sw",
+      "group": "grass_soil",
+      "role": "transition",
+      "atlas_xy_tiles": [
+        0,
+        5
+      ],
+      "rect_px": [
+        0,
+        160,
+        32,
+        32
+      ],
+      "note": "single-cell meadow-to-inland-soil corner",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_h",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        1,
+        5
+      ],
+      "rect_px": [
+        32,
+        160,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_v",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        2,
+        5
+      ],
+      "rect_px": [
+        64,
+        160,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_turn_ne",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        3,
+        5
+      ],
+      "rect_px": [
+        96,
+        160,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_turn_es",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        4,
+        5
+      ],
+      "rect_px": [
+        128,
+        160,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_turn_sw",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        5,
+        5
+      ],
+      "rect_px": [
+        160,
+        160,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_turn_wn",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        6,
+        5
+      ],
+      "rect_px": [
+        192,
+        160,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_tee_n",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        7,
+        5
+      ],
+      "rect_px": [
+        224,
+        160,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_tee_e",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        0,
+        6
+      ],
+      "rect_px": [
+        0,
+        192,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_tee_s",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        1,
+        6
+      ],
+      "rect_px": [
+        32,
+        192,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_tee_w",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        2,
+        6
+      ],
+      "rect_px": [
+        64,
+        192,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_dead_n",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        3,
+        6
+      ],
+      "rect_px": [
+        96,
+        192,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_dead_e",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        4,
+        6
+      ],
+      "rect_px": [
+        128,
+        192,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_dead_s",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        5,
+        6
+      ],
+      "rect_px": [
+        160,
+        192,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_dead_w",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        6,
+        6
+      ],
+      "rect_px": [
+        192,
+        192,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    },
+    {
+      "id": "path_overlay_cross",
+      "group": "path",
+      "role": "overlay",
+      "atlas_xy_tiles": [
+        7,
+        6
+      ],
+      "rect_px": [
+        224,
+        192,
+        32,
+        32
+      ],
+      "note": "transparent ground overlay; compose over grass/soil",
+      "alpha_policy": "binary_0_or_255"
+    }
+  ],
+  "visual_evidence": {
+    "contact_sheet": "docs/art/evidence/terrain/terrain_mvp_candidate_v1_contact.png",
+    "composed_sample": "docs/art/evidence/terrain/terrain_mvp_candidate_v1_sample.png"
+  },
+  "limitations": [
+    "32x32 px per SQM is a candidate; test at 50–125% zoom and Android sizes before fixing scale.",
+    "Top-down slightly oblique visual is a flat ground tile contract; the current sample is not gameplay or engine evidence.",
+    "Transition cells occupy a tile on the boundary; no Godot terrain-set/autotile resource or collision/navigation data is included.",
+    "No trees, rocks as props, resource nodes, buildings, characters or hazards are included; add only after separate GDD scope/review.",
+    "Review palette coherence, shore continuity, repeat seams and readability in Godot before production approval."
+  ]
+}
