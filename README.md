@@ -22,4 +22,6 @@ Estrutura: `game/` (cenas, scripts e dados da demo), `data/` (catálogo versiona
 
 Para gerar novamente a build Web, instale os templates de exportação do Godot 4.5.1 e rode `./Godot_v4.5.1-stable_linux.x86_64 --headless --path . --export-release Web build/web/index.html`. Sirva a pasta `build/web/` por HTTP; veja [primeira fatia jogável](docs/gameplay/PLAYABLE_SLICE.md) para comandos e limitações.
 
+No Windows, execute `Testar_Jogo_Web.bat` para iniciar o servidor local e abrir o navegador. Requer Python 3; feche com `Ctrl+C` no terminal.
+
 Não publicar fotos originais das crianças, credenciais, keystores ou saves pessoais. A prancha conceitual não substitui sprites de produção.

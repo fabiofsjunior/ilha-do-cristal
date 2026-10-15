@@ -159,3 +159,9 @@ A pedido do usuário, o protótipo navegável ganha tela de inventário em três
 - `tools/art/sprite_test/check_scene.gd` passou: 240 seleções de quadros e 48 estados de controles para V1/V2/V3. Isso comprova o loader, não aprovação visual.
 - Validadores: gameplay passou (18 referências de cenas/scripts, quatro atlas idle/walk e composição 56 tiles); terreno passou estrutura/junções (56 tiles, alpha 0/255), revisão Godot visual/Android pendente; catálogos passaram (10 grupos, 54 IDs); Helena 8-dir e stage1 passaram estruturalmente com avisos de alpha/pivô e status **CORRIGIR**. `validate_sprite_atlases.py` segue com saída 1 por 21 atlas com alpha intermediário; personagens permanecem **CORRIGIR** e terreno **CANDIDATO**.
 - O runner não oferece servidor gráfico para comparação em tamanho nativo/nearest nem aparelho/SDK Android. S0/S1 continuam incompletos até revisão visual, comparação com v0.7 e teste/export Android. `main` não foi alterada e não houve push.
+
+## 2026-10-15 — launcher local para a build Web
+
+- Adicionado `Testar_Jogo_Web.bat` na raiz para iniciar o servidor e abrir a build exportada no navegador. O script Python em `tools/web/serve_web_build.py` valida os arquivos HTML/JS/WASM/PCK, serve somente em loopback, usa a porta 8000 ou escolhe outra se ocupada e encerra com Ctrl+C. Requer Python 3.
+- Adicionado `--no-browser` para validar o servidor sem abrir janela. A build continua em `build/web/`, ignorada pelo Git; `export_presets.cfg` e as instruções de uso ficam versionados.
+- A revisão gráfica no navegador segue pendente neste runner; a ferramenta abre a build para validação no computador do usuário. S0/S1 e arte mantêm os estados anteriores.

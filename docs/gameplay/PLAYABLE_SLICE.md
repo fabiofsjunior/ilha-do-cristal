@@ -68,6 +68,8 @@ python3 -m http.server 8000 --directory build/web
 
 Abra `http://localhost:8000/`. Os controles são os mesmos da demo desktop. O pacote ZIP entregue desta exportação é `build/ilha-do-cristal-web.zip`. O navegador deste runner não está disponível, então o carregamento final em navegador ainda não foi verificado.
 
+No Windows, `Testar_Jogo_Web.bat` inicia o servidor em `127.0.0.1`, abre o navegador quando a página responde e encerra com `Ctrl+C`. Requer Python 3. Para validar o servidor sem abrir o navegador, use `python tools/web/serve_web_build.py --no-browser`.
+
 ### Verificação Godot 4.5.1 em Linux headless
 
 O binário oficial `Godot_v4.5.1-stable_linux.x86_64` foi obtido para esta sessão e fica localmente ignorado pelo Git na raiz. Comandos executados:
