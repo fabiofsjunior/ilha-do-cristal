@@ -1,6 +1,6 @@
 # Demo jogável — primeira fatia
 
-**Estado:** cenas e scripts de gameplay integrados em `feature/fabio-warrior-stage1`. Godot 4.5.1 Linux headless importou o projeto sem warnings/erros e passou o smoke test automatizado de fluxo, atlas, mapa, movimento, colisão e pausa. Isso não é revisão visual nem aceite de S0/S1; Android continua pendente.
+**Estado:** cenas e scripts de gameplay integrados em `feature/fabio-warrior-stage1`. Godot 4.5.1 Linux headless importou o projeto e passou o smoke test automatizado de fluxo, atlas, mapa, movimento, colisão e pausa. O preset Web exporta a build para `build/web/`; a validação em navegador, a revisão visual e o aceite de S0/S1 continuam pendentes. Android também continua pendente.
 
 ## Fluxo
 
@@ -49,7 +49,24 @@ python3 tools/art/validate_mvp_terrain_tileset.py
 python3 tools/validate_catalogs.py
 ```
 
-Ainda são gates de S0/S1: comparar visualmente o mapa/controles com a v0.7; revisar a leitura em escala nativa e nearest; testar Android por 10 minutos em paisagem, em dois tamanhos de tela e zoom de 50–125%; confirmar leitura, toque, colisão, desempenho e estabilidade. O runner não oferece servidor gráfico para inspeção visual nem aparelho/SDK Android.
+Ainda são gates de S0/S1: testar o pacote Web em navegador com WebAssembly/WebGL 2; comparar visualmente o mapa/controles com a v0.7; revisar a leitura em escala nativa e nearest; testar Android por 10 minutos em paisagem, em dois tamanhos de tela e zoom de 50–125%; confirmar leitura, toque, colisão, desempenho e estabilidade. O runner não oferece navegador gráfico para revisão visual nem aparelho/SDK Android.
+
+### Exportação Web
+
+O preset `Web` está em `export_presets.cfg`. Com os templates de exportação do Godot 4.5.1 instalados, gere o pacote completo (HTML, JavaScript, WebAssembly e PCK) assim:
+
+```sh
+mkdir -p build/web
+./Godot_v4.5.1-stable_linux.x86_64 --headless --path . --export-release Web build/web/index.html
+```
+
+Sirva a pasta por HTTP para executar no navegador; o arquivo `index.html` não deve ser aberto via `file://`:
+
+```sh
+python3 -m http.server 8000 --directory build/web
+```
+
+Abra `http://localhost:8000/`. Os controles são os mesmos da demo desktop. O pacote ZIP entregue desta exportação é `build/ilha-do-cristal-web.zip`. O navegador deste runner não está disponível, então o carregamento final em navegador ainda não foi verificado.
 
 ### Verificação Godot 4.5.1 em Linux headless
 
@@ -62,4 +79,4 @@ O binário oficial `Godot_v4.5.1-stable_linux.x86_64` foi obtido para esta sess�
 ./Godot_v4.5.1-stable_linux.x86_64 --headless --path . --script res://tools/art/sprite_test/check_scene.gd
 ```
 
-Importação, execução da cena principal, smoke test e QA técnico de atlas passaram. O smoke test confirma início → seleção → sessão → ilha, carregamento das quatro aparências Warrior, 2.816 células de base, caminho, movimento pelo joystick, bloqueio da água e pausa/retorno. O teste de atlas percorre 240 frames/seleções e 48 estados de controles. `assets/references/generated-candidates/maira_warrior/` contém 12 fontes PNG truncadas já versionadas; não são usadas pelo jogo e a pasta tem `.gdignore` para evitar que o importador as trate como recursos de runtime. As fontes continuam sem recuperação e o estado artístico permanece **CORRIGIR**. Sem servidor gráfico neste runner, não houve revisão visual em tela nativa/nearest; Android, preset/exportação e aparelho também seguem pendentes.
+Importação, execução da cena principal, smoke test, QA técnico de atlas e exportação Web passaram. O smoke test confirma início → seleção → sessão → ilha, carregamento das quatro aparências Warrior, 2.816 células de base, caminho, movimento pelo joystick, bloqueio da água e pausa/retorno. O teste de atlas percorre 240 frames/seleções e 48 estados de controles. `assets/references/generated-candidates/maira_warrior/` contém 12 fontes PNG truncadas já versionadas; não são usadas pelo jogo e a pasta tem `.gdignore` para evitar que o importador as trate como recursos de runtime. As fontes continuam sem recuperação e o estado artístico permanece **CORRIGIR**. Sem navegador/servidor gráfico neste runner, não houve revisão visual em tela nativa/nearest nem teste da build Web em navegador; Android e aparelho também seguem pendentes.

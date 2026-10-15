@@ -2,7 +2,7 @@
 
 RPG 2D cooperativo de sobrevivência em pixel art. Melissa, Helena, Maíra e Fábio sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
 
-**Estado:** primeira fatia de demo desktop implementada e testada em Godot 4.5.1 no modo headless (importação limpa e smoke test de fluxo/gameplay). A captura visual no editor e a comparação com o protótipo ainda estão pendentes. **Android:** build/aparelho não validados; plataforma-alvo continua Android em paisagem. **Arte:** atlas de personagens seguem **CORRIGIR** e terreno **CANDIDATO**, sem aprovação por esta entrega. [Prancha conceitual](assets/references/concept-rpg-classico.png) é referência, não sprite utilizável.
+**Estado:** primeira fatia jogável desktop testada em Godot 4.5.1 no modo headless (importação e smoke test de fluxo/gameplay). O pacote Web também foi exportado para `build/web/`; a revisão visual em navegador continua pendente. **Android:** build/aparelho não validados; plataforma-alvo continua Android em paisagem. **Arte:** atlas de personagens seguem **CORRIGIR** e terreno **CANDIDATO**, sem aprovação por esta entrega. [Prancha conceitual](assets/references/concept-rpg-classico.png) é referência, não sprite utilizável.
 
 A cena principal configurada no `project.godot` é `game/scenes/main.tscn`. O fluxo percorre início → seleção de aparência Warrior → sessão local (host solo ou erro de entrada mockado) → mapa com movimento e pausa. A demo não implementa contas, LAN, saves, combate, progressão ou inventário funcional. O joystick touchscreen, controles de teclado, zoom, colisões e o cristal demonstrativo estão descritos em [primeira fatia jogável](docs/gameplay/PLAYABLE_SLICE.md), com smoke test automatizado em `tools/gameplay/smoke_playable_slice.gd`. O harness técnico preservado para QA de sprite é `tools/art/sprite_test/sprite_test.tscn`.
 
@@ -18,6 +18,8 @@ A cena principal configurada no `project.godot` é `game/scenes/main.tscn`. O fl
 - [Arquitetura](docs/technical/ARCHITECTURE.md) e [arte/sprites](docs/art/ART_DIRECTION_AND_SPRITES.md).
 - [AGENTS.md](AGENTS.md) — regras de implementação e revisão.
 
-Estrutura: `game/` (cenas, scripts e dados da demo), `data/` (catálogo versionado), `assets/` (arte candidata e referências), `Docs/Main/` (referência durável), `Docs/Context/` (journal/handoff), `docs/art/` e `docs/technical/`. A execução requer Godot 4.5.1; nenhuma importação nem build Android foi validada neste runner. Instruções de QA estrutural estão no guia da fatia jogável.
+Estrutura: `game/` (cenas, scripts e dados da demo), `data/` (catálogo versionado), `assets/` (arte candidata e referências), `Docs/Main/` (referência durável), `Docs/Context/` (journal/handoff), `docs/art/` e `docs/technical/`. A execução requer Godot 4.5.1. Importação e smoke test desktop foram validados em modo headless; Android e revisão visual permanecem pendentes. Instruções de QA estrutural estão no guia da fatia jogável.
+
+Para gerar novamente a build Web, instale os templates de exportação do Godot 4.5.1 e rode `./Godot_v4.5.1-stable_linux.x86_64 --headless --path . --export-release Web build/web/index.html`. Sirva a pasta `build/web/` por HTTP; veja [primeira fatia jogável](docs/gameplay/PLAYABLE_SLICE.md) para comandos e limitações.
 
 Não publicar fotos originais das crianças, credenciais, keystores ou saves pessoais. A prancha conceitual não substitui sprites de produção.
