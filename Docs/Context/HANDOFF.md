@@ -1,6 +1,6 @@
 # Handoff — protótipos MVP e sprites
 
-**Branch atual:** `feature/fabio-warrior-stage1`, baseada em `feature/maira-warrior-stage1` (PR #4 Maíra, em rascunho). **Commit/PR Fábio:** a registrar após integração.
+**Branch atual:** `feature/fabio-warrior-stage1`, baseada em `feature/maira-warrior-stage1` (PR #4 Maíra, em rascunho). **PR #5 Fábio:** [rascunho](https://github.com/fabiofsjunior/ilha-do-cristal/pull/5), sem merge.
 
 ## Próxima ação
 
