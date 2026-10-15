@@ -37,3 +37,10 @@ A integração Luna importou as três versões e verificou 240 seleções de fra
 Branch `docs/mvp-prototyping-gates`, baseada na branch de teste de sprites. A pedido do usuário, estabelecido um gate visual/navegável antes da implementação de cada fase S0–S6, incluindo prototipagem de telas, estados e transições e validação explícita do usuário. A regra foi adicionada às instruções centrais, ao roadmap e às decisões; procedimento e registro vivem em `Docs/Main/PROTOTYPING_METHODOLOGY.md` e `Docs/Context/PROTOTYPE_LOG.md`.
 
 Criado protótipo navegável de interface com telas do GDD em `docs/prototypes/mvp_ui_v0_1.html`. Controles e dados são simulados, sem gameplay, conta, rede ou salvamento real; sprites são placeholders. Todas as telas estão pendentes de revisão do usuário. Nenhuma tela de produção foi implementada. O projeto de sprites permanece separado e em `corrigir`; Pixelorama não está disponível como aplicativo local neste workspace, e o editor web oficial observado não renderizou o canvas nesta sessão.
+
+## 2026-10-15 — revisão de personagens e inventário
+
+- A pedido do usuário, removidas idades das descrições de Melissa e Helena no GDD, catálogo Markdown e `data/catalogs/mvp.json`. O texto de Melissa reforça doçura, atenção e equilíbrio; o de Helena reforça carisma, inteligência, pavio curto e espontaneidade.
+- Criado `docs/prototypes/mvp_ui_v0_2.html`, preservando a v0.1 como versão anterior. A tela de personagem mostra as novas descrições; o inventário propõe espaços de cabeça, peitoral, luvas, pernas, botas, arma, colar e dois anéis, além da mochila de 24 espaços, detalhes do item e fabricação.
+- Slots de armadura e acessórios ainda não representam conteúdo aprovado: itens e atributos não constam do catálogo do MVP e aguardam validação antes de qualquer implementação. Nenhuma tela de produção foi implementada.
+- Validações estruturais: parse do HTML, sintaxe JavaScript do protótipo, parse JSON e `git diff --check`.

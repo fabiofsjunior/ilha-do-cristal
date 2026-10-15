@@ -4,10 +4,10 @@
 
 ## 1. Personagens e vocações
 
-| ID | Nome | Identidade visual fixa | Escolha |
-|---|---|---|---|
-| `melissa` | Melissa | 8 anos, levemente mais alta, cabelo castanho-escuro com **uma mecha roxa frontal**, acentos lilases | Warrior/Archer/Mage |
-| `helena` | Helena | 7 anos, cabelo castanho ondulado, tiara clara, acentos creme-rosa | Warrior/Archer/Mage |
+| ID | Nome | Identidade visual fixa | Descrição | Escolha |
+|---|---|---|---|---|
+| `melissa` | Melissa | Levemente mais alta, cabelo castanho-escuro com **uma única mecha roxa frontal**, acentos lilases | Meiga e doce, esperta e muito observadora; costuma manter a calma e pensar com clareza diante de imprevistos. | Warrior/Archer/Mage |
+| `helena` | Helena | Cabelo castanho ondulado, tiara clara, acentos creme-rosa | Carismática e inteligente, tem pavio curto e reage com intensidade; seu jeito espontâneo a torna cheia de iniciativa. | Warrior/Archer/Mage |
 
 Qualquer conta pode usar qualquer aparência, inclusive repetida na LAN. O equipamento não altera o visual. `warrior`: HP/MP 200/100, FOR/AGI/INT ×2/0,75/0,5; `archer`: 150/150, ×1/2/0,75; `mage`: 100/200, ×0,5/0,75/2. Vocação permanente **por personagem**.
 
@@ -129,6 +129,8 @@ Personagens: 8 direções (N, NE, E, SE, S, SO, O, NO) × `idle` 4, `walk` 6, `a
 **Telas:** abertura, visitante/vínculo da conta, escolha de aparência e vocação, criar/entrar em ilha LAN, gameplay, inventário/craft, árvore, pausa/salvar, resultado da expedição e erro recuperável. **HUD:** retrato, HP/MP, objetivo, minimapa, joystick esquerdo, ataque/três skills à direita, curativo, mochila, interação e zoom 50–125%. Layout sensível a polegares, recorte/notch, DPI e orientação horizontal.
 
 **Áudio mínimo:** tema de abertura/refúgio, ambiência de praia/floresta, coleta, passos, ataque por vocação, nove skills (podem compartilhar camadas), dano, drop, cura, construção, UI e aviso de aliado caído. Arquivos/licenças e mixagem aguardam produção; áudio deve poder ser silenciado por categoria. Efeitos visuais e sonoros confirmam ação, cooldown, erro de mana e salvamento; placeholders técnicos não são aprovação visual.
+
+O protótipo de inventário v0.2 propõe espaços para cabeça, peitoral, luvas, pernas, botas, arma, colar e dois anéis. O catálogo atual define armas e ferramentas, mas ainda não define armaduras, acessórios ou seus atributos; os espaços são apenas uma proposta de interface sujeita a validação. Equipamentos continuam sem alterar a aparência dos personagens.
 
 ## Próximo fechamento de produção
 

@@ -10,7 +10,7 @@ Loop: preparar no refúgio → explorar → coletar/lutar → retornar → fabri
 
 ## Personagens e entrada
 
-Melissa tem 8 anos, é um pouco mais alta e tem cabelo castanho-escuro com **uma única mecha roxa frontal**. Helena tem 7 anos, cabelos castanhos ondulados e tiara clara. Qualquer pessoa pode criar uma das duas em qualquer vocação; aparência não é reservada a uma conta. Guerreiro (Warrior), Arqueiro (Archer) e Mago (Mage) são escolhas permanentes por personagem. Equipamentos alteram números, jamais o visual do personagem. Fotos são referências privadas e não entram no repositório.
+Melissa é um pouco mais alta, tem cabelo predominantemente castanho-escuro e **uma única mecha roxa frontal**. Meiga e doce, é esperta e muito observadora; diante de imprevistos, costuma manter a calma e pensar com clareza. Helena tem cabelos castanhos ondulados e tiara clara. É carismática e inteligente, mas tem pavio curto e reage com intensidade; seu jeito espontâneo também a torna uma companheira cheia de iniciativa. Qualquer pessoa pode criar uma das duas em qualquer vocação; aparência não é reservada a uma conta. Guerreiro (Warrior), Arqueiro (Archer) e Mago (Mage) são escolhas permanentes por personagem. Equipamentos alteram números, jamais o visual do personagem. Fotos são referências privadas e não entram no repositório.
 
 No MVP: duas aparências, três vocações, uma arma inicial e uma melhora por vocação, três habilidades ativas por vocação, raposa/lobo/urso, árvore parcial e nível máximo 10, solo e dois jogadores Wi-Fi local. NPCs coletores, novos monstros, outros biomas, castelo, Vael boss, construção livre e desktop são expansões.
 

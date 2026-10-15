@@ -3,8 +3,8 @@
   "status": "planning_provisional",
   "note": "Catálogo de planejamento; não consumir como balanceamento de produção antes do sprint de validação.",
   "characters": [
-    {"id": "melissa", "age": 8, "visual": "cabelo castanho escuro, uma mecha roxa frontal, acentos lilases"},
-    {"id": "helena", "age": 7, "visual": "cabelo castanho ondulado, tiara clara, acentos creme e rosa"}
+    {"id": "melissa", "visual": "levemente mais alta; cabelo predominantemente castanho-escuro com uma única mecha roxa frontal; acentos lilases", "description": "Meiga e doce, é esperta e muito observadora; diante de imprevistos, costuma manter a calma e pensar com clareza."},
+    {"id": "helena", "visual": "cabelo castanho ondulado, tiara clara, acentos creme e rosa", "description": "Carismática e inteligente, tem pavio curto e reage com intensidade; seu jeito espontâneo também a torna uma companheira cheia de iniciativa."}
   ],
   "vocations": [
     {"id": "warrior", "hp": 200, "mp": 100, "stat_multiplier": {"str": 2, "agi": 0.75, "int": 0.5}},

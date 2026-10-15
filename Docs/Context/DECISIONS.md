@@ -15,7 +15,8 @@ Validar antes de consolidar integração: fluxo Firebase Auth offline/online em 
 - Antes de codificar cada fase do MVP, produzir um protótipo visual/navegável das telas, estados e transições afetados e apresentá-lo ao usuário para validação explícita. Aplicar o gate também a mudanças materiais posteriores e a lotes de arte: primeiro um exemplar técnico, depois revisão e só então expansão.
 - Manter o protótipo e o registro de feedback no repositório; correções de UX devem atualizar a versão do protótipo antes de alterar a implementação. Sem validação, não iniciar o código dependente.
 - O protótipo não é especificação final, gameplay, arte de produção nem evidência de funcionamento no Android. A validação Godot/aparelho continua obrigatória por fase.
-- O protótipo navegável `docs/prototypes/mvp_ui_v0_1.html` cobre os fluxos de interface do GDD e está **aguardando avaliação**. Não existe aprovação presumida.
+- O protótipo navegável `docs/prototypes/mvp_ui_v0_2.html` é a versão atual para revisão; v0.1 permanece arquivada. Ambas aguardam avaliação, sem aprovação presumida.
+- Descrições atuais para Melissa e Helena omitem idade: Melissa é meiga, doce, esperta e observadora, mantém calma e clareza; Helena é carismática e inteligente, tem pavio curto e reage com intensidade. Inventário RPG com slots de equipamento está sendo proposto no protótipo v0.2; o conjunto de slots e novos itens aguardam validação antes de entrar no catálogo de produção.
 
 ## Incremento de arte — teste Melissa Warrior
 

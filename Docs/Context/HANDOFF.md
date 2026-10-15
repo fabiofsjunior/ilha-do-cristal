@@ -6,11 +6,11 @@
 
 ## Próxima ação
 
-Apresentar `docs/prototypes/mvp_ui_v0_1.html` ao usuário e coletar validação/correções de fluxo, hierarquia, controles e telas. Registrar as respostas em `Docs/Context/PROTOTYPE_LOG.md`, atualizar a versão do protótipo se necessário e **não implementar as telas de produção antes dessa validação**.
+Apresentar `docs/prototypes/mvp_ui_v0_2.html` ao usuário e coletar validação do fluxo, controles, descrições das personagens e slots do inventário. Registrar respostas em `Docs/Context/PROTOTYPE_LOG.md` e **não implementar as telas de produção antes dessa validação**.
 
 ## Estado do protótipo de interface
 
-`Docs/Main/PROTOTYPING_METHODOLOGY.md` define o gate pré-implementação em cada fase S0–S6; `AGENTS.md` torna esse fluxo obrigatório. O HTML v0.1 cobre abertura, conta/visitante, personagens/vocações, LAN, HUD, mochila/craft, talentos, acampamento, pausa/salvamento, aliado caído, resultado, erro recuperável, configurações e divergência de sincronização. Interações e valores são ilustrativos; todas as telas aguardam validação. Nenhum gameplay foi implementado.
+`Docs/Main/PROTOTYPING_METHODOLOGY.md` define o gate pré-implementação em cada fase S0–S6; `AGENTS.md` torna esse fluxo obrigatório. O HTML v0.2 cobre abertura, conta/visitante, personagens/vocações, LAN, HUD, equipamento/mochila/craft, talentos, acampamento, pausa/salvamento, aliado caído, resultado, erro recuperável, configurações e divergência de sincronização. Interações e valores são ilustrativos; todas as telas aguardam validação. Nenhum gameplay foi implementado.
 
 ## Teste de sprites em andamento
 
