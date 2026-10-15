@@ -133,6 +133,8 @@ def main() -> None:
             fail(f"{state} animation frame contract mismatch")
         if metadata["status"] != "corrigir" or metadata["approved"] is not False:
             fail(f"{state} must remain unapproved and marked corrigir")
+        if metadata["validation"].get("structure") != "validado":
+            fail(f"{state} structural validation status is not recorded")
         if metadata["validation"].get("godot") != "pendente" or metadata["validation"].get("android") != "pendente":
             fail(f"{state} overclaims engine/device validation")
 

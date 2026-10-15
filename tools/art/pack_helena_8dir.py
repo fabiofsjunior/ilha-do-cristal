@@ -311,7 +311,7 @@ def main() -> None:
             },
             "source_directions": source_records,
             "alpha_policy": "Alpha original preservado; redução somente por nearest, sem binarização, remoção de halo, flood fill ou retoque.",
-            "validation": {"structure": "pendente", "visual_art": "corrigir", "godot": "pendente", "android": "pendente"},
+            "validation": {"structure": "validado", "visual_art": "corrigir", "godot": "pendente", "android": "pendente"},
             "notes": [
                 "Inclui as oito direções na ordem contratual: N, NE, E, SE, S, SW, W, NW.",
                 "N/S foram copiados pixel a pixel dos atlas Helena v1; fontes e candidatos v1 permanecem intactos.",
