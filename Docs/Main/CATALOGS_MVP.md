@@ -113,7 +113,7 @@ Subida I→II: 30 madeira, 20 pedra, 10 fibra. II→III: 60 madeira, 40 pedra, 2
 
 O plano completo segue em 100 nós por vocação: 60 pequenos, 25 grandes e 15 especiais. A lista de produção inicial permanece em 18 candidatos por vocação, com nós conectados a partir da origem e escolhas exclusivas. Pequeno custa 1 ponto, grande 2 e especial 5. A lista é formada por 6 pequenos de combate, 3 de sobrevivência, 3 de exploração, 3 grandes e 3 especiais mutuamente exclusivos. Nomes e efeitos exatos por vocação precisam de aprovação antes de codificar em S3; **não declarar 300 nós implementados**. Até o nível 10 há 30 pontos, enquanto estes candidatos somam 33 se ignoradas as exclusões.
 
-### Árvore passiva candidata v0.5 — aguardando validação
+### Árvore passiva candidata v0.5 — arquivada para comparação
 
 O protótipo testa uma malha compartilhada e conectada entre as três vocações. Ela contém 25 passivas pequenas em círculos, 6 passivas grandes em quadrados, 3 origens especiais em losangos com figuras de atores e 61 ligações bidirecionais. O texto “Actor” aparece abaixo de cada origem; ao selecionar qualquer nó, o painel lateral mostra nome, efeito, custo e estado. As origens não custam pontos. Os nós passivos custam 1 ou 2 pontos; os 31 passivos somam 37 pontos, acima dos 30 disponíveis até o nível 10. No protótipo, cada vocação começa com 3 pontos e só pode comprar um nó ligado a outro já desbloqueado; progresso é temporário e não é salvo.
 
@@ -166,6 +166,12 @@ Esta alternativa visual **não substitui** o plano de produção por vocação n
 | `l06` | Grande · quadrado | Explorador Experiente | +12% de rendimento nas coletas. | 2 pontos |
 
 O catálogo JSON preserva o plano vigente e contém os dados gráficos completos da alternativa em `prototype_graph_candidate`.
+### Referência visual escolhida — protótipo v0.6
+
+Arquivo validado: [imagem endgame](../../docs/prototypes/assets/passive_skill_tree_endgame_reference.png), PNG RGBA 1672×941. Esta é a referência visual escolhida pelo usuário e aparece diretamente no protótipo navegável v0.6. A imagem é conceitual; não exporta uma topologia exata de nós e elos.
+
+Regra de progressão para a prévia: o nó inicial da vocação fica desbloqueado por padrão; os demais nós são liberados automaticamente conforme o nível do personagem. O protótipo demonstra níveis 1–10 e associa as cinco gerações aos níveis 2, 4, 6, 8 e 10. Essa associação é apenas ilustrativa e ainda precisa de validação antes de orientar implementação. O plano de conteúdo de 100 nós por vocação continua vigente.
+
 ## 10. Regiões e geração
 
 | ID | Distância relativa | Garantias |

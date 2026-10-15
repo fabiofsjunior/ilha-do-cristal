@@ -42,3 +42,11 @@ Validar antes de consolidar integração: fluxo Firebase Auth offline/online em 
 - O usuário orientou uma rede inspirada em árvore passiva, com três atores e conexões direcionais/bidirecionais; para os seis nós retangulares, pediu quadrados ou círculos maiores. A v0.5 representa 25 passivas pequenas como círculos, 6 grandes como quadrados e as três origens de vocação como losangos com atores e rótulo “Actor”.
 - A rede tem 61 ligações bidirecionais; cada origem alcança os 34 nós. Nós exibem somente o símbolo no grafo; nome, efeito, tipo e custo aparecem no painel após seleção. O protótipo simula desbloqueios adjacentes, sem salvamento.
 - Essa composição, nomes, efeitos e custos são **candidatos aguardando validação**. O plano canônico permanece 100 nós por vocação e a lista de produção permanece sem IDs aprovadas até o usuário revisar a v0.5.
+
+
+## Referência visual da árvore — protótipo v0.6
+
+- O usuário escolheu a imagem endgame anexada como referência visual oficial do protótipo: `docs/prototypes/assets/passive_skill_tree_endgame_reference.png`.
+- A árvore é exibida diretamente no protótipo v0.6; nós são inspecionáveis pelo seletor lateral. A origem da vocação inicia desbloqueada; demais nós são desbloqueados automaticamente por nível na simulação.
+- Os marcos 2/4/6/8/10 para cinco gerações são provisórios para demonstração. A imagem conceitual não deve ser tomada como exportação exata da topologia, nem aprova a tela para produção.
+- O candidato de 34 nós da v0.5 permanece arquivado para comparação. O plano de conteúdo de 100 nós por vocação não foi alterado.

@@ -80,3 +80,8 @@ Criado protótipo navegável de interface com telas do GDD em `docs/prototypes/m
 - Registradas no catálogo as 34 entradas candidatas e um roadmap visual de quatro etapas. Os 31 nós passivos custam 37 pontos no total; o nível 10 dispõe de 30. Os valores não substituem o plano vigente (100 por vocação/18 candidatos iniciais) até revisão explícita.
 - Verificações estáticas no protótipo: sintaxe JavaScript, contagens (25/6/3), 61 conexões bidirecionais, sem IDs duplicadas ou pontas soltas, e conectividade completa desde as três origens. Catálogo JSON validado por parse; não houve execução em navegador, Godot ou Android neste ambiente.
 - Próximo gate: revisão do usuário da árvore v0.5 e dos nomes/efeitos/custos candidatos. Nenhuma UI de produção foi implementada.
+
+
+## 2026-10-15 — árvore conceitual v0.6
+
+O usuário selecionou a imagem endgame anexada para orientar a estrutura do protótipo. O PNG foi validado (1672×941, RGBA) e salvo em `docs/prototypes/assets/passive_skill_tree_endgame_reference.png`. A v0.6 mostra essa imagem, lista nós para inspeção, alterna Warrior/Archer/Mage e simula níveis 1–10. Origem inicia desbloqueada; outros nós são liberados automaticamente por nível. A sequência de geração em 2/4/6/8/10 é ilustrativa e aguarda validação. A imagem conceitual não contém dados exatos de topologia; v0.5 foi preservada.

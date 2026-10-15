@@ -35,3 +35,6 @@ O protótipo navegável v0.5 também explora uma malha compartilhada com 25 nós
 ## Tabelas de dados a criar no S0/S2
 
 `characters.json`: aparência_id, vocacao_id, HP/MP base, multiplicadores; `weapons.json`: ID, família, dano, alcance, cadência, receita; `skills.json`: ID, alvo, alcance/área, AF/AM, duração, CD, MP, estados; `monsters.json`: ID, HP, IA, ataques, XP, tabela de drops; `resources.json`: ID, rendimento, respawn, XP; `recipes.json`: entrada/saída, estação; `talents.json`: ID, custo, conexão, limite/exclusividade. Versionar schema e validar referências cruzadas em CI.
+
+
+A referência visual da árvore endgame escolhida pelo usuário está em `docs/prototypes/assets/passive_skill_tree_endgame_reference.png` e é exibida no protótipo v0.6. A prévia inicia a origem da vocação desbloqueada e libera automaticamente os demais nós por nível. Os marcos de geração 2/4/6/8/10 são ilustrativos, aguardando validação; a imagem não é uma exportação de dados de nós.
