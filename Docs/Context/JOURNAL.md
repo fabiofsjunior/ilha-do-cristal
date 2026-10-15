@@ -53,3 +53,12 @@ Criado protótipo navegável de interface com telas do GDD em `docs/prototypes/m
 - Criada cena isolada `tools/art/sprite_test/maira_stage1_test.tscn` com seleção de direção, animação, zoom, fundo e SQM. Revisão estática Luna max não encontrou bloqueio provável de GDScript; não houve execução porque Godot não está disponível neste ambiente.
 - `python tools/validate_catalogs.py`, compilação Python, `node --check` do JS v0.3 e `git diff --check` passaram. O validador de atlas não acusa erros para Maíra; execução global ainda retorna os seis erros pré-existentes de alpha intermediário nos atlas Melissa V1–V3. Android não testado.
 - Próximo passo: revisão do usuário da prancha técnica; depois corrigir o que for necessário e validar a cena no Godot antes de ampliar direções/vocações. Nenhum lote de produção adicional foi gerado.
+
+## 2026-10-15 — teste técnico Fábio Warrior etapa 1
+
+- Branch `feature/fabio-warrior-stage1`, baseada em `feature/maira-warrior-stage1`. O concept gerado aprovado de Fábio foi copiado integralmente para `assets/references/generated-candidates/fabio_vocations_concept.png`; não foi fatiado. Também foi arquivada a folha gerada para o teste como fonte bruta/candidata, não como arte aprovada.
+- Não foi localizada decisão de inclusão de Fábio no elenco jogável do MVP; GDD/catálogo permanecem sem mudanças e a inclusão fica pendente. A descrição aprovada foi registrada junto ao concept.
+- Gerados e empacotados somente Warrior N/S, `idle` 4 e `walk` 6, célula candidata 96×96, pivô candidato (48,80), redução uniforme nearest de células-fonte 256×256 para 72×72 e alpha preservado. Atlases, JSONs, empacotador e folha xadrez em `assets/characters/fabio/warrior/`, `tools/art/pack_fabio_stage1.py` e `docs/art/evidence/fabio/`.
+- Medição objetiva da fonte RGBA 1536×1024: alpha 0–254, 255 valores únicos, 991.461 pixels transparentes, 581.403 pixels com alpha intermediário e zero pixels alpha 255. O alpha suavizado permaneceu intacto; a revisão estática mantém estado **corrigir** por acabamento/alpha intermediário, variação N/S de escala/alinhamento, idle sutil e continuidade/pés sem validação de engine.
+- Pixel Engine não pôde gerar neste workspace (4 créditos disponíveis; mínimo de geração 6). Não há Pixelorama/Godot executável nesta sessão. O fallback image_gen produziu a grade bruta; não houve validação Godot, zoom/SQM em engine ou Android.
+- Validações locais e resultado detalhado registrados em `docs/art/evidence/fabio/fabio_warrior_stage1_review.md`. Não foram gerados Archer/Mage, direções adicionais ou efeitos.

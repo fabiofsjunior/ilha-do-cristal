@@ -62,3 +62,19 @@ Maíra Warrior geradas pelo Pixel Engine estão em `maira_warrior/`. O primeiro
 teste inclui apenas norte/sul, `idle` e `walk` e permanece em **corrigir**;
 relatório e prancha: `docs/art/evidence/maira/maira_warrior_stage1_review.md`
 e `maira_warrior_stage1_contact.png`. Não incluir fotos de referência.
+
+## Fábio — conceito e teste Warrior isolado
+
+`fabio_vocations_concept.png` é a imagem gerada aprovada como **conceito** das
+três vocações; não é sprite nem atlas e não foi fatiada. Descrição aprovada para
+o concept: “Fábio é alto e forte, tem presença serena e olhar atento. Inteligente
+e reservado, prefere observar, analisar os riscos e planejar a estratégia antes
+de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes.”
+
+O elenco jogável do MVP documentado continua com Melissa, Helena e Maíra; não
+há decisão registrada para incluir Fábio. Sua entrada no elenco fica pendente.
+O teste Warrior isolado é somente etapa 1 (N/S, `idle` 4 e `walk` 6) e permanece
+em **corrigir**. A fonte integral gerada, sem edição de alpha, é
+`fabio_warrior_stage1_source_v1.png`; atlases/metadados estão em
+`assets/characters/fabio/warrior/` e a prancha/revisão em
+`docs/art/evidence/fabio/`. Não incluir fotos reais.

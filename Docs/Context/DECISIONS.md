@@ -28,3 +28,9 @@ Validar antes de consolidar integração: fluxo Firebase Auth offline/online em 
 - Atendendo ao lote de sprites solicitado, criar primeiro ferramenta técnica de QA na raiz (`project.godot`) com cena em `tools/art/sprite_test/`. Desvio deliberado da futura pasta `game/`: a raiz permite referenciar/exportar `assets/` sem duplicar imagens nem usar caminhos absolutos externos ao projeto. Não move nem implementa o jogo planejado.
 - Fixar **Godot 4.5.1 stable** para reproduzir este teste; atualização futura exige repetir importação. Não afirmar que esta é a versão estável mais recente.
 - Etapa 1 usa só duas linhas N/S e metadados explícitos; a expansão futura exige oito linhas na ordem contratual. 96×96 e pivô48,80 continuam candidatos até aprovação visual/Android. Sem aprovação, nenhuma variante, monstro ou VFX é produzido.
+
+## Concept de personagem — Fábio (pendente de elenco)
+
+- O conceito gerado de Fábio nas três vocações foi aprovado como referência visual, não como sprite/atlas. Descrição aprovada para o concept: “Fábio é alto e forte, tem presença serena e olhar atento. Inteligente e reservado, prefere observar, analisar os riscos e planejar a estratégia antes de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes.”
+- GDD e catálogo do MVP registram Melissa, Helena e Maíra; não foi encontrada decisão clara de incluir Fábio como personagem jogável. Mantê-lo como concept e inclusão pendente, sem alterar o elenco documentado.
+- O teste técnico Fábio Warrior etapa 1 contém apenas N/S, `idle` 4 e `walk` 6; continua em **corrigir** e não aprova a arte nem libera expansão.

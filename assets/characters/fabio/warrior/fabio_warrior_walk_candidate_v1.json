@@ -1,0 +1,683 @@
+{
+  "id": "fabio_warrior_walk_candidate_v1",
+  "atlas": "fabio_warrior_walk_candidate_v1.png",
+  "status": "corrigir",
+  "approved": false,
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "N",
+    "S"
+  ],
+  "frames": 6,
+  "fps": 10,
+  "loop": true,
+  "animation": "walk",
+  "animations": {
+    "walk": {
+      "frames": 6,
+      "fps": 10,
+      "loop": true
+    }
+  },
+  "source_tool": "OpenAI image_gen built-in (Pixel Engine generation unavailable: 4 credits; minimum generation cost 6)",
+  "source_reference": "assets/references/generated-candidates/fabio_vocations_concept.png",
+  "style_references": [
+    "assets/references/concept-rpg-classico.png",
+    "docs/art/evidence/godot_v2/all_20_frames_3x.png",
+    "docs/art/evidence/maira/maira_warrior_stage1_contact.png"
+  ],
+  "source_sheet": "assets/references/generated-candidates/fabio_warrior_stage1_source_v1.png",
+  "source_sheet_dimensions": [
+    1536,
+    1024
+  ],
+  "source_sheet_sha256": "3e167ab828cd9e0ad4063a88e230ef157bff5e86f10b84f013a48fa1ce8160a8",
+  "source_alpha_summary": {
+    "unique_values": 255,
+    "min": 0,
+    "max": 254,
+    "transparent_pixels": 991461,
+    "intermediate_alpha_pixels": 581403,
+    "opaque_255_pixels": 0
+  },
+  "source_grid": {
+    "columns": 6,
+    "rows": 4,
+    "cell": [
+      256,
+      256
+    ],
+    "regions_fixed": true
+  },
+  "source_directions": {
+    "N": {
+      "source_row": 2,
+      "frames": [
+        {
+          "frame": 0,
+          "source_region": [
+            0,
+            512,
+            256,
+            768
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            8,
+            13
+          ],
+          "output_cell": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 146,
+            "alpha_min": 0,
+            "alpha_max": 253,
+            "transparent_pixels": 6930,
+            "intermediate_alpha_pixels": 2286,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              17,
+              13,
+              80,
+              85
+            ],
+            "bbox_alpha_gte_128": [
+              21,
+              19,
+              74,
+              80
+            ],
+            "bbox_alpha_gte_240": [
+              21,
+              19,
+              74,
+              80
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "source_region": [
+            256,
+            512,
+            512,
+            768
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            8,
+            13
+          ],
+          "output_cell": [
+            96,
+            0,
+            192,
+            96
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 144,
+            "alpha_min": 0,
+            "alpha_max": 254,
+            "transparent_pixels": 6869,
+            "intermediate_alpha_pixels": 2347,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              8,
+              13,
+              76,
+              85
+            ],
+            "bbox_alpha_gte_128": [
+              22,
+              19,
+              73,
+              80
+            ],
+            "bbox_alpha_gte_240": [
+              22,
+              19,
+              73,
+              80
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "source_region": [
+            512,
+            512,
+            768,
+            768
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            8,
+            13
+          ],
+          "output_cell": [
+            192,
+            0,
+            288,
+            96
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 129,
+            "alpha_min": 0,
+            "alpha_max": 253,
+            "transparent_pixels": 6873,
+            "intermediate_alpha_pixels": 2343,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              8,
+              15,
+              77,
+              85
+            ],
+            "bbox_alpha_gte_128": [
+              22,
+              19,
+              72,
+              80
+            ],
+            "bbox_alpha_gte_240": [
+              23,
+              19,
+              72,
+              80
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "source_region": [
+            768,
+            512,
+            1024,
+            768
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            8,
+            13
+          ],
+          "output_cell": [
+            288,
+            0,
+            384,
+            96
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 150,
+            "alpha_min": 0,
+            "alpha_max": 253,
+            "transparent_pixels": 6885,
+            "intermediate_alpha_pixels": 2331,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              8,
+              17,
+              78,
+              85
+            ],
+            "bbox_alpha_gte_128": [
+              23,
+              19,
+              73,
+              80
+            ],
+            "bbox_alpha_gte_240": [
+              24,
+              19,
+              73,
+              80
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "source_region": [
+            1024,
+            512,
+            1280,
+            768
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            8,
+            13
+          ],
+          "output_cell": [
+            384,
+            0,
+            480,
+            96
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 148,
+            "alpha_min": 0,
+            "alpha_max": 253,
+            "transparent_pixels": 6864,
+            "intermediate_alpha_pixels": 2352,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              8,
+              13,
+              80,
+              85
+            ],
+            "bbox_alpha_gte_128": [
+              22,
+              19,
+              72,
+              80
+            ],
+            "bbox_alpha_gte_240": [
+              22,
+              19,
+              72,
+              80
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "source_region": [
+            1280,
+            512,
+            1536,
+            768
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            8,
+            13
+          ],
+          "output_cell": [
+            480,
+            0,
+            576,
+            96
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 139,
+            "alpha_min": 0,
+            "alpha_max": 253,
+            "transparent_pixels": 6931,
+            "intermediate_alpha_pixels": 2285,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              8,
+              13,
+              73,
+              85
+            ],
+            "bbox_alpha_gte_128": [
+              22,
+              19,
+              71,
+              80
+            ],
+            "bbox_alpha_gte_240": [
+              23,
+              19,
+              71,
+              80
+            ]
+          }
+        }
+      ]
+    },
+    "S": {
+      "source_row": 3,
+      "frames": [
+        {
+          "frame": 0,
+          "source_region": [
+            0,
+            768,
+            256,
+            1024
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            13,
+            15
+          ],
+          "output_cell": [
+            0,
+            96,
+            96,
+            192
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 129,
+            "alpha_min": 0,
+            "alpha_max": 253,
+            "transparent_pixels": 6941,
+            "intermediate_alpha_pixels": 2275,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              22,
+              15,
+              85,
+              81
+            ],
+            "bbox_alpha_gte_128": [
+              25,
+              15,
+              73,
+              79
+            ],
+            "bbox_alpha_gte_240": [
+              25,
+              15,
+              73,
+              79
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "source_region": [
+            256,
+            768,
+            512,
+            1024
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            13,
+            15
+          ],
+          "output_cell": [
+            96,
+            96,
+            192,
+            192
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 132,
+            "alpha_min": 0,
+            "alpha_max": 254,
+            "transparent_pixels": 6915,
+            "intermediate_alpha_pixels": 2301,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              13,
+              15,
+              84,
+              81
+            ],
+            "bbox_alpha_gte_128": [
+              24,
+              15,
+              73,
+              79
+            ],
+            "bbox_alpha_gte_240": [
+              24,
+              15,
+              73,
+              79
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "source_region": [
+            512,
+            768,
+            768,
+            1024
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            13,
+            15
+          ],
+          "output_cell": [
+            192,
+            96,
+            288,
+            192
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 136,
+            "alpha_min": 0,
+            "alpha_max": 254,
+            "transparent_pixels": 6909,
+            "intermediate_alpha_pixels": 2307,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              13,
+              15,
+              85,
+              81
+            ],
+            "bbox_alpha_gte_128": [
+              24,
+              15,
+              72,
+              79
+            ],
+            "bbox_alpha_gte_240": [
+              24,
+              15,
+              72,
+              79
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "source_region": [
+            768,
+            768,
+            1024,
+            1024
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            13,
+            15
+          ],
+          "output_cell": [
+            288,
+            96,
+            384,
+            192
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 134,
+            "alpha_min": 0,
+            "alpha_max": 254,
+            "transparent_pixels": 6925,
+            "intermediate_alpha_pixels": 2291,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              13,
+              15,
+              72,
+              82
+            ],
+            "bbox_alpha_gte_128": [
+              24,
+              15,
+              71,
+              79
+            ],
+            "bbox_alpha_gte_240": [
+              24,
+              15,
+              71,
+              79
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "source_region": [
+            1024,
+            768,
+            1280,
+            1024
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            13,
+            15
+          ],
+          "output_cell": [
+            384,
+            96,
+            480,
+            192
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 127,
+            "alpha_min": 0,
+            "alpha_max": 253,
+            "transparent_pixels": 6952,
+            "intermediate_alpha_pixels": 2264,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              13,
+              15,
+              83,
+              81
+            ],
+            "bbox_alpha_gte_128": [
+              23,
+              15,
+              71,
+              78
+            ],
+            "bbox_alpha_gte_240": [
+              23,
+              15,
+              71,
+              78
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "source_region": [
+            1280,
+            768,
+            1536,
+            1024
+          ],
+          "source_cell": [
+            256,
+            256
+          ],
+          "uniform_content_scale": "72/256 = 0.28125",
+          "fixed_offset_for_animation_direction": [
+            13,
+            15
+          ],
+          "output_cell": [
+            480,
+            96,
+            576,
+            192
+          ],
+          "diagnostics_after_uniform_nearest_scale": {
+            "alpha_unique_values": 129,
+            "alpha_min": 0,
+            "alpha_max": 253,
+            "transparent_pixels": 6950,
+            "intermediate_alpha_pixels": 2266,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gt_0": [
+              18,
+              15,
+              74,
+              83
+            ],
+            "bbox_alpha_gte_128": [
+              23,
+              15,
+              72,
+              79
+            ],
+            "bbox_alpha_gte_240": [
+              23,
+              15,
+              72,
+              79
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resampling": "nearest-neighbor, one uniform 256x256 to 72x72 reduction for every fixed square source cell, then placed in a 96x96 cell using one fixed offset per animation/direction; no content crop, per-frame scale/offset, redraw, or flip",
+  "alpha_policy": "source alpha preserved as sampled, including intermediate values; no matte removal, binarization, smoothing, or retouch",
+  "godot_validation": "pendente",
+  "android_validation": "pendente",
+  "notes": [
+    "Stage-1 prototype only: north/south, idle 4 and walk 6; no Archer, Mage, extra directions, effects, or production approval.",
+    "The approved Fábio three-vocation concept remains an intact reference and was not sliced to create these poses.",
+    "The candidate pivot (48,80) is not certified; the alpha silhouette ends at y=78-80 depending on direction/state, and alpha boxes do not identify foot contact.",
+    "Generated source alpha has intermediate values and soft edge pixels; this is preserved and requires art correction/review.",
+    "The fixed row offsets are candidate anchors; body scale, exact foot contact, idle/walk continuity, and N/S consistency still need Godot review.",
+    "Godot import/render, zoom 50–125%, SQM, idle/walk continuity, and Android validation remain pending."
+  ]
+}
