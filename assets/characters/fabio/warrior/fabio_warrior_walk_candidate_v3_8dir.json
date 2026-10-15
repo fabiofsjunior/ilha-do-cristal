@@ -1048,15 +1048,15 @@
             "bottom": 0
           },
           "output_alpha": {
-            "unique_values": 138,
+            "unique_values": 133,
             "min": 0,
             "max": 254,
-            "transparent_pixels": 6824,
-            "intermediate_pixels": 2392,
+            "transparent_pixels": 6889,
+            "intermediate_pixels": 2327,
             "opaque_255_pixels": 0
           },
           "output_bbox_alpha_gte_128": [
-            10,
+            24,
             11,
             82,
             72
@@ -1065,7 +1065,19 @@
             10,
             10
           ],
-          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold; reviewed exact rectangles only; no threshold, flood-fill, or binarization",
+          "manual_pixel_retouches": [
+            {
+              "operation": "clear exact RGBA rectangle to transparent",
+              "cell_rect_px_exclusive": [
+                10,
+                37,
+                16,
+                54
+              ],
+              "reason": "visually isolated red residue outside the character silhouette"
+            }
+          ]
         },
         {
           "frame": 2,
@@ -1100,15 +1112,15 @@
             "bottom": 0
           },
           "output_alpha": {
-            "unique_values": 140,
+            "unique_values": 137,
             "min": 0,
             "max": 254,
-            "transparent_pixels": 6999,
-            "intermediate_pixels": 2217,
+            "transparent_pixels": 7069,
+            "intermediate_pixels": 2147,
             "opaque_255_pixels": 0
           },
           "output_bbox_alpha_gte_128": [
-            10,
+            24,
             11,
             82,
             72
@@ -1117,7 +1129,19 @@
             10,
             10
           ],
-          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold; reviewed exact rectangles only; no threshold, flood-fill, or binarization",
+          "manual_pixel_retouches": [
+            {
+              "operation": "clear exact RGBA rectangle to transparent",
+              "cell_rect_px_exclusive": [
+                10,
+                37,
+                17,
+                58
+              ],
+              "reason": "visually isolated red residue outside the character silhouette"
+            }
+          ]
         },
         {
           "frame": 3,
@@ -1152,15 +1176,15 @@
             "bottom": 0
           },
           "output_alpha": {
-            "unique_values": 150,
+            "unique_values": 145,
             "min": 0,
             "max": 253,
-            "transparent_pixels": 6885,
-            "intermediate_pixels": 2331,
+            "transparent_pixels": 6954,
+            "intermediate_pixels": 2262,
             "opaque_255_pixels": 0
           },
           "output_bbox_alpha_gte_128": [
-            10,
+            23,
             11,
             82,
             72
@@ -1169,7 +1193,19 @@
             10,
             10
           ],
-          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold; reviewed exact rectangles only; no threshold, flood-fill, or binarization",
+          "manual_pixel_retouches": [
+            {
+              "operation": "clear exact RGBA rectangle to transparent",
+              "cell_rect_px_exclusive": [
+                10,
+                39,
+                18,
+                55
+              ],
+              "reason": "visually isolated red residue outside the character silhouette"
+            }
+          ]
         },
         {
           "frame": 4,
@@ -1204,15 +1240,15 @@
             "bottom": 0
           },
           "output_alpha": {
-            "unique_values": 152,
+            "unique_values": 149,
             "min": 0,
             "max": 254,
-            "transparent_pixels": 6888,
-            "intermediate_pixels": 2328,
+            "transparent_pixels": 6940,
+            "intermediate_pixels": 2276,
             "opaque_255_pixels": 0
           },
           "output_bbox_alpha_gte_128": [
-            10,
+            20,
             11,
             81,
             72
@@ -1221,7 +1257,19 @@
             10,
             10
           ],
-          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold; reviewed exact rectangles only; no threshold, flood-fill, or binarization",
+          "manual_pixel_retouches": [
+            {
+              "operation": "clear exact RGBA rectangle to transparent",
+              "cell_rect_px_exclusive": [
+                10,
+                36,
+                15,
+                50
+              ],
+              "reason": "visually isolated red residue outside the character silhouette"
+            }
+          ]
         },
         {
           "frame": 5,
@@ -1669,15 +1717,15 @@
             "bottom": 0
           },
           "output_alpha": {
-            "unique_values": 131,
+            "unique_values": 129,
             "min": 0,
             "max": 253,
-            "transparent_pixels": 7094,
-            "intermediate_pixels": 2122,
+            "transparent_pixels": 7107,
+            "intermediate_pixels": 2109,
             "opaque_255_pixels": 0
           },
           "output_bbox_alpha_gte_128": [
-            10,
+            23,
             19,
             77,
             79
@@ -1686,7 +1734,19 @@
             10,
             10
           ],
-          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold; reviewed exact rectangles only; no threshold, flood-fill, or binarization",
+          "manual_pixel_retouches": [
+            {
+              "operation": "clear exact RGBA rectangle to transparent",
+              "cell_rect_px_exclusive": [
+                10,
+                51,
+                14,
+                60
+              ],
+              "reason": "visually isolated red residue outside the character silhouette"
+            }
+          ]
         },
         {
           "frame": 3,
@@ -1825,15 +1885,15 @@
             "bottom": 0
           },
           "output_alpha": {
-            "unique_values": 128,
+            "unique_values": 125,
             "min": 0,
             "max": 253,
-            "transparent_pixels": 7093,
-            "intermediate_pixels": 2123,
+            "transparent_pixels": 7116,
+            "intermediate_pixels": 2100,
             "opaque_255_pixels": 0
           },
           "output_bbox_alpha_gte_128": [
-            10,
+            20,
             18,
             75,
             79
@@ -1842,7 +1902,19 @@
             10,
             10
           ],
-          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold; reviewed exact rectangles only; no threshold, flood-fill, or binarization",
+          "manual_pixel_retouches": [
+            {
+              "operation": "clear exact RGBA rectangle to transparent",
+              "cell_rect_px_exclusive": [
+                10,
+                50,
+                14,
+                59
+              ],
+              "reason": "visually isolated red residue outside the character silhouette"
+            }
+          ]
         }
       ]
     },
@@ -2521,6 +2593,92 @@
       ]
     }
   },
+  "manual_pixel_retouches": [
+    {
+      "direction": "SE",
+      "frame_index_zero_based": 1,
+      "cell_rectangles_px_exclusive": [
+        [
+          10,
+          37,
+          16,
+          54
+        ]
+      ],
+      "operation": "manually reviewed rectangle erasure to RGBA (0,0,0,0) on the packaged atlas",
+      "reason": "disconnected red residue visible outside the figure in the candidate source cell"
+    },
+    {
+      "direction": "SE",
+      "frame_index_zero_based": 2,
+      "cell_rectangles_px_exclusive": [
+        [
+          10,
+          37,
+          17,
+          58
+        ]
+      ],
+      "operation": "manually reviewed rectangle erasure to RGBA (0,0,0,0) on the packaged atlas",
+      "reason": "disconnected red residue visible outside the figure in the candidate source cell"
+    },
+    {
+      "direction": "SE",
+      "frame_index_zero_based": 3,
+      "cell_rectangles_px_exclusive": [
+        [
+          10,
+          39,
+          18,
+          55
+        ]
+      ],
+      "operation": "manually reviewed rectangle erasure to RGBA (0,0,0,0) on the packaged atlas",
+      "reason": "disconnected red residue visible outside the figure in the candidate source cell"
+    },
+    {
+      "direction": "SE",
+      "frame_index_zero_based": 4,
+      "cell_rectangles_px_exclusive": [
+        [
+          10,
+          36,
+          15,
+          50
+        ]
+      ],
+      "operation": "manually reviewed rectangle erasure to RGBA (0,0,0,0) on the packaged atlas",
+      "reason": "disconnected red residue visible outside the figure in the candidate source cell"
+    },
+    {
+      "direction": "SW",
+      "frame_index_zero_based": 2,
+      "cell_rectangles_px_exclusive": [
+        [
+          10,
+          51,
+          14,
+          60
+        ]
+      ],
+      "operation": "manually reviewed rectangle erasure to RGBA (0,0,0,0) on the packaged atlas",
+      "reason": "disconnected red residue visible outside the figure in the candidate source cell"
+    },
+    {
+      "direction": "SW",
+      "frame_index_zero_based": 5,
+      "cell_rectangles_px_exclusive": [
+        [
+          10,
+          50,
+          14,
+          59
+        ]
+      ],
+      "operation": "manually reviewed rectangle erasure to RGBA (0,0,0,0) on the packaged atlas",
+      "reason": "disconnected red residue visible outside the figure in the candidate source cell"
+    }
+  ],
   "art_review": {
     "overall": "corrigir",
     "reasons": [
@@ -2653,7 +2811,7 @@
       }
     }
   },
-  "source_alpha_policy": "Alpha preserved by nearest sampling; no binarization, thresholding, matte removal, or procedural masking. The selected source sheets still contain intermediate alpha and background contamination.",
+  "source_alpha_policy": "Source alpha is preserved by nearest sampling. Only the exact manual eraser rectangles listed in manual_pixel_retouches were cleared on the packaged candidate; no batch binarization, thresholding, flood-fill, matte removal, or procedural masking. Intermediate alpha and other background contamination remain.",
   "godot_validation": "pendente",
   "android_validation": "pendente",
   "diagnostic_rows": [
@@ -3020,15 +3178,15 @@
         {
           "frame": 1,
           "alpha": {
-            "unique_values": 138,
+            "unique_values": 133,
             "min": 0,
             "max": 254,
-            "transparent_pixels": 6824,
-            "intermediate_pixels": 2392,
+            "transparent_pixels": 6889,
+            "intermediate_pixels": 2327,
             "opaque_255_pixels": 0
           },
           "bbox_alpha_gte_128": [
-            10,
+            24,
             11,
             82,
             72
@@ -3038,15 +3196,15 @@
         {
           "frame": 2,
           "alpha": {
-            "unique_values": 140,
+            "unique_values": 137,
             "min": 0,
             "max": 254,
-            "transparent_pixels": 6999,
-            "intermediate_pixels": 2217,
+            "transparent_pixels": 7069,
+            "intermediate_pixels": 2147,
             "opaque_255_pixels": 0
           },
           "bbox_alpha_gte_128": [
-            10,
+            24,
             11,
             82,
             72
@@ -3056,15 +3214,15 @@
         {
           "frame": 3,
           "alpha": {
-            "unique_values": 150,
+            "unique_values": 145,
             "min": 0,
             "max": 253,
-            "transparent_pixels": 6885,
-            "intermediate_pixels": 2331,
+            "transparent_pixels": 6954,
+            "intermediate_pixels": 2262,
             "opaque_255_pixels": 0
           },
           "bbox_alpha_gte_128": [
-            10,
+            23,
             11,
             82,
             72
@@ -3074,15 +3232,15 @@
         {
           "frame": 4,
           "alpha": {
-            "unique_values": 152,
+            "unique_values": 149,
             "min": 0,
             "max": 254,
-            "transparent_pixels": 6888,
-            "intermediate_pixels": 2328,
+            "transparent_pixels": 6940,
+            "intermediate_pixels": 2276,
             "opaque_255_pixels": 0
           },
           "bbox_alpha_gte_128": [
-            10,
+            20,
             11,
             81,
             72
@@ -3264,15 +3422,15 @@
         {
           "frame": 2,
           "alpha": {
-            "unique_values": 131,
+            "unique_values": 129,
             "min": 0,
             "max": 253,
-            "transparent_pixels": 7094,
-            "intermediate_pixels": 2122,
+            "transparent_pixels": 7107,
+            "intermediate_pixels": 2109,
             "opaque_255_pixels": 0
           },
           "bbox_alpha_gte_128": [
-            10,
+            23,
             19,
             77,
             79
@@ -3318,15 +3476,15 @@
         {
           "frame": 5,
           "alpha": {
-            "unique_values": 128,
+            "unique_values": 125,
             "min": 0,
             "max": 253,
-            "transparent_pixels": 7093,
-            "intermediate_pixels": 2123,
+            "transparent_pixels": 7116,
+            "intermediate_pixels": 2100,
             "opaque_255_pixels": 0
           },
           "bbox_alpha_gte_128": [
-            10,
+            20,
             18,
             75,
             79
