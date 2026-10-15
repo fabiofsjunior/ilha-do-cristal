@@ -61,6 +61,10 @@ A v0.7 preserva a árvore visual da v0.6 e acrescenta o inventário em três col
 
 **Estado:** aprovado como protótipo de interface em 2026-10-15, após validação explícita do usuário (“Protótipos validado.”). A aprovação limita-se à composição e às interações simuladas da v0.7; não aprova arte, implementação Godot, gameplay, Android nem a imagem da árvore como topologia exata.
 
+### Implementação técnica da primeira fatia — comparação pendente
+
+A fatia desktop está em `game/scenes/main.tscn`, com fluxo de início → seleção Warrior → sessão local → mapa e pausa. Em Godot 4.5.1 Linux headless, importação e smoke test de fluxo, atlas, mapa e movimento passaram; consulte [`PLAYABLE_SLICE.md`](../../docs/gameplay/PLAYABLE_SLICE.md) e `tools/gameplay/smoke_playable_slice.gd`. Essa verificação não renderiza uma captura de tela comparável: a revisão visual da cena contra a v0.7 em tamanho nativo/nearest e a validação Android permanecem pendentes. A implementação não está aprovada como UI final.
+
 ## Telas do MVP — v0.6 (arquivada para comparação)
 
 **Artefato:** [`docs/prototypes/mvp_ui_v0_6.html`](../../docs/prototypes/mvp_ui_v0_6.html)

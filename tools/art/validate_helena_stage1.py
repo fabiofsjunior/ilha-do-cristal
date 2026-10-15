@@ -102,7 +102,7 @@ def main() -> None:
     print("PASS output: all frames have visible pixels, fixed regions, and alpha>=128 clear of cell edges")
     for warning in warnings:
         print(f"WARN {warning}; candidate remains CORRIGIR")
-    print("PENDING: visual approval, Godot import/render, zoom/SQM review, and Android")
+    print("PENDING: visual approval/render, zoom/SQM review, and Android")
 
 
 if __name__ == "__main__":

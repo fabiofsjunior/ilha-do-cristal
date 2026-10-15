@@ -1,6 +1,6 @@
 # Demo jogável — primeira fatia
 
-**Estado:** cenas e scripts de gameplay implementados na branch `feature/s01-gameplay-slice`. Este ambiente não tem Godot nem Android SDK, então a importação e a execução no motor continuam pendentes. Não é aceite de S0/S1 nem validação visual.
+**Estado:** cenas e scripts de gameplay integrados em `feature/fabio-warrior-stage1`. Godot 4.5.1 Linux headless importou o projeto sem warnings/erros e passou o smoke test automatizado de fluxo, atlas, mapa, movimento, colisão e pausa. Isso não é revisão visual nem aceite de S0/S1; Android continua pendente.
 
 ## Fluxo
 
@@ -49,4 +49,17 @@ python3 tools/art/validate_mvp_terrain_tileset.py
 python3 tools/validate_catalogs.py
 ```
 
-Ainda são gates de S0/S1: importar todas as cenas e recursos no Godot sem erros; comparar o mapa/controles com a v0.7; testar Android por 10 minutos em paisagem, em dois tamanhos de tela e zoom de 50–125%; confirmar leitura, toque, colisão, desempenho e estabilidade. Este runner não contém `godot`, `godot4` nem `adb`, portanto nada disso foi executado aqui.
+Ainda são gates de S0/S1: comparar visualmente o mapa/controles com a v0.7; revisar a leitura em escala nativa e nearest; testar Android por 10 minutos em paisagem, em dois tamanhos de tela e zoom de 50–125%; confirmar leitura, toque, colisão, desempenho e estabilidade. O runner não oferece servidor gráfico para inspeção visual nem aparelho/SDK Android.
+
+### Verificação Godot 4.5.1 em Linux headless
+
+O binário oficial `Godot_v4.5.1-stable_linux.x86_64` foi obtido para esta sessão e fica localmente ignorado pelo Git na raiz. Comandos executados:
+
+```sh
+./Godot_v4.5.1-stable_linux.x86_64 --headless --editor --path . --import --quit
+./Godot_v4.5.1-stable_linux.x86_64 --headless --path . --quit-after 300
+./Godot_v4.5.1-stable_linux.x86_64 --headless --path . --script res://tools/gameplay/smoke_playable_slice.gd
+./Godot_v4.5.1-stable_linux.x86_64 --headless --path . --script res://tools/art/sprite_test/check_scene.gd
+```
+
+Importação, execução da cena principal, smoke test e QA técnico de atlas passaram. O smoke test confirma início → seleção → sessão → ilha, carregamento das quatro aparências Warrior, 2.816 células de base, caminho, movimento pelo joystick, bloqueio da água e pausa/retorno. O teste de atlas percorre 240 frames/seleções e 48 estados de controles. `assets/references/generated-candidates/maira_warrior/` contém 12 fontes PNG truncadas já versionadas; não são usadas pelo jogo e a pasta tem `.gdignore` para evitar que o importador as trate como recursos de runtime. As fontes continuam sem recuperação e o estado artístico permanece **CORRIGIR**. Sem servidor gráfico neste runner, não houve revisão visual em tela nativa/nearest; Android, preset/exportação e aparelho também seguem pendentes.

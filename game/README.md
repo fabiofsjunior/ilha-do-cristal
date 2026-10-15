@@ -4,4 +4,4 @@ O projeto Godot 4.5.1 fica na raiz do repositório. `project.godot` inicia `game
 
 O fluxo e as limitações estão em [`docs/gameplay/PLAYABLE_SLICE.md`](../docs/gameplay/PLAYABLE_SLICE.md). Os atlas de personagem e o terreno continuam candidatos (`CORRIGIR`/`CANDIDATO`). A demo não implementa conta, LAN, save, combate ou progressão.
 
-A importação e a execução no Godot e Android ainda não foram validadas neste ambiente. Esta entrega não conclui S0 ou S1.
+Godot 4.5.1 Linux headless importou o projeto sem warnings/erros e executou a cena principal. `tools/gameplay/smoke_playable_slice.gd` valida o fluxo de cenas, os atlas dos quatro personagens, o mapa inicial, movimento, colisão com água e pausa. A execução headless confirma estrutura e comportamento, não revisão visual. A pasta `assets/references/generated-candidates/maira_warrior/` está excluída do import Godot por conter 12 PNGs fonte truncados; isso não corrige nem aprova as sprites. Editor visual, preset/APK e aparelho Android seguem pendentes. Esta entrega não conclui S0 ou S1.

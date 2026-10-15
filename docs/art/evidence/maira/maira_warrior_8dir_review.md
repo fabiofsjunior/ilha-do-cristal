@@ -59,6 +59,12 @@ As medidas de bbox usam pixels com alpha ≥128 e são `largura × altura` em pi
 
 O conceito confirma identidade geral — cabelo castanho longo, roupa dourada/creme, acessórios e espada —, mas não valida os novos ângulos nem animações. O candidato permanece **CORRIGIR**.
 
+## Importação Godot — 2026-10-15
+
+Godot 4.5.1 confirmou `IDAT: invalid distance code` e `ERR_FILE_CORRUPT` ao importar as 12 fontes descritas acima. A auditoria comparou os blobs de `HEAD`, `origin/feature/fabio-warrior-stage1` e `main`; todos são idênticos e têm aproximadamente 786 KiB, embora o chunk IDAT declare de 1,07 a 1,38 MiB. Não foi localizada uma cópia íntegra nos worktrees locais.
+
+Como as fontes ficam numa pasta de referências e não são carregadas pelo jogo, foi adicionado `.gdignore` apenas nesse diretório para manter o import/runtime do jogo separado desses arquivos. Isso é isolamento de importação, não reparo dos PNGs: o empacotador de Maíra continua sem fontes decodificáveis e a aprovação de oito direções permanece bloqueada. Os atlas candidatos continuam em `assets/characters/maira/warrior/` e seguem com estado **CORRIGIR**.
+
 ## Reauditoria de integridade das fontes — 2026-10-15
 
 **Estado geral: CORRIGIR.** A inspeção em escala nativa dos 80 quadros dos atlas v2 confirma os problemas visuais já descritos: E e W mostram o olhar para o mesmo lado, NE/E/SE se confundem e as quatro diagonais não formam orientações consistentes. Em `walk`, não há alternância de passada esquerda/direita clara ao longo do ciclo. A identidade geral continua reconhecível, mas esses defeitos impedem aprovação.

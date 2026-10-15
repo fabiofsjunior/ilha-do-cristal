@@ -1,0 +1,5 @@
+# Artist reference inputs only; this folder is not used by runtime scenes.
+# Twelve directional OAI PNG sources here have truncated IDAT data (the source
+# blobs end at 786 KiB while declaring IDAT chunks above 1 MiB). Keep the files
+# for traceability, but do not import them until restored/recreated and checked.
+# Runtime candidate atlases remain under assets/characters/maira/warrior/.
