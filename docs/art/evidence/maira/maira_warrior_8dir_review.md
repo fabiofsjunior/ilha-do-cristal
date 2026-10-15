@@ -99,3 +99,28 @@ A leitura estrutural dos chunks PNG confirma a causa. Por exemplo, `walk_ne_sour
 ### Resultado
 
 O concept ainda confirma a identidade geral, mas as fontes quebradas impedem correção confiável dos ângulos, das passadas e do alpha. Os atlas mantêm `status: corrigir` e `approved: false`; Godot, teste de escala/SQM e Android continuam pendentes. Não houve alteração nos PNGs, atlas ou empacotador.
+
+## Reavaliação de retoque manual seguro — 2026-10-15
+
+**Conclusão: não há retoque manual seguro e verificável com os arquivos disponíveis.** O estado continua **CORRIGIR** e nenhum PNG, JSON ou empacotador foi alterado nesta revisão.
+
+### Evidência examinada
+
+- Revisei as células de 96 × 96 px dos atlas v2 na prancha existente, ampliada por nearest-neighbor, e conferi os PNGs sem reamostragem. Os defeitos estruturais persistem: NE/E/SE são próximos demais, E e W apontam para o mesmo lado, e os quadros de `walk` não demonstram alternância clara de pernas.
+- Comparei a linha N e a linha S de cada atlas v2 com o respectivo candidato v1: os pixels são idênticos. Escala relativa, contato dos pés e sequência de passada já eram pendências na etapa 1; não há uma transformação objetiva que corrija isso sem redesenhar poses.
+- Recarreguei as 12 fontes das seis direções novas. `Image.load()` falha em todas com `OSError: broken data stream when reading image file`. O empacotador também falha ao abrir a primeira direção nova. O histórico local mostra somente o commit que introduziu as fontes, sem versão íntegra anterior recuperável.
+- Os atlas v2 têm 256 valores únicos de alpha, incluindo 254 valores intermediários. Uma troca automática de limiar mudaria contornos sem decidir quais cores de borda conservar; não foi feita binarização nem limpeza por lote.
+- Não há editor de pixels instalado nesta sessão (Pixelorama, LibreSprite, GIMP, Krita e Aseprite não estão disponíveis). `convert` do ImageMagick está disponível, mas não oferece um fluxo de pintura/revisão por pixel adequado para redesenhar ângulos, pés e silhuetas. Godot também não está disponível.
+
+Os atlas v2 são resultados empacotados, não substitutos das fontes originais. Redesenhar sobre eles ou reconstruir fontes a partir deles apagaria a proveniência e não permitiria corrigir com segurança os cortes nas partições originais. A decisão é preservar as fontes malformadas e os atlas existentes intactos até haver fontes íntegrafas e um editor visual adequado.
+
+### Validação nesta cópia
+
+- A rechecagem das fontes encontrou 12/12 falhas de decodificação; `python3 tools/art/pack_maira_8dir_candidates.py` falha em `get_source_cells()` ao abrir a primeira fonte.
+- As linhas N/S dos dois atlas v2 são pixel-idênticas às linhas de origem do v1. As dimensões seguem 96 × 96 px por célula.
+- `python3 tools/art/validate_sprite_atlases.py` retorna código 1 com 20 avisos de alpha intermediário no repositório; 2 pertencem aos atlas v2 de Maíra e 18 a candidatos de outros personagens. Para Maíra, não há falha estrutural de dimensões, regiões vazias ou bordas de célula; esses resultados não aprovam direção, passada, pivô ou acabamento.
+- `python3 -m py_compile tools/art/pack_maira_8dir_candidates.py tools/art/validate_sprite_atlases.py` e `git diff --check` passam. Godot, zoom/SQM em engine e Android seguem pendentes.
+
+### Próximo gate
+
+Obter fontes originais completas e decodificáveis (ou aprovar uma nova fonte independente do atlas), então redesenhar as direções e passadas em editor visual gratuito, em cópia, mantendo as fontes originais. Conferir cada alteração em tamanho nativo e nearest; revisar alpha deliberadamente em claro/escuro; só depois empacotar e repetir a validação. Até esse gate, a matriz continua **CORRIGIR**, sem alegar aprovação de arte ou de plataforma.
