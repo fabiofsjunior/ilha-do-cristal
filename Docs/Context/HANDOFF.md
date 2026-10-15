@@ -2,7 +2,7 @@
 
 **Worktree/branch:** `ilha-do-cristal-worktrees/gameplay`, `feature/s01-gameplay-slice`
 **Base exata:** `feature/fabio-warrior-stage1` em `16e759350ad9a3f76ded314e0050a820939b3a5f`
-**Commit desta fatia:** a registrar após o commit local desta rodada. `main` e a worktree base permaneceram intactas.
+**Commit de implementação desta fatia:** `032f4266448a7c1f8cd8acbffc962aa6f124a6d8` (`feat: add playable local gameplay slice`). O Journal e este Handoff são atualizados em checkpoint documental subsequente na mesma branch. `main` e a worktree base permaneceram intactas.
 
 ## Próxima ação
 
