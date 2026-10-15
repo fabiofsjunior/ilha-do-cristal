@@ -26,15 +26,15 @@ Maíra foi adicionada à escolha de personagem depois de o usuário aprová-la c
 
 **Viewport-base:** Android em paisagem, proporção 16:9; layout adapta-se ao viewport.
 
-**Estado geral:** v0.1–v0.4 permanecem arquivadas; v0.5 está arquivada; v0.6 é a versão navegável atual e aguarda validação explícita.
+**Estado geral:** v0.1–v0.6 permanecem arquivadas para comparação; v0.7 é a versão navegável atual e aguarda validação explícita.
 **Sprites:** placeholders geométricos; não representam sprites aprovados.
 
 | Fase | Telas/estados cobertos | Estado | Próximo passo |
 |---|---|---|---|
 | S0 | Abertura, entrada de visitante, conta/vínculo, configuração inicial | em validação | Validar ordem de entrada, texto e opção offline |
 | S1 | Gameplay, joystick, hotbar, minimapa, HP/MP, interação e zoom | em validação | Validar posição/quantidade dos controles e densidade do HUD |
-| S2 | Equipamento + mochila/crafting, acampamento, pausa/save e resultado da expedição | em validação | Validar conjunto de slots de equipamento e hierarquia do inventário |
-| S3 | Escolha de personagem/vocação, árvore, habilidades, criaturas e acampamento | em validação | Revisar imagem endgame escolhida, desbloqueio por nível e lista de nós da árvore v0.6 |
+| S2 | Equipamento + mochila/crafting, acampamento, pausa/save e resultado da expedição | em validação | Revisar matriz de equipamento, 24 espaços de mochila, painel de atributos e detalhes contextuais dos itens na v0.7 |
+| S3 | Escolha de personagem/vocação, árvore, habilidades, criaturas e acampamento | em validação | Revisar imagem endgame e progressão da árvore, além do inventário e painel de atributos da v0.7 |
 | S4 | Criar/entrar em LAN, aliado caído/reanimação, erro de conexão | em validação | Validar estados de cooperação e recuperação |
 | S5 | Visitante, vínculo, status offline e conflito de sincronização | em validação | Validar explicação de origem do progresso e escolha de recuperação |
 | S6 | Configurações, áudio, zoom, contraste e erros recuperáveis | em validação | Validar opções visíveis e mensagens compreensíveis |
@@ -52,12 +52,18 @@ Maíra foi adicionada à escolha de personagem depois de o usuário aprová-la c
 **Aprovação explícita:** pendente; nenhuma implementação de tela está liberada.
 
 
-## Telas do MVP — v0.6 (atual)
+## Telas do MVP — v0.7 (atual)
 
-**Artefato atual:** [`docs/prototypes/mvp_ui_v0_6.html`](../../docs/prototypes/mvp_ui_v0_6.html)  
+**Artefato atual:** [`docs/prototypes/mvp_ui_v0_7.html`](../../docs/prototypes/mvp_ui_v0_7.html)  
 **Referência visual escolhida:** [`passive_skill_tree_endgame_reference.png`](../../docs/prototypes/assets/passive_skill_tree_endgame_reference.png) · PNG RGBA 1672×941 · SHA-256 `51b511eec2f98714bca7a9379f7bc4b84ad78b7475d30d1952c951f1ab8d2e0e`.
 
-A árvore v0.6 exibe a imagem escolhida sem reconstruir seus elos. O painel permite selecionar vocação, inspecionar os nós descritos no catálogo e simular nível 1–10. A origem da vocação fica desbloqueada por padrão; todos os outros nós são ativados automaticamente por nível. A distribuição ilustrativa em cinco gerações usa níveis 2/4/6/8/10 e aguarda validação. A imagem é conceitual, e não uma topologia de dados. A v0.5 permanece preservada no repositório. Nenhuma tela de produção foi aprovada.
+A v0.7 preserva a árvore visual da v0.6 e acrescenta o inventário em três colunas: itens equipados à esquerda, mochila com 24 slots ao centro e painel contextual à direita. A matriz de equipamento é 4×3 conforme a orientação do usuário. O painel direito inicia em Atributos; a seleção de item abre descrição, localização/status, atributos e ação contextual. O exemplo está no nível 4, com 3 pontos livres; FOR/AGI/INT brutos começam em zero. HP/MP base permanecem próprios de cada vocação, enquanto o preview soma os bônus derivados dos atributos pelos multiplicadores do GDD. A simulação não salva progresso.
+
+**Estado:** em revisão explícita. Esta versão demonstra composição e interações; não é implementação e nenhuma tela de produção foi aprovada. A imagem da árvore permanece conceitual, sem representar topologia exata.
+
+## Telas do MVP — v0.6 (arquivada para comparação)
+
+**Artefato:** [`docs/prototypes/mvp_ui_v0_6.html`](../../docs/prototypes/mvp_ui_v0_6.html)
 
 ## Telas do MVP — v0.5 (arquivada para comparação)
 
