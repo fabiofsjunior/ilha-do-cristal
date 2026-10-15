@@ -176,3 +176,32 @@ Com autorização explícita do usuário, a V2 foi enviada ao Pixel Engine para 
 | Walk V2, 576×192 | recusado: proporção 3:1, acima do limite 2:1 | sem candidato; dividir a folha não resolveria a saída pequena observada na amostra |
 
 As saídas ficaram fora dos assets e não foram importadas no Godot. Nenhum PNG V2 foi substituído. Este teste confirma que essa conversão do Pixel Engine não serve para corrigir a etapa 1; retomar somente com retoque de pixels que preserve o modelo e a grade do projeto.
+
+## Expansão candidata para oito direções — 2026-10-15
+
+O usuário autorizou completar as direções das sprites. Foi montado um conjunto candidato apenas para Melissa Warrior, nas animações `idle` (4 quadros) e `walk` (6 quadros), na ordem N, NE, E, SE, S, SW, W, NW. As linhas N/S foram copiadas sem alteração dos atlas candidate_v3 já existentes; NE/E/SE/SW/W/NW vieram de folhas independentes geradas para as direções correspondentes. A primeira fonte NW foi preservada; a segunda versão foi usada porque distribui melhor os quadros idle. Nenhum quadro foi espelhado ou duplicado.
+
+| Direção | Idle | Walk | Fonte / observação |
+|---|---:|---:|---|
+| N | 4 | 6 | candidato V3 existente, copiado sem alteração |
+| NE | 4 | 6 | fonte direcional gerada, versão 1 |
+| E | 4 | 6 | fonte direcional gerada, versão 1; os traços de grade foram excluídos pelo mesmo recuo uniforme usado nas demais fontes |
+| SE | 4 | 6 | fonte direcional gerada, versão 1 |
+| S | 4 | 6 | candidato V3 existente, copiado sem alteração; permanece próximo de três quartos e precisa ser distinguido de SE |
+| SW | 4 | 6 | fonte direcional gerada, versão 1 |
+| W | 4 | 6 | fonte direcional gerada, versão 1 |
+| NW | 4 | 6 | fonte direcional gerada, versão 2; a versão 1 foi mantida como fonte, mas não usada |
+
+Os PNGs finais mantêm células de 96×96 e pivô candidato (48,80). Idle mede 384×768; walk mede 576×768. Os JSONs declaram `approved:false` e `status:"corrigir"`. As fontes brutas, incluindo NW V1 e V2, estão em `assets/references/generated-candidates/`; o processo de recorte e reamostragem está descrito em [MELISSA_8DIR_SOURCE_V1.md](../../assets/references/generated-candidates/MELISSA_8DIR_SOURCE_V1.md). A [prancha de contato](evidence/melissa/melissa_warrior_8dir_candidate_v1_contact.png) mostra os quadros sobre fundos claro e escuro; o [relatório estrutural](evidence/melissa/melissa_warrior_8dir_candidate_v1_structure.json) e a [revisão](evidence/melissa/melissa_warrior_8dir_candidate_v1_review.md) registram os gates e limitações.
+
+| Gate | Estado | Resultado |
+|---|---|---|
+| Estrutura e quadros | aprovado estrutural | PNGs RGBA, dimensões/células esperadas, 8 direções, 4/6 quadros por linha; sem quadros vazios ou tocando bordas; hashes distintos dentro de cada linha/direção. |
+| Passada e armas | corrigir | as seis poses de cada direção são distintas, porém não demonstram contato esquerdo, descida, passagem, contato direito, descida e passagem de forma inequívoca em todas as vistas; algumas posições da espada variam. A estrutura não valida movimento. |
+| Identidade e cardinalidade | corrigir | identidade de Melissa é reconhecível. O S herdado de V3 continua pouco cardinal. Direções geradas precisam de revisão artística antes de produção. |
+| Pixel art / alpha | corrigir | o validador canônico retorna código 1: os dois atlas novos têm 254 níveis intermediários de alpha; 68.358 pixels em idle e 104.647 em walk têm alpha entre 1–254. Foi mantida a suavização visível; não houve binarização nem limpeza automática. |
+| Godot / dispositivo | pendente | Godot não está disponível neste runner; os atlas novos não foram importados ou reproduzidos no motor. Android, terreno/SQM e escala de tela continuam sem validação. |
+
+O validador `python tools/art/validate_sprite_atlases.py` registrou 14 erros de alpha no repositório nesta execução: 2 dos novos atlas e 12 de candidatos anteriores. Não houve erro estrutural adicional nos dois atlas novos. A inspeção por hashes e caixas alfa não prova anatomia, alternância dos pés, pivô ou legibilidade em jogo.
+
+**Decisão:** manter os dois atlas e as fontes como candidatos `CORRIGIR`, não aprovados para produção. Corrigir alpha/contornos deliberadamente, redesenhar a passada e revisar S; então reproduzir o ciclo no Godot e validar terreno, SQM, zoom e Android antes de qualquer aceite artístico. Esta entrega cobre somente Melissa Warrior `idle`/`walk`.
