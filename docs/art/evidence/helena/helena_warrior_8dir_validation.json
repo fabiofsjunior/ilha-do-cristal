@@ -1,0 +1,1878 @@
+{
+  "status": "corrigir",
+  "structural_checks": [
+    "PASS idle: RGBA 384x768; 4 frames across N, NE, E, SE, S, SW, W, NW; cell 96x96; pivot (48,80); N/S rows match v1 pixel-for-pixel",
+    "PASS walk: RGBA 576x768; 6 frames across N, NE, E, SE, S, SW, W, NW; cell 96x96; pivot (48,80); N/S rows match v1 pixel-for-pixel",
+    "PASS concept reference: Git blob 82a60ab282c23d0e6846a10a2d8b5e8614537ac3 unchanged",
+    "PASS every source hash and output frame region matches metadata; visible alpha stays inside each cell"
+  ],
+  "visual_diagnostics": {
+    "idle": {
+      "atlas": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v2.png",
+      "dimensions": [
+        384,
+        768
+      ],
+      "directions": {
+        "N": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                24,
+                19,
+                68,
+                79
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 2114,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -1
+            },
+            {
+              "bbox_alpha_gte_128": [
+                24,
+                19,
+                71,
+                79
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 2259,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -1
+            },
+            {
+              "bbox_alpha_gte_128": [
+                23,
+                19,
+                69,
+                79
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 2154,
+              "opaque_pixels": 4,
+              "bbox_bottom_minus_pivot_y": -1
+            },
+            {
+              "bbox_alpha_gte_128": [
+                23,
+                19,
+                73,
+                79
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 2231,
+              "opaque_pixels": 3,
+              "bbox_bottom_minus_pivot_y": -1
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 4,
+            "frame_count": 4,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2312,
+                "mean_absolute_channel_delta": 4.3776
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2368,
+                "mean_absolute_channel_delta": 5.223
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2326,
+                "mean_absolute_channel_delta": 3.862
+              }
+            ]
+          },
+          "source_file": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v1.png",
+          "source_sha256": "d62430aac09766e217a27042721abe1d9b524a54b8b0993ce9e476687ad08069"
+        },
+        "NE": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                22,
+                20,
+                73,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1987,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                31,
+                20,
+                82,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1959,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                22,
+                16,
+                74,
+                74
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 2084,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -6
+            },
+            {
+              "bbox_alpha_gte_128": [
+                31,
+                16,
+                82,
+                74
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 2052,
+              "opaque_pixels": 1,
+              "bbox_bottom_minus_pivot_y": -6
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 4,
+            "frame_count": 4,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2707,
+                "mean_absolute_channel_delta": 21.7903
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2861,
+                "mean_absolute_channel_delta": 22.6621
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2841,
+                "mean_absolute_channel_delta": 21.5305
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_ne_idle_source_v2.png",
+          "source_sha256": "e0f96044aac193ee0fbbc10684deaf57fb84c313edf70bef50d9251c4bafebec"
+        },
+        "E": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                32,
+                18,
+                70,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1344,
+              "opaque_pixels": 5,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                26,
+                18,
+                65,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1359,
+              "opaque_pixels": 2,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                31,
+                15,
+                70,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1402,
+              "opaque_pixels": 1,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                26,
+                15,
+                65,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1346,
+              "opaque_pixels": 1,
+              "bbox_bottom_minus_pivot_y": -4
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 4,
+            "frame_count": 4,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1745,
+                "mean_absolute_channel_delta": 14.3982
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1810,
+                "mean_absolute_channel_delta": 15.7572
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1767,
+                "mean_absolute_channel_delta": 14.7154
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_e_idle_source_v1.png",
+          "source_sha256": "24508c31ac95bca5faccf2b0db8fe07855e481afbebc0c411ee17c950f79f7d9"
+        },
+        "SE": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                30,
+                18,
+                65,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1496,
+              "opaque_pixels": 2,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                24,
+                17,
+                60,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1522,
+              "opaque_pixels": 3,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                30,
+                16,
+                66,
+                75
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1521,
+              "opaque_pixels": 1,
+              "bbox_bottom_minus_pivot_y": -5
+            },
+            {
+              "bbox_alpha_gte_128": [
+                25,
+                16,
+                61,
+                75
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1542,
+              "opaque_pixels": 2,
+              "bbox_bottom_minus_pivot_y": -5
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 4,
+            "frame_count": 4,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1895,
+                "mean_absolute_channel_delta": 14.645
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1914,
+                "mean_absolute_channel_delta": 15.1252
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1851,
+                "mean_absolute_channel_delta": 13.3652
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_se_idle_source_v1.png",
+          "source_sha256": "844e9a814ab9689551b703cdea6e45a60ee90ed5e438035a2861c6cb20edad26"
+        },
+        "S": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                24,
+                20,
+                69,
+                80
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 2130,
+              "opaque_pixels": 2,
+              "bbox_bottom_minus_pivot_y": 0
+            },
+            {
+              "bbox_alpha_gte_128": [
+                24,
+                20,
+                71,
+                80
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 2187,
+              "opaque_pixels": 1,
+              "bbox_bottom_minus_pivot_y": 0
+            },
+            {
+              "bbox_alpha_gte_128": [
+                23,
+                20,
+                70,
+                80
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 2168,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": 0
+            },
+            {
+              "bbox_alpha_gte_128": [
+                23,
+                20,
+                73,
+                80
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 2325,
+              "opaque_pixels": 1,
+              "bbox_bottom_minus_pivot_y": 0
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 4,
+            "frame_count": 4,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2243,
+                "mean_absolute_channel_delta": 2.8176
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2273,
+                "mean_absolute_channel_delta": 3.0347
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2361,
+                "mean_absolute_channel_delta": 4.7703
+              }
+            ]
+          },
+          "source_file": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v1.png",
+          "source_sha256": "d62430aac09766e217a27042721abe1d9b524a54b8b0993ce9e476687ad08069"
+        },
+        "SW": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                23,
+                19,
+                73,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1578,
+              "opaque_pixels": 2,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                21,
+                19,
+                71,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1586,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                24,
+                17,
+                75,
+                75
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1630,
+              "opaque_pixels": 2,
+              "bbox_bottom_minus_pivot_y": -5
+            },
+            {
+              "bbox_alpha_gte_128": [
+                21,
+                18,
+                70,
+                75
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1574,
+              "opaque_pixels": 1,
+              "bbox_bottom_minus_pivot_y": -5
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 4,
+            "frame_count": 4,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1846,
+                "mean_absolute_channel_delta": 11.1884
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1914,
+                "mean_absolute_channel_delta": 12.1565
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1864,
+                "mean_absolute_channel_delta": 11.0687
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_sw_idle_source_v1.png",
+          "source_sha256": "2c524294f9594e9bb0b22589f0b11d9cf32e907b473cf62c452d3cfd07809c90"
+        },
+        "W": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                22,
+                18,
+                70,
+                79
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1489,
+              "opaque_pixels": 10,
+              "bbox_bottom_minus_pivot_y": -1
+            },
+            {
+              "bbox_alpha_gte_128": [
+                19,
+                18,
+                67,
+                79
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1529,
+              "opaque_pixels": 7,
+              "bbox_bottom_minus_pivot_y": -1
+            },
+            {
+              "bbox_alpha_gte_128": [
+                22,
+                17,
+                72,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1531,
+              "opaque_pixels": 3,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                19,
+                18,
+                67,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1560,
+              "opaque_pixels": 1,
+              "bbox_bottom_minus_pivot_y": -2
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 4,
+            "frame_count": 4,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1752,
+                "mean_absolute_channel_delta": 9.8679
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1796,
+                "mean_absolute_channel_delta": 10.3043
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1819,
+                "mean_absolute_channel_delta": 10.2258
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_w_idle_source_v1.png",
+          "source_sha256": "0ba553b089515fd15d2660c749f0a121d36fa509b840b76e9ffc5e401578c1ba"
+        },
+        "NW": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                20,
+                16,
+                69,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1732,
+              "opaque_pixels": 4,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                20,
+                16,
+                69,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1741,
+              "opaque_pixels": 3,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                20,
+                14,
+                72,
+                77
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1803,
+              "opaque_pixels": 3,
+              "bbox_bottom_minus_pivot_y": -3
+            },
+            {
+              "bbox_alpha_gte_128": [
+                20,
+                15,
+                69,
+                77
+              ],
+              "alpha_min": 0,
+              "alpha_max": 255,
+              "intermediate_alpha_pixels": 1761,
+              "opaque_pixels": 5,
+              "bbox_bottom_minus_pivot_y": -3
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 4,
+            "frame_count": 4,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1771,
+                "mean_absolute_channel_delta": 2.8508
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1889,
+                "mean_absolute_channel_delta": 7.2974
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1863,
+                "mean_absolute_channel_delta": 5.3856
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_nw_idle_source_v1.png",
+          "source_sha256": "7dc71522d1e8c9dd0e2952ed3f42fc58353742b1afbb6c45fdc7c4dd60df63aa"
+        }
+      },
+      "alpha": {
+        "unique_values": 256,
+        "transparent_pixels": 238146,
+        "intermediate_alpha_pixels": 56696,
+        "opaque_pixels": 70
+      }
+    },
+    "walk": {
+      "atlas": "assets/characters/helena/warrior/helena_warrior_walk_candidate_v2.png",
+      "dimensions": [
+        576,
+        768
+      ],
+      "directions": {
+        "N": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                30,
+                26,
+                70,
+                82
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1683,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": 2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                27,
+                26,
+                68,
+                82
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1727,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": 2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                27,
+                26,
+                67,
+                82
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1629,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": 2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                30,
+                21,
+                69,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1699,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                27,
+                21,
+                69,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1780,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                27,
+                21,
+                68,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1705,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -2
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 6,
+            "frame_count": 6,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1959,
+                "mean_absolute_channel_delta": 6.8888
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1896,
+                "mean_absolute_channel_delta": 6.3
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2036,
+                "mean_absolute_channel_delta": 10.7843
+              },
+              {
+                "pair": [
+                  3,
+                  4
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1973,
+                "mean_absolute_channel_delta": 6.1729
+              },
+              {
+                "pair": [
+                  4,
+                  5
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 1985,
+                "mean_absolute_channel_delta": 6.4314
+              }
+            ]
+          },
+          "source_file": "assets/characters/helena/warrior/helena_warrior_walk_candidate_v1.png",
+          "source_sha256": "291238d899711a09ce8baf55f48dd89853ca23432294ed12f4db02b307e687b2"
+        },
+        "NE": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                29,
+                17,
+                79,
+                77
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1698,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -3
+            },
+            {
+              "bbox_alpha_gte_128": [
+                26,
+                20,
+                76,
+                73
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1715,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -7
+            },
+            {
+              "bbox_alpha_gte_128": [
+                24,
+                18,
+                72,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1645,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                26,
+                15,
+                79,
+                74
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1795,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -6
+            },
+            {
+              "bbox_alpha_gte_128": [
+                26,
+                17,
+                76,
+                69
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1789,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -11
+            },
+            {
+              "bbox_alpha_gte_128": [
+                22,
+                15,
+                72,
+                73
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1667,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -7
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 6,
+            "frame_count": 6,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4621,
+                "mean_absolute_channel_delta": 11.6016
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4620,
+                "mean_absolute_channel_delta": 12.6615
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4620,
+                "mean_absolute_channel_delta": 13.2309
+              },
+              {
+                "pair": [
+                  3,
+                  4
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4589,
+                "mean_absolute_channel_delta": 10.0738
+              },
+              {
+                "pair": [
+                  4,
+                  5
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4608,
+                "mean_absolute_channel_delta": 12.9628
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_ne_walk_source_v2.png",
+          "source_sha256": "6d64822180214d2eb2a47a7535093f465ee5dd6041d3fec81f65d050600e5457"
+        },
+        "E": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                23,
+                17,
+                77,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1918,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                21,
+                18,
+                74,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1914,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                21,
+                18,
+                75,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1870,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                22,
+                17,
+                79,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1865,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                21,
+                17,
+                75,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1852,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                21,
+                17,
+                75,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1840,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 6,
+            "frame_count": 6,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4618,
+                "mean_absolute_channel_delta": 10.8176
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4577,
+                "mean_absolute_channel_delta": 7.2971
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4619,
+                "mean_absolute_channel_delta": 9.9576
+              },
+              {
+                "pair": [
+                  3,
+                  4
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4621,
+                "mean_absolute_channel_delta": 12.0936
+              },
+              {
+                "pair": [
+                  4,
+                  5
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4594,
+                "mean_absolute_channel_delta": 8.7025
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_e_walk_source_v1.png",
+          "source_sha256": "b018824819229170bbb1b83c7670199949d34a5576fffa704d06fc9f53fd3a64"
+        },
+        "SE": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                25,
+                16,
+                65,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1782,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                24,
+                18,
+                65,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1705,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                27,
+                16,
+                68,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1718,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                24,
+                15,
+                65,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1737,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                25,
+                18,
+                65,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1657,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                26,
+                16,
+                69,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1764,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 6,
+            "frame_count": 6,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4606,
+                "mean_absolute_channel_delta": 8.3792
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4622,
+                "mean_absolute_channel_delta": 11.0916
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4615,
+                "mean_absolute_channel_delta": 10.1313
+              },
+              {
+                "pair": [
+                  3,
+                  4
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4578,
+                "mean_absolute_channel_delta": 9.0993
+              },
+              {
+                "pair": [
+                  4,
+                  5
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4598,
+                "mean_absolute_channel_delta": 10.6444
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_se_walk_source_v1.png",
+          "source_sha256": "67bb3d020751f14e9870eff72e40c1652f104c9ae595fae8d94436b4e9bc2d89"
+        },
+        "S": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                35,
+                20,
+                76,
+                82
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1688,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": 2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                28,
+                20,
+                69,
+                81
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1695,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": 1
+            },
+            {
+              "bbox_alpha_gte_128": [
+                18,
+                20,
+                60,
+                82
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1664,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": 2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                36,
+                17,
+                78,
+                80
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1718,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": 0
+            },
+            {
+              "bbox_alpha_gte_128": [
+                27,
+                17,
+                68,
+                78
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1747,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -2
+            },
+            {
+              "bbox_alpha_gte_128": [
+                18,
+                17,
+                62,
+                79
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1741,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -1
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 6,
+            "frame_count": 6,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2210,
+                "mean_absolute_channel_delta": 18.4666
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2294,
+                "mean_absolute_channel_delta": 21.4689
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2735,
+                "mean_absolute_channel_delta": 30.9371
+              },
+              {
+                "pair": [
+                  3,
+                  4
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2235,
+                "mean_absolute_channel_delta": 18.5878
+              },
+              {
+                "pair": [
+                  4,
+                  5
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 2296,
+                "mean_absolute_channel_delta": 19.9052
+              }
+            ]
+          },
+          "source_file": "assets/characters/helena/warrior/helena_warrior_walk_candidate_v1.png",
+          "source_sha256": "291238d899711a09ce8baf55f48dd89853ca23432294ed12f4db02b307e687b2"
+        },
+        "SW": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                21,
+                16,
+                76,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1905,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                19,
+                19,
+                74,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1959,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                18,
+                16,
+                74,
+                75
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1892,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -5
+            },
+            {
+              "bbox_alpha_gte_128": [
+                21,
+                14,
+                77,
+                74
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1936,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -6
+            },
+            {
+              "bbox_alpha_gte_128": [
+                19,
+                17,
+                74,
+                74
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1908,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -6
+            },
+            {
+              "bbox_alpha_gte_128": [
+                18,
+                14,
+                75,
+                74
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1955,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -6
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 6,
+            "frame_count": 6,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4622,
+                "mean_absolute_channel_delta": 12.1626
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4615,
+                "mean_absolute_channel_delta": 12.2177
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4624,
+                "mean_absolute_channel_delta": 13.0101
+              },
+              {
+                "pair": [
+                  3,
+                  4
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4609,
+                "mean_absolute_channel_delta": 12.2236
+              },
+              {
+                "pair": [
+                  4,
+                  5
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4618,
+                "mean_absolute_channel_delta": 12.1223
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_sw_walk_source_v1.png",
+          "source_sha256": "4c9b0338d5677ba66050747ea19048e3b6dd13cc39ac3e3d9a64ba63c8fc9a7c"
+        },
+        "W": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                22,
+                20,
+                73,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1743,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                23,
+                22,
+                72,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1749,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                24,
+                20,
+                73,
+                76
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1699,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -4
+            },
+            {
+              "bbox_alpha_gte_128": [
+                24,
+                20,
+                73,
+                75
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1730,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -5
+            },
+            {
+              "bbox_alpha_gte_128": [
+                22,
+                21,
+                73,
+                75
+              ],
+              "alpha_min": 0,
+              "alpha_max": 254,
+              "intermediate_alpha_pixels": 1698,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -5
+            },
+            {
+              "bbox_alpha_gte_128": [
+                22,
+                19,
+                72,
+                75
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1750,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -5
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 6,
+            "frame_count": 6,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4604,
+                "mean_absolute_channel_delta": 7.854
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4565,
+                "mean_absolute_channel_delta": 7.6281
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4602,
+                "mean_absolute_channel_delta": 8.113
+              },
+              {
+                "pair": [
+                  3,
+                  4
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4593,
+                "mean_absolute_channel_delta": 8.4896
+              },
+              {
+                "pair": [
+                  4,
+                  5
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4568,
+                "mean_absolute_channel_delta": 6.7262
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_w_walk_source_v1.png",
+          "source_sha256": "2845b62a3fe9f64401a21e4382630ef0563faefa5b3ed18a39d303141c087572"
+        },
+        "NW": {
+          "frames": [
+            {
+              "bbox_alpha_gte_128": [
+                27,
+                15,
+                76,
+                77
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1627,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -3
+            },
+            {
+              "bbox_alpha_gte_128": [
+                23,
+                19,
+                73,
+                74
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1561,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -6
+            },
+            {
+              "bbox_alpha_gte_128": [
+                20,
+                15,
+                70,
+                77
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1553,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -3
+            },
+            {
+              "bbox_alpha_gte_128": [
+                26,
+                14,
+                77,
+                77
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1704,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -3
+            },
+            {
+              "bbox_alpha_gte_128": [
+                23,
+                18,
+                73,
+                75
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1658,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -5
+            },
+            {
+              "bbox_alpha_gte_128": [
+                21,
+                14,
+                71,
+                77
+              ],
+              "alpha_min": 0,
+              "alpha_max": 253,
+              "intermediate_alpha_pixels": 1614,
+              "opaque_pixels": 0,
+              "bbox_bottom_minus_pivot_y": -3
+            }
+          ],
+          "sequence_difference": {
+            "exact_unique_frame_count": 6,
+            "frame_count": 6,
+            "adjacent_differences": [
+              {
+                "pair": [
+                  0,
+                  1
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4623,
+                "mean_absolute_channel_delta": 15.3268
+              },
+              {
+                "pair": [
+                  1,
+                  2
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4604,
+                "mean_absolute_channel_delta": 10.4647
+              },
+              {
+                "pair": [
+                  2,
+                  3
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4623,
+                "mean_absolute_channel_delta": 15.9099
+              },
+              {
+                "pair": [
+                  3,
+                  4
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4622,
+                "mean_absolute_channel_delta": 13.3835
+              },
+              {
+                "pair": [
+                  4,
+                  5
+                ],
+                "exact_duplicate": false,
+                "changed_rgba_pixels": 4615,
+                "mean_absolute_channel_delta": 11.2013
+              }
+            ]
+          },
+          "source_file": "assets/references/generated-candidates/helena_warrior_nw_walk_source_v1.png",
+          "source_sha256": "f0a35378b3e26e0a34c3f078b06bd3934db7284f1d56398df54c7c1363505918"
+        }
+      },
+      "alpha": {
+        "unique_values": 255,
+        "transparent_pixels": 358320,
+        "intermediate_alpha_pixels": 84048,
+        "opaque_pixels": 0
+      }
+    }
+  },
+  "manual_visual_review": {
+    "order": "Cardinal axes reviewed first (N/E/S/W), then NE/SE/SW/NW, using nearest-neighbor contact sheets at 2x and a 3x cardinal walk sheet.",
+    "cardinal_axes": {
+      "N": "Back-facing; legacy v1 row retained byte-for-byte.",
+      "E": "Right-facing side profile; distinct from the other cardinal axes.",
+      "S": "Front-facing; legacy v1 row retained byte-for-byte.",
+      "W": "Left-facing side profile; distinct from E and not mirrored into E."
+    },
+    "diagonal_views": "NE, SE, SW and NW read as separate diagonal quadrants in the contact sheet. Exact 45-degree camera consistency and gear silhouette still need art review.",
+    "walk_pass_test": {
+      "expected_sequence": [
+        "left-foot contact",
+        "descent",
+        "passing",
+        "right-foot contact",
+        "descent",
+        "passing"
+      ],
+      "observed": "E and W show a recognizable six-frame alternating gait; N/S retain their prior alternating poses. Diagonal gait phases are less legible at this scale.",
+      "result": "corrigir",
+      "reason": "The pass is not accepted for all eight directions: diagonal foot baselines vary by up to 8 pixels relative to the candidate pivot, and the retained N/S rows still drift vertically. The expected phase order is therefore not consistently verifiable across the full cycle."
+    },
+    "idle_test": "No exact duplicate frames were found. Most rows read as nearly static poses; any pixel changes may be texture/edge jitter rather than intentional breathing, so idle motion is not approved.",
+    "alpha_test": "Intermediate alpha and soft halos remain across new sources; no automated alpha cleanup was applied. Pixel-art opacity check fails, so art status remains CORRIGIR."
+  },
+  "limitations": [
+    "Structural validation is not visual art approval.",
+    "Godot import/render, zoom/SQM review, and Android remain pending."
+  ]
+}

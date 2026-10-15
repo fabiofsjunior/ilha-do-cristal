@@ -1,0 +1,1192 @@
+{
+  "id": "helena_warrior_idle_candidate_v2",
+  "atlas": "helena_warrior_idle_candidate_v2.png",
+  "status": "corrigir",
+  "approved": false,
+  "character": "Helena",
+  "vocation": "Warrior",
+  "assumption": "Warrior segue como vocação candidata apenas para este exemplar; Helena não possui vocação padrão definida.",
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW"
+  ],
+  "animations": {
+    "idle": {
+      "frames": 4,
+      "fps": 6,
+      "loop": true
+    }
+  },
+  "source_tool": "OpenAI image_gen built-in",
+  "concept_reference": {
+    "path": "assets/references/concept-rpg-classico.png",
+    "git_blob_sha": "82a60ab282c23d0e6846a10a2d8b5e8614537ac3",
+    "identity_traits_used": "cabelo castanho ondulado, tiara clara, acentos creme/rosa, espada Warrior",
+    "use": "Referência visual consultada para identidade; nunca cortada ou fatiada para criar quadros."
+  },
+  "source_directions": {
+    "N": {
+      "file": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v1.png",
+      "sha256": "d62430aac09766e217a27042721abe1d9b524a54b8b0993ce9e476687ad08069",
+      "source_row": 0,
+      "copied_pixel_exact": true,
+      "note": "N/S pixels copied unchanged from the pre-existing candidate v1",
+      "frames": [
+        {
+          "index": 0,
+          "output_region": [
+            0,
+            0,
+            96,
+            96
+          ]
+        },
+        {
+          "index": 1,
+          "output_region": [
+            96,
+            0,
+            192,
+            96
+          ]
+        },
+        {
+          "index": 2,
+          "output_region": [
+            192,
+            0,
+            288,
+            96
+          ]
+        },
+        {
+          "index": 3,
+          "output_region": [
+            288,
+            0,
+            384,
+            96
+          ]
+        }
+      ]
+    },
+    "NE": {
+      "file": "assets/references/generated-candidates/helena_warrior_ne_idle_source_v2.png",
+      "sha256": "e0f96044aac193ee0fbbc10684deaf57fb84c313edf70bef50d9251c4bafebec",
+      "source_version": "v2",
+      "raw_dimensions": [
+        1774,
+        887
+      ],
+      "raw_alpha": {
+        "unique_values": 256,
+        "min": 0,
+        "max": 255,
+        "transparent_pixels": 1077228,
+        "intermediate_alpha_pixels": 496017,
+        "opaque_pixels": 293
+      },
+      "region_policy": "fixed grid regions only; no alpha/content trim",
+      "grid": [
+        4,
+        2
+      ],
+      "selected_grid_columns": [
+        1,
+        2
+      ],
+      "source_cell": [
+        443,
+        443
+      ],
+      "frame_regions_after_uniform_sheet_resample": [
+        [
+          443,
+          0,
+          886,
+          443
+        ],
+        [
+          886,
+          0,
+          1329,
+          443
+        ],
+        [
+          443,
+          443,
+          886,
+          886
+        ],
+        [
+          886,
+          443,
+          1329,
+          886
+        ]
+      ],
+      "preprocessing": {
+        "operation": "uniform nearest resample of whole sheet",
+        "from": [
+          1774,
+          887
+        ],
+        "to": [
+          1772,
+          886
+        ],
+        "reason": "convert half-pixel 4x2 grid boundaries into fixed 443x443 cells"
+      },
+      "frames": [
+        {
+          "index": 0,
+          "source_region_fixed": [
+            443,
+            0,
+            886,
+            443
+          ],
+          "source_cell": [
+            443,
+            443
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/443",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            0,
+            96,
+            96,
+            192
+          ]
+        },
+        {
+          "index": 1,
+          "source_region_fixed": [
+            886,
+            0,
+            1329,
+            443
+          ],
+          "source_cell": [
+            443,
+            443
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/443",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            96,
+            96,
+            192,
+            192
+          ]
+        },
+        {
+          "index": 2,
+          "source_region_fixed": [
+            443,
+            443,
+            886,
+            886
+          ],
+          "source_cell": [
+            443,
+            443
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/443",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            192,
+            96,
+            288,
+            192
+          ]
+        },
+        {
+          "index": 3,
+          "source_region_fixed": [
+            886,
+            443,
+            1329,
+            886
+          ],
+          "source_cell": [
+            443,
+            443
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/443",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            288,
+            96,
+            384,
+            192
+          ]
+        }
+      ]
+    },
+    "E": {
+      "file": "assets/references/generated-candidates/helena_warrior_e_idle_source_v1.png",
+      "sha256": "24508c31ac95bca5faccf2b0db8fe07855e481afbebc0c411ee17c950f79f7d9",
+      "source_version": "v1",
+      "raw_dimensions": [
+        1254,
+        1254
+      ],
+      "raw_alpha": {
+        "unique_values": 256,
+        "min": 0,
+        "max": 255,
+        "transparent_pixels": 1108879,
+        "intermediate_alpha_pixels": 462647,
+        "opaque_pixels": 990
+      },
+      "region_policy": "fixed grid regions only; no alpha/content trim",
+      "grid": [
+        2,
+        2
+      ],
+      "source_cell": [
+        627,
+        627
+      ],
+      "frame_regions": [
+        [
+          0,
+          0,
+          627,
+          627
+        ],
+        [
+          627,
+          0,
+          1254,
+          627
+        ],
+        [
+          0,
+          627,
+          627,
+          1254
+        ],
+        [
+          627,
+          627,
+          1254,
+          1254
+        ]
+      ],
+      "preprocessing": "none",
+      "frames": [
+        {
+          "index": 0,
+          "source_region_fixed": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            0,
+            192,
+            96,
+            288
+          ]
+        },
+        {
+          "index": 1,
+          "source_region_fixed": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            96,
+            192,
+            192,
+            288
+          ]
+        },
+        {
+          "index": 2,
+          "source_region_fixed": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            192,
+            192,
+            288,
+            288
+          ]
+        },
+        {
+          "index": 3,
+          "source_region_fixed": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            288,
+            192,
+            384,
+            288
+          ]
+        }
+      ]
+    },
+    "SE": {
+      "file": "assets/references/generated-candidates/helena_warrior_se_idle_source_v1.png",
+      "sha256": "844e9a814ab9689551b703cdea6e45a60ee90ed5e438035a2861c6cb20edad26",
+      "source_version": "v1",
+      "raw_dimensions": [
+        1254,
+        1254
+      ],
+      "raw_alpha": {
+        "unique_values": 256,
+        "min": 0,
+        "max": 255,
+        "transparent_pixels": 1055811,
+        "intermediate_alpha_pixels": 516259,
+        "opaque_pixels": 446
+      },
+      "region_policy": "fixed grid regions only; no alpha/content trim",
+      "grid": [
+        2,
+        2
+      ],
+      "source_cell": [
+        627,
+        627
+      ],
+      "frame_regions": [
+        [
+          0,
+          0,
+          627,
+          627
+        ],
+        [
+          627,
+          0,
+          1254,
+          627
+        ],
+        [
+          0,
+          627,
+          627,
+          1254
+        ],
+        [
+          627,
+          627,
+          1254,
+          1254
+        ]
+      ],
+      "preprocessing": "none",
+      "frames": [
+        {
+          "index": 0,
+          "source_region_fixed": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            0,
+            288,
+            96,
+            384
+          ]
+        },
+        {
+          "index": 1,
+          "source_region_fixed": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            96,
+            288,
+            192,
+            384
+          ]
+        },
+        {
+          "index": 2,
+          "source_region_fixed": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            192,
+            288,
+            288,
+            384
+          ]
+        },
+        {
+          "index": 3,
+          "source_region_fixed": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            288,
+            288,
+            384,
+            384
+          ]
+        }
+      ]
+    },
+    "S": {
+      "file": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v1.png",
+      "sha256": "d62430aac09766e217a27042721abe1d9b524a54b8b0993ce9e476687ad08069",
+      "source_row": 1,
+      "copied_pixel_exact": true,
+      "note": "N/S pixels copied unchanged from the pre-existing candidate v1",
+      "frames": [
+        {
+          "index": 0,
+          "output_region": [
+            0,
+            384,
+            96,
+            480
+          ]
+        },
+        {
+          "index": 1,
+          "output_region": [
+            96,
+            384,
+            192,
+            480
+          ]
+        },
+        {
+          "index": 2,
+          "output_region": [
+            192,
+            384,
+            288,
+            480
+          ]
+        },
+        {
+          "index": 3,
+          "output_region": [
+            288,
+            384,
+            384,
+            480
+          ]
+        }
+      ]
+    },
+    "SW": {
+      "file": "assets/references/generated-candidates/helena_warrior_sw_idle_source_v1.png",
+      "sha256": "2c524294f9594e9bb0b22589f0b11d9cf32e907b473cf62c452d3cfd07809c90",
+      "source_version": "v1",
+      "raw_dimensions": [
+        1254,
+        1254
+      ],
+      "raw_alpha": {
+        "unique_values": 256,
+        "min": 0,
+        "max": 255,
+        "transparent_pixels": 1033131,
+        "intermediate_alpha_pixels": 538428,
+        "opaque_pixels": 957
+      },
+      "region_policy": "fixed grid regions only; no alpha/content trim",
+      "grid": [
+        2,
+        2
+      ],
+      "source_cell": [
+        627,
+        627
+      ],
+      "frame_regions": [
+        [
+          0,
+          0,
+          627,
+          627
+        ],
+        [
+          627,
+          0,
+          1254,
+          627
+        ],
+        [
+          0,
+          627,
+          627,
+          1254
+        ],
+        [
+          627,
+          627,
+          1254,
+          1254
+        ]
+      ],
+      "preprocessing": "none",
+      "frames": [
+        {
+          "index": 0,
+          "source_region_fixed": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            0,
+            480,
+            96,
+            576
+          ]
+        },
+        {
+          "index": 1,
+          "source_region_fixed": [
+            627,
+            0,
+            1254,
+            627
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            96,
+            480,
+            192,
+            576
+          ]
+        },
+        {
+          "index": 2,
+          "source_region_fixed": [
+            0,
+            627,
+            627,
+            1254
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            192,
+            480,
+            288,
+            576
+          ]
+        },
+        {
+          "index": 3,
+          "source_region_fixed": [
+            627,
+            627,
+            1254,
+            1254
+          ],
+          "source_cell": [
+            627,
+            627
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/627",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            288,
+            480,
+            384,
+            576
+          ]
+        }
+      ]
+    },
+    "W": {
+      "file": "assets/references/generated-candidates/helena_warrior_w_idle_source_v1.png",
+      "sha256": "0ba553b089515fd15d2660c749f0a121d36fa509b840b76e9ffc5e401578c1ba",
+      "source_version": "v1",
+      "raw_dimensions": [
+        1312,
+        1199
+      ],
+      "raw_alpha": {
+        "unique_values": 256,
+        "min": 0,
+        "max": 255,
+        "transparent_pixels": 1092601,
+        "intermediate_alpha_pixels": 479849,
+        "opaque_pixels": 638
+      },
+      "region_policy": "fixed grid regions only; no alpha/content trim",
+      "grid": [
+        2,
+        2
+      ],
+      "source_cell": [
+        656,
+        600
+      ],
+      "frame_regions_after_transparent_padding": [
+        [
+          0,
+          0,
+          656,
+          600
+        ],
+        [
+          656,
+          0,
+          1312,
+          600
+        ],
+        [
+          0,
+          600,
+          656,
+          1200
+        ],
+        [
+          656,
+          600,
+          1312,
+          1200
+        ]
+      ],
+      "preprocessing": {
+        "operation": "append one transparent row at bottom of working copy",
+        "from": [
+          1312,
+          1199
+        ],
+        "to": [
+          1312,
+          1200
+        ],
+        "reason": "equal integer 656x600 cells; source PNG remains unchanged"
+      },
+      "frames": [
+        {
+          "index": 0,
+          "source_region_fixed": [
+            0,
+            0,
+            656,
+            600
+          ],
+          "source_cell": [
+            656,
+            600
+          ],
+          "output_content_size": [
+            74,
+            68
+          ],
+          "uniform_scale": "68/600",
+          "shared_offset_for_direction": [
+            11,
+            12
+          ],
+          "output_region": [
+            0,
+            576,
+            96,
+            672
+          ]
+        },
+        {
+          "index": 1,
+          "source_region_fixed": [
+            656,
+            0,
+            1312,
+            600
+          ],
+          "source_cell": [
+            656,
+            600
+          ],
+          "output_content_size": [
+            74,
+            68
+          ],
+          "uniform_scale": "68/600",
+          "shared_offset_for_direction": [
+            11,
+            12
+          ],
+          "output_region": [
+            96,
+            576,
+            192,
+            672
+          ]
+        },
+        {
+          "index": 2,
+          "source_region_fixed": [
+            0,
+            600,
+            656,
+            1200
+          ],
+          "source_cell": [
+            656,
+            600
+          ],
+          "output_content_size": [
+            74,
+            68
+          ],
+          "uniform_scale": "68/600",
+          "shared_offset_for_direction": [
+            11,
+            12
+          ],
+          "output_region": [
+            192,
+            576,
+            288,
+            672
+          ]
+        },
+        {
+          "index": 3,
+          "source_region_fixed": [
+            656,
+            600,
+            1312,
+            1200
+          ],
+          "source_cell": [
+            656,
+            600
+          ],
+          "output_content_size": [
+            74,
+            68
+          ],
+          "uniform_scale": "68/600",
+          "shared_offset_for_direction": [
+            11,
+            12
+          ],
+          "output_region": [
+            288,
+            576,
+            384,
+            672
+          ]
+        }
+      ]
+    },
+    "NW": {
+      "file": "assets/references/generated-candidates/helena_warrior_nw_idle_source_v1.png",
+      "sha256": "7dc71522d1e8c9dd0e2952ed3f42fc58353742b1afbb6c45fdc7c4dd60df63aa",
+      "source_version": "v1",
+      "raw_dimensions": [
+        1774,
+        887
+      ],
+      "raw_alpha": {
+        "unique_values": 256,
+        "min": 0,
+        "max": 255,
+        "transparent_pixels": 1274298,
+        "intermediate_alpha_pixels": 298886,
+        "opaque_pixels": 354
+      },
+      "region_policy": "fixed grid regions only; no alpha/content trim",
+      "grid": [
+        4,
+        2
+      ],
+      "selected_grid_columns": [
+        1,
+        2
+      ],
+      "source_cell": [
+        443,
+        443
+      ],
+      "frame_regions_after_uniform_sheet_resample": [
+        [
+          443,
+          0,
+          886,
+          443
+        ],
+        [
+          886,
+          0,
+          1329,
+          443
+        ],
+        [
+          443,
+          443,
+          886,
+          886
+        ],
+        [
+          886,
+          443,
+          1329,
+          886
+        ]
+      ],
+      "preprocessing": {
+        "operation": "uniform nearest resample of whole sheet",
+        "from": [
+          1774,
+          887
+        ],
+        "to": [
+          1772,
+          886
+        ],
+        "reason": "convert half-pixel 4x2 grid boundaries into fixed 443x443 cells"
+      },
+      "frames": [
+        {
+          "index": 0,
+          "source_region_fixed": [
+            443,
+            0,
+            886,
+            443
+          ],
+          "source_cell": [
+            443,
+            443
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/443",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            0,
+            672,
+            96,
+            768
+          ]
+        },
+        {
+          "index": 1,
+          "source_region_fixed": [
+            886,
+            0,
+            1329,
+            443
+          ],
+          "source_cell": [
+            443,
+            443
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/443",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            96,
+            672,
+            192,
+            768
+          ]
+        },
+        {
+          "index": 2,
+          "source_region_fixed": [
+            443,
+            443,
+            886,
+            886
+          ],
+          "source_cell": [
+            443,
+            443
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/443",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            192,
+            672,
+            288,
+            768
+          ]
+        },
+        {
+          "index": 3,
+          "source_region_fixed": [
+            886,
+            443,
+            1329,
+            886
+          ],
+          "source_cell": [
+            443,
+            443
+          ],
+          "output_content_size": [
+            68,
+            68
+          ],
+          "uniform_scale": "68/443",
+          "shared_offset_for_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            288,
+            672,
+            384,
+            768
+          ]
+        }
+      ]
+    }
+  },
+  "alpha_policy": "Alpha original preservado; redução somente por nearest, sem binarização, remoção de halo, flood fill ou retoque.",
+  "validation": {
+    "structure": "validado",
+    "visual_art": "corrigir",
+    "godot": "pendente",
+    "android": "pendente"
+  },
+  "notes": [
+    "Inclui as oito direções na ordem contratual: N, NE, E, SE, S, SW, W, NW.",
+    "N/S foram copiados pixel a pixel dos atlas Helena v1; fontes e candidatos v1 permanecem intactos.",
+    "E/W e as diagonais foram gerados como fontes distintas. NE usa uma segunda tentativa direcionada para ângulo intermediário; a primeira também foi preservada.",
+    "Células 96x96, pivô (48,80), escala e FPS continuam candidatos, sem validação de importação em Godot ou Android.",
+    "Nearest reduz resolução e pode descartar detalhe; a fonte gerada integral segue preservada.",
+    "O alpha suave e os halos da geração foram preservados, embora contrariem a direção de arte de pixel nítido.",
+    "A prancha registra quadros gerados, não certifica contato dos pés, ciclo, identidade entre direções ou aprovação artística."
+  ]
+}
