@@ -4,7 +4,7 @@
 
 ## Próxima ação
 
-Validar o protótipo navegável `docs/prototypes/mvp_ui_v0_4.html` (quatro aparências) e revisar a candidata técnica Fábio Warrior etapa 1. A alternativa v2 reduz a diferença de altura N/S, mas o acabamento/alpha, o alinhamento de pés e o ciclo continuam em **corrigir**. Comparar v1/v2 e executar `tools/art/sprite_test/fabio_stage1_test.tscn` quando Godot estiver disponível, conferindo SQM, fundos, cada quadro e zoom 50–125%. Teste Android permanece pendente antes da aprovação ou expansão. Não produzir outras vocações, direções, efeitos ou personagens além do MVP.
+Validar a nova árvore navegável em `docs/prototypes/mvp_ui_v0_5.html`: topologia compartilhada, posições das origens, proporção dos nós, lista de efeitos e custos. O plano por vocação permanece vigente até essa validação. Em paralelo, revisar a candidata técnica Fábio Warrior etapa 1: comparar v1/v2 e executar `tools/art/sprite_test/fabio_stage1_test.tscn` quando Godot estiver disponível, conferindo SQM, fundos, cada quadro e zoom 50–125%. A sprite continua em **corrigir**; Godot e Android permanecem pendentes. Nenhuma UI de produção está liberada.
 
 ## Fábio — personagem jogável aprovado, arte etapa 1 pendente
 
@@ -20,5 +20,5 @@ Maíra está registrada como personagem jogável do MVP, irmã de Helena, com co
 
 ## Outros gates pendentes
 
-- `docs/prototypes/mvp_ui_v0_4.html` é o protótipo navegável atual; aprovação do usuário continua pendente.
+- `docs/prototypes/mvp_ui_v0_5.html` é o protótipo navegável atual; aprovação do usuário continua pendente.
 - Não iniciar implementação dependente do protótipo nem expandir lotes de arte antes das revisões correspondentes. Nenhum conteúdo futuro de Vael/exército entra nesta etapa MVP.

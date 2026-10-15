@@ -74,7 +74,840 @@
     {"to_level": 2, "requires": {"wood": 30, "stone": 20, "fiber": 10}},
     {"to_level": 3, "requires": {"wood": 60, "stone": 40, "fiber": 20, "crystal_shard": 5}}
   ],
-  "talents": {"planned_per_vocation": {"small": 60, "large": 25, "special": 15}, "mvp_candidates_per_vocation": 18, "small_cost": 1, "large_cost": 2, "special_cost": 5, "individual_node_ids": "pending_S3_design"},
+  "talents": {
+    "planned_per_vocation": {
+      "small": 60,
+      "large": 25,
+      "special": 15
+    },
+    "mvp_candidates_per_vocation": 18,
+    "small_cost": 1,
+    "large_cost": 2,
+    "special_cost": 5,
+    "individual_node_ids": "pending_S3_design",
+    "prototype_graph_candidate": {
+      "status": "awaiting_user_validation",
+      "model": "shared_passive_constellation",
+      "coordinate_space": {
+        "view_box": [
+          1000,
+          620
+        ],
+        "origin": "top-left"
+      },
+      "counts": {
+        "small_circles": 25,
+        "large_squares": 6,
+        "actor_origin_diamonds": 3,
+        "total_nodes": 34,
+        "bidirectional_connections": 61
+      },
+      "costs": {
+        "small": 1,
+        "large": 2,
+        "origin": 0,
+        "all_passives_total": 37
+      },
+      "roadmap": [
+        {
+          "stage": 1,
+          "name": "Origens",
+          "nodes": [
+            "origin_warrior",
+            "origin_archer",
+            "origin_mage"
+          ]
+        },
+        {
+          "stage": 2,
+          "name": "Núcleo de combate e atributos",
+          "nodes": [
+            "s01-s12",
+            "l01-l04"
+          ]
+        },
+        {
+          "stage": 3,
+          "name": "Sobrevivência e coleta",
+          "nodes": [
+            "s13-s21",
+            "l05-l06"
+          ]
+        },
+        {
+          "stage": 4,
+          "name": "Especialização externa",
+          "nodes": [
+            "s22-s25"
+          ]
+        }
+      ],
+      "rules": {
+        "connections": "bidirectional",
+        "unlock": "node must be adjacent to an unlocked node",
+        "origin_cost": 0,
+        "starting_points_per_vocation": 3,
+        "points_are_separate_per_vocation": true,
+        "progress_persists": false,
+        "node_text_inside_shapes": false,
+        "actor_label_below_origin": "Actor"
+      },
+      "nodes": [
+        {
+          "id": "origin_warrior",
+          "kind": "origin",
+          "vocation": "warrior",
+          "name": "Origem da Warrior",
+          "effect": "+2 Força inicial; abre a rota superior da rede.",
+          "x": 500,
+          "y": 48,
+          "cost": 0,
+          "shape": "actor_diamond",
+          "textLabel": "Actor"
+        },
+        {
+          "id": "origin_archer",
+          "kind": "origin",
+          "vocation": "archer",
+          "name": "Origem da Archer",
+          "effect": "+2 Agilidade inicial; abre a rota esquerda da rede.",
+          "x": 64,
+          "y": 302,
+          "cost": 0,
+          "shape": "actor_diamond",
+          "textLabel": "Actor"
+        },
+        {
+          "id": "origin_mage",
+          "kind": "origin",
+          "vocation": "mage",
+          "name": "Origem da Mage",
+          "effect": "+2 Inteligência inicial; abre a rota direita da rede.",
+          "x": 936,
+          "y": 302,
+          "cost": 0,
+          "shape": "actor_diamond",
+          "textLabel": "Actor"
+        },
+        {
+          "id": "s01",
+          "kind": "small",
+          "name": "Força I",
+          "effect": "+2 Força. Aumenta o dano físico básico.",
+          "x": 500,
+          "y": 130,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s02",
+          "kind": "small",
+          "name": "Agilidade I",
+          "effect": "+2 Agilidade. Melhora precisão e esquiva.",
+          "x": 400,
+          "y": 160,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s03",
+          "kind": "small",
+          "name": "Inteligência I",
+          "effect": "+2 Inteligência. Aumenta o dano mágico.",
+          "x": 600,
+          "y": 160,
+          "radius": 19,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s04",
+          "kind": "small",
+          "name": "Fio Afiado",
+          "effect": "+2% de dano com espada.",
+          "x": 298,
+          "y": 212,
+          "radius": 16,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s05",
+          "kind": "small",
+          "name": "Mira Estável",
+          "effect": "+2% de precisão com arco.",
+          "x": 702,
+          "y": 212,
+          "radius": 16,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s06",
+          "kind": "small",
+          "name": "Passo Ágil",
+          "effect": "+2% de velocidade de movimento.",
+          "x": 170,
+          "y": 258,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s07",
+          "kind": "small",
+          "name": "Guarda Firme",
+          "effect": "+2 de defesa.",
+          "x": 292,
+          "y": 295,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s08",
+          "kind": "small",
+          "name": "Reserva de Mana",
+          "effect": "+3 de mana máxima.",
+          "x": 398,
+          "y": 258,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s09",
+          "kind": "small",
+          "name": "Ponto Crítico",
+          "effect": "+1% de chance crítica.",
+          "x": 500,
+          "y": 230,
+          "radius": 19,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s10",
+          "kind": "small",
+          "name": "Foco Arcano",
+          "effect": "+2% de dano mágico.",
+          "x": 602,
+          "y": 258,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s11",
+          "kind": "small",
+          "name": "Reflexos",
+          "effect": "+2% de esquiva.",
+          "x": 708,
+          "y": 295,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s12",
+          "kind": "small",
+          "name": "Tiro Longo",
+          "effect": "+1 tile de alcance com arco.",
+          "x": 830,
+          "y": 258,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s13",
+          "kind": "small",
+          "name": "Madeireiro",
+          "effect": "+4% de madeira por coleta.",
+          "x": 170,
+          "y": 390,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s14",
+          "kind": "small",
+          "name": "Vigor",
+          "effect": "+4 HP máximo.",
+          "x": 280,
+          "y": 390,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s15",
+          "kind": "small",
+          "name": "Recuperação",
+          "effect": "+0,2 HP/s fora de combate.",
+          "x": 392,
+          "y": 365,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s16",
+          "kind": "small",
+          "name": "Resistência",
+          "effect": "+2% de redução de dano físico.",
+          "x": 500,
+          "y": 354,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s17",
+          "kind": "small",
+          "name": "Meditação",
+          "effect": "+0,2 MP/s fora de combate.",
+          "x": 608,
+          "y": 365,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s18",
+          "kind": "small",
+          "name": "Minerador",
+          "effect": "+4% de pedra por coleta.",
+          "x": 720,
+          "y": 390,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s19",
+          "kind": "small",
+          "name": "Afinidade Cristalina",
+          "effect": "+3% de chance de encontrar fragmento de cristal.",
+          "x": 830,
+          "y": 390,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s20",
+          "kind": "small",
+          "name": "Herbologista",
+          "effect": "+4% de ervas por coleta.",
+          "x": 282,
+          "y": 488,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s21",
+          "kind": "small",
+          "name": "Tratamento",
+          "effect": "+3% de cura recebida.",
+          "x": 395,
+          "y": 488,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s22",
+          "kind": "small",
+          "name": "Sobrevivência",
+          "effect": "+3% de HP máximo.",
+          "x": 500,
+          "y": 486,
+          "radius": 19,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s23",
+          "kind": "small",
+          "name": "Eficiência de Mana",
+          "effect": "-2% no custo de habilidades.",
+          "x": 605,
+          "y": 488,
+          "radius": 15,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s24",
+          "kind": "small",
+          "name": "Cadência",
+          "effect": "+2% de velocidade de ataque.",
+          "x": 718,
+          "y": 488,
+          "radius": 17,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "s25",
+          "kind": "small",
+          "name": "Conhecedor do Terreno",
+          "effect": "+3% de chance de encontrar recursos raros.",
+          "x": 500,
+          "y": 566,
+          "radius": 18,
+          "cost": 1,
+          "shape": "circle"
+        },
+        {
+          "id": "l01",
+          "kind": "large",
+          "name": "Mestre das Lâminas",
+          "effect": "+12% de dano com espada.",
+          "x": 500,
+          "y": 184,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        },
+        {
+          "id": "l02",
+          "kind": "large",
+          "name": "Sentinela",
+          "effect": "+12 de defesa e +5% de bloqueio.",
+          "x": 300,
+          "y": 338,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        },
+        {
+          "id": "l03",
+          "kind": "large",
+          "name": "Condutor Arcano",
+          "effect": "+10% de dano mágico e +10 MP.",
+          "x": 500,
+          "y": 302,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        },
+        {
+          "id": "l04",
+          "kind": "large",
+          "name": "Atirador de Elite",
+          "effect": "+10% de precisão e +1 tile de alcance com arco.",
+          "x": 700,
+          "y": 338,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        },
+        {
+          "id": "l05",
+          "kind": "large",
+          "name": "Inquebrável",
+          "effect": "+12% de HP e +0,2 HP/s fora de combate.",
+          "x": 396,
+          "y": 438,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        },
+        {
+          "id": "l06",
+          "kind": "large",
+          "name": "Explorador Experiente",
+          "effect": "+12% de rendimento nas coletas.",
+          "x": 604,
+          "y": 438,
+          "width": 48,
+          "height": 48,
+          "cost": 2,
+          "shape": "square"
+        }
+      ],
+      "connections": [
+        {
+          "from": "origin_warrior",
+          "to": "s01",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "origin_archer",
+          "to": "s06",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "origin_archer",
+          "to": "s13",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "origin_mage",
+          "to": "s12",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "origin_mage",
+          "to": "s19",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s01",
+          "to": "l01",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s01",
+          "to": "s02",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s01",
+          "to": "s03",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s02",
+          "to": "s04",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s02",
+          "to": "s08",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s03",
+          "to": "s05",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s03",
+          "to": "s10",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s04",
+          "to": "s06",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s04",
+          "to": "s07",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s05",
+          "to": "s11",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s05",
+          "to": "s12",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s06",
+          "to": "s07",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s06",
+          "to": "s13",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s07",
+          "to": "l02",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s07",
+          "to": "s08",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s08",
+          "to": "s09",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s08",
+          "to": "s15",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s09",
+          "to": "l01",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s09",
+          "to": "l03",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s09",
+          "to": "s10",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s09",
+          "to": "s16",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s10",
+          "to": "s11",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s10",
+          "to": "s17",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s11",
+          "to": "l04",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s11",
+          "to": "s12",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s12",
+          "to": "s19",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s13",
+          "to": "s14",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s13",
+          "to": "s20",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s14",
+          "to": "l02",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s14",
+          "to": "s15",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s14",
+          "to": "s20",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s15",
+          "to": "l02",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s15",
+          "to": "s16",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s15",
+          "to": "l05",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s15",
+          "to": "s21",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s16",
+          "to": "l03",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s16",
+          "to": "s17",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s16",
+          "to": "s22",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s17",
+          "to": "l04",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s17",
+          "to": "s18",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s17",
+          "to": "s23",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s18",
+          "to": "l04",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s18",
+          "to": "s19",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s18",
+          "to": "s24",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s19",
+          "to": "s12",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s20",
+          "to": "s21",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s20",
+          "to": "l05",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s21",
+          "to": "l05",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s21",
+          "to": "s22",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s22",
+          "to": "l05",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s22",
+          "to": "l06",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s22",
+          "to": "s25",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s23",
+          "to": "l06",
+          "direction": "bidirectional",
+          "bend": 10
+        },
+        {
+          "from": "s23",
+          "to": "s24",
+          "direction": "bidirectional",
+          "bend": -8
+        },
+        {
+          "from": "s24",
+          "to": "l06",
+          "direction": "bidirectional",
+          "bend": 0
+        },
+        {
+          "from": "s24",
+          "to": "s25",
+          "direction": "bidirectional",
+          "bend": 0
+        }
+      ],
+      "note": "Visual and content candidate only; does not replace planned_per_vocation or the 18 production candidates per vocation before explicit validation."
+    }
+  },
   "regions": [
     {"id": "beach_spawn", "playable_mvp": true}, {"id": "green_forest", "playable_mvp": true},
     {"id": "bear_interior", "playable_mvp": true}, {"id": "corrupted_castle", "playable_mvp": false}

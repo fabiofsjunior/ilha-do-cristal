@@ -109,8 +109,63 @@ Subida I→II: 30 madeira, 20 pedra, 10 fibra. II→III: 60 madeira, 40 pedra, 2
 
 ## 9. Talentos
 
-O plano completo são 100 nós por vocação; **a lista de produção inicial contém 18 nós candidatos por vocação**, com conexão a partir do centro e escolhas exclusivas. Pequeno custa 1, grande 2, especial 5. Os 18 candidatos são: 6 pequenos de combate (dano básico, alcance/cadência, custo de mana, precisão, habilidade única, habilidade de área); 3 pequenos de sobrevivência (HP, MP, regeneração); 3 pequenos de exploração (madeira, pedra, erva/pesca futura); 3 grandes (habilidade principal, defesa, eficiência de coleta); 3 especiais mutuamente exclusivos (combate, suporte, exploração). Nomes/efeitos exatos por vocação e grafos completos devem ser aprovados antes de codificar a árvore em S3; **não declarar 300 nós implementados**. Até o nível 10 há 30 pontos, enquanto esses candidatos somam 33 se ignorar exclusões.
+### Plano de produção vigente
 
+O plano completo segue em 100 nós por vocação: 60 pequenos, 25 grandes e 15 especiais. A lista de produção inicial permanece em 18 candidatos por vocação, com nós conectados a partir da origem e escolhas exclusivas. Pequeno custa 1 ponto, grande 2 e especial 5. A lista é formada por 6 pequenos de combate, 3 de sobrevivência, 3 de exploração, 3 grandes e 3 especiais mutuamente exclusivos. Nomes e efeitos exatos por vocação precisam de aprovação antes de codificar em S3; **não declarar 300 nós implementados**. Até o nível 10 há 30 pontos, enquanto estes candidatos somam 33 se ignoradas as exclusões.
+
+### Árvore passiva candidata v0.5 — aguardando validação
+
+O protótipo testa uma malha compartilhada e conectada entre as três vocações. Ela contém 25 passivas pequenas em círculos, 6 passivas grandes em quadrados, 3 origens especiais em losangos com figuras de atores e 61 ligações bidirecionais. O texto “Actor” aparece abaixo de cada origem; ao selecionar qualquer nó, o painel lateral mostra nome, efeito, custo e estado. As origens não custam pontos. Os nós passivos custam 1 ou 2 pontos; os 31 passivos somam 37 pontos, acima dos 30 disponíveis até o nível 10. No protótipo, cada vocação começa com 3 pontos e só pode comprar um nó ligado a outro já desbloqueado; progresso é temporário e não é salvo.
+
+Esta alternativa visual **não substitui** o plano de produção por vocação nem aprova nomes, efeitos ou custos. As IDs abaixo são candidatas de protótipo; IDs de produção continuam pendentes de validação e desenho de S3.
+
+#### Roadmap visual candidato
+
+1. **Escolha de origem:** Warrior no alto, Archer à esquerda e Mage à direita; cada origem abre uma entrada gratuita na rede.
+2. **Núcleo de combate e atributos:** nós `s01–s12` e grandes `l01–l04`, próximos ao centro.
+3. **Sobrevivência e coleta:** nós `s13–s21` e grandes `l05–l06`, em rotas intermediárias.
+4. **Especialização externa:** nós `s22–s25`, nas rotas externas. A progressão real segue as ligações adjacentes, não uma ordem linear obrigatória.
+
+#### Lista completa de nós candidatos
+
+| ID | Tipo visual | Nome | Efeito candidato | Custo |
+|---|---|---|---|---|
+| `origin_warrior` | Origem especial · Warrior | Origem da Warrior | +2 Força inicial; abre a rota superior da rede. | Grátis |
+| `origin_archer` | Origem especial · Archer | Origem da Archer | +2 Agilidade inicial; abre a rota esquerda da rede. | Grátis |
+| `origin_mage` | Origem especial · Mage | Origem da Mage | +2 Inteligência inicial; abre a rota direita da rede. | Grátis |
+| `s01` | Pequeno · círculo | Força I | +2 Força. Aumenta o dano físico básico. | 1 ponto |
+| `s02` | Pequeno · círculo | Agilidade I | +2 Agilidade. Melhora precisão e esquiva. | 1 ponto |
+| `s03` | Pequeno · círculo | Inteligência I | +2 Inteligência. Aumenta o dano mágico. | 1 ponto |
+| `s04` | Pequeno · círculo | Fio Afiado | +2% de dano com espada. | 1 ponto |
+| `s05` | Pequeno · círculo | Mira Estável | +2% de precisão com arco. | 1 ponto |
+| `s06` | Pequeno · círculo | Passo Ágil | +2% de velocidade de movimento. | 1 ponto |
+| `s07` | Pequeno · círculo | Guarda Firme | +2 de defesa. | 1 ponto |
+| `s08` | Pequeno · círculo | Reserva de Mana | +3 de mana máxima. | 1 ponto |
+| `s09` | Pequeno · círculo | Ponto Crítico | +1% de chance crítica. | 1 ponto |
+| `s10` | Pequeno · círculo | Foco Arcano | +2% de dano mágico. | 1 ponto |
+| `s11` | Pequeno · círculo | Reflexos | +2% de esquiva. | 1 ponto |
+| `s12` | Pequeno · círculo | Tiro Longo | +1 tile de alcance com arco. | 1 ponto |
+| `s13` | Pequeno · círculo | Madeireiro | +4% de madeira por coleta. | 1 ponto |
+| `s14` | Pequeno · círculo | Vigor | +4 HP máximo. | 1 ponto |
+| `s15` | Pequeno · círculo | Recuperação | +0,2 HP/s fora de combate. | 1 ponto |
+| `s16` | Pequeno · círculo | Resistência | +2% de redução de dano físico. | 1 ponto |
+| `s17` | Pequeno · círculo | Meditação | +0,2 MP/s fora de combate. | 1 ponto |
+| `s18` | Pequeno · círculo | Minerador | +4% de pedra por coleta. | 1 ponto |
+| `s19` | Pequeno · círculo | Afinidade Cristalina | +3% de chance de encontrar fragmento de cristal. | 1 ponto |
+| `s20` | Pequeno · círculo | Herbologista | +4% de ervas por coleta. | 1 ponto |
+| `s21` | Pequeno · círculo | Tratamento | +3% de cura recebida. | 1 ponto |
+| `s22` | Pequeno · círculo | Sobrevivência | +3% de HP máximo. | 1 ponto |
+| `s23` | Pequeno · círculo | Eficiência de Mana | -2% no custo de habilidades. | 1 ponto |
+| `s24` | Pequeno · círculo | Cadência | +2% de velocidade de ataque. | 1 ponto |
+| `s25` | Pequeno · círculo | Conhecedor do Terreno | +3% de chance de encontrar recursos raros. | 1 ponto |
+| `l01` | Grande · quadrado | Mestre das Lâminas | +12% de dano com espada. | 2 pontos |
+| `l02` | Grande · quadrado | Sentinela | +12 de defesa e +5% de bloqueio. | 2 pontos |
+| `l03` | Grande · quadrado | Condutor Arcano | +10% de dano mágico e +10 MP. | 2 pontos |
+| `l04` | Grande · quadrado | Atirador de Elite | +10% de precisão e +1 tile de alcance com arco. | 2 pontos |
+| `l05` | Grande · quadrado | Inquebrável | +12% de HP e +0,2 HP/s fora de combate. | 2 pontos |
+| `l06` | Grande · quadrado | Explorador Experiente | +12% de rendimento nas coletas. | 2 pontos |
+
+O catálogo JSON preserva o plano vigente e contém os dados gráficos completos da alternativa em `prototype_graph_candidate`.
 ## 10. Regiões e geração
 
 | ID | Distância relativa | Garantias |

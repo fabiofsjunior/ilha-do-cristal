@@ -30,6 +30,8 @@ Níveis 1→10: 100, 130, 169, 220, 286, 371, 483, 627, 816 XP (total acumulado 
 
 Árvore planejada **por vocação**: 60 pequenos/25 grandes/15 especiais, divididos aproximadamente em combate (24/10/6), sobrevivência (18/8/4) e exploração/coleta/craft (18/7/5). Não criar 100 nós completos no primeiro sprint. Primeiros ~18 nós por vocação: seis pequenos de atributo/arma, três de HP/MP, três de coleta, três grandes para habilidade principal/defesa/eficiência e três especiais mutuamente exclusivos para especialização de combate, suporte ou exploração. Só comprar nós conectados a uma raiz; específicos da vocação mudam comportamento, não somente +% de dano. Especificar IDs e valores de cada nó antes da implementação da árvore no S3. Limite de 30 pontos no nível 10 e 150 no 50 torna compra integral impossível (custo 185).
 
+
+O protótipo navegável v0.5 também explora uma malha compartilhada com 25 nós pequenos, 6 grandes e 3 origens de vocação. É uma alternativa visual em avaliação; a distribuição por vocação acima continua vigente até validação explícita. A lista e o roadmap candidatos estão em [CATALOGS_MVP.md](CATALOGS_MVP.md#9-talentos) e a interação pode ser testada em [mvp_ui_v0_5.html](../../docs/prototypes/mvp_ui_v0_5.html).
 ## Tabelas de dados a criar no S0/S2
 
 `characters.json`: aparência_id, vocacao_id, HP/MP base, multiplicadores; `weapons.json`: ID, família, dano, alcance, cadência, receita; `skills.json`: ID, alvo, alcance/área, AF/AM, duração, CD, MP, estados; `monsters.json`: ID, HP, IA, ataques, XP, tabela de drops; `resources.json`: ID, rendimento, respawn, XP; `recipes.json`: entrada/saída, estação; `talents.json`: ID, custo, conexão, limite/exclusividade. Versionar schema e validar referências cruzadas em CI.

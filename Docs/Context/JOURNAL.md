@@ -71,3 +71,12 @@ Criado protótipo navegável de interface com telas do GDD em `docs/prototypes/m
 - Atualizada a validação do catálogo para exigir os quatro IDs (`melissa`, `helena`, `maira`, `fabio`). `python tools/validate_catalogs.py`, `node --check` do JS da v0.4 e `git diff --check` passaram. Nenhum arquivo de foto privada está rastreado.
 - O PR #5 foi mantido em rascunho e sua descrição atualizada. Fábio Warrior etapa 1 continua **corrigir**; Godot/Android não foram validados. A revisão corretiva delegada a GPT-6 Luna com raciocínio máximo gerou uma v2 isolada: escala uniforme nearest 1,075× nas linhas norte, pivô candidato (48,80), alpha preservado e v1 intacta. A altura alpha ≥128 aproximou idle N/S de ~58/64 para 62/64 px; no walk, N/S ficou em 66 contra 63–64 px. O acabamento suavizado ainda deixa a arte em **corrigir**; o verificador estrutural de atlas reporta dez avisos conhecidos de alpha intermediário e nenhum erro de célula vazia/limite. Godot/Android continuam pendentes.
 - Próximo gate: validar o protótipo v0.4 e revisar a correção técnica Warrior etapa 1 antes de qualquer ampliação.
+
+
+## 2026-10-15 — árvore passiva candidata v0.5
+
+- O usuário orientou uma rede de passivas com 25 círculos, 6 nós retangulares e três atores; em seguida pediu que os nós retangulares fossem quadrados ou círculos maiores. A v0.5 usa 25 círculos pequenos, 6 quadrados grandes e 3 origens em losango com figuras de ator e rótulo “Actor”.
+- A malha distribuída conecta Warrior (alto), Archer (esquerda) e Mage (direita) por 61 ligações bidirecionais. Cada origem alcança os 34 nós. A tela permite selecionar nós para ver tipo, efeito, custo e estado e simular compra de nós adjacentes; pontos são separados por vocação e não persistem.
+- Registradas no catálogo as 34 entradas candidatas e um roadmap visual de quatro etapas. Os 31 nós passivos custam 37 pontos no total; o nível 10 dispõe de 30. Os valores não substituem o plano vigente (100 por vocação/18 candidatos iniciais) até revisão explícita.
+- Verificações estáticas no protótipo: sintaxe JavaScript, contagens (25/6/3), 61 conexões bidirecionais, sem IDs duplicadas ou pontas soltas, e conectividade completa desde as três origens. Catálogo JSON validado por parse; não houve execução em navegador, Godot ou Android neste ambiente.
+- Próximo gate: revisão do usuário da árvore v0.5 e dos nomes/efeitos/custos candidatos. Nenhuma UI de produção foi implementada.

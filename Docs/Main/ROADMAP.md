@@ -2,7 +2,7 @@
 
 Sem datas arbitrárias. Cada etapa fecha com demonstração no aparelho e critérios verificáveis. Trabalho em PRs pequenos por sprint; a fase seguinte começa após validação da anterior. A ordem vem do processo mecânica → escala/visão → arte técnica → loop → persistência → rede → nuvem. GDD e catálogo permanecem em `Docs/Main/`; Journal e Handoff em `Docs/Context/` registram continuidade.
 
-**Gate transversal obrigatório:** antes da implementação de cada sprint, prototipar as telas, estados e transições que serão afetados e obter validação explícita do usuário. Correções voltam ao protótipo antes de virar código. A metodologia completa está em [PROTOTYPING_METHODOLOGY.md](PROTOTYPING_METHODOLOGY.md); versões, comentários e decisões ficam em [PROTOTYPE_LOG.md](../Context/PROTOTYPE_LOG.md). O protótipo navegável atual está em [`docs/prototypes/mvp_ui_v0_4.html`](../../docs/prototypes/mvp_ui_v0_4.html). Ele é uma proposta de interface, não implementação nem evidência de aceite técnico.
+**Gate transversal obrigatório:** antes da implementação de cada sprint, prototipar as telas, estados e transições que serão afetados e obter validação explícita do usuário. Correções voltam ao protótipo antes de virar código. A metodologia completa está em [PROTOTYPING_METHODOLOGY.md](PROTOTYPING_METHODOLOGY.md); versões, comentários e decisões ficam em [PROTOTYPE_LOG.md](../Context/PROTOTYPE_LOG.md). O protótipo navegável atual está em [`docs/prototypes/mvp_ui_v0_5.html`](../../docs/prototypes/mvp_ui_v0_5.html). Ele é uma proposta de interface, não implementação nem evidência de aceite técnico.
 
 | Fase | Prototipar antes do código |
 |---|---|
@@ -14,7 +14,7 @@ Sem datas arbitrárias. Cada etapa fecha com demonstração no aparelho e crité
 | S5 | Visitante, vínculo de conta, operação offline, sincronização e divergência de progresso |
 | S6 | Tutorial, acessibilidade, áudio, feedback, erros recuperáveis e ajustes finais de UX |
 
-Prototipagem atual: **telas MVP v0.4 aguardando validação do usuário**. Nenhuma tela de produção deve ser implementada antes do retorno.
+Prototipagem atual: **telas MVP v0.5 e árvore candidata aguardando validação explícita do usuário**. Nenhuma tela de produção deve ser implementada antes do retorno.
 
 | Sprint | Entrega | Aceite |
 |---|---|---|

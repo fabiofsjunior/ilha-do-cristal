@@ -35,3 +35,10 @@ Validar antes de consolidar integração: fluxo Firebase Auth offline/online em 
 - O concept das três vocações permanece referência visual aprovada, não sprite/atlas. Identidade: pele morena, cabelo curto escuro com fios grisalhos nas têmporas, barba aparada, trajes de Warrior vermelho/dourado, Archer verde e Mage azul. Descrição: “Fábio é alto e forte, tem presença serena e olhar atento. Inteligente e reservado, prefere observar, analisar os riscos e planejar a estratégia antes de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes.”
 - GDD e catálogos do MVP agora registram quatro personagens. O protótipo de interface v0.4 inclui Fábio e aguarda validação explícita antes de qualquer implementação da tela de seleção.
 - O teste técnico Fábio Warrior etapa 1 contém somente N/S, `idle` 4 e `walk` 6; permanece em **corrigir** e não aprova a arte nem libera expansão.
+
+
+## Árvore passiva candidata — v0.5
+
+- O usuário orientou uma rede inspirada em árvore passiva, com três atores e conexões direcionais/bidirecionais; para os seis nós retangulares, pediu quadrados ou círculos maiores. A v0.5 representa 25 passivas pequenas como círculos, 6 grandes como quadrados e as três origens de vocação como losangos com atores e rótulo “Actor”.
+- A rede tem 61 ligações bidirecionais; cada origem alcança os 34 nós. Nós exibem somente o símbolo no grafo; nome, efeito, tipo e custo aparecem no painel após seleção. O protótipo simula desbloqueios adjacentes, sem salvamento.
+- Essa composição, nomes, efeitos e custos são **candidatos aguardando validação**. O plano canônico permanece 100 nós por vocação e a lista de produção permanece sem IDs aprovadas até o usuário revisar a v0.5.
