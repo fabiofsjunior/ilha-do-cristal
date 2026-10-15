@@ -4,7 +4,7 @@
 
 ## Próxima ação
 
-Revisar `docs/prototypes/mvp_ui_v0_6.html` com a imagem conceitual escolhida em `docs/prototypes/assets/passive_skill_tree_endgame_reference.png`: validar a composição visual, a lista de efeitos e a regra de desbloqueio automático por nível. A origem já inicia desbloqueada. Os marcos de geração 2/4/6/8/10 são apenas uma demonstração; a topologia da imagem não é dado exato. O plano de 100 nós por vocação permanece vigente. Em paralelo, revisar a candidata técnica Fábio Warrior etapa 1: comparar v1/v2 e executar `tools/art/sprite_test/fabio_stage1_test.tscn` quando Godot estiver disponível, conferindo SQM, fundos, cada quadro e zoom 50–125%. A sprite continua em **corrigir**; Godot e Android permanecem pendentes. Nenhuma UI de produção está liberada.
+Revisar `docs/prototypes/mvp_ui_v0_7.html` (inventário, painel de atributos, detalhes dos itens e árvore) com a imagem conceitual escolhida em `docs/prototypes/assets/passive_skill_tree_endgame_reference.png`: validar a composição visual, a lista de efeitos e a regra de desbloqueio automático por nível. A origem já inicia desbloqueada. Os marcos de geração 2/4/6/8/10 são apenas uma demonstração; a topologia da imagem não é dado exato. O plano de 100 nós por vocação permanece vigente. Em paralelo, revisar a candidata técnica Fábio Warrior etapa 1: comparar v1/v2 e executar `tools/art/sprite_test/fabio_stage1_test.tscn` quando Godot estiver disponível, conferindo SQM, fundos, cada quadro e zoom 50–125%. A sprite continua em **corrigir**; Godot e Android permanecem pendentes. Nenhuma UI de produção está liberada.
 
 ## Fábio — personagem jogável aprovado, arte etapa 1 pendente
 
@@ -20,5 +20,5 @@ Maíra está registrada como personagem jogável do MVP, irmã de Helena, com co
 
 ## Outros gates pendentes
 
-- `docs/prototypes/mvp_ui_v0_6.html` é o protótipo navegável atual; aprovação do usuário continua pendente.
+- `docs/prototypes/mvp_ui_v0_7.html` é o protótipo navegável atual; revisão explícita do usuário continua pendente.
 - Não iniciar implementação dependente do protótipo nem expandir lotes de arte antes das revisões correspondentes. Nenhum conteúdo futuro de Vael/exército entra nesta etapa MVP.
