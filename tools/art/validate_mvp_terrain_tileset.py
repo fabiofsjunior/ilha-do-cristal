@@ -36,6 +36,80 @@ assert repeat_fail==manifest['validation']['base_repeat_failures']
 assert len([t for t in manifest['tiles'] if t['role']=='base'])==17
 assert len([t for t in manifest['tiles'] if t['role']=='transition'])==24
 assert len([t for t in manifest['tiles'] if t['role']=='overlay'])==15
+tile_regions={
+    tile['id']:im.crop((tile['rect_px'][0],tile['rect_px'][1],
+                        tile['rect_px'][0]+tile['rect_px'][2],
+                        tile['rect_px'][1]+tile['rect_px'][3]))
+    for tile in manifest['tiles']
+}
+def border_pixels(region,side):
+    if side=='left': return [region.getpixel((0,y)) for y in range(ch)]
+    if side=='right': return [region.getpixel((cw-1,y)) for y in range(ch)]
+    if side=='top': return [region.getpixel((x,0)) for x in range(cw)]
+    return [region.getpixel((x,ch-1)) for x in range(cw)]
+transition_families=(
+    ('shore_sand_water','sand_01','water_shallow_01'),
+    ('beach_grass','grass_01','sand_01'),
+    ('grass_soil','grass_01','soil_01'),
+)
+edge_material_sides={
+    'n':(('top','b'),('bottom','a')),
+    'e':(('right','b'),('left','a')),
+    's':(('bottom','b'),('top','a')),
+    'w':(('left','b'),('right','a')),
+}
+transition_base_join_failures=[]
+transition_base_joins_checked=0
+for prefix,material_a,material_b in transition_families:
+    for direction,sides in edge_material_sides.items():
+        edge_id=f'{prefix}_edge_{direction}'
+        for side,material in sides:
+            transition_base_joins_checked+=1
+            base_id=material_b if material=='b' else material_a
+            if border_pixels(tile_regions[edge_id],side)!=border_pixels(tile_regions[base_id],side):
+                transition_base_join_failures.append({'edge':edge_id,'side':side,'base':base_id})
+assert transition_base_joins_checked==manifest['validation']['transition_base_joins_checked']
+assert not transition_base_join_failures, f'transition/base border mismatch: {transition_base_join_failures}'
+assert transition_base_join_failures==manifest['validation']['transition_base_join_failures']
+corner_edge_pairs={
+    'nw':(('right','n','left'),('bottom','w','top')),
+    'ne':(('left','n','right'),('bottom','e','top')),
+    'se':(('left','s','right'),('top','e','bottom')),
+    'sw':(('right','s','left'),('top','w','bottom')),
+}
+transition_prefixes=('shore_sand_water','beach_grass','grass_soil')
+corner_edge_join_failures=[]
+corner_edge_joins_checked=0
+for prefix in transition_prefixes:
+    for corner,joins in corner_edge_pairs.items():
+        for corner_side,edge_direction,edge_side in joins:
+            corner_edge_joins_checked+=1
+            corner_id=f'{prefix}_corner_{corner}'
+            edge_id=f'{prefix}_edge_{edge_direction}'
+            if border_pixels(tile_regions[corner_id],corner_side)!=border_pixels(tile_regions[edge_id],edge_side):
+                corner_edge_join_failures.append({
+                    'corner':corner_id,'side':corner_side,
+                    'edge':edge_id,'edge_side':edge_side,
+                })
+assert corner_edge_joins_checked==manifest['validation']['corner_edge_joins_checked']
+assert not corner_edge_join_failures, f'corner/edge border mismatch: {corner_edge_join_failures}'
+assert corner_edge_join_failures==manifest['validation']['corner_edge_join_failures']
+corner_outer_sides={
+    'nw':('top','left'),'ne':('top','right'),
+    'se':('bottom','right'),'sw':('bottom','left'),
+}
+corner_outer_base_join_failures=[]
+corner_outer_base_joins_checked=0
+for prefix,material_a,material_b in transition_families:
+    for corner,sides in corner_outer_sides.items():
+        corner_id=f'{prefix}_corner_{corner}'
+        for side in sides:
+            corner_outer_base_joins_checked+=1
+            if border_pixels(tile_regions[corner_id],side)!=border_pixels(tile_regions[material_b],side):
+                corner_outer_base_join_failures.append({'corner':corner_id,'side':side,'base':material_b})
+assert corner_outer_base_joins_checked==manifest['validation']['corner_outer_base_joins_checked']
+assert not corner_outer_base_join_failures, f'corner/base border mismatch: {corner_outer_base_join_failures}'
+assert corner_outer_base_join_failures==manifest['validation']['corner_outer_base_join_failures']
 path_arms={
     'h':['W','E'],'v':['N','S'],
     'turn_ne':['N','E'],'turn_es':['E','S'],'turn_sw':['S','W'],'turn_wn':['W','N'],
@@ -64,6 +138,6 @@ for tile in manifest['tiles']:
 assert not overlay_footprint_failures, f'path overlay pixels outside route footprint: {overlay_footprint_failures}'
 assert len([t for t in manifest['tiles'] if t['role']=='overlay'])==manifest['validation']['overlay_tiles_checked']
 assert overlay_footprint_failures==manifest['validation']['overlay_footprint_failures']
-for key in ['contact_sheet','composed_sample']:
+for key in ['contact_sheet','composed_sample','context_composition_review']:
     assert (root/manifest['visual_evidence'][key]).is_file(), f'missing evidence {key}'
-print(json.dumps({'result':'PASS_STRUCTURE_AND_OVERLAY_FOOTPRINT','atlas':str(atlas_path),'dimensions_px':list(im.size),'cell_px_candidate':cell,'tiles':len(ids),'roles':{'base':17,'transition':24,'overlay':15},'alpha_values':alpha_values,'base_tile_repeat_edge_failures':repeat_fail,'overlay_footprint_failures':overlay_footprint_failures,'godot_android_visual_review':'PENDING'},ensure_ascii=False,indent=2))
+print(json.dumps({'result':'PASS_STRUCTURE_AND_COMPOSITION_JOINS','atlas':str(atlas_path),'dimensions_px':list(im.size),'cell_px_candidate':cell,'tiles':len(ids),'roles':{'base':17,'transition':24,'overlay':15},'alpha_values':alpha_values,'base_tile_repeat_edge_failures':repeat_fail,'transition_base_joins_checked':transition_base_joins_checked,'transition_base_join_failures':transition_base_join_failures,'corner_edge_joins_checked':corner_edge_joins_checked,'corner_edge_join_failures':corner_edge_join_failures,'corner_outer_base_joins_checked':corner_outer_base_joins_checked,'corner_outer_base_join_failures':corner_outer_base_join_failures,'overlay_footprint_failures':overlay_footprint_failures,'godot_android_visual_review':'PENDING'},ensure_ascii=False,indent=2))
