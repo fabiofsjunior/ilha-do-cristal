@@ -2,15 +2,23 @@
 
 Esta lista registra a aprovação por fase. **Nenhuma tela de produção está aprovada nesta versão.** O protótipo mostra composição e transições ilustrativas, sem gameplay, contas, rede ou save real.
 
-## Telas do MVP — v0.2
+## Telas do MVP — v0.3 (atual)
 
-**Artefato atual:** [`docs/prototypes/mvp_ui_v0_2.html`](../../docs/prototypes/mvp_ui_v0_2.html)
+**Artefato atual:** [`docs/prototypes/mvp_ui_v0_3.html`](../../docs/prototypes/mvp_ui_v0_3.html)
+
+**Versão anterior:** [`docs/prototypes/mvp_ui_v0_2.html`](../../docs/prototypes/mvp_ui_v0_2.html)
+
+Maíra foi adicionada à escolha de personagem depois de o usuário aprová-la como jogável do MVP. A tela apresenta o terceiro perfil, sua descrição e um placeholder amarelo/dourado; ele não é arte final. As três vocações permanecem selecionáveis. Esta revisão da tela de personagem aguarda validação; nenhum fluxo de produção foi implementado.
+
+## Telas do MVP — v0.2 (arquivada para comparação)
+
+**Artefato desta versão:** [`docs/prototypes/mvp_ui_v0_2.html`](../../docs/prototypes/mvp_ui_v0_2.html)
 
 **Versão anterior:** [`docs/prototypes/mvp_ui_v0_1.html`](../../docs/prototypes/mvp_ui_v0_1.html)
 
 **Viewport-base:** Android em paisagem, proporção 16:9; layout adapta-se ao viewport.
 
-**Estado geral:** em validação com o usuário. Revisão ainda pendente.
+**Estado geral:** revisão de v0.2 pendente; v0.3 é a versão atual.
 **Sprites:** placeholders geométricos; não representam sprites aprovados.
 
 | Fase | Telas/estados cobertos | Estado | Próximo passo |

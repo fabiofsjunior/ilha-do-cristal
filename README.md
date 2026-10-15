@@ -1,6 +1,6 @@
 # A Ilha do Cristal
 
-RPG 2D cooperativo de sobrevivência em pixel art. Melissa e Helena sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
+RPG 2D cooperativo de sobrevivência em pixel art. Melissa, Helena e Maíra sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
 
 **Estado:** pré-produção, sem build jogável. **Primeira plataforma:** Android em paisagem; desktop depois. **Arte aprovada:** RPG Clássico. [Prancha conceitual](assets/references/concept-rpg-classico.png) (referência, não sprites utilizáveis).
 

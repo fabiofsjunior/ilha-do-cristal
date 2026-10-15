@@ -1,6 +1,6 @@
 # Catálogos do MVP — A Ilha do Cristal
 
-**v0.1 · 2026-10-14.** Esta é a lista de produção das doze famílias de conteúdo. Regras narrativas, identidade das personagens, vocações e magias seguem o [GDD](GDD_MVP.md). Valores numéricos de armas, drops, receitas e construções são **provisórios** para playtest. A representação legível por máquina está em [`data/catalogs/mvp.json`](../../data/catalogs/mvp.json). IDs não devem mudar depois de aparecerem em saves.
+**v0.2 · 2026-10-15.** Esta é a lista de produção das doze famílias de conteúdo. Regras narrativas, identidade das personagens, vocações e magias seguem o [GDD](GDD_MVP.md). Valores numéricos de armas, drops, receitas e construções são **provisórios** para playtest. A representação legível por máquina está em [`data/catalogs/mvp.json`](../../data/catalogs/mvp.json). IDs não devem mudar depois de aparecerem em saves.
 
 ## 1. Personagens e vocações
 
@@ -8,6 +8,7 @@
 |---|---|---|---|---|
 | `melissa` | Melissa | Levemente mais alta, cabelo castanho-escuro com **uma única mecha roxa frontal**, acentos lilases | Meiga e doce, esperta e muito observadora; costuma manter a calma e pensar com clareza diante de imprevistos. | Warrior/Archer/Mage |
 | `helena` | Helena | Cabelo castanho ondulado, tiara clara, acentos creme-rosa | Carismática e inteligente, tem pavio curto e reage com intensidade; seu jeito espontâneo a torna cheia de iniciativa. | Warrior/Archer/Mage |
+| `maira` | Maíra | Cabelos longos castanho-escuros e traje amarelo/dourado, conforme conceito aprovado | Irmã de Helena, é bonita, carismática e muito falante. Atenciosa com os outros, anima o grupo e observa o ambiente antes de agir. | Warrior/Archer/Mage |
 
 Qualquer conta pode usar qualquer aparência, inclusive repetida na LAN. O equipamento não altera o visual. `warrior`: HP/MP 200/100, FOR/AGI/INT ×2/0,75/0,5; `archer`: 150/150, ×1/2/0,75; `mage`: 100/200, ×0,5/0,75/2. Vocação permanente **por personagem**.
 
@@ -130,7 +131,7 @@ Personagens: 8 direções (N, NE, E, SE, S, SO, O, NO) × `idle` 4, `walk` 6, `a
 
 **Áudio mínimo:** tema de abertura/refúgio, ambiência de praia/floresta, coleta, passos, ataque por vocação, nove skills (podem compartilhar camadas), dano, drop, cura, construção, UI e aviso de aliado caído. Arquivos/licenças e mixagem aguardam produção; áudio deve poder ser silenciado por categoria. Efeitos visuais e sonoros confirmam ação, cooldown, erro de mana e salvamento; placeholders técnicos não são aprovação visual.
 
-O protótipo de inventário v0.2 propõe espaços para cabeça, peitoral, luvas, pernas, botas, arma, colar e dois anéis. O catálogo atual define armas e ferramentas, mas ainda não define armaduras, acessórios ou seus atributos; os espaços são apenas uma proposta de interface sujeita a validação. Equipamentos continuam sem alterar a aparência dos personagens.
+O protótipo atual de interface v0.3 preserva a proposta de inventário da v0.2: espaços para cabeça, peitoral, luvas, pernas, botas, arma, colar e dois anéis. O catálogo define armas e ferramentas, mas ainda não define armaduras, acessórios ou seus atributos; os espaços são apenas uma proposta de interface sujeita a validação. Equipamentos continuam sem alterar a aparência dos personagens.
 
 ## Próximo fechamento de produção
 

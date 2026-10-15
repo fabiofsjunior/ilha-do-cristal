@@ -1,18 +1,18 @@
 # GDD minimalista — A Ilha do Cristal
 
-**v0.1 · 2026-10-14 · Pré-produção.** Mobile-first Android horizontal, desktop futuro. RPG 2D top-down em SQMs, sobrevivência cooperativa casual, ritmo deliberado, exploração procedural e progressão permanente. Arte aprovada: RPG Clássico. Os números descritos são valores iniciais para playtest.
+**v0.2 · 2026-10-15 · Pré-produção.** Mobile-first Android horizontal, desktop futuro. RPG 2D top-down em SQMs, sobrevivência cooperativa casual, ritmo deliberado, exploração procedural e progressão permanente. Arte aprovada: RPG Clássico. Os números descritos são valores iniciais para playtest.
 
 ## História e objetivo
 
-Uma tempestade naufraga o cruzeiro. Melissa e Helena chegam a uma ilha, encontram um cristal puro e despertam poderes. Vael, o primeiro humano a usar o cristal, buscou poder até perder sua humanidade; sua corrupção alterou animais, plantas e pessoas. O cristal puro protege o refúgio. No MVP Vael aparece apenas como mistério distante, sem boss/castelo jogável. Objetivo: elevar o acampamento ao nível III e alcançar a região do urso.
+Uma tempestade naufraga o cruzeiro. Melissa, Helena e Maíra chegam a uma ilha, encontram um cristal puro e despertam poderes. Maíra é irmã de Helena. Vael, o primeiro humano a usar o cristal, buscou poder até perder sua humanidade; sua corrupção alterou animais, plantas e pessoas. O cristal puro protege o refúgio. No MVP Vael aparece apenas como mistério distante, sem boss/castelo jogável. Objetivo: elevar o acampamento ao nível III e alcançar a região do urso.
 
 Loop: preparar no refúgio → explorar → coletar/lutar → retornar → fabricar/ampliar. Sessões alvo de 15–30 minutos; pequenos encontros, sem hordas, moeda, fome/sede obrigatórias ou perda permanente do personagem.
 
 ## Personagens e entrada
 
-Melissa é um pouco mais alta, tem cabelo predominantemente castanho-escuro e **uma única mecha roxa frontal**. Meiga e doce, é esperta e muito observadora; diante de imprevistos, costuma manter a calma e pensar com clareza. Helena tem cabelos castanhos ondulados e tiara clara. É carismática e inteligente, mas tem pavio curto e reage com intensidade; seu jeito espontâneo também a torna uma companheira cheia de iniciativa. Qualquer pessoa pode criar uma das duas em qualquer vocação; aparência não é reservada a uma conta. Guerreiro (Warrior), Arqueiro (Archer) e Mago (Mage) são escolhas permanentes por personagem. Equipamentos alteram números, jamais o visual do personagem. Fotos são referências privadas e não entram no repositório.
+Melissa é um pouco mais alta, tem cabelo predominantemente castanho-escuro e **uma única mecha roxa frontal**. Meiga e doce, é esperta e muito observadora; diante de imprevistos, costuma manter a calma e pensar com clareza. Helena tem cabelos castanhos ondulados e tiara clara. É carismática e inteligente, mas tem pavio curto e reage com intensidade; seu jeito espontâneo também a torna uma companheira cheia de iniciativa. Maíra é irmã de Helena, bonita, carismática e muito falante. Atenciosa com quem está por perto, gosta de animar o grupo; apesar do jeito expansivo, observa o ambiente e age com precaução. Seu visual usa cabelos longos castanho-escuros e tons amarelos/dourados. Qualquer pessoa pode criar uma das três em qualquer vocação; aparência não é reservada a uma conta. Guerreiro (Warrior), Arqueiro (Archer) e Mago (Mage) são escolhas permanentes por personagem. Equipamentos alteram números, jamais o visual do personagem. Fotos são referências privadas e não entram no repositório.
 
-No MVP: duas aparências, três vocações, uma arma inicial e uma melhora por vocação, três habilidades ativas por vocação, raposa/lobo/urso, árvore parcial e nível máximo 10, solo e dois jogadores Wi-Fi local. NPCs coletores, novos monstros, outros biomas, castelo, Vael boss, construção livre e desktop são expansões.
+No MVP: três aparências, três vocações, uma arma inicial e uma melhora por vocação, três habilidades ativas por vocação, raposa/lobo/urso, árvore parcial e nível máximo 10, solo e dois jogadores Wi-Fi local. NPCs coletores, novos monstros, outros biomas, castelo, Vael boss, construção livre e desktop são expansões.
 
 ## Controle e mundo
 

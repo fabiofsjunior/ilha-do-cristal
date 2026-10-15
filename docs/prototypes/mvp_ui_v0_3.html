@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#171421">
+  <title>A Ilha do Cristal — Protótipo de interface MVP v0.3</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #191522;
+      --night: #171421;
+      --plum: #2b2339;
+      --plum-2: #3b304b;
+      --cream: #f4dfae;
+      --sand: #d1ae70;
+      --gold: #ffdc8c;
+      --violet: #a77ce8;
+      --blue: #77c9d1;
+      --leaf: #78b979;
+      --red: #e78078;
+      --muted: #c1b7cc;
+      --line: #76618a;
+      --shadow: #0d0b12;
+      --pixel: 4px;
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body {
+      margin: 0;
+      padding: 20px;
+      background:
+        radial-gradient(ellipse at 68% -20%, #39304d 0, transparent 44%),
+        var(--night);
+      color: var(--cream);
+      font-family: ui-monospace, "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+    }
+    button { font: inherit; }
+    .topbar {
+      max-width: 1480px;
+      margin: 0 auto 18px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-gem {
+      width: 30px; height: 30px; transform: rotate(45deg);
+      background: linear-gradient(135deg, #b7f0e7 0 22%, #75bdd4 22% 52%, #827bd4 52% 78%, #49386d 78%);
+      box-shadow: 4px 4px 0 #0b0a11, inset 0 0 0 3px #e1d6ff;
+      image-rendering: pixelated;
+    }
+    h1 { margin: 0; font-size: 17px; letter-spacing: .04em; }
+    .topbar p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+    .prototype-badge {
+      border: 1px solid #8d79a9; padding: 8px 11px; color: #dcc9ff;
+      background: #2b2239; font-size: 11px; letter-spacing: .06em;
+    }
+    .workspace {
+      max-width: 1480px; margin: 0 auto;
+      display: grid; grid-template-columns: 205px minmax(0, 1fr); gap: 18px;
+      align-items: start;
+    }
+    .sidebar, .review-card {
+      border: 2px solid var(--line); background: #211b2d;
+      box-shadow: 5px 5px 0 var(--shadow);
+    }
+    .sidebar { padding: 12px; }
+    .sidebar h2 { font-size: 12px; letter-spacing: .08em; margin: 0 0 5px; color: var(--gold); }
+    .sidebar .hint { color: var(--muted); font-size: 10px; line-height: 1.45; margin: 0 0 12px; }
+    .phase-label {
+      margin: 13px 2px 5px; color: #ad9bbd; font-size: 10px;
+      text-transform: uppercase; letter-spacing: .09em;
+    }
+    .screen-nav { display: grid; gap: 4px; }
+    .screen-nav button {
+      width: 100%; min-height: 36px; border: 1px solid transparent;
+      text-align: left; color: #e7dff1; background: transparent; padding: 7px 8px;
+      cursor: pointer; font-size: 11px;
+    }
+    .screen-nav button:hover, .screen-nav button:focus-visible { outline: 0; border-color: #9277b8; background: #312741; }
+    .screen-nav button[aria-current="page"] { background: #493862; border-color: #cbb0ff; color: #fff2ca; }
+    .content { min-width: 0; }
+    .preview-meta {
+      display: flex; justify-content: space-between; align-items: center; gap: 10px;
+      color: #d7cce5; font-size: 11px; margin: 0 2px 9px; flex-wrap: wrap;
+    }
+    .preview-meta strong { color: var(--gold); }
+    .legend { display: flex; align-items: center; gap: 8px; color: #a99cb7; }
+    .dot { width: 8px; height: 8px; background: var(--violet); display: inline-block; }
+    .device {
+      width: min(1280px, 96%, 145vh);
+      aspect-ratio: 16 / 9;
+      margin: 0 auto;
+      position: relative;
+      border: 9px solid #0b0a10;
+      background: #0c0b10;
+      box-shadow: 0 0 0 2px #8b744e, 7px 8px 0 #07060a, 0 22px 54px #09080dbb;
+      container-type: inline-size;
+      overflow: hidden;
+    }
+    .game {
+      width: 100%; height: 100%; overflow: hidden; position: relative;
+      color: var(--cream); font-size: clamp(10px, 1.15cqw, 16px);
+      background: #243629;
+    }
+    .panel {
+      color: var(--cream); background: linear-gradient(180deg, #382c47, #251e32);
+      border: 3px solid var(--sand); box-shadow: inset 0 0 0 2px #5e4d6d, 5px 5px 0 #100e16;
+    }
+    .inner-panel { border: 2px solid #806b91; background: #211b2b; }
+    .ui-button {
+      border: 2px solid #f4d796; color: #241a2c; background: linear-gradient(#ffe7a6, #d9b56d);
+      box-shadow: inset 0 -3px 0 #a47e47, 3px 3px 0 #110e17;
+      min-height: 42px; padding: .65em 1em; cursor: pointer; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .04em; font-size: .83em;
+    }
+    .ui-button:hover, .ui-button:focus-visible { outline: 2px solid #fff3c6; outline-offset: 2px; filter: brightness(1.09); }
+    .ui-button.secondary { color: #eee5f8; background: #49395d; border-color: #b69bd1; box-shadow: inset 0 -3px 0 #2d223a, 3px 3px 0 #110e17; }
+    .ui-button.blue { color: #11292f; background: linear-gradient(#a4edf0, #66b7c1); border-color: #d2ffff; box-shadow: inset 0 -3px 0 #347b83, 3px 3px 0 #110e17; }
+    .ui-button.danger { color: #351919; background: linear-gradient(#ffc0a7, #da817c); border-color: #ffd7c1; box-shadow: inset 0 -3px 0 #9a4f50, 3px 3px 0 #110e17; }
+    .eyebrow { color: #c3b1d2; text-transform: uppercase; letter-spacing: .13em; font-size: .65em; }
+    .screen-title { margin: 0; color: #fff0c6; font-size: 1.45em; text-shadow: 2px 2px #17101e; }
+    .small { color: var(--muted); font-size: .72em; line-height: 1.5; }
+    .gold { color: var(--gold); }
+    .blue-text { color: #9ce9ed; }
+    .screen-fill { position: absolute; inset: 0; }
+    .start-bg {
+      background:
+        radial-gradient(ellipse at 76% 50%, #65794e 0, #38543c 31%, transparent 58%),
+        linear-gradient(180deg, #243449 0 38%, #655951 39% 43%, #33523e 44% 100%);
+    }
+    .island-silhouette {
+      position: absolute; right: 5%; top: 12%; width: 40%; height: 72%;
+      opacity: .88; background:
+        linear-gradient(90deg, transparent 0 9%, #1b2a28 9% 14%, transparent 14% 28%, #192727 28% 35%, transparent 35% 67%, #1b2a28 67% 75%, transparent 75%),
+        radial-gradient(ellipse at 48% 72%, #8b734c 0 6%, transparent 6.5%),
+        radial-gradient(ellipse at 18% 38%, #7b9c62 0 16%, transparent 17%),
+        radial-gradient(ellipse at 68% 30%, #80a167 0 19%, transparent 20%),
+        radial-gradient(ellipse at 51% 53%, #50764c 0 38%, transparent 39%);
+      filter: drop-shadow(7px 7px 0 #15241d);
+    }
+    .logo-mark {
+      display: inline-grid; place-items: center; width: 58px; height: 58px; margin: 4px 0 15px;
+      transform: rotate(45deg); border: 4px solid #e6f6e6; background: linear-gradient(135deg,#b2eee2,#72b8cd 48%,#7165b1 49%,#473456);
+      box-shadow: 5px 5px 0 #15101b;
+    }
+    .logo-mark span { transform: rotate(-45deg); color: #fff4d5; font-size: 24px; font-weight: 900; }
+    .start-card {
+      position: absolute; z-index: 2; left: 6%; top: 9%; width: 42%; max-width: 505px;
+      padding: 3.2% 3.4%;
+    }
+    .start-card h1 { font-size: 2.05em; line-height: 1.12; color: #ffe9ad; text-shadow: 3px 3px #18101c; }
+    .start-card .lead { color: #e0d4e4; font-size: .8em; line-height: 1.6; max-width: 34em; }
+    .button-stack { display: grid; gap: 10px; margin-top: 1.5em; }
+    .tagline { margin-top: 1em; font-size: .6em; color: #c5bad2; letter-spacing: .1em; text-transform: uppercase; }
+    .proto-stamp { display: inline-block; margin-top: 1.4em; color: #e7b0a7; border: 1px solid #ba736e; padding: 5px 7px; font-size: .56em; text-transform: uppercase; letter-spacing: .08em; }
+    .menu-layout { background: linear-gradient(140deg, #253548, #1b2535 45%, #493846); }
+    .menu-layout .menu-top {
+      position: absolute; top: 5%; left: 4%; right: 4%; display:flex; justify-content:space-between; align-items:center;
+    }
+    .content-card { position: absolute; left: 5%; top: 16%; width: 90%; height: 76%; padding: 2%; }
+    .character-columns { display: grid; grid-template-columns: 1.05fr 1.15fr .85fr; gap: 2%; height: 87%; margin-top: 1.3%; }
+    .select-card { padding: 1em; display:grid; grid-template-columns: 54px 1fr; gap: .6em; align-items:center; margin-bottom: .65em; cursor:pointer; }
+    .select-card.selected { outline: 2px solid var(--gold); background: #3c2e4c; }
+    .character-list { overflow:auto; }
+    .avatar-large {
+      position: relative; width: 48px; height: 64px; margin: auto; image-rendering: pixelated;
+      filter: drop-shadow(2px 2px 0 #0c0a12);
+    }
+    .avatar-large i { position:absolute; display:block; image-rendering:pixelated; }
+    .avatar-large .hair { left: 11px; top: 2px; width: 27px; height: 23px; background:#543823; box-shadow: -3px 5px #543823, 3px 8px #543823, 0 15px #402b27; }
+    .avatar-large .streak { left:24px; top:4px; width:5px; height:18px; background:#a66ee8; }
+    .avatar-large .face { left:16px; top:13px; width:18px; height:15px; background:#eebc90; box-shadow: 5px 7px 0 -4px #362331; }
+    .avatar-large .dress { left:12px; top:29px; width:25px; height:20px; background:#9e79d4; border:3px solid #634e80; }
+    .avatar-large .legs { left:14px; top:48px; width:8px; height:12px; background:#eac992; box-shadow:11px 0 #eac992, -2px 3px #7a4d3c, 11px 3px #7a4d3c; }
+    .avatar-large .sword { left:39px; top:29px; width:4px; height:27px; background:#d9ebee; transform:rotate(13deg); box-shadow:0 5px #879eaa; }
+    .avatar-large.archer .sword { left:39px; top:27px; width:3px; height:31px; border-right:2px solid #f4dbab; border-left:1px solid #986b43; border-radius:50%; background:#986b43; box-shadow:none; }
+    .avatar-large.mage .sword { left:39px; top:25px; width:4px; height:34px; background:#9b7546; transform:rotate(2deg); box-shadow:0 -3px #80d5df, 0 -6px #a47ce4; }
+    .helen .hair { height:24px; background:#704a30; box-shadow:-4px 8px #704a30,5px 9px #704a30,0 16px #704a30; }
+    .helen .streak { left:16px; top:4px; width:25px; height:3px; background:#f6e9c8; }
+    .helen .dress { background:#dc9b9c; border-color:#95626d; }
+    .maira .hair { height:30px; background:#38211e; box-shadow:-4px 7px #38211e,5px 10px #38211e,-3px 17px #38211e,4px 21px #38211e,0 26px #2a1a1b; }
+    .maira .streak { display:none; }
+    .maira .dress { background:#e7b83f; border-color:#936d2c; }
+    .vocation-tabs { display:flex; gap:5px; margin:.5em 0 .8em; flex-wrap:wrap; }
+    .vocation-tabs button { border:1px solid #816b94; color:#e6d9f1; background:#292234; padding:.55em .7em; cursor:pointer; font-size:.7em; }
+    .vocation-tabs button.selected { background:#665183; color:white; border-color:#dec7ff; }
+    .stats { display:grid; gap:.55em; margin-top:.9em; }
+    .stat-row { display:grid; grid-template-columns: 4em 1fr 4em; align-items:center; gap:.5em; font-size:.72em; }
+    .stat-bar { height:9px; background:#17131d; border:1px solid #826b8d; }
+    .stat-bar i { display:block; height:100%; background:var(--red); }
+    .stat-bar.mp i { background:#64b8df; }
+    .connection-cards { display:grid; grid-template-columns:1fr 1fr; gap:2%; height:76%; margin-top:2%; }
+    .connection-card { padding:1.6em; display:flex; flex-direction:column; justify-content:space-between; }
+    .connection-card .icon { font-size:2.8em; color:var(--gold); }
+    .field { width:100%; border:2px solid #987ea3; color:#fff1ca; background:#191622; min-height:42px; padding:.7em; font:inherit; font-size:.75em; }
+    .field::placeholder { color:#a899b0; }
+    .world-map {
+      background-color:#324837;
+      background-image:
+        linear-gradient(32deg, transparent 0 43%, #567249 44% 58%, transparent 59%),
+        linear-gradient(90deg, #2a4239 0 25%, transparent 25% 48%, #3d573e 48% 62%, transparent 62%),
+        repeating-linear-gradient(0deg, transparent 0 46px, #263b31 47px 50px),
+        repeating-linear-gradient(90deg, transparent 0 46px, #263b31 47px 50px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+    }
+    .world-map::before {
+      content:""; position:absolute; inset:0; opacity:.5;
+      background:
+        radial-gradient(ellipse at 52% 44%, #587447 0 9%, transparent 9.3%),
+        radial-gradient(ellipse at 80% 75%, #7a8c55 0 11%, transparent 11.3%),
+        linear-gradient(115deg, transparent 0 16%, #4c7080 16.5% 19%, transparent 19.5% 100%);
+    }
+    .map-header { position:absolute; z-index:2; inset:2.5% 2.5% auto; display:grid; grid-template-columns:1fr .9fr 150px; gap:1%; align-items:start; }
+    .hud-panel { padding:.7em .85em; background:#201b2be8; border:2px solid #bb9b67; box-shadow:3px 3px #111; }
+    .bar-label { font-size:.63em; display:flex; justify-content:space-between; margin-bottom:3px; }
+    .life-bar, .mana-bar { height:9px; border:1px solid #e4d7bd; background:#211821; margin:3px 0 6px; }
+    .life-bar i { display:block; height:100%; width:72%; background:linear-gradient(90deg,#aa4d59,#e78276); }
+    .mana-bar i { display:block; height:100%; width:51%; background:linear-gradient(90deg,#426cb2,#68c5d2); }
+    .minimap { width:100%; height:84px; border:2px solid #d5bc86; background:
+      radial-gradient(circle at 45% 55%,#e7d295 0 5%,transparent 5.5%),
+      linear-gradient(145deg,transparent 0 45%,#547488 45% 52%,transparent 52%),
+      repeating-linear-gradient(0deg,#3e6046 0 10px,#38573f 10px 20px); }
+    .objective { position:absolute; z-index:2; right:2.5%; top:24%; width:24%; max-width:280px; }
+    .objective p { margin:.4em 0; font-size:.68em; }
+    .objective .inner-panel { padding:.7em; }
+    .sprite-placeholder {
+      position:absolute; z-index:1; width:4.2%; aspect-ratio:3/4.1; min-width:26px;
+      left:48%; top:48%; transform:translate(-50%,-50%); filter:drop-shadow(2px 3px #15231a);
+    }
+    .sprite-placeholder .avatar-large { transform:scale(.72); transform-origin:top left; }
+    .enemy-token { position:absolute; z-index:1; left:61%; top:39%; width:3.5%; aspect-ratio:1; background:#b87462; border:5px solid #6d3c49; box-shadow:3px 3px #15231b; transform:rotate(45deg); }
+    .enemy-token::after { content:""; position:absolute; width:40%; height:40%; left:24%; top:24%; background:#d9d77d; }
+    .floating-label { position:absolute; z-index:2; top:34%; left:57%; background:#211b2ddd; border:1px solid #c99a73; padding:4px 6px; font-size:.62em; }
+    .joystick {
+      position:absolute; z-index:2; left:4%; bottom:8%; width:16%; aspect-ratio:1; max-width:170px;
+      border-radius:50%; border:3px solid #c6ba9a77; background:#10151b76;
+      display:grid; place-items:center; box-shadow:inset 0 0 0 5px #31433c88;
+    }
+    .joystick-core { width:42%; height:42%; border-radius:50%; border:2px solid #e9d6ac; background:#725e798d; display:grid; place-items:center; color:#fff1d0; font-size:.9em; }
+    .joystick-label { position:absolute; left:0; right:0; text-align:center; bottom:-1.8em; font-size:.58em; color:#fff1c7; text-shadow:1px 1px #101010; }
+    .hotbar { position:absolute; z-index:3; right:3%; bottom:7%; display:flex; align-items:end; gap:.55em; }
+    .skill-button { width:5.2em; height:5.2em; border:3px solid #e7d19c; background:linear-gradient(145deg,#614b78,#2c263c); box-shadow:3px 3px #0c0b10; color:#fff1c8; cursor:pointer; display:grid; place-items:center; text-align:center; font-size:.6em; line-height:1.25; }
+    .skill-button.basic { background:linear-gradient(145deg,#896443,#49313a); width:5.6em; height:5.6em; }
+    .skill-glyph { display:block; font-size:2em; line-height:1; color:#f8d580; margin-bottom:3px; }
+    .map-quick { position:absolute; z-index:3; top:22%; left:2.5%; display:grid; gap:.4em; }
+    .quick-button { width:3em; height:3em; border:2px solid #dac28d; color:#fff1cc; background:#272034e8; cursor:pointer; box-shadow:2px 2px #0d0b10; font-size:.72em; }
+    .overlay-screen { position:absolute; inset:0; background:#0b0913bd; display:grid; place-items:center; padding:3%; }
+    .overlay-card { width:82%; max-height:92%; overflow:auto; padding:2%; }
+    .overlay-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2%; }
+    .close-button { min-width:38px; min-height:38px; border:2px solid #c5a3dd; color:#fff; background:#47345c; cursor:pointer; }
+    .inventory-layout { display:grid; grid-template-columns:1.2fr .85fr; gap:2%; height:72%; }
+    .inventory-panel, .recipe-panel, .tree-panel { padding:1em; }
+    .slot-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:.45em; margin-top:.7em; }
+    .slot { aspect-ratio:1; border:2px solid #816b8d; background:linear-gradient(145deg,#322b3c,#211c28); display:grid; place-items:center; font-size:1.3em; position:relative; }
+    .slot span { position:absolute; right:3px; bottom:1px; font-size:.42em; color:var(--gold); }
+    .inventory-overlay-card { width:94%; height:91%; max-height:94%; padding:1.35%; overflow:hidden; display:flex; flex-direction:column; }
+    .inventory-overlay-card .overlay-header { flex:0 0 auto; margin-bottom:.7%; }
+    .inventory-layout { flex:1; min-height:0; display:grid; grid-template-columns:.95fr 1.2fr .95fr; gap:1%; }
+    .equipment-panel, .inventory-panel, .inventory-detail-panel { padding:.7em; min-width:0; min-height:0; overflow:auto; }
+    .inventory-section-head { display:flex; justify-content:space-between; align-items:center; gap:.5em; margin-bottom:.55em; }
+    .equipment-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.35em; }
+    .equip-slot { min-width:0; min-height:5.4em; padding:.35em .15em; border:2px solid #816b8d; color:#f1e7f7; background:linear-gradient(145deg,#322b3c,#211c28); display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; gap:.14em; }
+    .equip-slot.equipped { border-color:#d4b36e; background:linear-gradient(145deg,#4a3e39,#2b2330); }
+    .equip-glyph { color:var(--gold); font-size:1.25em; line-height:1; }
+    .equip-name { font-size:.55em; line-height:1.2; }
+    .equip-item { color:#d8c9e6; font-size:.48em; line-height:1.15; }
+    .inventory-tabs { display:flex; gap:.35em; flex-wrap:wrap; margin:.25em 0 .55em; }
+    .inventory-tab { border:1px solid #816b8d; background:#2c2437; color:#e8dff0; padding:.35em .5em; font-size:.56em; }
+    .inventory-tab.selected { border-color:#f2d38e; background:#584663; color:#fff0c6; }
+    .bag-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.35em; }
+    .bag-slot { aspect-ratio:1; min-height:2.6em; border:2px solid #816b8d; background:linear-gradient(145deg,#322b3c,#211c28); position:relative; display:grid; place-items:center; color:#e7dff0; }
+    .bag-slot.filled { border-color:#9c83ac; background:linear-gradient(145deg,#41364a,#282130); }
+    .bag-glyph { font-size:1.05em; color:#d8c8eb; }
+    .bag-count { position:absolute; right:3px; bottom:1px; color:var(--gold); font-size:.5em; }
+    .inventory-detail-panel .item-detail { padding:.65em; margin:.45em 0 .7em; }
+    .item-icon { float:left; width:2.8em; height:2.8em; display:grid; place-items:center; margin-right:.65em; border:2px solid #d4b36e; color:var(--gold); background:#302535; font-size:1.15em; }
+    .item-stats { clear:both; padding-top:.45em; }
+    .compact-recipe { padding:.55em; margin:.45em 0; font-size:.7em; }
+    .compact-recipe p { margin:.3em 0; }
+    .prototype-note { border-left:2px solid #aa8fc3; padding-left:.55em; margin:.55em 0 0; }
+    .resource-row { display:flex; justify-content:space-between; border-bottom:1px dashed #69576e; padding:.48em 0; font-size:.73em; }
+    .recipe-card { padding:.8em; margin:.65em 0; }
+    .recipe-card p { margin:.45em 0; font-size:.67em; }
+    .tree-layout { display:grid; grid-template-columns:1.1fr .9fr; gap:2%; height:74%; }
+    .tree-board { position:relative; display:grid; place-items:center; background:radial-gradient(ellipse,#483554,#241e30 72%); overflow:hidden; }
+    .tree-lines { position:absolute; inset:0; background:
+      linear-gradient(32deg, transparent 49.6%, #8370a2 50%, transparent 50.6%),
+      linear-gradient(145deg, transparent 49.4%, #8370a2 50%, transparent 50.6%); opacity:.5; }
+    .node-row { position:relative; z-index:1; display:flex; gap:1em; align-items:center; }
+    .node { width:4.8em; height:4.8em; border-radius:50%; border:3px solid #d8bd82; background:#352842; color:#fff1c6; cursor:pointer; box-shadow:0 0 0 3px #1a1522; font-size:.68em; }
+    .node.active { background:#936dc0; border-color:#f9e2a3; }
+    .node.special { border-radius:18%; border-color:#94cfda; }
+    .camp-scene { position:absolute; inset:0; background:linear-gradient(180deg,#344557 0 42%,#493c35 43% 49%,#334a37 50%); }
+    .camp-ground { position:absolute; left:12%; right:12%; bottom:7%; height:48%; background:repeating-linear-gradient(0deg,#455c3a 0 36px,#3b5337 36px 40px), repeating-linear-gradient(90deg,transparent 0 38px,#273e30 38px 42px); border:2px solid #26382a; }
+    .camp-object { position:absolute; display:grid; place-items:center; border:3px solid #b79b6d; background:#4b3b45; color:#f7dca1; box-shadow:4px 4px #1b2822; font-size:.68em; text-align:center; padding:.4em; }
+    .camp-crystal { left:44%; top:34%; width:9%; height:18%; background:linear-gradient(135deg,#c5f5ef,#6db9d1 50%,#7867b2); clip-path:polygon(50% 0,90% 30%,75% 100%,25% 100%,10% 30%); }
+    .camp-fire { left:21%; bottom:25%; width:9%; height:11%; }
+    .camp-tent { left:68%; bottom:22%; width:16%; height:21%; clip-path:polygon(50% 0,100% 100%,0 100%); padding-top:9%; }
+    .camp-upgrade { position:absolute; left:5%; top:7%; width:36%; padding:1.4em; }
+    .resource-cost { display:grid; grid-template-columns:repeat(2,1fr); gap:.4em; margin:1em 0; font-size:.7em; }
+    .cost-chip { padding:.45em; background:#211b2b; border:1px solid #716080; }
+    .pause-card { width:49%; min-width:310px; padding:2%; text-align:center; }
+    .pause-actions { display:grid; gap:.65em; margin-top:1.3em; }
+    .result-card { position:absolute; z-index:2; left:31%; top:11%; width:38%; padding:2.2%; text-align:center; }
+    .result-seal { width:62px; height:62px; margin:0 auto 12px; display:grid; place-items:center; transform:rotate(45deg); background:#669777; border:4px solid #ddca91; box-shadow:4px 4px #15241a; }
+    .result-seal b { transform:rotate(-45deg); font-size:2em; }
+    .loot-list { text-align:left; margin:1em auto; max-width:240px; }
+    .loot-list div { display:flex; justify-content:space-between; padding:.35em; border-bottom:1px dashed #75627c; font-size:.72em; }
+    .error-card { width:53%; min-width:310px; padding:2.3%; text-align:center; }
+    .error-symbol { color:#ffc1a8; font-size:3em; text-shadow:3px 3px #552d3a; }
+    .setting-layout { display:grid; grid-template-columns:1fr 1fr; gap:2%; }
+    .setting-card { padding:1em; }
+    .setting-row { display:grid; grid-template-columns:1fr 1.1fr 3em; gap:.7em; align-items:center; padding:.75em 0; border-bottom:1px solid #66566d; font-size:.7em; }
+    input[type="range"] { accent-color:#c29bfa; width:100%; }
+    .toggle { display:flex; gap:.7em; align-items:center; color:#e9ddef; font-size:.75em; padding:.6em 0; }
+    .toggle input { accent-color:#a77ce8; width:19px; height:19px; }
+    .sync-columns { display:grid; grid-template-columns:1fr 1fr; gap:2%; margin:1.2em 0; }
+    .sync-option { padding:1.2em; min-height:150px; }
+    .downed-card { width:53%; min-width:340px; padding:2.2%; text-align:center; border-color:#d98a7d; }
+    .timer { font-size:2em; color:#ffc1a8; margin:.4em; }
+    .toast {
+      position:absolute; z-index:10; bottom:2%; left:50%; transform:translateX(-50%);
+      background:#18141feF; border:2px solid var(--gold); padding:.65em 1em;
+      color:#fff3cc; box-shadow:3px 3px #08070c; font-size:.7em; white-space:nowrap;
+    }
+    .review-card {
+      margin:17px auto 0; width:min(1280px,96%); padding:12px 15px;
+      display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap;
+      color:#d7cce5; font-size:11px; line-height:1.5;
+    }
+    .review-card strong { color:#ffd994; }
+    .review-actions { display:flex; gap:7px; }
+    .review-actions button { min-height:34px; border:1px solid #8c77a2; background:#32283f; color:#f2e8ff; cursor:pointer; padding:5px 9px; font-size:10px; }
+    .review-actions button:hover { background:#4c3a60; }
+    .footer { max-width:1480px; margin:14px auto 0; color:#958aa2; font-size:10px; line-height:1.5; }
+    .footer a { color:#d9c4ff; }
+    @media (max-width: 740px) {
+      body { padding:12px; }
+      .workspace { grid-template-columns:1fr; }
+      .sidebar { padding:9px; }
+      .sidebar h2 { display:inline-block; margin-right:8px; }
+      .sidebar .hint { display:inline; }
+      .screen-nav { display:flex; overflow-x:auto; padding:4px 0; }
+      .screen-nav button { width:auto; flex:0 0 auto; white-space:nowrap; }
+      .phase-label { display:none; }
+      .device { width:min(96%,145vh); border-width:5px; }
+      .review-card { width:96%; }
+      .map-header { grid-template-columns:1fr .9fr 18%; }
+      .minimap { height:56px; }
+      .skill-button { width:4.3em; height:4.3em; }
+      .skill-button.basic { width:4.5em; height:4.5em; }
+    }
+    @media (max-height: 520px) and (orientation: landscape) {
+      body { padding:7px 12px; }
+      .topbar { margin-bottom:8px; }
+      .topbar p { display:none; }
+      .workspace { gap:10px; grid-template-columns:165px minmax(0,1fr); }
+      .sidebar { padding:8px; }
+      .sidebar .hint { display:none; }
+      .device { width:min(1280px, 145vh); }
+      .review-card { margin-top:9px; }
+    }
+    @container (max-width: 640px) {
+      .inventory-overlay-card { width:97%; height:94%; padding:1.1%; overflow-y:auto; }
+      .inventory-layout { flex:none; grid-template-columns:1fr; gap:.55em; overflow:visible; }
+      .equipment-panel, .inventory-panel, .inventory-detail-panel { max-height:175px; }
+      .equip-slot { min-height:4.2em; }
+      .bag-grid { grid-template-columns:repeat(6,minmax(0,1fr)); }
+      .bag-slot { min-height:2.1em; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; transition:none !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-gem" aria-hidden="true"></span>
+      <div>
+        <h1>A Ilha do Cristal</h1>
+        <p>Protótipo de interface MVP · v0.2 · somente para validação</p>
+      </div>
+    </div>
+    <div class="prototype-badge">SEM GAMEPLAY · SEM SAVE REAL · SPRITES PLACEHOLDER</div>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar" aria-label="Navegação das telas do protótipo">
+      <h2>TELAS DO MVP</h2>
+      <p class="hint">Escolha uma tela para revisar. Os botões internos simulam transições.</p>
+      <nav id="screenNav" class="screen-nav"></nav>
+    </aside>
+
+    <section class="content" aria-label="Prévia do jogo">
+      <div class="preview-meta">
+        <span id="phaseTitle"><strong>S0</strong> · Entrada</span>
+        <span class="legend"><i class="dot"></i> tela simulada · Android em paisagem · proporção 16:9</span>
+      </div>
+      <div class="device" id="deviceFrame">
+        <div class="game" id="game" aria-live="polite"></div>
+      </div>
+      <div class="review-card">
+        <div><strong>O que revisar:</strong> ordem do fluxo, prioridade das informações, posição dos controles e compreensão das mensagens. Os números e ações são exemplos.</div>
+        <div class="review-actions">
+          <button type="button" data-go="start">Voltar ao início</button>
+          <button type="button" data-go="settings">Ajustes</button>
+          <button type="button" data-go="error">Ver erro recuperável</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Este artefato antecipa composição e navegação; não é a UI de produção. Os personagens são formas geométricas provisórias e não reutilizam a prancha conceitual como sprite. O protótipo não persiste dados, não autentica, não conecta por LAN e não aplica regras de combate ou balanceamento.
+  </footer>
+
+  <script>
+    const screens = [
+      { id: "start", phase: "S0", phaseName: "Entrada", label: "Abertura" },
+      { id: "account", phase: "S0 / S5", phaseName: "Conta e visitante", label: "Conta / visitante" },
+      { id: "character", phase: "S3", phaseName: "Personagem", label: "Aparência e vocação" },
+      { id: "lan", phase: "S4", phaseName: "Cooperação", label: "Criar / entrar na ilha" },
+      { id: "game", phase: "S1 / S2", phaseName: "HUD e loop", label: "Gameplay / HUD" },
+      { id: "inventory", phase: "S2", phaseName: "Coleta e craft", label: "Mochila e craft" },
+      { id: "talent", phase: "S3", phaseName: "Progressão", label: "Talentos" },
+      { id: "camp", phase: "S2 / S3", phaseName: "Refúgio", label: "Acampamento" },
+      { id: "pause", phase: "S2", phaseName: "Pausa e save", label: "Pausa / salvamento" },
+      { id: "downed", phase: "S4", phaseName: "Reanimação", label: "Aliado caído" },
+      { id: "result", phase: "S2", phaseName: "Retorno", label: "Resultado da expedição" },
+      { id: "error", phase: "S4 / S6", phaseName: "Recuperação", label: "Erro recuperável" },
+      { id: "settings", phase: "S0 / S6", phaseName: "Acessibilidade", label: "Configurações" },
+      { id: "sync", phase: "S5", phaseName: "Sincronização", label: "Divergência de progresso" }
+    ];
+    const state = { screen: "start", character: "melissa", vocation: "warrior", toastTimer: null };
+    const statsByVocation = {
+      warrior: { hp: 200, mp: 100, label: "Warrior · espada" },
+      archer: { hp: 150, mp: 150, label: "Archer · arco" },
+      mage: { hp: 100, mp: 200, label: "Mage · cajado" }
+    };
+    const labels = { warrior: "Warrior", archer: "Archer", mage: "Mage" };
+    const screenNav = document.getElementById("screenNav");
+    const game = document.getElementById("game");
+
+    function spritePlaceholder(extra = "", vocation = state.vocation) {
+      return `<div class="avatar-large ${extra} ${vocation}" aria-label="silhueta provisória, não é sprite final"><i class="hair"></i><i class="streak"></i><i class="face"></i><i class="dress"></i><i class="legs"></i><i class="sword"></i></div>`;
+    }
+    function navMarkup() {
+      const groups = [
+        { phase: "S0 · Entrada", ids: ["start", "account"] },
+        { phase: "S1 · Movimento", ids: ["game"] },
+        { phase: "S2 · Loop", ids: ["inventory", "camp", "pause", "result"] },
+        { phase: "S3 · Conteúdo", ids: ["character", "talent"] },
+        { phase: "S4 · Cooperação", ids: ["lan", "downed", "error"] },
+        { phase: "S5 · Conta", ids: ["sync"] },
+        { phase: "S6 · Acessibilidade", ids: ["settings"] }
+      ];
+      return groups.map(group => {
+        const items = group.ids.map(id => screens.find(item => item.id === id));
+        return `<div class="phase-label">${group.phase}</div>${items.map(item => `<button type="button" data-go="${item.id}" aria-current="${state.screen === item.id ? "page" : "false"}">${item.label}</button>`).join("")}`;
+      }).join("");
+    }
+    function renderScreen() {
+      const item = screens.find(entry => entry.id === state.screen);
+      document.getElementById("phaseTitle").innerHTML = `<strong>${item.phase}</strong> · ${item.phaseName}`;
+      screenNav.innerHTML = navMarkup();
+      game.innerHTML = renderers[state.screen]();
+    }
+    function toast(message) {
+      clearTimeout(state.toastTimer);
+      const old = game.querySelector(".toast");
+      if (old) old.remove();
+      const node = document.createElement("div");
+      node.className = "toast";
+      node.setAttribute("role", "status");
+      node.textContent = message;
+      game.appendChild(node);
+      state.toastTimer = setTimeout(() => node.remove(), 2600);
+    }
+    function go(screen) {
+      if (!screens.some(item => item.id === screen)) return;
+      state.screen = screen;
+      renderScreen();
+      game.focus({ preventScroll: true });
+    }
+    function titleBar(title, kicker = "PROTÓTIPO DE INTERFACE") {
+      return `<div class="menu-top"><div><div class="eyebrow">${kicker}</div><h2 class="screen-title">${title}</h2></div><div class="proto-stamp">Dados ilustrativos</div></div>`;
+    }
+    function mapHeader() {
+      return `<div class="map-header">
+        <div class="hud-panel"><div class="bar-label"><b>MELISSA · ${labels[state.vocation].toUpperCase()}</b><span>NÍVEL 4</span></div><div class="life-bar"><i></i></div><div class="bar-label"><span>HP</span><span>144 / 200</span></div><div class="mana-bar"><i></i></div><div class="bar-label"><span>MP</span><span>51 / 100</span></div></div>
+        <div class="hud-panel"><div class="eyebrow">OBJETIVO ATUAL</div><p style="margin:.4em 0;font-size:.75em">Recolha madeira e volte ao refúgio</p><div class="small">Madeira <b class="gold">8 / 12</b></div></div>
+        <div class="hud-panel"><div class="eyebrow">MAPA</div><div class="minimap" aria-label="minimapa provisório"></div></div>
+      </div>`;
+    }
+    function hotbarMarkup() {
+      const skills = {
+        warrior: [{ glyph:"⚔", name:"Ataque" }, { glyph:"◈", name:"Combo" }, { glyph:"◌", name:"Circular" }, { glyph:"⌁", name:"Terremoto" }],
+        archer: [{ glyph:"➶", name:"Ataque" }, { glyph:"⌖", name:"Preciso" }, { glyph:"↷", name:"Ricochete" }, { glyph:"➤", name:"Perfurante" }],
+        mage: [{ glyph:"✦", name:"Ataque" }, { glyph:"◇", name:"Arcano" }, { glyph:"♨", name:"Fogo" }, { glyph:"❄", name:"Gelo" }]
+      }[state.vocation];
+      return `<div class="hotbar">${skills.map((skill, index) => `<button class="skill-button ${index === 0 ? "basic" : ""}" data-action="${index === 0 ? "attack" : "skill"}"><span><i class="skill-glyph">${skill.glyph}</i>${skill.name}</span></button>`).join("")}</div>`;
+    }
+    function gameplayMap() {
+      return `<div class="screen-fill world-map"></div>${mapHeader()}
+        <div class="objective"><div class="inner-panel"><div class="eyebrow">ÁREA SEGURA · PRAIA</div><p>Toque em um objeto para interagir.</p><p class="small">Zoom: <b id="zoomLabel" class="gold">75%</b> · SQM candidato 48 px</p></div></div>
+        <div class="sprite-placeholder">${spritePlaceholder("", state.vocation)}</div><div class="enemy-token" title="animal provisório"></div><div class="floating-label">Raposa · estado de exemplo</div>
+        <div class="map-quick"><button class="quick-button" data-go="inventory" aria-label="Abrir mochila">▤</button><button class="quick-button" data-go="camp" aria-label="Abrir acampamento">⌂</button><button class="quick-button" data-go="pause" aria-label="Pausar">Ⅱ</button></div>
+        <div class="joystick"><div class="joystick-core">✥</div><div class="joystick-label">MOVIMENTO</div></div>
+        ${hotbarMarkup()}`;
+    }
+
+    const renderers = {
+      start: () => `<div class="screen-fill start-bg"><div class="island-silhouette" aria-hidden="true"></div><section class="panel start-card"><div class="logo-mark"><span>✧</span></div><div class="eyebrow">AVENTURA COOPERATIVA · ANDROID</div><h1>A ILHA<br>DO CRISTAL</h1><p class="lead">Três aventureiras, uma ilha desconhecida e um refúgio para construir juntas.</p><div class="button-stack"><button class="ui-button" data-go="character">Jogar como visitante</button><button class="ui-button secondary" data-go="account">Conta e vínculo</button><button class="ui-button secondary" data-go="settings">Configurações</button></div><div class="tagline">A aventura continua mesmo sem internet</div><span class="proto-stamp">Tela proposta · sem login real</span></section></div>`,
+
+      account: () => `<div class="screen-fill menu-layout">${titleBar("Conta e modo visitante", "S0 · ENTRADA / S5 · CONTA")}<section class="panel content-card"><div class="connection-cards" style="height:84%;margin-top:0">
+        <article class="inner-panel connection-card"><div><div class="eyebrow">SEM INTERNET</div><div class="icon">♧</div><h3>Continuar visitante</h3><p class="small">Jogue offline. O progresso pessoal fica neste dispositivo até você vincular uma conta.</p></div><button class="ui-button" data-go="character">Continuar offline</button></article>
+        <article class="inner-panel connection-card"><div><div class="eyebrow">COM CONTA</div><div class="icon blue-text">◇</div><h3>Vincular progresso</h3><p class="small">Associe este personagem a uma conta para recuperar seu progresso pessoal em outro aparelho.</p><label class="small" for="accountEmail">E-mail (exemplo)</label><input class="field" id="accountEmail" placeholder="voce@exemplo.com" autocomplete="off"></div><button class="ui-button blue" data-action="link-account">Simular vínculo</button></article>
+        </div><div class="small" style="margin-top:1em">Nenhuma conta é criada ou acessada neste protótipo. <button class="ui-button secondary" data-go="sync" style="min-height:32px;padding:.35em .65em">Ver conflito de progresso</button></div></section></div>`,
+
+      character: () => {
+        const stats = statsByVocation[state.vocation];
+        const characterNames = { melissa: "Melissa", helena: "Helena", maira: "Maíra" };
+        const characterClasses = { melissa: "", helena: "helen", maira: "maira" };
+        const characterName = characterNames[state.character];
+        const characterClass = characterClasses[state.character];
+        return `<div class="screen-fill menu-layout">${titleBar("Escolha quem vai explorar", "S3 · PERSONAGEM / VOCAÇÃO")}<section class="panel content-card"><div class="eyebrow">Aparência pode se repetir na sessão LAN · vocação fica fixa neste personagem</div><div class="character-columns">
+          <div class="character-list"><button type="button" class="inner-panel select-card ${state.character === "melissa" ? "selected" : ""}" data-character="melissa">${spritePlaceholder()}<span><b>MELISSA</b><small class="small" style="display:block">Levemente mais alta; cabelo castanho-escuro com uma única mecha roxa frontal. Meiga e doce, é esperta e muito observadora; diante de imprevistos, costuma manter a calma e pensar com clareza.</small></span></button><button type="button" class="inner-panel select-card ${state.character === "helena" ? "selected" : ""}" data-character="helena">${spritePlaceholder("helen")}<span><b>HELENA</b><small class="small" style="display:block">Cabelo castanho ondulado e tiara clara. É carismática e inteligente, mas tem pavio curto e reage com intensidade; seu jeito espontâneo também a torna uma companheira cheia de iniciativa.</small></span></button><button type="button" class="inner-panel select-card ${state.character === "maira" ? "selected" : ""}" data-character="maira">${spritePlaceholder("maira")}<span><b>MAÍRA</b><small class="small" style="display:block">Irmã de Helena, bonita, carismática e muito falante. Atenciosa com os outros, anima o grupo e observa o ambiente antes de agir.</small></span></button><p class="small">Silhuetas geométricas são placeholders; arte de personagem aguarda validação.</p></div>
+          <div class="inner-panel" style="padding:1em"><div class="eyebrow">VOCAÇÃO</div><h3 style="margin:.25em 0">${characterName} · ${stats.label}</h3><div class="vocation-tabs"><button type="button" data-vocation="warrior" class="${state.vocation === "warrior" ? "selected" : ""}">Warrior</button><button type="button" data-vocation="archer" class="${state.vocation === "archer" ? "selected" : ""}">Archer</button><button type="button" data-vocation="mage" class="${state.vocation === "mage" ? "selected" : ""}">Mage</button></div><p class="small">A aparência escolhida permanece estável. Melhorias de equipamento não mudam o visual.</p><div class="stats"><div class="stat-row"><b>HP</b><div class="stat-bar"><i style="width:${stats.hp / 2}%"></i></div><span>${stats.hp}</span></div><div class="stat-row"><b>MP</b><div class="stat-bar mp"><i style="width:${stats.mp / 2}%"></i></div><span>${stats.mp}</span></div></div><div class="proto-stamp">Valores ilustrativos do catálogo</div></div>
+          <div class="inner-panel" style="padding:1em;text-align:center"><div class="eyebrow">PRÉVIA</div><div style="height:74%;display:grid;place-items:center">${spritePlaceholder(characterClass, state.vocation)}</div><div class="small">${characterName}<br>${labels[state.vocation]}</div><button class="ui-button" style="margin-top:.7em;width:100%" data-go="lan">Confirmar e continuar</button></div>
+        </div></section></div>`;
+      },
+
+      lan: () => `<div class="screen-fill menu-layout">${titleBar("Criar ou entrar em uma ilha", "S4 · SESSÃO COOPERATIVA LOCAL")}<section class="panel content-card"><div class="eyebrow">Até duas pessoas na mesma rede Wi-Fi · sem internet obrigatória</div><div class="connection-cards">
+        <article class="inner-panel connection-card"><div><div class="icon">⌂</div><h3>Hospedar nova ilha</h3><p class="small">Este aparelho controla o mundo e mantém o salvamento local.</p><p class="small">Modo: <b class="gold">Solo ou cooperativo</b></p></div><button class="ui-button" data-go="game">Criar sessão</button></article>
+        <article class="inner-panel connection-card"><div><div class="icon blue-text">⌁</div><h3>Entrar em uma ilha</h3><p class="small">Informe o código ou IP local fornecido por quem hospeda.</p><label class="small" for="hostCode">Código / IP local</label><input class="field" id="hostCode" placeholder="192.168.0.10" inputmode="text" autocomplete="off"><p class="small">Estado ilustrativo: esperando conexão.</p></div><div style="display:flex;gap:.6em"><button class="ui-button blue" data-go="game">Conectar</button><button class="ui-button secondary" data-go="error">Simular falha</button></div></article>
+        </div></section></div>`,
+
+      game: () => gameplayMap(),
+
+      inventory: () => `<div class="screen-fill world-map">${gameplayMap()}<div class="overlay-screen"><section class="panel overlay-card inventory-overlay-card"><div class="overlay-header"><div><div class="eyebrow">S2 · EQUIPAMENTO, MOCHILA E FABRICAÇÃO</div><h2 class="screen-title">Inventário</h2></div><button class="close-button" data-go="game" aria-label="Fechar inventário">✕</button></div><div class="inventory-layout">
+        <section class="inner-panel equipment-panel"><div class="inventory-section-head"><b>EQUIPAMENTO</b><span class="small">Melissa · Warrior</span></div><div class="equipment-grid" aria-label="Espaços de equipamento propostos">
+          <div class="equip-slot" title="Capacete"><span class="equip-glyph">⬡</span><span class="equip-name">Cabeça</span><span class="equip-item">Vazio</span></div><div class="equip-slot" title="Colar ou amuleto"><span class="equip-glyph">◇</span><span class="equip-name">Colar</span><span class="equip-item">Vazio</span></div><div class="equip-slot" title="Peitoral"><span class="equip-glyph">▣</span><span class="equip-name">Peitoral</span><span class="equip-item">Vazio</span></div>
+          <div class="equip-slot" title="Luvas"><span class="equip-glyph">♧</span><span class="equip-name">Luvas</span><span class="equip-item">Vazio</span></div><div class="equip-slot equipped" title="Arma equipada"><span class="equip-glyph">⚔</span><span class="equip-name">Arma</span><span class="equip-item">Espada improvisada</span></div><div class="equip-slot" title="Anel"><span class="equip-glyph">◉</span><span class="equip-name">Anel I</span><span class="equip-item">Vazio</span></div>
+          <div class="equip-slot" title="Calças"><span class="equip-glyph">∥</span><span class="equip-name">Pernas</span><span class="equip-item">Vazio</span></div><div class="equip-slot" title="Botas"><span class="equip-glyph">⌑</span><span class="equip-name">Botas</span><span class="equip-item">Vazio</span></div><div class="equip-slot" title="Segundo anel"><span class="equip-glyph">○</span><span class="equip-name">Anel II</span><span class="equip-item">Vazio</span></div>
+        </div><p class="small prototype-note">Armaduras e acessórios são espaços propostos para validar a interface; ainda não existem como itens no catálogo do MVP.</p></section>
+        <section class="inner-panel inventory-panel"><div class="inventory-section-head"><b>MOCHILA</b><span class="small">8 / 24 espaços</span></div><div class="inventory-tabs"><span class="inventory-tab selected">Tudo</span><span class="inventory-tab">Equipamento</span><span class="inventory-tab">Recursos</span><span class="inventory-tab">Consumíveis</span></div><div class="bag-grid" aria-label="Mochila com 24 espaços, oito ocupados">
+          <div class="bag-slot filled" title="Madeira ×8"><span class="bag-glyph">M</span><span class="bag-count">8</span></div><div class="bag-slot filled" title="Pedra ×6"><span class="bag-glyph">P</span><span class="bag-count">6</span></div><div class="bag-slot filled" title="Erva ×4"><span class="bag-glyph">E</span><span class="bag-count">4</span></div><div class="bag-slot filled" title="Fibra ×2"><span class="bag-glyph">F</span><span class="bag-count">2</span></div>
+          <div class="bag-slot filled" title="Carne ×1"><span class="bag-glyph">C</span><span class="bag-count">1</span></div><div class="bag-slot filled" title="Couro ×1"><span class="bag-glyph">D</span><span class="bag-count">1</span></div><div class="bag-slot filled" title="Curativo ×1"><span class="bag-glyph">+</span><span class="bag-count">1</span></div><div class="bag-slot filled" title="Picareta"><span class="bag-glyph">⛏</span></div>
+          ${Array.from({length:16}, () => '<div class="bag-slot" aria-hidden="true"></div>').join("")}
+        </div><p class="small">Itens e quantidades são exemplos visuais do protótipo.</p></section>
+        <section class="inner-panel inventory-detail-panel"><div class="inventory-section-head"><b>DETALHES</b><span class="small">Arma equipada</span></div><article class="inner-panel item-detail"><div class="item-icon">⚔</div><b>Espada improvisada</b><p class="small">Arma principal · Warrior</p><div class="item-stats"><div class="resource-row"><span>Dano físico</span><b>12</b></div><div class="resource-row"><span>Aparência</span><b>inalterada</b></div></div><button class="ui-button secondary" style="width:100%;margin-top:.6em" data-action="item-action">Ver item</button></article><div class="inventory-section-head"><b>FABRICAÇÃO</b><span class="small">Bancada I</span></div><article class="inner-panel compact-recipe"><b>Curativo medicinal</b><p>3 ervas + 1 fibra</p><button class="ui-button" data-action="craft">Fabricar · 1</button></article><article class="inner-panel compact-recipe"><b>Machado</b><p>5 madeira + 3 pedra</p><button class="ui-button secondary" disabled style="opacity:.58;cursor:not-allowed">Faltam materiais</button></article></section>
+      </div></section></div></div>`,
+
+      talent: () => `<div class="screen-fill world-map">${gameplayMap()}<div class="overlay-screen"><section class="panel overlay-card"><div class="overlay-header"><div><div class="eyebrow">S3 · PROGRESSÃO PARCIAL DO MVP</div><h2 class="screen-title">Árvore de talentos · Warrior</h2></div><button class="close-button" data-go="game" aria-label="Fechar talentos">✕</button></div><div class="tree-layout"><div class="tree-board"><div class="tree-lines"></div><div style="display:grid;gap:1em;justify-items:center"><div class="node-row"><button class="node" data-action="node">FOR</button><button class="node active" data-action="node">LÂMINA</button><button class="node" data-action="node">VIGOR</button></div><div class="node-row"><button class="node special" data-action="node">COMBO</button><button class="node" data-action="node">DEFESA</button></div></div></div><div class="inner-panel tree-panel"><div class="eyebrow">PONTOS DISPONÍVEIS</div><h2 style="color:var(--gold);font-size:2em;margin:.1em 0">3</h2><p><b>Dano básico</b><br><span class="small">Aumenta o dano da espada. Nó ilustrativo.</span></p><div class="resource-row"><span>Custo</span><b>1 ponto</b></div><button class="ui-button" style="width:100%;margin-top:1em" data-action="node">Prévia de seleção</button><p class="small">Os IDs e conexões da lista inicial ainda precisam ser aprovados antes da implementação.</p></div></div></section></div></div>`,
+
+      camp: () => `<div class="screen-fill"><div class="camp-scene"><div class="camp-ground"></div><div class="camp-object camp-crystal" title="Cristal puro"></div><div class="camp-object camp-fire">FOGUEIRA</div><div class="camp-object camp-tent">BARRACA</div></div><section class="panel camp-upgrade"><div class="eyebrow">S2 / S3 · REFÚGIO</div><h2 class="screen-title">Acampamento nível II</h2><p class="small">A bancada, o baú compartilhado e o poço são liberados neste nível.</p><div class="resource-cost"><div class="cost-chip">🪵 Madeira <b>24 / 30</b></div><div class="cost-chip">🪨 Pedra <b>18 / 20</b></div><div class="cost-chip">🧵 Fibra <b>8 / 10</b></div><div class="cost-chip">◇ Fragmento <b>0 / 0</b></div></div><button class="ui-button" data-action="upgrade">Ver melhoria</button><button class="ui-button secondary" style="margin-left:.5em" data-go="inventory">Abrir mochila</button><div class="proto-stamp">Slot fixo · construção livre fora do MVP</div></section><button class="close-button" style="position:absolute;right:2%;top:3%" data-go="game" aria-label="Voltar ao mapa">✕</button><div class="floating-label" style="top:auto;left:46%;bottom:10%">Prévia do refúgio · cenário ilustrativo</div></div>`,
+
+      pause: () => `<div class="screen-fill world-map">${gameplayMap()}<div class="overlay-screen"><section class="panel pause-card"><div class="eyebrow">SESSÃO PAUSADA</div><h2 class="screen-title" style="margin:.4em 0">Refúgio seguro</h2><p class="small">Último salvamento ilustrativo: agora</p><div class="pause-actions"><button class="ui-button" data-go="game">Continuar explorando</button><button class="ui-button blue" data-action="save">Salvar agora</button><button class="ui-button secondary" data-go="settings">Configurações</button><button class="ui-button danger" data-go="result">Encerrar expedição</button></div><p class="small">O botão de salvar não grava dados neste protótipo.</p></section></div></div>`,
+
+      downed: () => `<div class="screen-fill world-map">${gameplayMap()}<div class="overlay-screen"><section class="panel downed-card"><div class="eyebrow">COOPERAÇÃO · ESTADO DE EXEMPLO</div><div class="error-symbol">✚</div><h2 class="screen-title">HELENA ESTÁ CAÍDA</h2><div class="timer">00:59</div><p>Você tem tempo para ajudar sua aliada.</p><div class="life-bar"><i style="width:86%;background:#e98b76"></i></div><div style="display:flex;gap:.7em;justify-content:center;margin-top:1.2em;flex-wrap:wrap"><button class="ui-button" data-action="revive">Segurar para reanimar · 5 s</button><button class="ui-button secondary" data-go="result">Voltar à barraca</button></div><p class="small">Tempo, progresso e resultado são estáticos e não implementam a regra de 60/5 s.</p></section></div></div>`,
+
+      result: () => `<div class="screen-fill start-bg"><div class="island-silhouette" aria-hidden="true"></div><section class="panel result-card"><div class="result-seal"><b>✓</b></div><div class="eyebrow">EXPEDIÇÃO ENCERRADA</div><h2 class="screen-title">De volta ao refúgio</h2><p class="small">Materiais não guardados foram colocados em uma mochila persistente.</p><div class="loot-list"><div><span>Madeira</span><b>+8</b></div><div><span>Pedra</span><b>+4</b></div><div><span>Erva</span><b>+2</b></div><div><span>XP compartilhada</span><b>+20</b></div></div><button class="ui-button" style="width:100%" data-go="camp">Continuar no acampamento</button><p class="small">Resumo ilustrativo; nenhum drop ou progresso é salvo.</p></section></div>`,
+
+      error: () => `<div class="screen-fill world-map">${gameplayMap()}<div class="overlay-screen"><section class="panel error-card"><div class="error-symbol">!</div><div class="eyebrow">ERRO RECUPERÁVEL · LAN</div><h2 class="screen-title">Não foi possível entrar</h2><p>O host não respondeu. Confira se os dois aparelhos estão na mesma rede Wi-Fi e tente novamente.</p><div class="inner-panel" style="padding:.8em;text-align:left;margin:1em 0"><div class="small">Código: <b class="gold">LAN-03</b> · o progresso local continua preservado.</div></div><div style="display:flex;gap:.7em;justify-content:center;flex-wrap:wrap"><button class="ui-button" data-go="lan">Tentar novamente</button><button class="ui-button secondary" data-go="start">Jogar offline</button></div></section></div></div>`,
+
+      settings: () => `<div class="screen-fill menu-layout">${titleBar("Configurações", "S0 / S6 · ACESSIBILIDADE E UX")}<section class="panel content-card"><div class="setting-layout" style="height:88%"><div class="inner-panel setting-card"><div class="eyebrow">TELA E CONTROLES</div><div class="setting-row"><span>Zoom do mapa</span><input type="range" min="50" max="125" step="25" value="75" id="zoomRange"><b id="zoomValue">75%</b></div><div class="setting-row"><span>Tamanho da interface</span><input type="range" min="80" max="125" value="100" id="uiRange"><b id="uiValue">100%</b></div><label class="toggle"><input type="checkbox" checked> Contraste alto</label><label class="toggle"><input type="checkbox" checked> Vibração de feedback</label><p class="small">Os controles de zoom e interface são apenas demonstração visual.</p></div><div class="inner-panel setting-card"><div class="eyebrow">ÁUDIO POR CATEGORIA</div><div class="setting-row"><span>Música</span><input type="range" min="0" max="100" value="65"><b>65%</b></div><div class="setting-row"><span>Ambiência</span><input type="range" min="0" max="100" value="80"><b>80%</b></div><div class="setting-row"><span>Combate / skills</span><input type="range" min="0" max="100" value="85"><b>85%</b></div><div class="setting-row"><span>Interface</span><input type="range" min="0" max="100" value="75"><b>75%</b></div><p class="small">Textos e níveis estão sujeitos a teste em aparelho real.</p></div></div><button class="ui-button" style="position:absolute;right:3%;bottom:3%" data-go="start">Voltar</button></section></div>`,
+
+      sync: () => `<div class="screen-fill menu-layout">${titleBar("Escolha qual progresso manter", "S5 · SINCRONIZAÇÃO / RECUPERAÇÃO")}<section class="panel content-card"><p class="small">Dois registros diferentes foram detectados. Nenhum item de mundo é transferido entre aparelhos.</p><div class="sync-columns"><article class="inner-panel sync-option"><div class="eyebrow">NESTE APARELHO · OFFLINE</div><h3>Melissa · nível 4</h3><p class="small">Revisão local 18 · atualizado há 2 horas</p><div class="resource-row"><span>XP pessoal</span><b>1.045</b></div><button class="ui-button secondary" style="margin-top:1em" data-action="sync-choice">Manter este progresso</button></article><article class="inner-panel sync-option"><div class="eyebrow">CONTA VINCULADA · ONLINE</div><h3>Melissa · nível 3</h3><p class="small">Revisão da conta 15 · atualizado ontem</p><div class="resource-row"><span>XP pessoal</span><b>720</b></div><button class="ui-button blue" style="margin-top:1em" data-action="sync-choice">Usar progresso da conta</button></article></div><div class="inner-panel" style="padding:.8em"><b>Não somamos XP nem inventário automaticamente.</b><p class="small" style="margin:.4em 0 0">A escolha e a política de recuperação precisam ser validadas antes de implementar.</p></div><button class="ui-button secondary" style="margin-top:1em" data-go="account">Voltar à conta</button></section></div>`
+    };
+
+    screenNav.addEventListener("click", event => {
+      const button = event.target.closest("[data-go]");
+      if (button) go(button.dataset.go);
+    });
+    game.addEventListener("click", event => {
+      const characterButton = event.target.closest("[data-character]");
+      const vocationButton = event.target.closest("[data-vocation]");
+      const goButton = event.target.closest("[data-go]");
+      const actionButton = event.target.closest("[data-action]");
+      if (characterButton) { state.character = characterButton.dataset.character; renderScreen(); return; }
+      if (vocationButton) { state.vocation = vocationButton.dataset.vocation; renderScreen(); return; }
+      if (goButton) { go(goButton.dataset.go); return; }
+      if (actionButton) {
+        const messages = {
+          "link-account": "Protótipo: vínculo sem autenticação real.",
+          "craft": "Protótipo: fabricação ilustrativa; nenhum recurso foi consumido.",
+          "node": "Protótipo: nó apenas selecionado; pontos não foram gastos.",
+          "upgrade": "Protótipo: melhoria ilustrativa; o acampamento não mudou.",
+          "save": "Protótipo: nenhum arquivo foi salvo.",
+          "revive": "Protótipo: reanimação não foi executada.",
+          "sync-choice": "Protótipo: escolha não foi gravada nem sincronizada.",
+          "attack": "Protótipo: ataque sem combate conectado.",
+          "skill": "Protótipo: habilidade sem efeito de jogo."
+        };
+        toast(messages[actionButton.dataset.action] || "Ação somente de protótipo.");
+      }
+    });
+    document.addEventListener("click", event => {
+      const button = event.target.closest("[data-go]");
+      if (button && !game.contains(button) && !screenNav.contains(button)) go(button.dataset.go);
+    });
+    document.addEventListener("input", event => {
+      if (event.target.id === "zoomRange") document.getElementById("zoomValue").textContent = `${event.target.value}%`;
+      if (event.target.id === "uiRange") document.getElementById("uiValue").textContent = `${event.target.value}%`;
+    });
+    renderScreen();
+  </script>
+</body>
+</html>
