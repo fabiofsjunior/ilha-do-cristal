@@ -31,3 +31,16 @@ Estado: **corrigir**, não produção aprovada. Revisão de direção sul, conta
 Uma correção focada V3 tentou sul simétrico, alternância clara das pernas e alpha binário, preservando identidade e escala. A ferramenta não resolveu esses requisitos: a revisão ainda identifica sul próximo de SE, a mesma bota à frente em grande parte da caminhada e contornos suavizados. V3 foi preservada para comparação, sem substituir a V2 preferida. A pedido do usuário, a revisão e integração seguintes foram delegadas a GPT-6 Luna com raciocínio máximo. Nenhuma expansão do lote foi iniciada.
 
 A integração Luna importou as três versões e verificou 240 seleções de frame e 48 estados sincronizados dos seletores. V3 tem folha dos 20 quadros e quatro capturas representativas a 100% em `docs/art/evidence/godot_v3/`. Validador cobre seis atlas e continua reprovando alpha intermediário. O usuário solicitou reutilizar o aprendizado como skill: o fluxo de produção e correção está sendo registrado separadamente, com diagnóstico estrutural e aprovação artística/plataforma independentes.
+
+## 2026-10-14 — metodologia de prototipagem MVP
+
+Branch `docs/mvp-prototyping-gates`, baseada na branch de teste de sprites. A pedido do usuário, estabelecido um gate visual/navegável antes da implementação de cada fase S0–S6, incluindo prototipagem de telas, estados e transições e validação explícita do usuário. A regra foi adicionada às instruções centrais, ao roadmap e às decisões; procedimento e registro vivem em `Docs/Main/PROTOTYPING_METHODOLOGY.md` e `Docs/Context/PROTOTYPE_LOG.md`.
+
+Criado protótipo navegável de interface com telas do GDD em `docs/prototypes/mvp_ui_v0_1.html`. Controles e dados são simulados, sem gameplay, conta, rede ou salvamento real; sprites são placeholders. Todas as telas estão pendentes de revisão do usuário. Nenhuma tela de produção foi implementada. O projeto de sprites permanece separado e em `corrigir`; Pixelorama não está disponível como aplicativo local neste workspace, e o editor web oficial observado não renderizou o canvas nesta sessão.
+
+## 2026-10-15 — revisão de personagens e inventário
+
+- A pedido do usuário, removidas idades das descrições de Melissa e Helena no GDD, catálogo Markdown e `data/catalogs/mvp.json`. O texto de Melissa reforça doçura, atenção e equilíbrio; o de Helena reforça carisma, inteligência, pavio curto e espontaneidade.
+- Criado `docs/prototypes/mvp_ui_v0_2.html`, preservando a v0.1 como versão anterior. A tela de personagem mostra as novas descrições; o inventário propõe espaços de cabeça, peitoral, luvas, pernas, botas, arma, colar e dois anéis, além da mochila de 24 espaços, detalhes do item e fabricação.
+- Slots de armadura e acessórios ainda não representam conteúdo aprovado: itens e atributos não constam do catálogo do MVP e aguardam validação antes de qualquer implementação. Nenhuma tela de produção foi implementada.
+- Validações estruturais: `python tools/validate_catalogs.py` passou; parse do HTML e JSON, `node --check` do JavaScript e verificações de whitespace passaram.

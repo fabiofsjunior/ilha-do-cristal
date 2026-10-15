@@ -2,6 +2,20 @@
 
 Sem datas arbitrárias. Cada etapa fecha com demonstração no aparelho e critérios verificáveis. Trabalho em PRs pequenos por sprint; a fase seguinte começa após validação da anterior. A ordem vem do processo mecânica → escala/visão → arte técnica → loop → persistência → rede → nuvem. GDD e catálogo permanecem em `Docs/Main/`; Journal e Handoff em `Docs/Context/` registram continuidade.
 
+**Gate transversal obrigatório:** antes da implementação de cada sprint, prototipar as telas, estados e transições que serão afetados e obter validação explícita do usuário. Correções voltam ao protótipo antes de virar código. A metodologia completa está em [PROTOTYPING_METHODOLOGY.md](PROTOTYPING_METHODOLOGY.md); versões, comentários e decisões ficam em [PROTOTYPE_LOG.md](../Context/PROTOTYPE_LOG.md). O protótipo navegável atual está em [`docs/prototypes/mvp_ui_v0_2.html`](../../docs/prototypes/mvp_ui_v0_2.html). Ele é uma proposta de interface, não implementação nem evidência de aceite técnico.
+
+| Fase | Prototipar antes do código |
+|---|---|
+| S0 | Abertura, orientação horizontal, áreas seguras, entrada visitante e configuração inicial |
+| S1 | HUD, joystick, botões, câmera, zoom e interação em SQMs |
+| S2 | Fluxo coleta → combate → cura → craft/refúgio → pausa/salvamento |
+| S3 | Aparência/vocação, habilidades, árvore parcial, biomas, criaturas e acampamento I–III |
+| S4 | Criar/entrar em sessão LAN, conexão perdida, aliado caído e reanimação |
+| S5 | Visitante, vínculo de conta, operação offline, sincronização e divergência de progresso |
+| S6 | Tutorial, acessibilidade, áudio, feedback, erros recuperáveis e ajustes finais de UX |
+
+Prototipagem atual: **telas MVP v0.2 aguardando validação do usuário**. Nenhuma tela de produção deve ser implementada antes do retorno.
+
 | Sprint | Entrega | Aceite |
 |---|---|---|
 | S0 — Preparação | Fixar versão Godot 4, projeto importável, preset Android, orientação horizontal, tela base e CI leve de importação/export debug; criar script opcional Pillow para asset geométrico de teste | Projeto abre sem erros e APK inicial instala em aparelho |
