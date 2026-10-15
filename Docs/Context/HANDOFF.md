@@ -1,39 +1,35 @@
-# Handoff — protótipos MVP e sprites
+# Handoff — auditoria de arte de A Ilha do Cristal
 
-**Branch atual:** `feature/fabio-warrior-stage1`, baseada em `feature/maira-warrior-stage1` (PR #4 Maíra, em rascunho). **PR #5 Fábio:** [rascunho](https://github.com/fabiofsjunior/ilha-do-cristal/pull/5), sem merge.
+**Branch de trabalho:** `feature/fabio-warrior-stage1`. A auditoria partiu de `b3d3f9a`; `main` não foi alterada. A lista remota conferida contém somente `main` e `feature/fabio-warrior-stage1`.
 
 ## Próxima ação
 
-O protótipo navegável v0.7 foi validado pelo usuário em 2026-10-15. O aceite cobre a composição/interação de protótipo e não aprova UI de produção, gameplay, sprites, Godot ou Android.
+Usar um editor de pixel art gratuito em um ambiente com interface gráfica — recomendação: [Pixelorama](https://pixelorama.org/), com timeline e onion skinning — para redesenhar os quadros defeituosos sem substituir os atlas por saídas generativas inconsistentes. Preservar as fontes, corrigir uma direção/animação por vez, revisar visualmente, empacotar e repetir os validadores. As 12 fontes novas de Maíra precisam ser recuperadas ou refeitas antes de usar o empacotador 8-dir.
 
-1. Importar o candidato de terreno em uma cena de QA no Godot, quando o projeto S0 estiver importável; avaliar filtro nearest, contornos de areia/água e grama/solo, overlays e zoom 50–125%.
-2. Comparar a cena com a prancha de contato e a amostra scripted em `docs/art/evidence/terrain/`; validar no Android e pedir revisão visual do candidato antes de expandir o lote ou marcá-lo aprovado.
-3. Manter a candidata em `assets/environments/terrain_mvp_candidate_v1/` sem colisão/navegação, e preservar separados os gates das sprites de personagem, que continuam pendentes/corrigir.
+Em seguida, importar as candidatas em uma cena de QA Godot, revisar fundo claro/escuro, tamanho nativo, zoom 50–125%, SQM, pivô e ciclos. Só então validar em Android. Godot e Android não estavam disponíveis neste ambiente; até essas evidências existirem, os assets permanecem **CORRIGIR** ou **CANDIDATO**.
 
-## Fábio — personagem jogável aprovado, arte etapa 1 pendente
+## Estado por asset
 
-- Em 2026-10-15, o usuário aprovou Fábio como quarto personagem jogável do MVP. GDD e catálogo agora incluem Fábio, pai de Melissa, com as três vocações.
-- O concept de três vocações em `assets/references/generated-candidates/fabio_vocations_concept.png` é referência aprovada, intacta e não é atlas. A fonte bruta de poses, separada, está em `assets/references/generated-candidates/fabio_warrior_stage1_source_v1.png`.
-- Descrição aprovada: “Fábio é alto e forte, tem presença serena e olhar atento. Inteligente e reservado, prefere observar, analisar os riscos e planejar a estratégia antes de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes.”
-- Os protótipos v1/v2 contêm somente Warrior N/S, `idle`4 e `walk`6, células 96×96, pivô candidato (48,80); v2 aplica escala uniforme 1,075× às linhas norte e mantém alpha original. Atlases/metadados estão em `assets/characters/fabio/warrior/`. Relatório, evidência xadrez e empacotador estão em `docs/art/evidence/fabio/fabio_warrior_stage1_review.md`, `fabio_warrior_stage1_contact.png` e `tools/art/pack_fabio_stage1.py`.
-- Alpha intermediário, alinhamento dos pés e revisão da passada/loop continuam pendentes; o teste está em **corrigir**. Godot e Android não foram validados. Não incluir fotos reais.
+| Frente | Conteúdo atual | Falhas/pendências confirmadas |
+|---|---|---|
+| Fábio Warrior | `idle` 4 + `walk` 6, oito direções | Alpha intermediário/halo; fragmentos vermelhos desconectados em SE/SW e SW/NW; passada/pivô sem comprovação. Archer, Mage e demais estados ainda não existem. |
+| Helena Warrior | `idle` 4 + `walk` 6, oito direções | Alpha/halo, apoio e pivô inconsistentes nas diagonais; validação Godot/Android pendente. O validador stage1 foi corrigido para verificar somente as três fontes da etapa e detectar ausência. |
+| Maíra Warrior | `idle` 4 + `walk` 6, oito direções | E e W não se opõem, diagonais se confundem, passada incerta e alpha intermediário. Doze fontes das seis direções novas estão malformadas/truncadas; o packer falha e não há cópia íntegra no histórico. |
+| Melissa Warrior | `idle` 4 + `walk` 6, oito direções | Alpha intermediário; passadas e poses da espada variam sem continuidade clara. |
+| Terreno MVP | 56 tiles: 17 base, 24 transições e 15 overlays | Nenhum defeito demonstrável na prancha/amostra atual; escala/SQM, composição real em TileMapLayer, Godot e Android pendentes. |
 
+O contrato de arte propõe oito direções e `idle` 4, `walk` 6, `attack` 6, `hit` 3, `death` 6 e `cast` 6 quadros por aparência/vocação/animação. Os quatro candidatos Warrior existentes contêm somente `idle` e `walk`. Não criar animações ausentes para mascarar esta lacuna nem aprovar os candidatos atuais.
 
-## Helena — candidata técnica Warrior etapa 1
+## Validações deste checkpoint
 
-- O GDD não define uma vocação padrão para Helena; Warrior foi escolhido somente como suposição operacional para o primeiro exemplar, sem alterar a regra de escolha livre de vocação.
-- A referência oficial `assets/references/concept-rpg-classico.png` foi validada pelo Git blob SHA `82a60ab282c23d0e6846a10a2d8b5e8614537ac3`; o concept está intacto e não foi recortado.
-- Fontes geradas, atlas, JSONs, empacotador, validador e revisão estão em `assets/references/generated-candidates/helena_warrior_*_source_v1.png`, `assets/characters/helena/warrior/`, `tools/art/pack_helena_stage1.py`, `tools/art/validate_helena_stage1.py` e `docs/art/evidence/helena/`.
-- O escopo segue N/S, `idle` 4 e `walk` 6; células 96×96 e pivô (48,80) são candidatos do contrato técnico, não parâmetros aprovados. A revisão permanece **corrigir** por alpha suave/halo e deriva horizontal no walk S.
-- Próximo passo: corrigir ou refazer as passadas e validar pivô/escala em Godot antes de expandir. Godot, zoom/SQM e Android não foram validados; não foram geradas outras vocações ou direções.
+- `python tools/art/validate_sprite_atlases.py`: falha com 20 atlas contendo alpha intermediário; estrutura/alpha devem continuar separados de aprovação artística.
+- `python tools/art/validate_helena_8dir.py`: passa estruturalmente, mas emite alertas de alpha, alinhamento e mantém o status **CORRIGIR**.
+- `python tools/art/validate_helena_stage1.py`: passa após correção do glob de fontes; teste regressivo confirma erro explícito quando falta um arquivo esperado.
+- `python tools/art/validate_mvp_terrain_tileset.py`: `PASS_STRUCTURE_ONLY`, 56 tiles e alpha 0/255; não comprova renderização no motor.
+- `python tools/validate_catalogs.py`: passou, 10 grupos e 54 IDs.
+- `python tools/art/pack_maira_8dir_candidates.py`: falha ao ler fontes PNG malformadas.
+- `git diff --check`: passou. Godot e Android: pendentes.
 
-## Maíra — checkpoint anterior
+## Arquivos e commits da auditoria
 
-Maíra está registrada como personagem jogável do MVP, irmã de Helena, com concept de três vocações em `assets/references/generated-candidates/maira_vocations_concept.png`. O protótipo Warrior etapa 1 segue **corrigir**; relatório e prancha estão em `docs/art/evidence/maira/maira_warrior_stage1_review.md` e `maira_warrior_stage1_contact.png`. A PR #4 permanece em rascunho.
-
-## Outros gates pendentes
-
-- Protótipo navegável v0.7 validado em 2026-10-15 como protótipo; nenhuma UI de produção ou gameplay foi validada pela aprovação do protótipo.
-- Tileset de terreno v1 é candidato: falta cena TileMap no Godot, revisão em zoom 50–125% e teste Android. Não inclui colisão/navegação.
-- Melissa, Maíra, Fábio e Helena mantêm seus gates de sprite próprios; este incremento não modificou sprites de personagens.
-- S0 (projeto Godot importável/APK) e demais fases do roadmap continuam pendentes. Nenhum conteúdo futuro de Vael/exército entra nesta etapa MVP.
+Nenhum PNG de personagem/terreno foi substituído. Foram atualizados relatórios de evidência para Maíra e terreno e corrigido `tools/art/validate_helena_stage1.py`. Commits locais integrados na branch: `35b17d7` (terreno), `e41c173` (validador Helena), `df35d71` (integridade das fontes Maíra). A próxima ação é a revisão manual com editor gráfico e, depois, teste no motor/aparelho.
