@@ -53,7 +53,9 @@
     "base_repeat_failures": [],
     "transitions_checked": "N/E/S/W connectors plus four corners per boundary family; composition only, not auto-tile engine tested",
     "engine_validation": "pending; no Godot render or device test",
-    "sample_render": "scripted tile composition, not a Godot screenshot"
+    "sample_render": "scripted tile composition, not a Godot screenshot",
+    "overlay_tiles_checked": 15,
+    "overlay_footprint_failures": []
   },
   "tiles": [
     {

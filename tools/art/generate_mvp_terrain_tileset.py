@@ -182,25 +182,31 @@ def corner_transition(material_base, material_corner, corner, edge_palette, foam
         d.line((q1,q2),fill=rgba(edge_palette[i % len(edge_palette)]),width=1)
     return img
 
+PATH_ARMS = {
+    "h": ["W", "E"], "v": ["N", "S"],
+    "turn_ne": ["N", "E"], "turn_es": ["E", "S"], "turn_sw": ["S", "W"], "turn_wn": ["W", "N"],
+    "tee_n": ["N", "E", "W"], "tee_e": ["N", "E", "S"], "tee_s": ["E", "S", "W"], "tee_w": ["N", "S", "W"],
+    "dead_n": ["N"], "dead_e": ["E"], "dead_s": ["S"], "dead_w": ["W"],
+    "cross": ["N", "E", "S", "W"],
+}
+
+def path_mask(kind):
+    mask = Image.new("1", (CELL, CELL), 0)
+    draw = ImageDraw.Draw(mask)
+    # central hub is 12x12; each arm extends to the cell border.
+    draw.rectangle((10,10,21,21), fill=1)
+    for arm in PATH_ARMS[kind]:
+        if arm == "N": draw.rectangle((10,0,21,16), fill=1)
+        elif arm == "S": draw.rectangle((10,15,21,31), fill=1)
+        elif arm == "W": draw.rectangle((0,10,16,21), fill=1)
+        elif arm == "E": draw.rectangle((15,10,31,21), fill=1)
+    return mask
+
 def overlay_path(kind, variant, tile_id):
     img = Image.new("RGBA", (CELL,CELL), (0,0,0,0))
     d = ImageDraw.Draw(img)
-    # masks built from 12 px wide cardinal arms; arms meet on cell borders for seamless joins.
-    arms = {
-      "h": ["W","E"], "v": ["N","S"],
-      "turn_ne": ["N","E"], "turn_es": ["E","S"], "turn_sw": ["S","W"], "turn_wn": ["W","N"],
-      "tee_n": ["N","E","W"], "tee_e": ["N","E","S"], "tee_s": ["E","S","W"], "tee_w": ["N","S","W"],
-      "dead_n": ["N"], "dead_e": ["E"], "dead_s": ["S"], "dead_w": ["W"],
-      "cross": ["N","E","S","W"],
-    }[kind]
-    mask = Image.new("1", (CELL,CELL), 0); m = ImageDraw.Draw(mask)
-    # central hub is 12x12; each arm extends to the outer edge.
-    m.rectangle((10,10,21,21), fill=1)
-    for arm in arms:
-        if arm == "N": m.rectangle((10,0,21,16), fill=1)
-        elif arm == "S": m.rectangle((10,15,21,31), fill=1)
-        elif arm == "W": m.rectangle((0,10,16,21), fill=1)
-        elif arm == "E": m.rectangle((15,10,31,21), fill=1)
+    # Twelve-pixel arms meet on cell borders for seamless joins.
+    mask = path_mask(kind)
     r = seeded(tile_id)
     # alpha remains exactly 0/255. Fill pixels and subtle stone-colored dashes only inside mask.
     pa = PALETTES["path"]
@@ -213,8 +219,13 @@ def overlay_path(kind, variant, tile_id):
     for _ in range(3):
         x, y = r.randint(5, 26), r.randint(5, 26)
         if mask.getpixel((x,y)):
-            d.rectangle((x,y,x+1,y), fill=rgba(pa[1 + r.randrange(3)]))
-    # two small dry-earth specks, deterministic, clipped to mask
+            # Clip both pixels: a valid first pixel can sit on the edge of a
+            # narrow arm, with its neighbor falling outside the path footprint.
+            color = rgba(pa[1 + r.randrange(3)])
+            for px in (x, x + 1):
+                if mask.getpixel((px, y)):
+                    d.point((px, y), fill=color)
+    # Three small dry-earth accents, deterministic and clipped to the mask.
     return img
 
 def build_tiles():
@@ -314,8 +325,19 @@ def main():
         bg=im.getpixel((0,0))
         if any(im.getpixel((x,0))!=bg or im.getpixel((x,31))!=bg for x in range(32)) or any(im.getpixel((0,y))!=bg or im.getpixel((31,y))!=bg for y in range(32)):
             repeat_fail.append(tid)
+    overlay_footprint_failures=[]
+    for tid,kind,group,tile,note in tiles:
+        if kind!="overlay":
+            continue
+        mask=path_mask(tid.removeprefix("path_overlay_"))
+        for y in range(CELL):
+            for x in range(CELL):
+                if tile.getpixel((x,y))[3] and not mask.getpixel((x,y)):
+                    overlay_footprint_failures.append({"id":tid,"pixel":[x,y]})
     manifest={"id":"terrain_mvp_candidate_v1","status":"candidate_pending_visual_and_engine_review","created":"2026-10-15","cell_px_candidate":[CELL,CELL],"fixed_scale":False,"project":"A Ilha do Cristal","art_direction":"RPG Classico 2D pixel art; orthogonal grid; top-down slightly oblique; hard pixel clusters; no antialiasing","scope":["beach/spawn","forest","inland/interior ground"],"atlas":{"file":"terrain_mvp_candidate_v1.png","size_px":list(atlas.size),"columns":COLS,"rows":7,"tile_count":len(tiles),"tile_order":"row-major; see tiles[].atlas_xy_tiles"},"rendering":{"filter":"nearest","mipmaps":"disabled for candidate test","tile_layers":"surface base + optional path overlay; collision/navigation not encoded","alpha_values":alpha_values},"generation":{"script":"tools/art/generate_mvp_terrain_tileset.py","seed":SEED,"method":"Pillow integer-coordinate raster drawing at native cell resolution; no resampling of source artwork; source does not overwrite concepts or character sprites","prompt":"RPG Classico 2D top-down slightly oblique orthogonal terrain for a family-friendly island survival RPG; readable warm beach/spawn, forest and inland surfaces; compact repeat-safe pixel clusters; crisp pixel edges, no anti-aliasing, no characters, no props, no labels in atlas; 32x32 px candidate cell only."},"validation":{"png_rgba":atlas.mode=="RGBA","dimensions_multiple_of_cell":atlas.width%CELL==0 and atlas.height%CELL==0,"alpha_values":alpha_values,"alpha_binary":set(alpha_values).issubset({0,255}),"base_tiles_seam_edge_check":"all base-cell edge pixels equal that tile's corner/base color; repeats without boundary discontinuity","base_tiles_checked":len(base_tiles),"base_repeat_failures":repeat_fail,"transitions_checked":"N/E/S/W connectors plus four corners per boundary family; composition only, not auto-tile engine tested","engine_validation":"pending; no Godot render or device test","sample_render":"scripted tile composition, not a Godot screenshot"},"tiles":entries,"visual_evidence":{"contact_sheet":"docs/art/evidence/terrain/terrain_mvp_candidate_v1_contact.png","composed_sample":"docs/art/evidence/terrain/terrain_mvp_candidate_v1_sample.png"},"limitations":["32x32 px per SQM is a candidate; test at 50–125% zoom and Android sizes before fixing scale.","Top-down slightly oblique visual is a flat ground tile contract; the current sample is not gameplay or engine evidence.","Transition cells occupy a tile on the boundary; no Godot terrain-set/autotile resource or collision/navigation data is included.","No trees, rocks as props, resource nodes, buildings, characters or hazards are included; add only after separate GDD scope/review.","Review palette coherence, shore continuity, repeat seams and readability in Godot before production approval."]}
+    manifest["validation"]["overlay_tiles_checked"]=sum(1 for tile in tiles if tile[1]=="overlay")
+    manifest["validation"]["overlay_footprint_failures"]=overlay_footprint_failures
     manifest_path=root/OUT_MANIFEST; manifest_path.parent.mkdir(parents=True,exist_ok=True); manifest_path.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
-    print(json.dumps({"atlas":str(atlas_path),"manifest":str(manifest_path),"contact":str(contact_path),"sample":str(sample_path),"tile_count":len(tiles),"atlas_size":list(atlas.size),"alpha_values":alpha_values,"base_repeat_failures":repeat_fail},indent=2))
+    print(json.dumps({"atlas":str(atlas_path),"manifest":str(manifest_path),"contact":str(contact_path),"sample":str(sample_path),"tile_count":len(tiles),"atlas_size":list(atlas.size),"alpha_values":alpha_values,"base_repeat_failures":repeat_fail,"overlay_footprint_failures":overlay_footprint_failures},indent=2))
 
 if __name__=="__main__": main()
