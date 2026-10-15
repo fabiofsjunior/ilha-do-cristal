@@ -193,7 +193,9 @@ Personagens: 8 direções (N, NE, E, SE, S, SO, O, NO) × `idle` 4, `walk` 6, `a
 
 **Áudio mínimo:** tema de abertura/refúgio, ambiência de praia/floresta, coleta, passos, ataque por vocação, nove skills (podem compartilhar camadas), dano, drop, cura, construção, UI e aviso de aliado caído. Arquivos/licenças e mixagem aguardam produção; áudio deve poder ser silenciado por categoria. Efeitos visuais e sonoros confirmam ação, cooldown, erro de mana e salvamento; placeholders técnicos não são aprovação visual.
 
-O protótipo atual de interface v0.3 preserva a proposta de inventário da v0.2: espaços para cabeça, peitoral, luvas, pernas, botas, arma, colar e dois anéis. O catálogo define armas e ferramentas, mas ainda não define armaduras, acessórios ou seus atributos; os espaços são apenas uma proposta de interface sujeita a validação. Equipamentos continuam sem alterar a aparência dos personagens.
+A proposta de inventário navegável v0.7 organiza a tela em três colunas: grade de equipamento 4×3 à esquerda, mochila com 24 espaços ao centro e painel contextual à direita. A grade segue a matriz acordada: [slot, capacete, amuleto] / [arma principal, armadura, offhand] / [joia, calça, joia] / [slot, botas, slot]. Slots sem item exibem espaços vazios; armaduras e acessórios ainda não possuem catálogo de atributos aprovado.
+
+No protótipo, o painel direito abre em Atributos, com FOR, AGI e INT, descrições, pontos disponíveis, controles de distribuição e o efeito numérico de cada ponto. Ao selecionar um item, o painel mostra nome, descrição, status/localização, atributos e ação contextual (equipar/desequipar ou usar). O exemplo começa no nível 4 com 3 pontos livres; atributos brutos começam em zero, HP/MP base vêm da vocação e os bônus usam os multiplicadores e conversões do GDD. A simulação não salva dados e não aprova a tela para produção. Equipamentos não alteram a aparência do personagem.
 
 ## Próximo fechamento de produção
 
