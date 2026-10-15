@@ -85,3 +85,8 @@ Criado protótipo navegável de interface com telas do GDD em `docs/prototypes/m
 ## 2026-10-15 — árvore conceitual v0.6
 
 O usuário selecionou a imagem endgame anexada para orientar a estrutura do protótipo. O PNG foi validado (1672×941, RGBA) e salvo em `docs/prototypes/assets/passive_skill_tree_endgame_reference.png`. A v0.6 mostra essa imagem, lista nós para inspeção, alterna Warrior/Archer/Mage e simula níveis 1–10. Origem inicia desbloqueada; outros nós são liberados automaticamente por nível. A sequência de geração em 2/4/6/8/10 é ilustrativa e aguarda validação. A imagem conceitual não contém dados exatos de topologia; v0.5 foi preservada.
+
+
+## 2026-10-15 — inventário e atributos v0.7
+
+A pedido do usuário, o protótipo navegável ganha tela de inventário em três colunas: 12 slots de equipamento na matriz 4×3, 24 espaços de mochila e painel contextual à direita. A seleção de item troca o painel de atributos por detalhes, status/localização e ações de equipar/desequipar ou usar. O painel de atributos exibe descrições de FOR/AGI/INT, multiplicadores por vocação, efeitos por ponto e prévia de HP/MP máximo. A simulação inicia no nível 4 com 3 pontos livres; atributos brutos são zero e HP/MP base permanecem por vocação. O protótipo não salva progresso e segue aguardando revisão; a árvore e a referência v0.6 são preservadas.
