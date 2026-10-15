@@ -1,0 +1,48 @@
+{
+  "status": "corrigir",
+  "directions": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW"
+  ],
+  "concept_blob_sha": "82a60ab282c23d0e6846a10a2d8b5e8614537ac3",
+  "concept_sha256": "f42d0080354aa143a113cbab0fbe67bce30dfa7383a80e77d54896a6ab09a99f",
+  "atlases": {
+    "idle": {
+      "file": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v2.png",
+      "dimensions": [
+        384,
+        768
+      ],
+      "alpha": {
+        "unique_values": 256,
+        "min": 0,
+        "max": 255,
+        "transparent_pixels": 238146,
+        "intermediate_alpha_pixels": 56696,
+        "opaque_pixels": 70
+      }
+    },
+    "walk": {
+      "file": "assets/characters/helena/warrior/helena_warrior_walk_candidate_v2.png",
+      "dimensions": [
+        576,
+        768
+      ],
+      "alpha": {
+        "unique_values": 255,
+        "min": 0,
+        "max": 254,
+        "transparent_pixels": 358320,
+        "intermediate_alpha_pixels": 84048,
+        "opaque_pixels": 0
+      }
+    }
+  },
+  "contact": "docs/art/evidence/helena/helena_warrior_8dir_contact.png"
+}
