@@ -1400,6 +1400,81 @@
       "harvest",
       "ui",
       "alerts"
-    ]
+    ],
+    "inventory_prototype_v0_7": {
+      "status": "interface_candidate_pending_user_review",
+      "prototype_only": true,
+      "character_level": 4,
+      "available_attribute_points": 3,
+      "raw_attributes_at_start": {
+        "FOR": 0,
+        "AGI": 0,
+        "INT": 0
+      },
+      "attribute_points_per_level_up": 1,
+      "base_hp_mp_by_vocation": {
+        "warrior": {
+          "hp": 200,
+          "mp": 100
+        },
+        "archer": {
+          "hp": 150,
+          "mp": 150
+        },
+        "mage": {
+          "hp": 100,
+          "mp": 200
+        }
+      },
+      "equipment_grid_4x3": [
+        [
+          "slot",
+          "helmet",
+          "amulet"
+        ],
+        [
+          "weapon_main",
+          "armor",
+          "offhand"
+        ],
+        [
+          "jewel_left",
+          "pants",
+          "jewel_right"
+        ],
+        [
+          "slot",
+          "boots",
+          "slot"
+        ]
+      ],
+      "bag_slots": 24,
+      "right_panel": {
+        "default": "attribute_allocation",
+        "selected_item": [
+          "description",
+          "location_status",
+          "attributes",
+          "context_action"
+        ]
+      },
+      "attribute_derived_effects": {
+        "FOR": {
+          "max_hp_per_effective_point": 3,
+          "melee_damage_per_effective_point": 0.6
+        },
+        "AGI": {
+          "ranged_damage_per_effective_point": 0.6,
+          "critical_chance_percentage_points_per_effective_point": 0.05,
+          "dodge_percentage_points_per_effective_point": 0.05
+        },
+        "INT": {
+          "max_mp_per_effective_point": 3,
+          "magic_damage_per_effective_point": 0.6
+        }
+      },
+      "multipliers_source": "vocations[].stat_multiplier",
+      "saves_progress": false
+    }
   }
 }
