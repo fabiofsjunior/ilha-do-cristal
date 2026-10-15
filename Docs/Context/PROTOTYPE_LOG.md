@@ -59,7 +59,7 @@ Maíra foi adicionada à escolha de personagem depois de o usuário aprová-la c
 
 A v0.7 preserva a árvore visual da v0.6 e acrescenta o inventário em três colunas: itens equipados à esquerda, mochila com 24 slots ao centro e painel contextual à direita. A matriz de equipamento é 4×3 conforme a orientação do usuário. O painel direito inicia em Atributos; a seleção de item abre descrição, localização/status, atributos e ação contextual. O exemplo está no nível 4, com 3 pontos livres; FOR/AGI/INT brutos começam em zero. HP/MP base permanecem próprios de cada vocação, enquanto o preview soma os bônus derivados dos atributos pelos multiplicadores do GDD. A simulação não salva progresso.
 
-**Estado:** em revisão explícita. Esta versão demonstra composição e interações; não é implementação e nenhuma tela de produção foi aprovada. A imagem da árvore permanece conceitual, sem representar topologia exata.
+**Estado:** aprovado como protótipo de interface em 2026-10-15, após validação explícita do usuário (“Protótipos validado.”). A aprovação limita-se à composição e às interações simuladas da v0.7; não aprova arte, implementação Godot, gameplay, Android nem a imagem da árvore como topologia exata.
 
 ## Telas do MVP — v0.6 (arquivada para comparação)
 

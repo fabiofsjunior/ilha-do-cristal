@@ -101,3 +101,12 @@ A pedido do usuário, o protótipo navegável ganha tela de inventário em três
 - Fonte idle é 1774×887, alpha 0–255 com 667.058 pixels intermediários; o atlas idle é 384×192 e tem 17.568 intermediários. Walk N e S são 1536×1024, alpha 0–254 com 518.795/518.217 pixels intermediários; o atlas walk é 576×192 com 20.476 intermediários e nenhum alpha 255. O alpha foi preservado; halo e bordas suaves mantêm a arte em **corrigir**.
 - Validador estrutural passou para RGBA, dimensões, contagens, regiões, direções, células, metadados de pivô, concept e alpha≥128 sem tocar a borda; `py_compile` passou. O relatório registra boxes, pivô e deriva de até 18 px no centro dos quadros walk S. Esses checks não são validação artística nem provam contato dos pés.
 - Sem execução Godot, zoom/SQM ou teste Android. Próximo gate: corrigir/refazer alpha e deriva, revisar ciclo/contato no motor, manter o escopo fechado até aprovação.
+
+
+## 2026-10-15 — protótipo v0.7 validado e terreno MVP candidato
+
+- O usuário validou o protótipo navegável v0.7 em 2026-10-15 (“Protótipos validado.”). O registro marca o protótipo de interface como aprovado; esse aceite não valida telas de produção, gameplay, sprites, Godot ou Android.
+- Criada a candidata de terreno v1 em `assets/environments/terrain_mvp_candidate_v1/`: 56 tiles em célula candidata 32×32 (17 bases, 24 transições e 15 overlays de caminho), atlas 256×224. O tamanho não está congelado.
+- Fonte e validação reproduzíveis em `tools/art/generate_mvp_terrain_tileset.py` e `tools/art/validate_mvp_terrain_tileset.py`; prancha de contato, amostra scripted e relatório em `docs/art/evidence/terrain/`. Nenhuma sprite de personagem foi alterada.
+- Resultado estrutural: PNG RGBA, alpha apenas 0/255, 56 IDs/regiões válidas, base 17/transition 24/overlay 15, sem falha de borda nas superfícies repetíveis; Python compile e JSON parse passaram. Status permanece **CANDIDATO**, aguardando revisão visual, cena TileMap no Godot, zoom 50–125% e Android. A amostra não é render do motor.
+- Próximo gate: importar em cena de QA Godot, examinar vizinhança costeira/caminho no tamanho real, testar aparelho; só então solicitar revisão/expandir. S0 e todas as sprites de personagens continuam com estados independentes e não aprovados.
