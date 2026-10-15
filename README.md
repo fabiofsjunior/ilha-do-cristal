@@ -11,7 +11,7 @@ RPG 2D cooperativo de sobrevivência em pixel art. Melissa, Helena, Maíra e Fá
 - [Doze listas de produção](Docs/Main/CATALOGS_MVP.md) e [catálogo JSON](data/catalogs/mvp.json) — conteúdo inicial versionado.
 - [Roadmap](Docs/Main/ROADMAP.md) — sprints e validações.
 - [Metodologia de prototipagem](Docs/Main/PROTOTYPING_METHODOLOGY.md) — protótipo e validação antes de cada fase.
-- [Registro de protótipos](Docs/Context/PROTOTYPE_LOG.md) e [protótipo navegável atual das telas do MVP](docs/prototypes/mvp_ui_v0_6.html). A imagem conceitual escolhida para a árvore está em [passive_skill_tree_endgame_reference.png](docs/prototypes/assets/passive_skill_tree_endgame_reference.png).
+- [Registro de protótipos](Docs/Context/PROTOTYPE_LOG.md) e [protótipo navegável atual das telas do MVP](docs/prototypes/mvp_ui_v0_7.html). A imagem conceitual escolhida para a árvore está em [passive_skill_tree_endgame_reference.png](docs/prototypes/assets/passive_skill_tree_endgame_reference.png).
 - [Handoff](Docs/Context/HANDOFF.md) e [Journal](Docs/Context/JOURNAL.md) — continuidade entre sessões.
 - [Arquitetura](docs/technical/ARCHITECTURE.md) — Godot, rede local, saves e dados.
 - [Arte e sprites](docs/art/ART_DIRECTION_AND_SPRITES.md) — identidade visual, atlas e prompts.
