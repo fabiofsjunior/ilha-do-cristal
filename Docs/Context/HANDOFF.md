@@ -1,10 +1,12 @@
 # Handoff — protótipos MVP e sprites
 
-**Branch deste incremento:** `feature/maira-warrior-stage1`, baseada na PR #3 `docs/mvp-prototyping-gates`. A PR da arte deve permanecer em rascunho e aguardando revisão do usuário. Consulte o commit atual com `git rev-parse --short HEAD`.
+**Branch:** `feature/maira-warrior-stage1`, baseada na PR #3 `docs/mvp-prototyping-gates`. **PR #4:** [art: protótipo técnico de Maíra Warrior](https://github.com/fabiofsjunior/ilha-do-cristal/pull/4), em rascunho. Commit do artefato principal: `cce7507a575e982d243fc12b29e0a779e67c1283`.
 
 ## Próxima ação
 
 Solicitar revisão da prancha técnica Maíra Warrior em `docs/art/evidence/maira/maira_warrior_stage1_contact.png`. Aplicar feedback e, em seguida, importar a cena `tools/art/sprite_test/maira_stage1_test.tscn` no Godot 4.5.1 para conferir os 20 quadros, pés/pivô, fundo claro/escuro, SQM 32/48 e zoom 50–125%. Não ampliar para oito direções ou outras vocações até a revisão e validação técnica.
+
+**Questão aberta:** aguardar se o usuário aprova a direção visual do protótipo e quais correções de identidade/movimento deseja antes de qualquer ampliação.
 
 ## Estado da arte de Maíra
 
