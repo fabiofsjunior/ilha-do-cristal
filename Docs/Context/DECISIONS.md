@@ -58,3 +58,12 @@ Validar antes de consolidar integração: fluxo Firebase Auth offline/online em 
 - A demonstração começa no nível 4 com 3 pontos disponíveis (um por nível ganho desde o nível 2). FOR/AGI/INT brutos começam em zero; a eficácia de cada ponto segue os multiplicadores existentes do GDD.
 - HP/MP base continuam vinculados à vocação (Warrior 200/100, Archer 150/150, Mage 100/200). Com +3 HP por FOR efetiva e +3 MP por INT efetiva, representar todo o HP/MP inicial apenas com atributos exigiria aproximadamente 100 pontos Warrior, 117 Archer e 100 Mage. Esses pontos não são alocados na criação.
 - v0.7 é uma simulação sem salvamento. A revisão do protótipo não aprova implementação de produção.
+
+
+## Incremento técnico — primeira fatia jogável (2026-10-15)
+
+- O usuário validou explicitamente o protótipo navegável v0.7 em 2026-10-15. Esta implementação segue seu fluxo inicial: abertura, seleção de aparência/vocação, etapa “Criar/entrar na ilha”, gameplay e pausa. A validação foi do protótipo; telas reais ainda exigem importação Godot e revisão visual.
+- A fatia fica em branch/worktree isolada baseada em `feature/fabio-warrior-stage1` no commit local `16e7593`; não altera `main`, não publica branch nem faz cherry-pick. `project.godot` agora aponta para a demo e preserva `tools/art/sprite_test/` como harness QA separado.
+- A seleção limita-se à vocação Warrior porque as quatro aparências têm apenas atlas candidatos Warrior com `idle` e `walk` disponíveis. O mapa usa primeira composição estática 64×44 e os 56 IDs completos do atlas candidato; não inicia o sistema de chunks/seed do mundo final.
+- Joystick touch e botão touch de pausa estão implementados em código junto aos controles desktop. LAN/conta/save, combate, inventário/progressão e persistência não existem; “Hospedar solo” é local e “Entrar” mostra erro mockado e recuperável. O alvo do cristal e props de cenário são proxies geométricos demonstrativos.
+- Os PNGs de personagens permanecem byte a byte sem mudança; a implementação lê pivô, grade, direção e FPS das metadata e não promove `corrigir`/`CANDIDATO`. Sem Godot/Android no runner, S0/S1 permanecem incompletos; a verificação em aparelho Android (10 min, paisagem, dois tamanhos, zoom 50–125%) é obrigatória antes do aceite.

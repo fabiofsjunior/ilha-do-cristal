@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://game/scripts/world/first_island.gd" id="1"]
+[ext_resource type="Script" path="res://game/scripts/world/first_island_hud.gd" id="2"]
+
+[node name="FirstIsland" type="Node2D"]
+script = ExtResource("1")
+
+[node name="BaseTiles" type="TileMapLayer" parent="."]
+
+[node name="Transitions" type="TileMapLayer" parent="."]
+z_index = 1
+
+[node name="Paths" type="TileMapLayer" parent="."]
+z_index = 2
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = false
+position_smoothing_speed = 5.0
+zoom = Vector2(0.75, 0.75)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("2")

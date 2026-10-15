@@ -1,9 +1,9 @@
-; Technical sprite QA harness only. No gameplay implemented.
+; Demo desktop da fatia jogável; harness técnico em tools/art/sprite_test/.
 config_version=5
 
 [application]
-config/name="A Ilha do Cristal — Sprite QA"
-run/main_scene="res://tools/art/sprite_test/sprite_test.tscn"
+config/name="A Ilha do Cristal — Demo jogável"
+run/main_scene="res://game/scenes/main.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 
 [display]
@@ -16,3 +16,5 @@ window/handheld/orientation=0
 renderer/rendering_method="gl_compatibility"
 textures/default_filters/use_nearest_mipmap_filter=false
 textures/canvas_textures/default_texture_filter=0
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=false

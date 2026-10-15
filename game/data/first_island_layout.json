@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "beach_spawn_playable_slice",
+  "grid_size": [64, 44],
+  "tile_px_candidate": [32, 32],
+  "seed": 20261015,
+  "surface_bands": [
+    { "from_x": 0, "to_x": 3, "group": "water_deep" },
+    { "from_x": 3, "to_x": 8, "group": "water_shallow" },
+    { "from_x": 8, "to_x": 20, "group": "sand" },
+    { "from_x": 20, "to_x": 50, "group": "grass" },
+    { "from_x": 50, "to_x": 64, "group": "soil" }
+  ],
+  "surface_areas": [
+    { "from_x": 35, "to_x": 47, "from_y": 7, "to_y": 37, "group": "forest" }
+  ],
+  "transition_bands": [
+    { "prefix": "shore_sand_water", "edge": "w", "x": 7 },
+    { "prefix": "beach_grass", "edge": "w", "x": 19 },
+    { "prefix": "grass_soil", "edge": "e", "x": 49 }
+  ],
+  "transition_patches": [
+    { "prefix": "shore_sand_water", "center": [5, 22], "inner_base": "sand_01" },
+    { "prefix": "beach_grass", "center": [15, 25], "inner_base": "grass_01" },
+    { "prefix": "grass_soil", "center": [56, 22], "inner_base": "grass_01" }
+  ],
+  "path_network": [
+    { "id": "path_overlay_dead_s", "cell": [33, 14] },
+    { "id": "path_overlay_turn_es", "cell": [31, 15] },
+    { "id": "path_overlay_h", "cell": [32, 15] },
+    { "id": "path_overlay_cross", "cell": [33, 15] },
+    { "id": "path_overlay_tee_s", "cell": [34, 15] },
+    { "id": "path_overlay_turn_sw", "cell": [35, 15] },
+    { "id": "path_overlay_dead_e", "cell": [30, 16] },
+    { "id": "path_overlay_tee_w", "cell": [31, 16] },
+    { "id": "path_overlay_turn_ne", "cell": [33, 16] },
+    { "id": "path_overlay_tee_n", "cell": [34, 16] },
+    { "id": "path_overlay_turn_wn", "cell": [35, 16] },
+    { "id": "path_overlay_tee_e", "cell": [31, 17] },
+    { "id": "path_overlay_dead_w", "cell": [32, 17] },
+    { "id": "path_overlay_v", "cell": [31, 18] },
+    { "id": "path_overlay_dead_n", "cell": [31, 19] }
+  ],
+  "spawn_cell": [16, 23],
+  "beacon_cell": [21, 23],
+  "obstacles": [
+    { "kind": "tree", "cell": [24, 17] },
+    { "kind": "tree", "cell": [27, 21] },
+    { "kind": "tree", "cell": [32, 12] },
+    { "kind": "tree", "cell": [38, 19] },
+    { "kind": "tree", "cell": [42, 13] },
+    { "kind": "tree", "cell": [44, 27] },
+    { "kind": "tree", "cell": [46, 17] },
+    { "kind": "boulder", "cell": [12, 13] },
+    { "kind": "boulder", "cell": [25, 29] },
+    { "kind": "boulder", "cell": [53, 17] },
+    { "kind": "boulder", "cell": [59, 27] }
+  ]
+}

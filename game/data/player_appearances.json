@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "source": "data/catalogs/mvp.json",
+  "note": "Somente aparências Warrior com atlas idle/walk existentes; os JSONs originais são a fonte do pivô, grade, FPS e estado de arte; status corrigir/approved:false preservados.",
+  "characters": [
+    {
+      "id": "melissa",
+      "name": "Melissa",
+      "description": "Meiga e doce, é esperta e observadora; costuma manter a calma diante de imprevistos.",
+      "idle_metadata": "res://assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v2.json",
+      "walk_metadata": "res://assets/characters/melissa/warrior/melissa_warrior_walk_8dir_candidate_v1.json"
+    },
+    {
+      "id": "helena",
+      "name": "Helena",
+      "description": "Carismática e inteligente, reage com intensidade e tem muita iniciativa.",
+      "idle_metadata": "res://assets/characters/helena/warrior/helena_warrior_idle_candidate_v2.json",
+      "walk_metadata": "res://assets/characters/helena/warrior/helena_warrior_walk_candidate_v2.json"
+    },
+    {
+      "id": "maira",
+      "name": "Maíra",
+      "description": "Falante e atenciosa, anima o grupo e observa o ambiente antes de agir.",
+      "idle_metadata": "res://assets/characters/maira/warrior/maira_warrior_idle_candidate_v2.json",
+      "walk_metadata": "res://assets/characters/maira/warrior/maira_warrior_walk_candidate_v2.json"
+    },
+    {
+      "id": "fabio",
+      "name": "Fábio",
+      "description": "Sereno e atento, observa os riscos e planeja a estratégia antes de agir.",
+      "idle_metadata": "res://assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v3_8dir.json",
+      "walk_metadata": "res://assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v3_8dir.json"
+    }
+  ]
+}

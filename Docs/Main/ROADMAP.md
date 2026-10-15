@@ -40,4 +40,14 @@ Checklist vivo:
 - [ ] S5: conta/progressão e modo visitante/offline.
 - [ ] S6: beta e testes de resiliência.
 
+#### Subitens da primeira fatia em `feature/s01-gameplay-slice`
+
+Os itens marcados como implementados abaixo descrevem somente código/documentação e validação estrutural. **S0 e S1 continuam pendentes** até importação no Godot e gates de aparelho desta tabela.
+
+- [x] S0 parcial: `project.godot` inicia uma cena de jogo (`game/scenes/main.tscn`), mantém viewport horizontal 1280×720, stretch `canvas_items` e renderer Compatibility; o harness de sprites foi preservado em `tools/art/sprite_test/`.
+- [ ] S0 restante: importação sem erros em Godot 4.5.1, preset/export debug Android, APK instalado e testado.
+- [x] S1 parcial: mapa inicial estático 64×44; tile atlas mantém 56 IDs (17 base, 24 transições, 15 overlays); jogador usa idle/walk das quatro aparências Warrior e movimentação em oito direções por teclado/joystick touch; há colisão de água, bordas e proxies, câmera nearest com zoom 50–125% e interação demonstrativa com cristal.
+- [x] Fluxo de tela validado por código: início → aparência/vocação → sessão local → gameplay; pause overlay permite retomar ou navegar à sessão/início. “Entrar” permanece erro mockado.
+- [ ] S1 restante: importar/rodar e comparar com a v0.7; aceitar Android após 10 min em paisagem, dois tamanhos de tela, zoom 50–125%, revisão de legibilidade, toque, colisões, estabilidade e desempenho.
+
 Após GDD, produzir em sequência: contratos JSON em `data/`, protótipo de controles, sprites técnicos com pivôs, teste de cache/chunks, save resiliente, rede LAN. O tamanho 1000×1000 é limite de mundo, não requisito de preencher toda área com conteúdo no primeiro APK.
