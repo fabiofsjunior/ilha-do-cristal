@@ -1,0 +1,2515 @@
+{
+  "id": "fabio_warrior_idle_candidate_v3_8dir",
+  "atlas": "fabio_warrior_idle_candidate_v3_8dir.png",
+  "status": "corrigir",
+  "approved": false,
+  "candidate_version": "v3_8dir_direction_expansion",
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW"
+  ],
+  "frames": 4,
+  "fps": 6,
+  "loop": true,
+  "animation": "idle",
+  "animations": {
+    "idle": {
+      "frames": 4,
+      "fps": 6,
+      "loop": true
+    }
+  },
+  "row_sources": {
+    "N": {
+      "source": {
+        "metadata": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v2.json",
+        "atlas": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v2.png",
+        "atlas_sha256": "20a5f78c1c79cc2597e14454500f2421e01b3dfd8c2f7cf085a00dccf09f2e9e",
+        "metadata_sha256": "0d11b59eb5cb091119a01d922d915e4b21a4a1d83a5ebe88293c350416e4da0a"
+      },
+      "source_row": 0,
+      "resampling": "none; pixels copied unchanged",
+      "fixed_offset": [
+        0,
+        0
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "source_region_px": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "source_cell_px": [
+            96,
+            96
+          ],
+          "source_alpha": {
+            "unique_values": 132,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6803,
+            "intermediate_pixels": 2413,
+            "opaque_255_pixels": 0
+          },
+          "output_alpha": {
+            "unique_values": 132,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6803,
+            "intermediate_pixels": 2413,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            23,
+            18,
+            72,
+            80
+          ],
+          "operation": "copied unchanged from existing v2 frame; no resampling, crop, flip, or alpha edit"
+        },
+        {
+          "frame": 1,
+          "source_region_px": [
+            96,
+            0,
+            192,
+            96
+          ],
+          "source_cell_px": [
+            96,
+            96
+          ],
+          "source_alpha": {
+            "unique_values": 142,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6763,
+            "intermediate_pixels": 2453,
+            "opaque_255_pixels": 0
+          },
+          "output_alpha": {
+            "unique_values": 142,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6763,
+            "intermediate_pixels": 2453,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            23,
+            18,
+            73,
+            80
+          ],
+          "operation": "copied unchanged from existing v2 frame; no resampling, crop, flip, or alpha edit"
+        },
+        {
+          "frame": 2,
+          "source_region_px": [
+            192,
+            0,
+            288,
+            96
+          ],
+          "source_cell_px": [
+            96,
+            96
+          ],
+          "source_alpha": {
+            "unique_values": 137,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 6785,
+            "intermediate_pixels": 2431,
+            "opaque_255_pixels": 0
+          },
+          "output_alpha": {
+            "unique_values": 137,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 6785,
+            "intermediate_pixels": 2431,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            23,
+            18,
+            74,
+            80
+          ],
+          "operation": "copied unchanged from existing v2 frame; no resampling, crop, flip, or alpha edit"
+        },
+        {
+          "frame": 3,
+          "source_region_px": [
+            288,
+            0,
+            384,
+            96
+          ],
+          "source_cell_px": [
+            96,
+            96
+          ],
+          "source_alpha": {
+            "unique_values": 134,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6752,
+            "intermediate_pixels": 2464,
+            "opaque_255_pixels": 0
+          },
+          "output_alpha": {
+            "unique_values": 134,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6752,
+            "intermediate_pixels": 2464,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            24,
+            18,
+            75,
+            80
+          ],
+          "operation": "copied unchanged from existing v2 frame; no resampling, crop, flip, or alpha edit"
+        }
+      ]
+    },
+    "NE": {
+      "source": "assets/references/generated-candidates/fabio_warrior_8dir_NE_SE_source_v1.png",
+      "source_sha256": "98110c733b59790649cfabf27c53aba0dbf788a48d77138a89ae715b7c414286",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "source_grid": {
+        "columns": 6,
+        "rows": 4,
+        "cell": [
+          256,
+          256
+        ],
+        "regions_fixed": true
+      },
+      "source_row": 0,
+      "resampling": "nearest 256x256 to 72x72, uniform for every cell",
+      "fixed_offset": [
+        10,
+        10
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "source_region_px": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 37519,
+            "intermediate_pixels": 28017,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            39,
+            37,
+            228,
+            251
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 139,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7035,
+            "intermediate_pixels": 2181,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            21,
+            20,
+            74,
+            81
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 1,
+          "source_region_px": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 253,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 36884,
+            "intermediate_pixels": 28652,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            36,
+            37,
+            227,
+            251
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 140,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6979,
+            "intermediate_pixels": 2237,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            20,
+            20,
+            74,
+            81
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 2,
+          "source_region_px": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 254,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 38215,
+            "intermediate_pixels": 27321,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            48,
+            37,
+            228,
+            251
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 130,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7093,
+            "intermediate_pixels": 2123,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            23,
+            20,
+            74,
+            81
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 3,
+          "source_region_px": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 35622,
+            "intermediate_pixels": 29914,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            29,
+            37,
+            227,
+            251
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 142,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 6880,
+            "intermediate_pixels": 2336,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            18,
+            20,
+            74,
+            81
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        }
+      ]
+    },
+    "E": {
+      "source": "assets/references/generated-candidates/fabio_warrior_8dir_cardinal_edited_v1.png",
+      "source_sha256": "884c1acc39275ead9d63a28ee5866f536f93a2d38b3c3a877ef9f7c10b849373",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "source_grid": {
+        "columns": 6,
+        "rows": 4,
+        "cell": [
+          256,
+          256
+        ],
+        "regions_fixed": true
+      },
+      "source_row": 0,
+      "resampling": "nearest 256x256 to 72x72, uniform for every cell",
+      "fixed_offset": [
+        10,
+        10
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "source_region_px": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 253,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 39327,
+            "intermediate_pixels": 26209,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            48,
+            36,
+            231,
+            249
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 118,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 7115,
+            "intermediate_pixels": 2101,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            23,
+            20,
+            75,
+            80
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 1,
+          "source_region_px": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 39961,
+            "intermediate_pixels": 25575,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            33,
+            36,
+            231,
+            249
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 114,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 7170,
+            "intermediate_pixels": 2046,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            19,
+            20,
+            75,
+            80
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 2,
+          "source_region_px": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 254,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 39299,
+            "intermediate_pixels": 26237,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            47,
+            36,
+            230,
+            249
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 118,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 7134,
+            "intermediate_pixels": 2082,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            23,
+            20,
+            75,
+            80
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 3,
+          "source_region_px": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 37382,
+            "intermediate_pixels": 28154,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            24,
+            36,
+            227,
+            249
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 119,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6967,
+            "intermediate_pixels": 2249,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            17,
+            20,
+            74,
+            80
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        }
+      ]
+    },
+    "SE": {
+      "source": "assets/references/generated-candidates/fabio_warrior_8dir_NE_SE_source_v1.png",
+      "source_sha256": "98110c733b59790649cfabf27c53aba0dbf788a48d77138a89ae715b7c414286",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "source_grid": {
+        "columns": 6,
+        "rows": 4,
+        "cell": [
+          256,
+          256
+        ],
+        "regions_fixed": true
+      },
+      "source_row": 2,
+      "resampling": "nearest 256x256 to 72x72, uniform for every cell",
+      "fixed_offset": [
+        10,
+        10
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "source_region_px": [
+            0,
+            512,
+            256,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 35594,
+            "intermediate_pixels": 29942,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            23,
+            19,
+            234,
+            235
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 134,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6866,
+            "intermediate_pixels": 2350,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            16,
+            15,
+            76,
+            76
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 1,
+          "source_region_px": [
+            256,
+            512,
+            512,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 34153,
+            "intermediate_pixels": 31383,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            22,
+            19,
+            234,
+            235
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 131,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6737,
+            "intermediate_pixels": 2479,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            16,
+            15,
+            76,
+            76
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 2,
+          "source_region_px": [
+            512,
+            512,
+            768,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 254,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 34451,
+            "intermediate_pixels": 31085,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            37,
+            19,
+            235,
+            235
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 124,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6787,
+            "intermediate_pixels": 2429,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            20,
+            15,
+            76,
+            76
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 3,
+          "source_region_px": [
+            768,
+            512,
+            1024,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 32884,
+            "intermediate_pixels": 32652,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            15,
+            19,
+            234,
+            235
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 133,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6654,
+            "intermediate_pixels": 2562,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            14,
+            15,
+            76,
+            76
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        }
+      ]
+    },
+    "S": {
+      "source": {
+        "metadata": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v2.json",
+        "atlas": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v2.png",
+        "atlas_sha256": "20a5f78c1c79cc2597e14454500f2421e01b3dfd8c2f7cf085a00dccf09f2e9e",
+        "metadata_sha256": "0d11b59eb5cb091119a01d922d915e4b21a4a1d83a5ebe88293c350416e4da0a"
+      },
+      "source_row": 1,
+      "resampling": "none; pixels copied unchanged",
+      "fixed_offset": [
+        0,
+        0
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "source_region_px": [
+            0,
+            96,
+            96,
+            192
+          ],
+          "source_cell_px": [
+            96,
+            96
+          ],
+          "source_alpha": {
+            "unique_values": 144,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6693,
+            "intermediate_pixels": 2523,
+            "opaque_255_pixels": 0
+          },
+          "output_alpha": {
+            "unique_values": 144,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6693,
+            "intermediate_pixels": 2523,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            23,
+            16,
+            73,
+            80
+          ],
+          "operation": "copied unchanged from existing v2 frame; no resampling, crop, flip, or alpha edit"
+        },
+        {
+          "frame": 1,
+          "source_region_px": [
+            96,
+            96,
+            192,
+            192
+          ],
+          "source_cell_px": [
+            96,
+            96
+          ],
+          "source_alpha": {
+            "unique_values": 143,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6768,
+            "intermediate_pixels": 2448,
+            "opaque_255_pixels": 0
+          },
+          "output_alpha": {
+            "unique_values": 143,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6768,
+            "intermediate_pixels": 2448,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            23,
+            16,
+            73,
+            80
+          ],
+          "operation": "copied unchanged from existing v2 frame; no resampling, crop, flip, or alpha edit"
+        },
+        {
+          "frame": 2,
+          "source_region_px": [
+            192,
+            96,
+            288,
+            192
+          ],
+          "source_cell_px": [
+            96,
+            96
+          ],
+          "source_alpha": {
+            "unique_values": 140,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6764,
+            "intermediate_pixels": 2452,
+            "opaque_255_pixels": 0
+          },
+          "output_alpha": {
+            "unique_values": 140,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6764,
+            "intermediate_pixels": 2452,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            22,
+            16,
+            72,
+            80
+          ],
+          "operation": "copied unchanged from existing v2 frame; no resampling, crop, flip, or alpha edit"
+        },
+        {
+          "frame": 3,
+          "source_region_px": [
+            288,
+            96,
+            384,
+            192
+          ],
+          "source_cell_px": [
+            96,
+            96
+          ],
+          "source_alpha": {
+            "unique_values": 137,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6790,
+            "intermediate_pixels": 2426,
+            "opaque_255_pixels": 0
+          },
+          "output_alpha": {
+            "unique_values": 137,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6790,
+            "intermediate_pixels": 2426,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            23,
+            16,
+            72,
+            80
+          ],
+          "operation": "copied unchanged from existing v2 frame; no resampling, crop, flip, or alpha edit"
+        }
+      ]
+    },
+    "SW": {
+      "source": "assets/references/generated-candidates/fabio_warrior_8dir_SW_NW_source_v1.png",
+      "source_sha256": "966ebf2af2b17880ce35db1197bf9758a916a491c75d004bf4178cf9327cd4ec",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "source_grid": {
+        "columns": 6,
+        "rows": 4,
+        "cell": [
+          256,
+          256
+        ],
+        "regions_fixed": true
+      },
+      "source_row": 0,
+      "resampling": "nearest 256x256 to 72x72, uniform for every cell",
+      "fixed_offset": [
+        10,
+        10
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "source_region_px": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 253,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 38733,
+            "intermediate_pixels": 26803,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            37,
+            40,
+            246,
+            253
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 127,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 7092,
+            "intermediate_pixels": 2124,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            21,
+            21,
+            79,
+            81
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 1,
+          "source_region_px": [
+            256,
+            0,
+            512,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 37707,
+            "intermediate_pixels": 27829,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            45,
+            40,
+            256,
+            253
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 37,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 122,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 7011,
+            "intermediate_pixels": 2205,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            23,
+            21,
+            82,
+            81
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 2,
+          "source_region_px": [
+            512,
+            0,
+            768,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 254,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 37545,
+            "intermediate_pixels": 27991,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            0,
+            40,
+            247,
+            253
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 32,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 126,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7004,
+            "intermediate_pixels": 2212,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            10,
+            21,
+            79,
+            81
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 3,
+          "source_region_px": [
+            768,
+            0,
+            1024,
+            256
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 37258,
+            "intermediate_pixels": 28278,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            37,
+            40,
+            256,
+            253
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 38,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 125,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 6973,
+            "intermediate_pixels": 2243,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            20,
+            21,
+            82,
+            81
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        }
+      ]
+    },
+    "W": {
+      "source": "assets/references/generated-candidates/fabio_warrior_8dir_cardinal_edited_v1.png",
+      "source_sha256": "884c1acc39275ead9d63a28ee5866f536f93a2d38b3c3a877ef9f7c10b849373",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "source_grid": {
+        "columns": 6,
+        "rows": 4,
+        "cell": [
+          256,
+          256
+        ],
+        "regions_fixed": true
+      },
+      "source_row": 2,
+      "resampling": "nearest 256x256 to 72x72, uniform for every cell",
+      "fixed_offset": [
+        10,
+        10
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "source_region_px": [
+            0,
+            512,
+            256,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 36607,
+            "intermediate_pixels": 28929,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            42,
+            18,
+            247,
+            237
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 120,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6915,
+            "intermediate_pixels": 2301,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            22,
+            15,
+            79,
+            77
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 1,
+          "source_region_px": [
+            256,
+            512,
+            512,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 253,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 36553,
+            "intermediate_pixels": 28983,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            42,
+            18,
+            246,
+            237
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 117,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6923,
+            "intermediate_pixels": 2293,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            22,
+            15,
+            79,
+            77
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 2,
+          "source_region_px": [
+            512,
+            512,
+            768,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 37147,
+            "intermediate_pixels": 28389,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            43,
+            18,
+            252,
+            237
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 116,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6957,
+            "intermediate_pixels": 2259,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            22,
+            15,
+            81,
+            77
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 3,
+          "source_region_px": [
+            768,
+            512,
+            1024,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 37288,
+            "intermediate_pixels": 28248,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            42,
+            18,
+            252,
+            237
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 125,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6968,
+            "intermediate_pixels": 2248,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            22,
+            15,
+            81,
+            77
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        }
+      ]
+    },
+    "NW": {
+      "source": "assets/references/generated-candidates/fabio_warrior_8dir_SW_NW_source_v1.png",
+      "source_sha256": "966ebf2af2b17880ce35db1197bf9758a916a491c75d004bf4178cf9327cd4ec",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "source_grid": {
+        "columns": 6,
+        "rows": 4,
+        "cell": [
+          256,
+          256
+        ],
+        "regions_fixed": true
+      },
+      "source_row": 2,
+      "resampling": "nearest 256x256 to 72x72, uniform for every cell",
+      "fixed_offset": [
+        10,
+        10
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "source_region_px": [
+            0,
+            512,
+            256,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 254,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 38881,
+            "intermediate_pixels": 26655,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            44,
+            32,
+            239,
+            241
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 130,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7095,
+            "intermediate_pixels": 2121,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            22,
+            19,
+            77,
+            78
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 1,
+          "source_region_px": [
+            256,
+            512,
+            512,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 254,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 38379,
+            "intermediate_pixels": 27157,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            34,
+            31,
+            256,
+            241
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 32,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 140,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7054,
+            "intermediate_pixels": 2162,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            20,
+            19,
+            82,
+            78
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 2,
+          "source_region_px": [
+            512,
+            512,
+            768,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 38720,
+            "intermediate_pixels": 26816,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            0,
+            32,
+            238,
+            241
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 30,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 130,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7088,
+            "intermediate_pixels": 2128,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            10,
+            19,
+            77,
+            78
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        },
+        {
+          "frame": 3,
+          "source_region_px": [
+            768,
+            512,
+            1024,
+            768
+          ],
+          "source_cell_px": [
+            256,
+            256
+          ],
+          "source_alpha": {
+            "unique_values": 255,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 37041,
+            "intermediate_pixels": 28495,
+            "opaque_255_pixels": 0
+          },
+          "source_bbox_alpha_gte_128": [
+            36,
+            31,
+            256,
+            241
+          ],
+          "source_edge_pixels_alpha_gte_128": {
+            "left": 0,
+            "right": 23,
+            "top": 0,
+            "bottom": 0
+          },
+          "output_alpha": {
+            "unique_values": 134,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 6944,
+            "intermediate_pixels": 2272,
+            "opaque_255_pixels": 0
+          },
+          "output_bbox_alpha_gte_128": [
+            20,
+            19,
+            82,
+            78
+          ],
+          "fixed_offset_px": [
+            10,
+            10
+          ],
+          "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold"
+        }
+      ]
+    }
+  },
+  "art_review": {
+    "overall": "corrigir",
+    "reasons": [
+      "Pre-existing N/S v2 source retains soft/intermediate alpha and does not prove foot contact or walk-loop quality.",
+      "Generated E/W and diagonal source sheets retain alpha values 1-254, have no alpha-255 pixels, and show background glow/soft edges; no automatic alpha masking or binarization was applied.",
+      "Some diagonal source cells contain alpha>=128 pixels on cell boundaries. A cell-fit edit did not consistently eliminate this and changed the stated SW walk row from six poses to four; that edit is preserved but excluded from this atlas.",
+      "Generated walk poses are varied, but left/right contact, impact, passing sequence and support-leg alternation are not consistently unambiguous in static inspection.",
+      "96x96 cells and pivot (48,80) are candidates; alpha bboxes cannot identify boots or prove a stable pivot."
+    ],
+    "per_direction": {
+      "N": {
+        "idle": "corrigir",
+        "walk": "corrigir",
+        "findings": [
+          "Preserved existing v2 candidate; alpha soft; body/feet scale and cardinal anatomy still need visual review."
+        ]
+      },
+      "NE": {
+        "idle": "corrigir",
+        "walk": "corrigir",
+        "findings": [
+          "New generated candidate; alpha/glow remains; confirm scale and foot baseline in Godot.",
+          "Source sheet has material on one or both vertical cell edges; completeness is not confirmed."
+        ]
+      },
+      "E": {
+        "idle": "corrigir",
+        "walk": "corrigir",
+        "findings": [
+          "New generated candidate; alpha/glow remains; confirm scale and foot baseline in Godot."
+        ]
+      },
+      "SE": {
+        "idle": "corrigir",
+        "walk": "corrigir",
+        "findings": [
+          "New generated candidate; alpha/glow remains; confirm scale and foot baseline in Godot.",
+          "Source sheet has material on one or both vertical cell edges; completeness is not confirmed."
+        ]
+      },
+      "S": {
+        "idle": "corrigir",
+        "walk": "corrigir",
+        "findings": [
+          "Preserved existing v2 candidate; alpha soft; body/feet scale and cardinal anatomy still need visual review."
+        ]
+      },
+      "SW": {
+        "idle": "corrigir",
+        "walk": "corrigir",
+        "findings": [
+          "New generated candidate; alpha/glow remains; confirm scale and foot baseline in Godot.",
+          "Source sheet has material on one or both vertical cell edges; completeness is not confirmed."
+        ]
+      },
+      "W": {
+        "idle": "corrigir",
+        "walk": "corrigir",
+        "findings": [
+          "New generated candidate; alpha/glow remains; confirm scale and foot baseline in Godot."
+        ]
+      },
+      "NW": {
+        "idle": "corrigir",
+        "walk": "corrigir",
+        "findings": [
+          "New generated candidate; alpha/glow remains; confirm scale and foot baseline in Godot.",
+          "Source sheet has material on one or both vertical cell edges; completeness is not confirmed."
+        ]
+      }
+    },
+    "walk_phase_order_requested": [
+      "left-foot contact",
+      "down/impact",
+      "passing",
+      "right-foot contact",
+      "down/impact",
+      "passing"
+    ],
+    "walk_phase_result": "not confirmed; several directions have ambiguous support-leg alternation and require frame-by-frame correction"
+  },
+  "source_tool": "OpenAI image_gen built-in; source generations and correction attempts are preserved unchanged",
+  "source_files": {
+    "cardinal": {
+      "path": "assets/references/generated-candidates/fabio_warrior_8dir_cardinal_edited_v1.png",
+      "sha256": "884c1acc39275ead9d63a28ee5866f536f93a2d38b3c3a877ef9f7c10b849373",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha": {
+        "unique_values": 255,
+        "min": 0,
+        "max": 254,
+        "transparent_pixels": 1011465,
+        "intermediate_pixels": 561399,
+        "opaque_255_pixels": 0
+      }
+    },
+    "NE_SE": {
+      "path": "assets/references/generated-candidates/fabio_warrior_8dir_NE_SE_source_v1.png",
+      "sha256": "98110c733b59790649cfabf27c53aba0dbf788a48d77138a89ae715b7c414286",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha": {
+        "unique_values": 255,
+        "min": 0,
+        "max": 254,
+        "transparent_pixels": 974501,
+        "intermediate_pixels": 598363,
+        "opaque_255_pixels": 0
+      }
+    },
+    "SW_NW": {
+      "path": "assets/references/generated-candidates/fabio_warrior_8dir_SW_NW_source_v1.png",
+      "sha256": "966ebf2af2b17880ce35db1197bf9758a916a491c75d004bf4178cf9327cd4ec",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alpha": {
+        "unique_values": 255,
+        "min": 0,
+        "max": 254,
+        "transparent_pixels": 1013767,
+        "intermediate_pixels": 559097,
+        "opaque_255_pixels": 0
+      }
+    }
+  },
+  "source_alpha_policy": "Alpha preserved by nearest sampling; no binarization, thresholding, matte removal, or procedural masking. The selected source sheets still contain intermediate alpha and background contamination.",
+  "godot_validation": "pendente",
+  "android_validation": "pendente",
+  "diagnostic_rows": [
+    {
+      "direction": "N",
+      "frames": [
+        {
+          "frame": 0,
+          "alpha": {
+            "unique_values": 132,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6803,
+            "intermediate_pixels": 2413,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            23,
+            18,
+            72,
+            80
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 1,
+          "alpha": {
+            "unique_values": 142,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6763,
+            "intermediate_pixels": 2453,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            23,
+            18,
+            73,
+            80
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 2,
+          "alpha": {
+            "unique_values": 137,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 6785,
+            "intermediate_pixels": 2431,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            23,
+            18,
+            74,
+            80
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 3,
+          "alpha": {
+            "unique_values": 134,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6752,
+            "intermediate_pixels": 2464,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            24,
+            18,
+            75,
+            80
+          ],
+          "touches_output_cell_edge": false
+        }
+      ]
+    },
+    {
+      "direction": "NE",
+      "frames": [
+        {
+          "frame": 0,
+          "alpha": {
+            "unique_values": 139,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7035,
+            "intermediate_pixels": 2181,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            21,
+            20,
+            74,
+            81
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 1,
+          "alpha": {
+            "unique_values": 140,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6979,
+            "intermediate_pixels": 2237,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            20,
+            20,
+            74,
+            81
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 2,
+          "alpha": {
+            "unique_values": 130,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7093,
+            "intermediate_pixels": 2123,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            23,
+            20,
+            74,
+            81
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 3,
+          "alpha": {
+            "unique_values": 142,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 6880,
+            "intermediate_pixels": 2336,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            18,
+            20,
+            74,
+            81
+          ],
+          "touches_output_cell_edge": false
+        }
+      ]
+    },
+    {
+      "direction": "E",
+      "frames": [
+        {
+          "frame": 0,
+          "alpha": {
+            "unique_values": 118,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 7115,
+            "intermediate_pixels": 2101,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            23,
+            20,
+            75,
+            80
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 1,
+          "alpha": {
+            "unique_values": 114,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 7170,
+            "intermediate_pixels": 2046,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            19,
+            20,
+            75,
+            80
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 2,
+          "alpha": {
+            "unique_values": 118,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 7134,
+            "intermediate_pixels": 2082,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            23,
+            20,
+            75,
+            80
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 3,
+          "alpha": {
+            "unique_values": 119,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6967,
+            "intermediate_pixels": 2249,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            17,
+            20,
+            74,
+            80
+          ],
+          "touches_output_cell_edge": false
+        }
+      ]
+    },
+    {
+      "direction": "SE",
+      "frames": [
+        {
+          "frame": 0,
+          "alpha": {
+            "unique_values": 134,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6866,
+            "intermediate_pixels": 2350,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            16,
+            15,
+            76,
+            76
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 1,
+          "alpha": {
+            "unique_values": 131,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6737,
+            "intermediate_pixels": 2479,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            16,
+            15,
+            76,
+            76
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 2,
+          "alpha": {
+            "unique_values": 124,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6787,
+            "intermediate_pixels": 2429,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            20,
+            15,
+            76,
+            76
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 3,
+          "alpha": {
+            "unique_values": 133,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6654,
+            "intermediate_pixels": 2562,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            14,
+            15,
+            76,
+            76
+          ],
+          "touches_output_cell_edge": false
+        }
+      ]
+    },
+    {
+      "direction": "S",
+      "frames": [
+        {
+          "frame": 0,
+          "alpha": {
+            "unique_values": 144,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6693,
+            "intermediate_pixels": 2523,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            23,
+            16,
+            73,
+            80
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 1,
+          "alpha": {
+            "unique_values": 143,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6768,
+            "intermediate_pixels": 2448,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            23,
+            16,
+            73,
+            80
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 2,
+          "alpha": {
+            "unique_values": 140,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6764,
+            "intermediate_pixels": 2452,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            22,
+            16,
+            72,
+            80
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 3,
+          "alpha": {
+            "unique_values": 137,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6790,
+            "intermediate_pixels": 2426,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            23,
+            16,
+            72,
+            80
+          ],
+          "touches_output_cell_edge": false
+        }
+      ]
+    },
+    {
+      "direction": "SW",
+      "frames": [
+        {
+          "frame": 0,
+          "alpha": {
+            "unique_values": 127,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 7092,
+            "intermediate_pixels": 2124,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            21,
+            21,
+            79,
+            81
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 1,
+          "alpha": {
+            "unique_values": 122,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 7011,
+            "intermediate_pixels": 2205,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            23,
+            21,
+            82,
+            81
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 2,
+          "alpha": {
+            "unique_values": 126,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7004,
+            "intermediate_pixels": 2212,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            10,
+            21,
+            79,
+            81
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 3,
+          "alpha": {
+            "unique_values": 125,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 6973,
+            "intermediate_pixels": 2243,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            20,
+            21,
+            82,
+            81
+          ],
+          "touches_output_cell_edge": false
+        }
+      ]
+    },
+    {
+      "direction": "W",
+      "frames": [
+        {
+          "frame": 0,
+          "alpha": {
+            "unique_values": 120,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6915,
+            "intermediate_pixels": 2301,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            22,
+            15,
+            79,
+            77
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 1,
+          "alpha": {
+            "unique_values": 117,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6923,
+            "intermediate_pixels": 2293,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            22,
+            15,
+            79,
+            77
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 2,
+          "alpha": {
+            "unique_values": 116,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6957,
+            "intermediate_pixels": 2259,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            22,
+            15,
+            81,
+            77
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 3,
+          "alpha": {
+            "unique_values": 125,
+            "min": 0,
+            "max": 254,
+            "transparent_pixels": 6968,
+            "intermediate_pixels": 2248,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            22,
+            15,
+            81,
+            77
+          ],
+          "touches_output_cell_edge": false
+        }
+      ]
+    },
+    {
+      "direction": "NW",
+      "frames": [
+        {
+          "frame": 0,
+          "alpha": {
+            "unique_values": 130,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7095,
+            "intermediate_pixels": 2121,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            22,
+            19,
+            77,
+            78
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 1,
+          "alpha": {
+            "unique_values": 140,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7054,
+            "intermediate_pixels": 2162,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            20,
+            19,
+            82,
+            78
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 2,
+          "alpha": {
+            "unique_values": 130,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 7088,
+            "intermediate_pixels": 2128,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            10,
+            19,
+            77,
+            78
+          ],
+          "touches_output_cell_edge": false
+        },
+        {
+          "frame": 3,
+          "alpha": {
+            "unique_values": 134,
+            "min": 0,
+            "max": 253,
+            "transparent_pixels": 6944,
+            "intermediate_pixels": 2272,
+            "opaque_255_pixels": 0
+          },
+          "bbox_alpha_gte_128": [
+            20,
+            19,
+            82,
+            78
+          ],
+          "touches_output_cell_edge": false
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Candidate direction expansion only for Fábio Warrior idle/walk; no Archer, Mage, new states, skills, or gameplay changes.",
+    "N/S frames are byte-preserved from v2; original source sheets and v1/v2 candidates remain unchanged.",
+    "Generated source sheets use the declared fixed 6x4 grid. Source cells with boundary contamination are recorded instead of silently masked.",
+    "The art review is CORRIGIR. Structural atlas validation cannot approve anatomy, motion, pivot, Godot rendering, or Android readability."
+  ]
+}
