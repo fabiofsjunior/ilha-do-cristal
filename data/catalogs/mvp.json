@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "planning_provisional",
+  "note": "Catálogo de planejamento; não consumir como balanceamento de produção antes do sprint de validação.",
+  "characters": [
+    {"id": "melissa", "age": 8, "visual": "cabelo castanho escuro, uma mecha roxa frontal, acentos lilases"},
+    {"id": "helena", "age": 7, "visual": "cabelo castanho ondulado, tiara clara, acentos creme e rosa"}
+  ],
+  "vocations": [
+    {"id": "warrior", "hp": 200, "mp": 100, "stat_multiplier": {"str": 2, "agi": 0.75, "int": 0.5}},
+    {"id": "archer", "hp": 150, "mp": 150, "stat_multiplier": {"str": 1, "agi": 2, "int": 0.75}},
+    {"id": "mage", "hp": 100, "mp": 200, "stat_multiplier": {"str": 0.5, "agi": 0.75, "int": 2}}
+  ],
+  "attributes_and_levels": {
+    "level_cap_mvp": 10,
+    "xp_to_next_level_from_1_to_9": [100, 130, 169, 220, 286, 371, 483, 627, 816],
+    "attribute_points_per_level_up": 1,
+    "talent_points_at_creation": 3,
+    "talent_points_per_level_up_until_50": 3,
+    "crit_cap_percent": 20,
+    "dodge_cap_percent": 20,
+    "hp_regen_cap_outside_combat_percent_per_sec": 2,
+    "hp_regen_cap_inside_combat_percent_per_sec": 0.5
+  },
+  "weapons_and_tools": [
+    {"id": "sword_basic", "vocation": "warrior", "damage_type": "physical", "damage": 12, "range_tiles": 1},
+    {"id": "sword_reinforced", "vocation": "warrior", "damage_type": "physical", "damage": 18, "range_tiles": 1},
+    {"id": "bow_basic", "vocation": "archer", "damage_type": "physical", "damage": 10, "range_tiles": 5},
+    {"id": "bow_reinforced", "vocation": "archer", "damage_type": "physical", "damage": 15, "range_tiles": 5},
+    {"id": "staff_basic", "vocation": "mage", "damage_type": "magic", "damage": 10, "range_tiles": 5},
+    {"id": "staff_crystal", "vocation": "mage", "damage_type": "magic", "damage": 16, "range_tiles": 5},
+    {"id": "axe_basic", "role": "wood_harvest"},
+    {"id": "pickaxe_basic", "role": "stone_harvest"}
+  ],
+  "skills": [
+    {"id": "war_combo", "vocation": "warrior", "target": "single", "physical_percent_each_hit": 120, "hits": 3, "cooldown_sec": 10, "mp": 10},
+    {"id": "war_circle", "vocation": "warrior", "target": "adjacent_aoe", "physical_percent": 100, "status": "bleed", "cooldown_sec": 15, "mp": 15},
+    {"id": "war_quake", "vocation": "warrior", "target": "aoe", "physical_percent": 150, "magic_percent": 50, "status": "stun", "status_duration_sec": 3, "cooldown_sec": 90, "mp": 35},
+    {"id": "arc_precise", "vocation": "archer", "target": "single", "physical_percent": 100, "magic_percent": 50, "status": "invisible", "status_duration_sec": 3, "cooldown_sec": 10, "mp": 10},
+    {"id": "arc_bounce", "vocation": "archer", "target": "chain", "physical_percent_each_target": [100, 90, 80, 70, 60], "cooldown_sec": 14, "mp": 15},
+    {"id": "arc_pierce", "vocation": "archer", "target": "line", "physical_percent": 125, "magic_percent": 100, "status": "attack_speed_up", "status_duration_sec": 6, "cooldown_sec": 90, "mp": 35},
+    {"id": "mag_bolt", "vocation": "mage", "target": "single", "magic_percent": 150, "cooldown_sec": 5, "mp": 8},
+    {"id": "mag_fire", "vocation": "mage", "target": "aoe", "magic_percent": 100, "status": "burn", "status_duration_sec": 6, "cooldown_sec": 14, "mp": 18},
+    {"id": "mag_ice", "vocation": "mage", "target": "radius", "magic_percent": 300, "cooldown_sec": 90, "mp": 40}
+  ],
+  "status_effects": ["bleed", "burn", "stun", "invisible", "attack_speed_up", "downed"],
+  "monsters": [
+    {"id": "fox", "region": "beach_spawn", "hp": 35, "attack": 5, "xp": 10, "drops": [{"item": "meat", "quantity": 1, "chance": 1}, {"item": "hide", "quantity": 1, "chance": 0.5}]},
+    {"id": "wolf", "region": "green_forest", "hp": 90, "attack": 12, "xp": 20, "drops": [{"item": "meat", "quantity": 1, "chance": 1}, {"item": "hide", "quantity": 1, "chance": 1}, {"item": "fang", "quantity": 1, "chance": 0.3}]},
+    {"id": "bear", "region": "bear_interior", "hp": 240, "attack": 22, "xp": 50, "drops": [{"item": "meat", "quantity": 2, "chance": 1}, {"item": "hide", "quantity": 2, "chance": 1}, {"item": "crystal_shard", "quantity": 1, "chance": 1}]}
+  ],
+  "resources": [
+    {"id": "wood", "xp_per_extraction": 2}, {"id": "stone", "xp_per_extraction": 2},
+    {"id": "fiber", "xp_per_extraction": null}, {"id": "herb", "xp_per_extraction": 1},
+    {"id": "meat"}, {"id": "hide"}, {"id": "fang"}, {"id": "crystal_shard"}
+  ],
+  "consumables": [{"id": "bandage", "healing_hp": 40, "duration_sec": 4, "interrupted_by_attack": true}],
+  "recipes": [
+    {"id": "recipe_bandage", "output": "bandage", "requires": {"herb": 3, "fiber": 1}},
+    {"id": "recipe_axe", "output": "axe_basic", "requires": {"wood": 5, "stone": 3}},
+    {"id": "recipe_pickaxe", "output": "pickaxe_basic", "requires": {"wood": 4, "stone": 4}},
+    {"id": "recipe_sword_upgrade", "output": "sword_reinforced", "requires": {"wood": 12, "stone": 8, "crystal_shard": 2}},
+    {"id": "recipe_bow_upgrade", "output": "bow_reinforced", "requires": {"wood": 12, "stone": 8, "crystal_shard": 2}},
+    {"id": "recipe_staff_upgrade", "output": "staff_crystal", "requires": {"wood": 12, "stone": 8, "crystal_shard": 2}}
+  ],
+  "buildings": [
+    {"id": "pure_crystal", "camp_level": 1}, {"id": "campfire", "camp_level": 1}, {"id": "tent", "camp_level": 1},
+    {"id": "workbench", "camp_level": 2}, {"id": "shared_chest", "camp_level": 2}, {"id": "well", "camp_level": 2},
+    {"id": "palisade", "camp_level": 3}, {"id": "watchtower", "camp_level": 3, "max_count": 2}
+  ],
+  "camp_upgrades": [
+    {"to_level": 2, "requires": {"wood": 30, "stone": 20, "fiber": 10}},
+    {"to_level": 3, "requires": {"wood": 60, "stone": 40, "fiber": 20, "crystal_shard": 5}}
+  ],
+  "talents": {"planned_per_vocation": {"small": 60, "large": 25, "special": 15}, "mvp_candidates_per_vocation": 18, "small_cost": 1, "large_cost": 2, "special_cost": 5, "individual_node_ids": "pending_S3_design"},
+  "regions": [
+    {"id": "beach_spawn", "playable_mvp": true}, {"id": "green_forest", "playable_mvp": true},
+    {"id": "bear_interior", "playable_mvp": true}, {"id": "corrupted_castle", "playable_mvp": false}
+  ],
+  "animations_and_vfx": {"directions": ["N", "NE", "E", "SE", "S", "SO", "O", "NO"], "character_states_frames": {"idle": 4, "walk": 6, "attack": 6, "hit": 3, "death": 6, "cast": 6}, "candidate_cell_px": [96, 96], "candidate_pivot_px": [48, 80], "vfx_ids": ["slash", "bleed", "quake", "invisibility", "ricochet", "pierce", "arcane_bolt", "fire", "ice", "harvest", "heal", "crystal", "build"]},
+  "ui_and_audio": {"screens": ["boot", "visitor_link_account", "character_select", "lobby", "gameplay", "inventory_craft", "talent_tree", "pause_save", "expedition_result", "recoverable_error"], "hud": ["portrait", "hp", "mp", "objective", "minimap", "joystick", "attack", "skills", "bandage", "backpack", "interact", "zoom"], "audio_groups": ["music", "ambience", "combat", "harvest", "ui", "alerts"]}
+}
