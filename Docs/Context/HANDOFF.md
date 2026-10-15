@@ -2,7 +2,7 @@
 
 **Worktree/branch de integração:** `ilha-do-cristal`, `feature/fabio-warrior-stage1`
 **Base exata:** `feature/fabio-warrior-stage1` em `16e759350ad9a3f76ded314e0050a820939b3a5f`
-**Commits integrados localmente:** `b1c66a5` (`feat: add playable local gameplay slice`, cherry-pick de `032f426`) e `b8339e6` (checkpoint documental, cherry-pick de `1398e61`). `main` permaneceu intacta; ainda não houve push para `origin`.
+**Commits integrados localmente:** `b1c66a5` (`feat: add playable local gameplay slice`, cherry-pick de `032f426`), `b8339e6` (checkpoint documental, cherry-pick de `1398e61`) e `63511d3` (estado da integração). `main` permaneceu intacta; ainda não houve push para `origin`.
 
 ## Próxima ação
 
