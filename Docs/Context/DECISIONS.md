@@ -50,3 +50,11 @@ Validar antes de consolidar integração: fluxo Firebase Auth offline/online em 
 - A árvore é exibida diretamente no protótipo v0.6; nós são inspecionáveis pelo seletor lateral. A origem da vocação inicia desbloqueada; demais nós são desbloqueados automaticamente por nível na simulação.
 - Os marcos 2/4/6/8/10 para cinco gerações são provisórios para demonstração. A imagem conceitual não deve ser tomada como exportação exata da topologia, nem aprova a tela para produção.
 - O candidato de 34 nós da v0.5 permanece arquivado para comparação. O plano de conteúdo de 100 nós por vocação não foi alterado.
+
+
+## Inventário e distribuição de atributos — protótipo v0.7
+
+- O usuário definiu a tela em três colunas: equipamento à esquerda na matriz 4×3; mochila ao centro; painel direito de atributos e, quando um item é selecionado, seus detalhes e ações.
+- A demonstração começa no nível 4 com 3 pontos disponíveis (um por nível ganho desde o nível 2). FOR/AGI/INT brutos começam em zero; a eficácia de cada ponto segue os multiplicadores existentes do GDD.
+- HP/MP base continuam vinculados à vocação (Warrior 200/100, Archer 150/150, Mage 100/200). Com +3 HP por FOR efetiva e +3 MP por INT efetiva, representar todo o HP/MP inicial apenas com atributos exigiria aproximadamente 100 pontos Warrior, 117 Archer e 100 Mage. Esses pontos não são alocados na criação.
+- v0.7 é uma simulação sem salvamento. A revisão do protótipo não aprova implementação de produção.
