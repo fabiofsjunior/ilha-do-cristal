@@ -1,23 +1,31 @@
-# Handoff — protótipos MVP e teste de sprites
+# Handoff — protótipos MVP e sprites
 
-**Branch deste incremento:** `docs/mvp-prototyping-gates`, baseada em `feature/s00-melissa-sprite-test`; [PR #3 em rascunho](https://github.com/fabiofsjunior/ilha-do-cristal/pull/3). O commit principal do incremento é `2c3b4e921c0d1f862f7557040cc954668d598f80`; após esta atualização do handoff, consultar o HEAD do PR para o SHA exato. Ainda não fazer merge antes da validação do usuário.
-
-**Revisão visual:** HTML, JavaScript e links passaram a checagem estrutural. O navegador remoto bloqueou a abertura de arquivos locais (`file://`), então não há captura de tela revisada nesta sessão; avaliação visual do protótipo continua pendente com o usuário.
+**Branch:** `feature/maira-warrior-stage1`, baseada na PR #3 `docs/mvp-prototyping-gates`. **PR #4:** [art: protótipo técnico de Maíra Warrior](https://github.com/fabiofsjunior/ilha-do-cristal/pull/4), em rascunho. Commit do artefato principal: `cce7507a575e982d243fc12b29e0a779e67c1283`.
 
 ## Próxima ação
 
-Apresentar `docs/prototypes/mvp_ui_v0_2.html` ao usuário e coletar validação do fluxo, controles, descrições das personagens e slots do inventário. Registrar respostas em `Docs/Context/PROTOTYPE_LOG.md` e **não implementar as telas de produção antes dessa validação**.
+Solicitar revisão da prancha técnica Maíra Warrior em `docs/art/evidence/maira/maira_warrior_stage1_contact.png`. Aplicar feedback e, em seguida, importar a cena `tools/art/sprite_test/maira_stage1_test.tscn` no Godot 4.5.1 para conferir os 20 quadros, pés/pivô, fundo claro/escuro, SQM 32/48 e zoom 50–125%. Não ampliar para oito direções ou outras vocações até a revisão e validação técnica.
 
-## Estado do protótipo de interface
+**Questão aberta:** aguardar se o usuário aprova a direção visual do protótipo e quais correções de identidade/movimento deseja antes de qualquer ampliação.
 
-`Docs/Main/PROTOTYPING_METHODOLOGY.md` define o gate pré-implementação em cada fase S0–S6; `AGENTS.md` torna esse fluxo obrigatório. O HTML v0.2 cobre abertura, conta/visitante, personagens/vocações, LAN, HUD, equipamento/mochila/craft, talentos, acampamento, pausa/salvamento, aliado caído, resultado, erro recuperável, configurações e divergência de sincronização. Interações e valores são ilustrativos; todas as telas aguardam validação. Nenhum gameplay foi implementado.
+## Estado da arte de Maíra
 
-## Teste de sprites em andamento
+Maíra foi incluída como personagem jogável do MVP, irmã de Helena, com identidade visual de cabelos longos castanho-escuros e traje amarelo/dourado. O conceito das três vocações foi aprovado e está em `assets/references/generated-candidates/maira_vocations_concept.png` como referência, não como atlas.
 
-A outra branch, `feature/s00-melissa-sprite-test`, mantém o [PR #2](https://github.com/fabiofsjunior/ilha-do-cristal/pull/2) em rascunho. A V2 segue como base de correção para Melissa Warrior N/S, `idle` 4 e `walk` 6. Faltam pixels opacos/nítidos, S cardinal inequívoco e passada alternada legível. Godot 4.5.1 importou/renderizou os atlas; Android não foi testado.
+| Animação | Escopo atual | Estado |
+|---|---|---|
+| `idle` | N/S, 4 quadros por direção | **corrigir** — movimento sutil e escala N/S desigual |
+| `walk` | N/S, 6 quadros por direção | **corrigir** — confirmar passada, apoio dos pés, pivô e loop |
 
-**Bloqueio atual:** Pixelorama não está instalado no workspace e não há display gráfico local; o editor web oficial ficou numa tela preta nesta sessão. A revisão Luna confirma que não há projeto `.pxo`; o fluxo manual precisa ser retomado em ambiente com Pixelorama aberto. Não declarar o teste artístico aprovado e não ampliar o lote.
+Atlas e JSON candidatos ficam em `assets/characters/maira/warrior/`. A ferramenta de empacotamento está em `tools/art/pack_maira_stage1.py`; avaliação visual e técnica: `docs/art/evidence/maira/maira_warrior_stage1_review.md`. A cena isolada usa nearest, seleção de direção/animação, pause/frame-step, SQM e zoom.
 
-## Limites
+## Validação e bloqueios
 
-Não há APK, gameplay, nem S0 concluído. O conceito não é atlas. Não incluir fotos privadas. Vael/exército e conteúdo fora do MVP permanecem excluídos.
+- Catálogo MVP e JS do protótipo v0.3 passaram validação estrutural.
+- Os dois atlas Maíra são RGBA 96×96 por célula e têm alpha somente 0/255; validador não registra erro específico para Maíra.
+- A execução global do validador continua com seis erros pré-existentes de alpha intermediário nos atlas Melissa V1–V3.
+- Revisão visual delegada a GPT-6 Luna max confirma que o estado deve continuar **corrigir**: N é menor que S, idle é quase estático e a passada precisa revisão quadro a quadro.
+- Godot não está instalado no workspace; importação/captura na engine e validação Android estão pendentes. Não há APK nem gameplay implementado.
+- O protótipo de UI atual é `docs/prototypes/mvp_ui_v0_3.html`; v0.1 e v0.2 permanecem preservadas e a aprovação das telas segue pendente.
+
+`Vael`, exército e conteúdo fora do MVP continuam fora do lote. Não incluir fotos privadas no repositório.

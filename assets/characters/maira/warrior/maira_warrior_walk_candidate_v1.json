@@ -1,0 +1,359 @@
+{
+  "id": "maira_warrior_walk_candidate_v1",
+  "atlas": "maira_warrior_walk_candidate_v1.png",
+  "status": "corrigir",
+  "approved": false,
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "N",
+    "S"
+  ],
+  "frames": 6,
+  "fps": 10,
+  "loop": true,
+  "animation": "walk",
+  "animations": {
+    "walk": {
+      "frames": 6,
+      "fps": 10,
+      "loop": true
+    }
+  },
+  "source_tool": "Pixel Engine — pixel-engine-v1.1 + oai_gpt25_low",
+  "source_reference": "assets/references/generated-candidates/maira_vocations_concept.png",
+  "source_layout": "two source strips, one per direction; each is a single horizontal row",
+  "source_directions": {
+    "N": {
+      "source_strip": "assets/references/generated-candidates/maira_warrior/walk_n.png",
+      "source_dimensions": [
+        396,
+        87
+      ],
+      "source_frame_regions": [
+        {
+          "frame": 0,
+          "source_region": [
+            0,
+            0,
+            66,
+            87
+          ],
+          "source_cell": [
+            66,
+            87
+          ],
+          "offset": [
+            15,
+            8
+          ],
+          "matte_key": "#f207f8",
+          "nontransparent_bbox": [
+            28,
+            22,
+            67,
+            80
+          ]
+        },
+        {
+          "frame": 1,
+          "source_region": [
+            66,
+            0,
+            132,
+            87
+          ],
+          "source_cell": [
+            66,
+            87
+          ],
+          "offset": [
+            15,
+            8
+          ],
+          "matte_key": "#f207f8",
+          "nontransparent_bbox": [
+            28,
+            23,
+            67,
+            82
+          ]
+        },
+        {
+          "frame": 2,
+          "source_region": [
+            132,
+            0,
+            198,
+            87
+          ],
+          "source_cell": [
+            66,
+            87
+          ],
+          "offset": [
+            15,
+            8
+          ],
+          "matte_key": "#f207f8",
+          "nontransparent_bbox": [
+            28,
+            23,
+            68,
+            82
+          ]
+        },
+        {
+          "frame": 3,
+          "source_region": [
+            198,
+            0,
+            264,
+            87
+          ],
+          "source_cell": [
+            66,
+            87
+          ],
+          "offset": [
+            15,
+            8
+          ],
+          "matte_key": "#f207f8",
+          "nontransparent_bbox": [
+            28,
+            22,
+            68,
+            80
+          ]
+        },
+        {
+          "frame": 4,
+          "source_region": [
+            264,
+            0,
+            330,
+            87
+          ],
+          "source_cell": [
+            66,
+            87
+          ],
+          "offset": [
+            15,
+            8
+          ],
+          "matte_key": "#f207f8",
+          "nontransparent_bbox": [
+            28,
+            23,
+            68,
+            80
+          ]
+        },
+        {
+          "frame": 5,
+          "source_region": [
+            330,
+            0,
+            396,
+            87
+          ],
+          "source_cell": [
+            66,
+            87
+          ],
+          "offset": [
+            15,
+            8
+          ],
+          "matte_key": "#f207f8",
+          "nontransparent_bbox": [
+            28,
+            22,
+            67,
+            82
+          ]
+        }
+      ],
+      "fixed_offset": [
+        15,
+        8
+      ],
+      "pixel_engine_job": "b47874cc-4b74-4ea0-ad90-e8067e7bb1d5"
+    },
+    "S": {
+      "source_strip": "assets/references/generated-candidates/maira_warrior/walk_s.png",
+      "source_dimensions": [
+        432,
+        94
+      ],
+      "source_frame_regions": [
+        {
+          "frame": 0,
+          "source_region": [
+            0,
+            0,
+            72,
+            94
+          ],
+          "source_cell": [
+            72,
+            94
+          ],
+          "offset": [
+            12,
+            2
+          ],
+          "matte_key": "#f708fa",
+          "nontransparent_bbox": [
+            25,
+            17,
+            69,
+            80
+          ]
+        },
+        {
+          "frame": 1,
+          "source_region": [
+            72,
+            0,
+            144,
+            94
+          ],
+          "source_cell": [
+            72,
+            94
+          ],
+          "offset": [
+            12,
+            2
+          ],
+          "matte_key": "#f708fa",
+          "nontransparent_bbox": [
+            25,
+            16,
+            68,
+            80
+          ]
+        },
+        {
+          "frame": 2,
+          "source_region": [
+            144,
+            0,
+            216,
+            94
+          ],
+          "source_cell": [
+            72,
+            94
+          ],
+          "offset": [
+            12,
+            2
+          ],
+          "matte_key": "#f708fa",
+          "nontransparent_bbox": [
+            25,
+            16,
+            68,
+            80
+          ]
+        },
+        {
+          "frame": 3,
+          "source_region": [
+            216,
+            0,
+            288,
+            94
+          ],
+          "source_cell": [
+            72,
+            94
+          ],
+          "offset": [
+            12,
+            2
+          ],
+          "matte_key": "#f708fa",
+          "nontransparent_bbox": [
+            25,
+            16,
+            69,
+            81
+          ]
+        },
+        {
+          "frame": 4,
+          "source_region": [
+            288,
+            0,
+            360,
+            94
+          ],
+          "source_cell": [
+            72,
+            94
+          ],
+          "offset": [
+            12,
+            2
+          ],
+          "matte_key": "#f708fa",
+          "nontransparent_bbox": [
+            25,
+            17,
+            69,
+            81
+          ]
+        },
+        {
+          "frame": 5,
+          "source_region": [
+            360,
+            0,
+            432,
+            94
+          ],
+          "source_cell": [
+            72,
+            94
+          ],
+          "offset": [
+            12,
+            2
+          ],
+          "matte_key": "#f708fa",
+          "nontransparent_bbox": [
+            25,
+            16,
+            69,
+            80
+          ]
+        }
+      ],
+      "fixed_offset": [
+        12,
+        2
+      ],
+      "pixel_engine_job": "8912b872-6d12-4ee1-9567-1e97f7783247"
+    }
+  },
+  "resampling": "none; source pixels preserved, uniform cell padding only",
+  "alpha_policy": "border-connected pixels within RGB distance 24 of the corner matte and vivid magenta spill pixels (r>=120, b>=120, g<=100, |r-b|<=80) were set to alpha 0; no fractional alpha or resampling",
+  "notes": [
+    "Prototype only: concept approval does not approve production animation.",
+    "N and S source frames differ in dimensions/visual scale; fixed offsets preserve source pixels and do not scale frames.",
+    "Walk leg alternation, cardinal direction, pivot, and idle-to-walk continuity require manual review in Godot.",
+    "Godot import, zoom 50-125%, SQM and Android validation are pending.",
+    "Visual review found idle motion subtle; walk bottom silhouette varies from y=80 to y=82, so foot contact/loop need frame-by-frame review."
+  ]
+}

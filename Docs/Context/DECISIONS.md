@@ -2,7 +2,7 @@
 
 - Nome **A Ilha do Cristal**; naufrágio de cruzeiro; estética **RPG Clássico 2D pixel art**. Vael perde a humanidade ao buscar poder e causa mutações; castelo e exército são expansão futura.
 - Mobile-first Android, paisagem, joystick virtual esquerdo, ações e magias à direita, toque em objetos, zoom padrão 75% e faixa 50–125% sujeita a teste.
-- Qualquer conta cria Melissa ou Helena em qualquer vocação; vocação permanente por personagem. Equipamento não altera a aparência.
+- Qualquer conta cria Melissa, Helena ou Maíra em qualquer vocação; vocação permanente por personagem. Equipamento não altera a aparência.
 - Ilha alvo até 1000×1000 SQMs, gerada por seed e carregada em chunks; save do mundo local ao host, personagem na conta.
 - Escolha inicial: Firebase Spark para identidade/progressão, condicionada a protótipo de integração no Godot; LAN deve funcionar sem internet.
 - Curva XP +30% por nível. 3 pontos de árvore na criação e 3 a cada subida até 50 (150 no total); 1 ponto de atributo por subida. Cap inicial nível 10.
@@ -15,8 +15,13 @@ Validar antes de consolidar integração: fluxo Firebase Auth offline/online em 
 - Antes de codificar cada fase do MVP, produzir um protótipo visual/navegável das telas, estados e transições afetados e apresentá-lo ao usuário para validação explícita. Aplicar o gate também a mudanças materiais posteriores e a lotes de arte: primeiro um exemplar técnico, depois revisão e só então expansão.
 - Manter o protótipo e o registro de feedback no repositório; correções de UX devem atualizar a versão do protótipo antes de alterar a implementação. Sem validação, não iniciar o código dependente.
 - O protótipo não é especificação final, gameplay, arte de produção nem evidência de funcionamento no Android. A validação Godot/aparelho continua obrigatória por fase.
-- O protótipo navegável `docs/prototypes/mvp_ui_v0_2.html` é a versão atual para revisão; v0.1 permanece arquivada. Ambas aguardam avaliação, sem aprovação presumida.
-- Descrições atuais para Melissa e Helena omitem idade: Melissa é meiga, doce, esperta e observadora, mantém calma e clareza; Helena é carismática e inteligente, tem pavio curto e reage com intensidade. Inventário RPG com slots de equipamento está sendo proposto no protótipo v0.2; o conjunto de slots e novos itens aguardam validação antes de entrar no catálogo de produção.
+- O protótipo navegável `docs/prototypes/mvp_ui_v0_3.html` é a versão atual para revisão; v0.1 e v0.2 permanecem arquivadas. A tela de personagem agora inclui Maíra; a aprovação do protótipo de interface continua pendente.
+- Descrições atuais para Melissa e Helena omitem idade: Melissa é meiga, doce, esperta e observadora, mantém calma e clareza; Helena é carismática e inteligente, tem pavio curto e reage com intensidade. O inventário RPG com slots de equipamento continua proposto na interface v0.3; conjunto de slots e novos itens aguardam validação antes de entrar no catálogo de produção.
+
+## Incremento de personagem — Maíra
+
+- O usuário aprovou Maíra como personagem jogável do MVP e aprovou o conceito nas três vocações. Maíra é irmã de Helena; identidade visual aprovada: cabelo longo castanho-escuro e traje amarelo/dourado. Descrição de catálogo: bonita, carismática e muito falante; atenciosa com os outros, anima o grupo e observa o ambiente antes de agir.
+- O teste técnico inicial está limitado a Maíra Warrior, norte/sul, `idle` e `walk`. A arte continua **corrigir** e não libera o lote completo; a revisão do teste é o próximo gate.
 
 ## Incremento de arte — teste Melissa Warrior
 

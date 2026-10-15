@@ -1,4 +1,8 @@
-# Imagegen — candidatos técnicos da etapa 1
+# Candidatos técnicos de personagens
+
+Esta nota documenta separadamente os candidatos de Melissa Warrior gerados com
+imagegen; o protótipo Maíra Warrior usa outro pipeline e está isolado em
+`assets/characters/maira/warrior/`.
 
 **Status: CORRIGIR.** Não são sprites aprovados; não liberam etapas 2–5.
 Somente Melissa Warrior, N/S, idle 4 e walk 6. Não há outros personagens,
@@ -49,3 +53,12 @@ esses quadros foram espelhados horizontalmente na embalagem para manter espada
 - Pivô é contrato/estimativa de colocação, não prova de contato exato de cada pé.
 - Validação visual em Godot e Android real continua obrigatória; pacote técnico
   e importação bem-sucedida não aprovam a arte.
+
+## Maíra — conceito e protótipo isolado
+
+`maira_vocations_concept.png` é o conceito aprovado pelo usuário para as três
+vocações; é referência visual, não sprite nem atlas. As tiras candidatas de
+Maíra Warrior geradas pelo Pixel Engine estão em `maira_warrior/`. O primeiro
+teste inclui apenas norte/sul, `idle` e `walk` e permanece em **corrigir**;
+relatório e prancha: `docs/art/evidence/maira/maira_warrior_stage1_review.md`
+e `maira_warrior_stage1_contact.png`. Não incluir fotos de referência.

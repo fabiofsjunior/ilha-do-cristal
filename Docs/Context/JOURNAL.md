@@ -44,3 +44,12 @@ Criado protótipo navegável de interface com telas do GDD em `docs/prototypes/m
 - Criado `docs/prototypes/mvp_ui_v0_2.html`, preservando a v0.1 como versão anterior. A tela de personagem mostra as novas descrições; o inventário propõe espaços de cabeça, peitoral, luvas, pernas, botas, arma, colar e dois anéis, além da mochila de 24 espaços, detalhes do item e fabricação.
 - Slots de armadura e acessórios ainda não representam conteúdo aprovado: itens e atributos não constam do catálogo do MVP e aguardam validação antes de qualquer implementação. Nenhuma tela de produção foi implementada.
 - Validações estruturais: `python tools/validate_catalogs.py` passou; parse do HTML e JSON, `node --check` do JavaScript e verificações de whitespace passaram.
+
+## 2026-10-15 — protótipo técnico Maíra Warrior
+
+- Com a aprovação explícita do usuário, Maíra foi registrada como terceira personagem jogável do MVP, irmã de Helena. GDD, catálogo Markdown/JSON, direção de arte, README, roadmap e tela de seleção foram alinhados. Conceito de três vocações guardado como referência; não foi recortado para produzir sprites.
+- Criadas tiras candidatas no Pixel Engine para Maíra Warrior N/S: `idle` 4 quadros e `walk` 6. O empacotador `tools/art/pack_maira_stage1.py` monta atlas de 96×96, pivô candidato (48,80), sem redimensionar ou aparar células; máscara binária removeu alpha do fundo e contaminação magenta.
+- Atlas e prancha de contato estão em `assets/characters/maira/warrior/` e `docs/art/evidence/maira/`. A revisão estática delegada a GPT-6 Luna max confirmou alpha binário e ausência de halo magenta evidente. Escala N/S difere (~8% na altura), idle é sutil e passada/pés/loop permanecem sem aprovação; estado **corrigir**.
+- Criada cena isolada `tools/art/sprite_test/maira_stage1_test.tscn` com seleção de direção, animação, zoom, fundo e SQM. Revisão estática Luna max não encontrou bloqueio provável de GDScript; não houve execução porque Godot não está disponível neste ambiente.
+- `python tools/validate_catalogs.py`, compilação Python, `node --check` do JS v0.3 e `git diff --check` passaram. O validador de atlas não acusa erros para Maíra; execução global ainda retorna os seis erros pré-existentes de alpha intermediário nos atlas Melissa V1–V3. Android não testado.
+- Próximo passo: revisão do usuário da prancha técnica; depois corrigir o que for necessário e validar a cena no Godot antes de ampliar direções/vocações. Nenhum lote de produção adicional foi gerado.
