@@ -1,8 +1,8 @@
 # Handoff — primeira fatia jogável
 
-**Worktree/branch:** `ilha-do-cristal-worktrees/gameplay`, `feature/s01-gameplay-slice`
+**Worktree/branch de integração:** `ilha-do-cristal`, `feature/fabio-warrior-stage1`
 **Base exata:** `feature/fabio-warrior-stage1` em `16e759350ad9a3f76ded314e0050a820939b3a5f`
-**Commit de implementação desta fatia:** `032f4266448a7c1f8cd8acbffc962aa6f124a6d8` (`feat: add playable local gameplay slice`). O Journal e este Handoff são atualizados em checkpoint documental subsequente na mesma branch. `main` e a worktree base permaneceram intactas.
+**Commits integrados localmente:** `b1c66a5` (`feat: add playable local gameplay slice`, cherry-pick de `032f426`) e `b8339e6` (checkpoint documental, cherry-pick de `1398e61`). `main` permaneceu intacta; ainda não houve push para `origin`.
 
 ## Próxima ação
 
