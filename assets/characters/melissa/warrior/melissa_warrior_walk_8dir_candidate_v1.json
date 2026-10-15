@@ -1,0 +1,902 @@
+{
+  "id": "melissa_warrior_walk_8dir_candidate_v1",
+  "atlas": "melissa_warrior_walk_8dir_candidate_v1.png",
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW"
+  ],
+  "animations": {
+    "walk": {
+      "frames": 6,
+      "fps": 10,
+      "loop": true
+    }
+  },
+  "animation": "walk",
+  "frames": 6,
+  "fps": 10,
+  "loop": true,
+  "stage": "expanded_8_direction_candidate",
+  "status": "corrigir",
+  "approved": false,
+  "source_regions_by_direction_and_frame": {
+    "N": [
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          0,
+          0,
+          96,
+          96
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      },
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          96,
+          0,
+          192,
+          96
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      },
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          192,
+          0,
+          288,
+          96
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      },
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          288,
+          0,
+          384,
+          96
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      },
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          384,
+          0,
+          480,
+          96
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      },
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          480,
+          0,
+          576,
+          96
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      }
+    ],
+    "NE": [
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NE_source_8dir_v1.png",
+        "region_px": [
+          8,
+          370,
+          354,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NE_source_8dir_v1.png",
+        "region_px": [
+          370,
+          370,
+          716,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NE_source_8dir_v1.png",
+        "region_px": [
+          732,
+          370,
+          1078,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NE_source_8dir_v1.png",
+        "region_px": [
+          1094,
+          370,
+          1440,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NE_source_8dir_v1.png",
+        "region_px": [
+          1456,
+          370,
+          1802,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NE_source_8dir_v1.png",
+        "region_px": [
+          1818,
+          370,
+          2164,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      }
+    ],
+    "E": [
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_E_source_8dir_v1.png",
+        "region_px": [
+          8,
+          370,
+          354,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_E_source_8dir_v1.png",
+        "region_px": [
+          370,
+          370,
+          716,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_E_source_8dir_v1.png",
+        "region_px": [
+          732,
+          370,
+          1078,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_E_source_8dir_v1.png",
+        "region_px": [
+          1094,
+          370,
+          1440,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_E_source_8dir_v1.png",
+        "region_px": [
+          1456,
+          370,
+          1802,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_E_source_8dir_v1.png",
+        "region_px": [
+          1818,
+          370,
+          2164,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      }
+    ],
+    "SE": [
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SE_source_8dir_v1.png",
+        "region_px": [
+          8,
+          370,
+          354,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SE_source_8dir_v1.png",
+        "region_px": [
+          370,
+          370,
+          716,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SE_source_8dir_v1.png",
+        "region_px": [
+          732,
+          370,
+          1078,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SE_source_8dir_v1.png",
+        "region_px": [
+          1094,
+          370,
+          1440,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SE_source_8dir_v1.png",
+        "region_px": [
+          1456,
+          370,
+          1802,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SE_source_8dir_v1.png",
+        "region_px": [
+          1818,
+          370,
+          2164,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      }
+    ],
+    "S": [
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          0,
+          96,
+          96,
+          192
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      },
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          96,
+          96,
+          192,
+          192
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      },
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          192,
+          96,
+          288,
+          192
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      },
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          288,
+          96,
+          384,
+          192
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      },
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          384,
+          96,
+          480,
+          192
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      },
+      {
+        "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+        "region_px": [
+          480,
+          96,
+          576,
+          192
+        ],
+        "operation": "copied unchanged from existing candidate_v3 cell"
+      }
+    ],
+    "SW": [
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SW_source_8dir_v1.png",
+        "region_px": [
+          8,
+          370,
+          354,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SW_source_8dir_v1.png",
+        "region_px": [
+          370,
+          370,
+          716,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SW_source_8dir_v1.png",
+        "region_px": [
+          732,
+          370,
+          1078,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SW_source_8dir_v1.png",
+        "region_px": [
+          1094,
+          370,
+          1440,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SW_source_8dir_v1.png",
+        "region_px": [
+          1456,
+          370,
+          1802,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_SW_source_8dir_v1.png",
+        "region_px": [
+          1818,
+          370,
+          2164,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      }
+    ],
+    "W": [
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
+        "region_px": [
+          8,
+          370,
+          354,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
+        "region_px": [
+          370,
+          370,
+          716,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
+        "region_px": [
+          732,
+          370,
+          1078,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
+        "region_px": [
+          1094,
+          370,
+          1440,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
+        "region_px": [
+          1456,
+          370,
+          1802,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
+        "region_px": [
+          1818,
+          370,
+          2164,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      }
+    ],
+    "NW": [
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NW_source_8dir_v2.png",
+        "region_px": [
+          8,
+          370,
+          354,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NW_source_8dir_v2.png",
+        "region_px": [
+          370,
+          370,
+          716,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NW_source_8dir_v2.png",
+        "region_px": [
+          732,
+          370,
+          1078,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NW_source_8dir_v2.png",
+        "region_px": [
+          1094,
+          370,
+          1440,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NW_source_8dir_v2.png",
+        "region_px": [
+          1456,
+          370,
+          1802,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      },
+      {
+        "path": "assets/references/generated-candidates/melissa_warrior_NW_source_8dir_v2.png",
+        "region_px": [
+          1818,
+          370,
+          2164,
+          716
+        ],
+        "operation": "fixed-grid crop, uniform 8px perimeter trim, uniform 0.20 nearest resize, common estimated anchor",
+        "crop_inset_px": 8,
+        "uniform_scale": 0.2,
+        "estimated_anchor_in_trimmed_cell_px": [
+          173,
+          314
+        ],
+        "placement_px": [
+          13,
+          17
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "N/S rows are copied unchanged from the pre-existing Melissa Warrior candidate_v3 atlas.",
+    "Other direction sources are kept intact in assets/references/generated-candidates/.",
+    "No frames were mirrored, duplicated, or individually scaled.",
+    "Generated-direction sources were sliced on a fixed 6x2 grid after an 8px uniform perimeter trim; the NW v1 source is preserved but v2 is used because v1 placed idle frames irregularly.",
+    "Nearest resampling does not remove antialiasing. Intermediate alpha remains and the atlas is not approved.",
+    "96x96 cells and pivot (48,80) are candidates; visual scale and foot contact are not approved."
+  ]
+}
