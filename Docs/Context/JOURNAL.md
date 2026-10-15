@@ -43,4 +43,4 @@ Criado protótipo navegável de interface com telas do GDD em `docs/prototypes/m
 - A pedido do usuário, removidas idades das descrições de Melissa e Helena no GDD, catálogo Markdown e `data/catalogs/mvp.json`. O texto de Melissa reforça doçura, atenção e equilíbrio; o de Helena reforça carisma, inteligência, pavio curto e espontaneidade.
 - Criado `docs/prototypes/mvp_ui_v0_2.html`, preservando a v0.1 como versão anterior. A tela de personagem mostra as novas descrições; o inventário propõe espaços de cabeça, peitoral, luvas, pernas, botas, arma, colar e dois anéis, além da mochila de 24 espaços, detalhes do item e fabricação.
 - Slots de armadura e acessórios ainda não representam conteúdo aprovado: itens e atributos não constam do catálogo do MVP e aguardam validação antes de qualquer implementação. Nenhuma tela de produção foi implementada.
-- Validações estruturais: parse do HTML, sintaxe JavaScript do protótipo, parse JSON e `git diff --check`.
+- Validações estruturais: `python tools/validate_catalogs.py` passou; parse do HTML e JSON, `node --check` do JavaScript e verificações de whitespace passaram.

@@ -4,10 +4,13 @@ Esta lista registra a aprovação por fase. **Nenhuma tela de produção está a
 
 ## Telas do MVP — v0.2
 
-**Artefato atual:** [`docs/prototypes/mvp_ui_v0_2.html`](../../docs/prototypes/mvp_ui_v0_2.html)  
-**Versão anterior:** [`docs/prototypes/mvp_ui_v0_1.html`](../../docs/prototypes/mvp_ui_v0_1.html)  
-**Viewport-base:** Android em paisagem, proporção 16:9; layout adapta-se ao viewport.  
-**Estado geral:** em validação com o usuário. Revisão ainda pendente.  
+**Artefato atual:** [`docs/prototypes/mvp_ui_v0_2.html`](../../docs/prototypes/mvp_ui_v0_2.html)
+
+**Versão anterior:** [`docs/prototypes/mvp_ui_v0_1.html`](../../docs/prototypes/mvp_ui_v0_1.html)
+
+**Viewport-base:** Android em paisagem, proporção 16:9; layout adapta-se ao viewport.
+
+**Estado geral:** em validação com o usuário. Revisão ainda pendente.
 **Sprites:** placeholders geométricos; não representam sprites aprovados.
 
 | Fase | Telas/estados cobertos | Estado | Próximo passo |
@@ -27,8 +30,9 @@ Esta lista registra a aprovação por fase. **Nenhuma tela de produção está a
 3. Os slots propostos (cabeça, peitoral, luvas, pernas, botas, arma, colar e dois anéis) fazem sentido para o inventário? Quer adicionar/remover algum espaço, como escudo?
 4. As novas descrições de Melissa e Helena representam bem as personalidades que você imaginou?
 
-**Feedback recebido:** usuário pediu remover idade das descrições, desenvolver as personalidades e reformular o inventário com slots de RPG para armadura e acessórios.  
-**Correções aplicadas:** descrições atualizadas no GDD, catálogo JSON e seleção de personagem; inventário v0.2 agora separa equipamento, mochila, detalhes do item e fabricação. Armaduras e acessórios aparecem como slots vazios/conceituais porque ainda não têm itens ou atributos definidos no catálogo.  
+**Feedback recebido:** usuário pediu remover idade das descrições, desenvolver as personalidades e reformular o inventário com slots de RPG para armadura e acessórios.
+
+**Correções aplicadas:** descrições atualizadas no GDD, catálogo JSON e seleção de personagem; inventário v0.2 agora separa equipamento, mochila, detalhes do item e fabricação. Armaduras e acessórios aparecem como slots vazios/conceituais porque ainda não têm itens ou atributos definidos no catálogo.
 **Aprovação explícita:** pendente; nenhuma implementação de tela está liberada.
 
 ## Registro futuro por fase

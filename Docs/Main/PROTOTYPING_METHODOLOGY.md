@@ -75,7 +75,7 @@ Decisões a validar: <perguntas curtas>
 Feedback do usuário: <data e resumo fiel>
 Estado: <rascunho | em validação | corrigir | aprovado | substituído>
 Implementação comparada: <caminho, teste, dispositivo ou pendente>
-``` 
+```
 
 ## Primeiro protótipo de interface
 
