@@ -58,3 +58,44 @@ As medidas de bbox usam pixels com alpha ≥128 e são `largura × altura` em pi
 4. Identificar pés, certificar pivô e importar/testar em Godot nos zooms de 50–125%, SQM e Android. Godot e aparelho Android não estavam disponíveis nesta execução.
 
 O conceito confirma identidade geral — cabelo castanho longo, roupa dourada/creme, acessórios e espada —, mas não valida os novos ângulos nem animações. O candidato permanece **CORRIGIR**.
+
+## Reauditoria de integridade das fontes — 2026-10-15
+
+**Estado geral: CORRIGIR.** A inspeção em escala nativa dos 80 quadros dos atlas v2 confirma os problemas visuais já descritos: E e W mostram o olhar para o mesmo lado, NE/E/SE se confundem e as quatro diagonais não formam orientações consistentes. Em `walk`, não há alternância de passada esquerda/direita clara ao longo do ciclo. A identidade geral continua reconhecível, mas esses defeitos impedem aprovação.
+
+### Fontes de seis direções novas
+
+As 12 imagens de origem referenciadas pelo empacotador estão malformadas/truncadas e não são decodificáveis integralmente:
+
+- `idle_e_source_oai_v1.png`, `idle_ne_source_oai_v1.png`, `idle_nw_source_oai_v1.png`, `idle_se_source_oai_v1.png`, `idle_sw_source_oai_v1.png`, `idle_w_source_oai_v1.png`;
+- `walk_e_source_oai_v1.png`, `walk_ne_source_oai_v1.png`, `walk_nw_source_oai_v1.png`, `walk_se_source_oai_v1.png`, `walk_sw_source_oai_v1.png`, `walk_w_source_oai_v1.png`.
+
+O teste com Pillow abriu cada arquivo, mas `Image.load()` falhou nos 12 com `OSError: broken data stream when reading image file`. Reprodução a partir da raiz do repositório:
+
+```sh
+python - <<'PY'
+from pathlib import Path
+from PIL import Image
+
+folder = Path("assets/references/generated-candidates/maira_warrior")
+for path in sorted(folder.glob("*_source_oai_v1.png")):
+    try:
+        with Image.open(path) as image:
+            image.load()
+        print("OK", path.name)
+    except OSError as error:
+        print("INVALID", path.name, repr(error))
+PY
+```
+
+A leitura estrutural dos chunks PNG confirma a causa. Por exemplo, `walk_ne_source_oai_v1.png` chega ao chunk IDAT no offset 21.926; o chunk declara 1.290.536 bytes, mas restam apenas 764.517 bytes no arquivo a partir do início desse chunk (incluindo cabeçalho/CRC). ImageMagick também acusa `IDAT: invalid distance code` para essa fonte.
+
+### Empacotamento e recuperação
+
+`python tools/art/pack_maira_8dir_candidates.py` falha durante `Image.open(path).convert("RGBA")`, em `get_source_cells()`, com `OSError: broken data stream when reading image file`. Portanto, os atlas v2 existentes não podem ser reproduzidos com as fontes versionadas atuais.
+
+`git log --all --follow` encontra somente o commit `774ca93` (“Add Maíra Warrior eight-direction candidates”) para as fontes, sem uma versão íntegra anterior recuperável no histórico local. Os arquivos publicados permanecem preservados; não foram reconstruídos a partir dos atlas nem substituídos por novas imagens nesta reauditoria.
+
+### Resultado
+
+O concept ainda confirma a identidade geral, mas as fontes quebradas impedem correção confiável dos ângulos, das passadas e do alpha. Os atlas mantêm `status: corrigir` e `approved: false`; Godot, teste de escala/SQM e Android continuam pendentes. Não houve alteração nos PNGs, atlas ou empacotador.
