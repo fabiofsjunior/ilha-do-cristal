@@ -26,7 +26,7 @@ Maíra foi adicionada à escolha de personagem depois de o usuário aprová-la c
 
 **Viewport-base:** Android em paisagem, proporção 16:9; layout adapta-se ao viewport.
 
-**Estado geral:** v0.1–v0.6 permanecem arquivadas para comparação; v0.7 é a versão navegável atual e aguarda validação explícita.
+**Estado geral:** v0.1–v0.6 permanecem arquivadas para comparação; v0.7 é a versão navegável atual e foi validada pelo usuário como protótipo de interface em 2026-10-15. Esse aceite não se estende às demais fases/telas, nem valida implementação, sprites, Godot, gameplay ou Android.
 **Sprites:** placeholders geométricos; não representam sprites aprovados.
 
 | Fase | Telas/estados cobertos | Estado | Próximo passo |
