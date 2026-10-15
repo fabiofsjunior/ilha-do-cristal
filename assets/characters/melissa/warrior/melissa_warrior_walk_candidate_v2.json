@@ -1,0 +1,131 @@
+{
+  "id": "melissa_warrior_walk_candidate_v2",
+  "atlas": "melissa_warrior_walk_candidate_v2.png",
+  "status": "corrigir",
+  "approved": false,
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "N",
+    "S"
+  ],
+  "frames": 6,
+  "fps": 10,
+  "loop": true,
+  "animation": "walk",
+  "animations": {
+    "walk": {
+      "frames": 6,
+      "fps": 10,
+      "loop": true
+    }
+  },
+  "source": "assets/references/generated-candidates/melissa_warrior_unified_v2_source.png",
+  "source_regions": [
+    [
+      [
+        869,
+        0,
+        1086,
+        362
+      ],
+      [
+        1086,
+        0,
+        1303,
+        362
+      ],
+      [
+        1303,
+        0,
+        1520,
+        362
+      ],
+      [
+        1520,
+        0,
+        1738,
+        362
+      ],
+      [
+        1738,
+        0,
+        1955,
+        362
+      ],
+      [
+        1955,
+        0,
+        2172,
+        362
+      ]
+    ],
+    [
+      [
+        869,
+        362,
+        1086,
+        724
+      ],
+      [
+        1086,
+        362,
+        1303,
+        724
+      ],
+      [
+        1303,
+        362,
+        1520,
+        724
+      ],
+      [
+        1520,
+        362,
+        1738,
+        724
+      ],
+      [
+        1738,
+        362,
+        1955,
+        724
+      ],
+      [
+        1955,
+        362,
+        2172,
+        724
+      ]
+    ]
+  ],
+  "source_feet_anchors": [
+    [
+      108,
+      322
+    ],
+    [
+      108,
+      306
+    ]
+  ],
+  "uniform_source_scale": 0.25,
+  "resampling": "nearest",
+  "alpha": "original_preserved",
+  "offsets": [
+    0,
+    0
+  ],
+  "notes": [
+    "Stage1 N/S only, six directions pending",
+    "Manual source anchors estimate feet, require visual review",
+    "No frame duplication or per-frame scaling",
+    "Source alpha remains soft; not approved pixel art"
+  ]
+}

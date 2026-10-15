@@ -1,9 +1,13 @@
-# Handoff — estado atual
+# Handoff — teste técnico Melissa Warrior
 
-**Status:** pré-produção documentada; nenhum APK ou sprite de produção pronto. **Branch:** `docs/gdd-mvp-producao`; **PR:** [#1](https://github.com/fabiofsjunior/ilha-do-cristal/pull/1), rascunho. Confirmar HEAD ao iniciar; não presumir que este arquivo esteja atualizado após outros commits.
+**Branch:** `feature/s00-melissa-sprite-test`, derivada de `docs/gdd-mvp-producao`. Consultar HEAD real; não há merge autorizado.
 
-**Próxima tarefa independente:** fechar revisão documental desta PR; depois iniciar S0 em `feature/s00-godot-android`: fixar versão estável Godot, criar projeto importável em `game/`, cena de boot/controle de orientação horizontal, preset de export Android, testar APK instalado. Não iniciar procedurais, Firebase ou nove habilidades antes de validar APK e controles.
+Ferramenta de QA em `project.godot`, Godot 4.5.1 stable. Cena e instruções em `tools/art/sprite_test/`. O projeto na raiz é desvio documentado para importar `assets/` diretamente; `game/` segue reservado ao futuro jogo.
 
-**Fontes:** `Docs/Main/GDD_MVP.md`, `Docs/Main/CONTENT_DATA.md`, `Docs/Main/CATALOGS_MVP.md`, `data/catalogs/mvp.json`, `Docs/Main/ROADMAP.md`; detalhes de engenharia em `docs/technical/ARCHITECTURE.md`, arte em `docs/art/ART_DIRECTION_AND_SPRITES.md`. Ler `AGENTS.md`.
+**Próxima ação:** corrigir os candidatos V2 N/S de Melissa Warrior (idle 4/walk 6), conforme `docs/art/MELISSA_TECHNICAL_QA.md`: acabamento pixel sem suavização, direção sul e continuidade das passadas/pés. A V2 é a base preferida para correção; V1 está preservada. Não ampliar direções ou variantes até validação visual e Android. Não transformar concept em folha utilizável.
 
-**Riscos a resolver no sprint adequado:** densidade e escala de SQM em Android, joystick/zoom em aparelhos reais; PNG de conceito não é atlas; integração Firebase com Godot Android precisa de prova; descoberta LAN e saves sob encerramento abrupto precisam de testes. Não publicar fotos originais.
+**Evidência atual:** PR [#2](https://github.com/fabiofsjunior/ilha-do-cristal/pull/2), rascunho. `docs/art/evidence/godot_v2/` contém 16 capturas reais do Godot em zoom 50/75/100/125 e `all_20_frames_3x.png`. Importação/execução e 80 seleções na V2 passaram. Diagnóstico em `stage1_asset_validation.json` continua reprovando alpha suave. Âncoras são estimativas documentadas, sem certificação dos pés. Abrir `project.godot`; seletor permite comparar V1/V2.
+
+**Limites:** não há APK exportado/testado, gameplay ou S0 completo. Nenhuma evidência headless equivale à validação em Android. Vael/exército e sprites fora do MVP não entram neste lote. Fotos privadas não devem ser commitadas. Usar tabela de produção para estado real.
+
+**Delegação:** nas próximas tarefas desta sessão, usar GPT-6 Luna com raciocínio máximo, conforme instrução do usuário. A V3 foi gerada antes da troca; sua revisão e integração foram transferidas para subagentes Luna. Não interpretar existência de V3 como aprovação ou liberação do lote.
