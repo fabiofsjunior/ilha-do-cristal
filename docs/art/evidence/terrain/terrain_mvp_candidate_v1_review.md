@@ -49,6 +49,22 @@ SHA-256 (artefatos iniciais):
 | Gerador | `309c1a1cbd0111afff57d6d9e4f8402a23fdf595f5834c40119bab4e8878ec22` |
 | Validador | `9888b3055a486ca8f9026c6541af61f798897f876f3d0292d19cd7f4a112ff2b` |
 
+## Auditoria de correção — 2026-10-15
+
+**Resultado: candidato / CORRIGIR, com validação visual no motor e no Android pendente.** Revisei o atlas em 256×224 px, a prancha com ampliação nearest de 4× e a amostra composta com ampliação nearest de 2×. Na evidência rasterizada, os 56 tiles mantêm a composição prevista, as transições e o caminho são legíveis, e não encontrei defeito visual reproduzível que justifique redesenhar ou substituir tiles sem ver o resultado no motor. Não alterei atlas, gerador ou manifesto nesta auditoria.
+
+Arquivos de terreno examinados: `terrain_mvp_candidate_v1.png`, `terrain_mvp_candidate_v1.json`, `generate_mvp_terrain_tileset.py`, `validate_mvp_terrain_tileset.py`, `terrain_mvp_candidate_v1_contact.png` e `terrain_mvp_candidate_v1_sample.png`. Também consultei README, GDD, catálogo, arquitetura, handoff, direção de arte e a skill `produce-pixel-sprites` com suas referências de correção e contrato.
+
+Verificações desta auditoria:
+
+- `python tools/art/validate_mvp_terrain_tileset.py`: **PASS_STRUCTURE_ONLY**; 56 tiles, papéis 17/24/15, alpha binário e nenhuma falha de borda nas superfícies base.
+- `python tools/validate_catalogs.py`: passou, 10 grupos e 54 IDs estáveis.
+- `python -m py_compile tools/art/generate_mvp_terrain_tileset.py tools/art/validate_mvp_terrain_tileset.py`: passou.
+- Regerei o candidato em uma pasta temporária e comparei atlas, manifesto, prancha e amostra com `cmp`: todos reproduziram byte a byte.
+- `git diff --check`: passou.
+
+O `project.godot` presente é o harness técnico de QA de sprites e declara Godot 4.5; o executável Godot não está disponível no ambiente. Portanto, a amostra é somente uma composição do Pillow e não prova importação, filtro, transições, escala/SQM ou renderização em TileMapLayer. O teste Android também não foi executado. A próxima validação continua sendo importar e compor o tileset em uma cena Godot, revisar zoom de 50–125% e conferir em aparelho Android antes de aprovar produção.
+
 ## Limitações e próximo gate
 
 Ainda falta importar/renderizar na versão Godot fixada pelo projeto, testar o tileset em uma cena TileMapLayer com filtro nearest, avaliar zoom 50–125%, compor contornos costeiros e caminhos, e conferir legibilidade em aparelho Android. A amostra apresentada é rasterizada pelo mesmo script e não comprova importação nem composição em jogo. Os tilesets do MVP devem continuar candidatos até a revisão visual solicitada e os testes no motor/aparelho; o protótipo de UI v0.7 validado pelo usuário em 2026-10-15 não aprova estes assets.
