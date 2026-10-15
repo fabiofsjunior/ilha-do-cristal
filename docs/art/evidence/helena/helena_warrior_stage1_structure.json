@@ -1,0 +1,41 @@
+{
+  "concept_reference_sha256": "f42d0080354aa143a113cbab0fbe67bce30dfa7383a80e77d54896a6ab09a99f",
+  "atlases": {
+    "idle": {
+      "file": "helena_warrior_idle_candidate_v1.png",
+      "dimensions": [
+        384,
+        192
+      ],
+      "alpha": {
+        "unique_values": 245,
+        "min": 0,
+        "max": 255,
+        "transparent_pixels": 56149,
+        "intermediate_alpha_pixels": 17568,
+        "opaque_255_pixels": 11
+      }
+    },
+    "walk": {
+      "file": "helena_warrior_walk_candidate_v1.png",
+      "dimensions": [
+        576,
+        192
+      ],
+      "alpha": {
+        "unique_values": 238,
+        "min": 0,
+        "max": 254,
+        "transparent_pixels": 90116,
+        "intermediate_alpha_pixels": 20476,
+        "opaque_255_pixels": 0
+      }
+    }
+  },
+  "contact": "docs/art/evidence/helena/helena_warrior_stage1_contact.png",
+  "source_hashes": {
+    "helena_warrior_idle_source_v1.png": "c98a67c45341d09325957bbd1e87a0ab455776dee7a59489221587e12d5f3e07",
+    "helena_warrior_walk_n_source_v1.png": "50fadb868025a4341916898937837e5ccee62343106b2063b49405f0c9dd598e",
+    "helena_warrior_walk_s_source_v1.png": "7512ec363c5bcc2b75065816c64e66b05ed30c6398bb99e2e9038634f09be538"
+  }
+}

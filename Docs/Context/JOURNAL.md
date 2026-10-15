@@ -90,3 +90,14 @@ O usuário selecionou a imagem endgame anexada para orientar a estrutura do prot
 ## 2026-10-15 — inventário e atributos v0.7
 
 A pedido do usuário, o protótipo navegável ganha tela de inventário em três colunas: 12 slots de equipamento na matriz 4×3, 24 espaços de mochila e painel contextual à direita. A seleção de item troca o painel de atributos por detalhes, status/localização e ações de equipar/desequipar ou usar. O painel de atributos exibe descrições de FOR/AGI/INT, multiplicadores por vocação, efeitos por ponto e prévia de HP/MP máximo. A simulação inicia no nível 4 com 3 pontos livres; atributos brutos são zero e HP/MP base permanecem por vocação. O protótipo não salva progresso e segue aguardando revisão; a árvore e a referência v0.6 são preservadas.
+
+
+## 2026-10-15 — candidata técnica Helena Warrior etapa 1
+
+- A etapa foi limitada a uma aparência/candidata Warrior, direções N/S, `idle` 4 e `walk` 6. O GDD permite qualquer vocação para Helena sem default; Warrior foi usado apenas como suposição do primeiro exemplar.
+- Validado o concept oficial intacto pelo Git blob SHA `82a60ab282c23d0e6846a10a2d8b5e8614537ac3`. Ele serviu apenas como referência de identidade; os quadros vêm de fontes geradas separadas.
+- O GDD requer movimento em oito direções, mas não fixa pixel-cell/pivô. Para a etapa 1, o contrato do PR #5 e a direção de arte indicam N/S, 96×96 px, pivô candidato (48,80), idle4 e walk6; o tamanho e pivô ainda dependem de validação visual e em aparelho.
+- Preservadas três fontes RGBA em `assets/references/generated-candidates/`; criados atlas e JSON em `assets/characters/helena/warrior/`, empacotador/verificador em `tools/art/` e prancha/relatório/diagnóstico em `docs/art/evidence/helena/`.
+- Fonte idle é 1774×887, alpha 0–255 com 667.058 pixels intermediários; o atlas idle é 384×192 e tem 17.568 intermediários. Walk N e S são 1536×1024, alpha 0–254 com 518.795/518.217 pixels intermediários; o atlas walk é 576×192 com 20.476 intermediários e nenhum alpha 255. O alpha foi preservado; halo e bordas suaves mantêm a arte em **corrigir**.
+- Validador estrutural passou para RGBA, dimensões, contagens, regiões, direções, células, metadados de pivô, concept e alpha≥128 sem tocar a borda; `py_compile` passou. O relatório registra boxes, pivô e deriva de até 18 px no centro dos quadros walk S. Esses checks não são validação artística nem provam contato dos pés.
+- Sem execução Godot, zoom/SQM ou teste Android. Próximo gate: corrigir/refazer alpha e deriva, revisar ciclo/contato no motor, manter o escopo fechado até aprovação.

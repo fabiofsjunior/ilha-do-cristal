@@ -1,0 +1,567 @@
+{
+  "id": "helena_warrior_idle_candidate_v1",
+  "atlas": "helena_warrior_idle_candidate_v1.png",
+  "status": "corrigir",
+  "approved": false,
+  "character": "Helena",
+  "vocation": "Warrior",
+  "assumption": "Warrior é apenas a vocação candidata inicial porque Helena não tem default explícito e o escopo pedido limita o exemplar inicial a uma vocação.",
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "N",
+    "S"
+  ],
+  "frames": 4,
+  "fps": 6,
+  "loop": true,
+  "animations": {
+    "idle": {
+      "frames": 4,
+      "fps": 6,
+      "loop": true
+    }
+  },
+  "source_tool": "OpenAI image_gen built-in",
+  "concept_reference": {
+    "path": "assets/references/concept-rpg-classico.png",
+    "git_blob_sha": "82a60ab282c23d0e6846a10a2d8b5e8614537ac3",
+    "identity_description": "Helena: cabelo castanho ondulado, tiara clara, olhos castanhos, roupa/acento creme-rosa; para Warrior, mantém espada conforme direção de arte.",
+    "use": "Referência visual; não foi cortada nem usada como quadros de animação."
+  },
+  "source_directions": {
+    "N": {
+      "source": {
+        "path": "assets/references/generated-candidates/helena_warrior_idle_source_v1.png",
+        "sha256": "c98a67c45341d09325957bbd1e87a0ab455776dee7a59489221587e12d5f3e07",
+        "dimensions": [
+          1774,
+          887
+        ],
+        "grid": [
+          4,
+          2
+        ],
+        "source_row": 0,
+        "global_resample": {
+          "from": [
+            1774,
+            887
+          ],
+          "to": [
+            1772,
+            886
+          ],
+          "uniform_scale": "1772/1774 = 886/887"
+        },
+        "alpha_summary": {
+          "unique_values": 256,
+          "min": 0,
+          "max": 255,
+          "transparent_pixels": 905813,
+          "intermediate_alpha_pixels": 667058,
+          "opaque_255_pixels": 667
+        },
+        "source_grid_region_policy": "fixed cells; no per-frame crop or source retouch",
+        "source_cell": [
+          443,
+          443
+        ],
+        "frame_regions_after_global_resample": [
+          [
+            0,
+            0,
+            443,
+            443
+          ],
+          [
+            443,
+            0,
+            886,
+            443
+          ],
+          [
+            886,
+            0,
+            1329,
+            443
+          ],
+          [
+            1329,
+            0,
+            1772,
+            443
+          ]
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "source_region": [
+            0,
+            0,
+            443,
+            443
+          ],
+          "uniform_scale": "72/443 = 72/443",
+          "fixed_offset_for_animation_direction": [
+            14,
+            9
+          ],
+          "output_region": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "diagnostics": {
+            "alpha_unique_values": 121,
+            "alpha_min": 0,
+            "alpha_max": 253,
+            "transparent_pixels": 7102,
+            "intermediate_alpha_pixels": 2114,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gte_1": [
+              16,
+              12,
+              86,
+              81
+            ],
+            "bbox_alpha_gte_128": [
+              24,
+              19,
+              68,
+              79
+            ],
+            "bbox_alpha_gte_240": [
+              25,
+              19,
+              68,
+              79
+            ],
+            "bbox_alpha_gte_128_bottom_minus_pivot_y": -1
+          }
+        },
+        {
+          "index": 1,
+          "source_region": [
+            443,
+            0,
+            886,
+            443
+          ],
+          "uniform_scale": "72/443 = 72/443",
+          "fixed_offset_for_animation_direction": [
+            14,
+            9
+          ],
+          "output_region": [
+            96,
+            0,
+            192,
+            96
+          ],
+          "diagnostics": {
+            "alpha_unique_values": 123,
+            "alpha_min": 0,
+            "alpha_max": 254,
+            "transparent_pixels": 6957,
+            "intermediate_alpha_pixels": 2259,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gte_1": [
+              14,
+              11,
+              86,
+              81
+            ],
+            "bbox_alpha_gte_128": [
+              24,
+              19,
+              71,
+              79
+            ],
+            "bbox_alpha_gte_240": [
+              24,
+              19,
+              71,
+              79
+            ],
+            "bbox_alpha_gte_128_bottom_minus_pivot_y": -1
+          }
+        },
+        {
+          "index": 2,
+          "source_region": [
+            886,
+            0,
+            1329,
+            443
+          ],
+          "uniform_scale": "72/443 = 72/443",
+          "fixed_offset_for_animation_direction": [
+            14,
+            9
+          ],
+          "output_region": [
+            192,
+            0,
+            288,
+            96
+          ],
+          "diagnostics": {
+            "alpha_unique_values": 127,
+            "alpha_min": 0,
+            "alpha_max": 255,
+            "transparent_pixels": 7058,
+            "intermediate_alpha_pixels": 2154,
+            "opaque_255_pixels": 4,
+            "bbox_alpha_gte_1": [
+              14,
+              9,
+              86,
+              80
+            ],
+            "bbox_alpha_gte_128": [
+              23,
+              19,
+              69,
+              79
+            ],
+            "bbox_alpha_gte_240": [
+              24,
+              19,
+              69,
+              79
+            ],
+            "bbox_alpha_gte_128_bottom_minus_pivot_y": -1
+          }
+        },
+        {
+          "index": 3,
+          "source_region": [
+            1329,
+            0,
+            1772,
+            443
+          ],
+          "uniform_scale": "72/443 = 72/443",
+          "fixed_offset_for_animation_direction": [
+            14,
+            9
+          ],
+          "output_region": [
+            288,
+            0,
+            384,
+            96
+          ],
+          "diagnostics": {
+            "alpha_unique_values": 137,
+            "alpha_min": 0,
+            "alpha_max": 255,
+            "transparent_pixels": 6982,
+            "intermediate_alpha_pixels": 2231,
+            "opaque_255_pixels": 3,
+            "bbox_alpha_gte_1": [
+              14,
+              12,
+              83,
+              81
+            ],
+            "bbox_alpha_gte_128": [
+              23,
+              19,
+              73,
+              79
+            ],
+            "bbox_alpha_gte_240": [
+              23,
+              19,
+              73,
+              79
+            ],
+            "bbox_alpha_gte_128_bottom_minus_pivot_y": -1
+          }
+        }
+      ]
+    },
+    "S": {
+      "source": {
+        "path": "assets/references/generated-candidates/helena_warrior_idle_source_v1.png",
+        "sha256": "c98a67c45341d09325957bbd1e87a0ab455776dee7a59489221587e12d5f3e07",
+        "dimensions": [
+          1774,
+          887
+        ],
+        "grid": [
+          4,
+          2
+        ],
+        "source_row": 1,
+        "global_resample": {
+          "from": [
+            1774,
+            887
+          ],
+          "to": [
+            1772,
+            886
+          ],
+          "uniform_scale": "1772/1774 = 886/887"
+        },
+        "alpha_summary": {
+          "unique_values": 256,
+          "min": 0,
+          "max": 255,
+          "transparent_pixels": 905813,
+          "intermediate_alpha_pixels": 667058,
+          "opaque_255_pixels": 667
+        },
+        "source_grid_region_policy": "fixed cells; no per-frame crop or source retouch",
+        "source_cell": [
+          443,
+          443
+        ],
+        "frame_regions_after_global_resample": [
+          [
+            0,
+            443,
+            443,
+            886
+          ],
+          [
+            443,
+            443,
+            886,
+            886
+          ],
+          [
+            886,
+            443,
+            1329,
+            886
+          ],
+          [
+            1329,
+            443,
+            1772,
+            886
+          ]
+        ]
+      },
+      "frames": [
+        {
+          "index": 0,
+          "source_region": [
+            0,
+            443,
+            443,
+            886
+          ],
+          "uniform_scale": "72/443 = 72/443",
+          "fixed_offset_for_animation_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            0,
+            96,
+            96,
+            192
+          ],
+          "diagnostics": {
+            "alpha_unique_values": 106,
+            "alpha_min": 0,
+            "alpha_max": 255,
+            "transparent_pixels": 7084,
+            "intermediate_alpha_pixels": 2130,
+            "opaque_255_pixels": 2,
+            "bbox_alpha_gte_1": [
+              19,
+              12,
+              86,
+              82
+            ],
+            "bbox_alpha_gte_128": [
+              24,
+              20,
+              69,
+              80
+            ],
+            "bbox_alpha_gte_240": [
+              24,
+              21,
+              69,
+              80
+            ],
+            "bbox_alpha_gte_128_bottom_minus_pivot_y": 0
+          }
+        },
+        {
+          "index": 1,
+          "source_region": [
+            443,
+            443,
+            886,
+            886
+          ],
+          "uniform_scale": "72/443 = 72/443",
+          "fixed_offset_for_animation_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            96,
+            96,
+            192,
+            192
+          ],
+          "diagnostics": {
+            "alpha_unique_values": 104,
+            "alpha_min": 0,
+            "alpha_max": 255,
+            "transparent_pixels": 7028,
+            "intermediate_alpha_pixels": 2187,
+            "opaque_255_pixels": 1,
+            "bbox_alpha_gte_1": [
+              14,
+              12,
+              86,
+              81
+            ],
+            "bbox_alpha_gte_128": [
+              24,
+              20,
+              71,
+              80
+            ],
+            "bbox_alpha_gte_240": [
+              24,
+              21,
+              70,
+              80
+            ],
+            "bbox_alpha_gte_128_bottom_minus_pivot_y": 0
+          }
+        },
+        {
+          "index": 2,
+          "source_region": [
+            886,
+            443,
+            1329,
+            886
+          ],
+          "uniform_scale": "72/443 = 72/443",
+          "fixed_offset_for_animation_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            192,
+            96,
+            288,
+            192
+          ],
+          "diagnostics": {
+            "alpha_unique_values": 117,
+            "alpha_min": 0,
+            "alpha_max": 253,
+            "transparent_pixels": 7048,
+            "intermediate_alpha_pixels": 2168,
+            "opaque_255_pixels": 0,
+            "bbox_alpha_gte_1": [
+              14,
+              13,
+              86,
+              81
+            ],
+            "bbox_alpha_gte_128": [
+              23,
+              20,
+              70,
+              80
+            ],
+            "bbox_alpha_gte_240": [
+              24,
+              21,
+              69,
+              80
+            ],
+            "bbox_alpha_gte_128_bottom_minus_pivot_y": 0
+          }
+        },
+        {
+          "index": 3,
+          "source_region": [
+            1329,
+            443,
+            1772,
+            886
+          ],
+          "uniform_scale": "72/443 = 72/443",
+          "fixed_offset_for_animation_direction": [
+            14,
+            12
+          ],
+          "output_region": [
+            288,
+            96,
+            384,
+            192
+          ],
+          "diagnostics": {
+            "alpha_unique_values": 124,
+            "alpha_min": 0,
+            "alpha_max": 255,
+            "transparent_pixels": 6890,
+            "intermediate_alpha_pixels": 2325,
+            "opaque_255_pixels": 1,
+            "bbox_alpha_gte_1": [
+              14,
+              12,
+              86,
+              81
+            ],
+            "bbox_alpha_gte_128": [
+              23,
+              20,
+              73,
+              80
+            ],
+            "bbox_alpha_gte_240": [
+              23,
+              21,
+              73,
+              80
+            ],
+            "bbox_alpha_gte_128_bottom_minus_pivot_y": 0
+          }
+        }
+      ]
+    }
+  },
+  "content_cell": [
+    72,
+    72
+  ],
+  "resampling": "nearest-neighbor uniforme por célula quadrada, sem aparar; uma âncora fixa compartilhada por toda a linha da mesma animação/direção",
+  "alpha_policy": "Canal alpha amostrado e preservado; sem binarização, desfoque, matte removal, flood fill ou retouch.",
+  "godot_validation": "pendente",
+  "android_validation": "pendente",
+  "notes": [
+    "Escopo inicial apenas: Helena Warrior, N/S, idle 4 frames e walk 6 frames. Sem Archer, Mage, direções adicionais ou outros estados.",
+    "96x96 e pivô (48,80) são os parâmetros candidatos da etapa técnica atual; permanecem sujeitos à revisão visual e validação no motor/aparelho.",
+    "A fonte idle original 1774x887 tem linhas de 443.5 px; foi preservada intacta e um redimensionamento uniforme do quadro completo para 1772x886 criou uma grade 4x2 exata de células 443x443.",
+    "Os gerados walk N/S têm fundo de brilho/halo de alpha baixo; a tentativa de correção por geração não o removeu, por isso o canal original foi mantido.",
+    "As fontes de walk apresentam deriva de posicionamento entre quadros, e os limites de alpha variam em relação ao pivô candidato; âncoras fixas não corrigem essa falha. Revisar/refazer movimento antes de aprovação.",
+    "Alpha intermediário e acabamento suavizado contrariam a direção de arte pixel nítida. Estrutura validada não equivale a arte aprovada.",
+    "Nenhum teste de Godot, zoom/SQM ou Android foi executado nesta etapa."
+  ]
+}
