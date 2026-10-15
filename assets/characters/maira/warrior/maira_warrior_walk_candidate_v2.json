@@ -1,0 +1,1212 @@
+{
+  "id": "maira_warrior_walk_candidate_v2",
+  "atlas": "maira_warrior_walk_candidate_v2.png",
+  "status": "corrigir",
+  "approved": false,
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW"
+  ],
+  "frames": 6,
+  "fps": 10,
+  "loop": true,
+  "animation": "walk",
+  "animations": {
+    "walk": {
+      "frames": 6,
+      "fps": 10,
+      "loop": true
+    }
+  },
+  "source_tool": "OpenAI image_gen for new directions; prior Maíra stage-1 atlas for N/S",
+  "source_reference": "assets/references/generated-candidates/maira_vocations_concept.png",
+  "source_layout": "new direction source strips are single horizontal rows; fixed equal regions split by declared frame count",
+  "source_directions": {
+    "walk_N": {
+      "source_atlas": "assets/characters/maira/warrior/maira_warrior_walk_candidate_v1.png",
+      "source_row": 0,
+      "resampling": "none; prior candidate copied unchanged"
+    },
+    "walk_S": {
+      "source_atlas": "assets/characters/maira/warrior/maira_warrior_walk_candidate_v1.png",
+      "source_row": 1,
+      "resampling": "none; prior candidate copied unchanged"
+    },
+    "walk_NE": {
+      "source_strip": "assets/references/generated-candidates/maira_warrior/walk_ne_source_oai_v1.png",
+      "source_dimensions": [
+        2172,
+        724
+      ],
+      "source_frame_regions": [
+        {
+          "frame": 0,
+          "source_region": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            15,
+            132,
+            362,
+            635
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            30,
+            26,
+            68,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 1,
+          "source_region": [
+            362,
+            0,
+            724,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            163,
+            362,
+            612
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            29,
+            68,
+            79
+          ],
+          "packed_alpha128_bottom_y": 78,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 2,
+          "source_region": [
+            724,
+            0,
+            1086,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            133,
+            362,
+            635
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            26,
+            68,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 3,
+          "source_region": [
+            1086,
+            0,
+            1448,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            133,
+            362,
+            635
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            26,
+            68,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 4,
+          "source_region": [
+            1448,
+            0,
+            1810,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            162,
+            362,
+            617
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            29,
+            68,
+            79
+          ],
+          "packed_alpha128_bottom_y": 78,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 5,
+          "source_region": [
+            1810,
+            0,
+            2172,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            131,
+            353,
+            627
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            25,
+            67,
+            80
+          ],
+          "packed_alpha128_bottom_y": 79,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        }
+      ],
+      "uniform_scale": 0.11,
+      "resampling": "Pillow nearest-neighbor; one uniform scale and fixed translation per animation, no per-frame trim",
+      "fixed_cell_translation": [
+        28,
+        11
+      ],
+      "source_alpha_preserved": true,
+      "source_alpha_policy": "unchanged; intermediate values retained and flagged by validator"
+    },
+    "walk_E": {
+      "source_strip": "assets/references/generated-candidates/maira_warrior/walk_e_source_oai_v1.png",
+      "source_dimensions": [
+        2172,
+        724
+      ],
+      "source_frame_regions": [
+        {
+          "frame": 0,
+          "source_region": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            19,
+            143,
+            362,
+            612
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            30,
+            27,
+            68,
+            79
+          ],
+          "packed_alpha128_bottom_y": 78,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 1,
+          "source_region": [
+            362,
+            0,
+            724,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            165,
+            362,
+            613
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            32,
+            29,
+            68,
+            79
+          ],
+          "packed_alpha128_bottom_y": 78,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 2,
+          "source_region": [
+            724,
+            0,
+            1086,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            27,
+            144,
+            362,
+            614
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            31,
+            27,
+            68,
+            79
+          ],
+          "packed_alpha128_bottom_y": 78,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 3,
+          "source_region": [
+            1086,
+            0,
+            1448,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            143,
+            355,
+            612
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            27,
+            67,
+            79
+          ],
+          "packed_alpha128_bottom_y": 78,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 4,
+          "source_region": [
+            1448,
+            0,
+            1810,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            33,
+            165,
+            355,
+            614
+          ],
+          "source_alpha_touches_partition": false,
+          "packed_alpha128_bbox": [
+            32,
+            29,
+            67,
+            79
+          ],
+          "packed_alpha128_bottom_y": 78,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 5,
+          "source_region": [
+            1810,
+            0,
+            2172,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            26,
+            144,
+            346,
+            614
+          ],
+          "source_alpha_touches_partition": false,
+          "packed_alpha128_bbox": [
+            31,
+            27,
+            66,
+            79
+          ],
+          "packed_alpha128_bottom_y": 78,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        }
+      ],
+      "uniform_scale": 0.11,
+      "resampling": "Pillow nearest-neighbor; one uniform scale and fixed translation per animation, no per-frame trim",
+      "fixed_cell_translation": [
+        28,
+        11
+      ],
+      "source_alpha_preserved": true,
+      "source_alpha_policy": "unchanged; intermediate values retained and flagged by validator"
+    },
+    "walk_SE": {
+      "source_strip": "assets/references/generated-candidates/maira_warrior/walk_se_source_oai_v1.png",
+      "source_dimensions": [
+        2172,
+        724
+      ],
+      "source_frame_regions": [
+        {
+          "frame": 0,
+          "source_region": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            16,
+            138,
+            362,
+            632
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            30,
+            26,
+            68,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 1,
+          "source_region": [
+            362,
+            0,
+            724,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            167,
+            362,
+            621
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            29,
+            68,
+            80
+          ],
+          "packed_alpha128_bottom_y": 79,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 2,
+          "source_region": [
+            724,
+            0,
+            1086,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            140,
+            362,
+            624
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            26,
+            68,
+            80
+          ],
+          "packed_alpha128_bottom_y": 79,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 3,
+          "source_region": [
+            1086,
+            0,
+            1448,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            138,
+            362,
+            631
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            30,
+            26,
+            68,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 4,
+          "source_region": [
+            1448,
+            0,
+            1810,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            169,
+            362,
+            621
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            30,
+            68,
+            80
+          ],
+          "packed_alpha128_bottom_y": 79,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 5,
+          "source_region": [
+            1810,
+            0,
+            2172,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            140,
+            359,
+            631
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            26,
+            68,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        }
+      ],
+      "uniform_scale": 0.11,
+      "resampling": "Pillow nearest-neighbor; one uniform scale and fixed translation per animation, no per-frame trim",
+      "fixed_cell_translation": [
+        28,
+        11
+      ],
+      "source_alpha_preserved": true,
+      "source_alpha_policy": "unchanged; intermediate values retained and flagged by validator"
+    },
+    "walk_SW": {
+      "source_strip": "assets/references/generated-candidates/maira_warrior/walk_sw_source_oai_v1.png",
+      "source_dimensions": [
+        2172,
+        724
+      ],
+      "source_frame_regions": [
+        {
+          "frame": 0,
+          "source_region": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            26,
+            155,
+            362,
+            635
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            31,
+            28,
+            68,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 1,
+          "source_region": [
+            362,
+            0,
+            724,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            167,
+            362,
+            635
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            29,
+            68,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 2,
+          "source_region": [
+            724,
+            0,
+            1086,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            156,
+            354,
+            635
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            28,
+            67,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 3,
+          "source_region": [
+            1086,
+            0,
+            1448,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            8,
+            154,
+            362,
+            635
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            29,
+            28,
+            68,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 4,
+          "source_region": [
+            1448,
+            0,
+            1810,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            169,
+            362,
+            632
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            31,
+            30,
+            68,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 5,
+          "source_region": [
+            1810,
+            0,
+            2172,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            157,
+            343,
+            635
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            31,
+            28,
+            66,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        }
+      ],
+      "uniform_scale": 0.11,
+      "resampling": "Pillow nearest-neighbor; one uniform scale and fixed translation per animation, no per-frame trim",
+      "fixed_cell_translation": [
+        28,
+        11
+      ],
+      "source_alpha_preserved": true,
+      "source_alpha_policy": "unchanged; intermediate values retained and flagged by validator"
+    },
+    "walk_W": {
+      "source_strip": "assets/references/generated-candidates/maira_warrior/walk_w_source_oai_v1.png",
+      "source_dimensions": [
+        2172,
+        724
+      ],
+      "source_frame_regions": [
+        {
+          "frame": 0,
+          "source_region": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            34,
+            119,
+            362,
+            628
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            32,
+            24,
+            68,
+            80
+          ],
+          "packed_alpha128_bottom_y": 79,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 1,
+          "source_region": [
+            362,
+            0,
+            724,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            139,
+            362,
+            628
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            26,
+            68,
+            80
+          ],
+          "packed_alpha128_bottom_y": 79,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 2,
+          "source_region": [
+            724,
+            0,
+            1086,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            119,
+            354,
+            628
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            24,
+            67,
+            80
+          ],
+          "packed_alpha128_bottom_y": 79,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 3,
+          "source_region": [
+            1086,
+            0,
+            1448,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            6,
+            122,
+            354,
+            628
+          ],
+          "source_alpha_touches_partition": false,
+          "packed_alpha128_bbox": [
+            29,
+            24,
+            67,
+            80
+          ],
+          "packed_alpha128_bottom_y": 79,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 4,
+          "source_region": [
+            1448,
+            0,
+            1810,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            14,
+            140,
+            360,
+            628
+          ],
+          "source_alpha_touches_partition": false,
+          "packed_alpha128_bbox": [
+            30,
+            26,
+            68,
+            80
+          ],
+          "packed_alpha128_bottom_y": 79,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 5,
+          "source_region": [
+            1810,
+            0,
+            2172,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            7,
+            119,
+            344,
+            628
+          ],
+          "source_alpha_touches_partition": false,
+          "packed_alpha128_bbox": [
+            29,
+            24,
+            66,
+            80
+          ],
+          "packed_alpha128_bottom_y": 79,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        }
+      ],
+      "uniform_scale": 0.11,
+      "resampling": "Pillow nearest-neighbor; one uniform scale and fixed translation per animation, no per-frame trim",
+      "fixed_cell_translation": [
+        28,
+        11
+      ],
+      "source_alpha_preserved": true,
+      "source_alpha_policy": "unchanged; intermediate values retained and flagged by validator"
+    },
+    "walk_NW": {
+      "source_strip": "assets/references/generated-candidates/maira_warrior/walk_nw_source_oai_v1.png",
+      "source_dimensions": [
+        2172,
+        724
+      ],
+      "source_frame_regions": [
+        {
+          "frame": 0,
+          "source_region": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            17,
+            157,
+            362,
+            626
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            30,
+            28,
+            68,
+            80
+          ],
+          "packed_alpha128_bottom_y": 79,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 1,
+          "source_region": [
+            362,
+            0,
+            724,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            181,
+            362,
+            604
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            31,
+            68,
+            78
+          ],
+          "packed_alpha128_bottom_y": 77,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 2,
+          "source_region": [
+            724,
+            0,
+            1086,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            160,
+            362,
+            615
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            29,
+            68,
+            79
+          ],
+          "packed_alpha128_bottom_y": 78,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 3,
+          "source_region": [
+            1086,
+            0,
+            1448,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            160,
+            362,
+            631
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            29,
+            68,
+            81
+          ],
+          "packed_alpha128_bottom_y": 80,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 4,
+          "source_region": [
+            1448,
+            0,
+            1810,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            181,
+            362,
+            607
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            31,
+            68,
+            78
+          ],
+          "packed_alpha128_bottom_y": 77,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        },
+        {
+          "frame": 5,
+          "source_region": [
+            1810,
+            0,
+            2172,
+            724
+          ],
+          "source_cell": [
+            362,
+            724
+          ],
+          "alpha128_bbox": [
+            0,
+            160,
+            333,
+            615
+          ],
+          "source_alpha_touches_partition": true,
+          "packed_alpha128_bbox": [
+            28,
+            29,
+            65,
+            79
+          ],
+          "packed_alpha128_bottom_y": 78,
+          "packed_bbox_touches_cell_edge": false,
+          "source_intermediate_alpha_values": 254
+        }
+      ],
+      "uniform_scale": 0.11,
+      "resampling": "Pillow nearest-neighbor; one uniform scale and fixed translation per animation, no per-frame trim",
+      "fixed_cell_translation": [
+        28,
+        11
+      ],
+      "source_alpha_preserved": true,
+      "source_alpha_policy": "unchanged; intermediate values retained and flagged by validator"
+    }
+  },
+  "notes": [
+    "Candidate atlas only. Concept reference was used for identity; no concept pixels were cropped.",
+    "Existing N/S rows are preserved from candidate v1 and retain its documented defects.",
+    "New source images contain intermediate alpha and visible edge halos; alpha was preserved without masking or binarization.",
+    "All new frames were uniformly downscaled with nearest-neighbor to fit candidate cells; reduced source detail may be lost.",
+    "Generated walk strips have alpha silhouettes touching some source partition edges; inspect for source-level frame bleed or clipping.",
+    "Direction, sword-hand anatomy, foot contacts, walk loop, idle-to-walk continuity, Godot, SQM/zoom, and Android remain subject to review.",
+    "Pivot placement uses a median alpha-bottom proxy per animation; it does not identify the character's feet."
+  ],
+  "source_transform": {
+    "uniform_scale": 0.11,
+    "resampling": "nearest-neighbor",
+    "automatic_trim": false,
+    "alpha_modified": false,
+    "generated_animation_vertical_translation": 11
+  }
+}
