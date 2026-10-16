@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timezone
+import hashlib
 import json
 import os
 import re
@@ -28,11 +30,70 @@ FORBIDDEN_EXPORTED_PATH_PREFIXES = (
     "/assets/dist/",
 )
 ANDROID_XMLNS = "http://schemas.android.com/apk/res/android"
+KNOWN_PROJECT_ICON_ERROR = "ERROR: No project icon specified."
+REQUIRED_RUNTIME_FILES = (
+    "/assets/data/catalogs/mvp.json",
+    "/assets/game/data/first_island_layout.json",
+)
 
 
 def fail(message: str) -> None:
     print(f"Erro: {message}", file=sys.stderr)
     raise SystemExit(2)
+
+
+def classify_godot_output(output: str) -> tuple[list[str], list[str]]:
+    errors: list[str] = []
+    warnings: list[str] = []
+    for line in output.splitlines():
+        if "SCRIPT ERROR:" in line:
+            errors.append(line)
+        elif "ERROR:" in line:
+            if line.startswith(KNOWN_PROJECT_ICON_ERROR):
+                warnings.append(line)
+            else:
+                errors.append(line)
+    return errors, warnings
+
+
+def run_godot_logged(
+    command: list[str], env: dict[str, str], log_path: Path, label: str
+) -> str:
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    result = subprocess.run(
+        command,
+        cwd=PROJECT_ROOT,
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        errors="replace",
+    )
+    output = result.stdout or ""
+    log_path.write_text(output, encoding="utf-8")
+    errors, warnings = classify_godot_output(output)
+
+    if warnings:
+        with log_path.open("a", encoding="utf-8") as log_file:
+            for warning in warnings:
+                log_file.write(
+                    f"\n[export_android] WARNING (allowlisted non-fatal): {warning}\n"
+                )
+        for warning in warnings:
+            print(f"AVISO Godot (não fatal, exceção conhecida): {warning}")
+
+    if result.returncode != 0 or errors:
+        if errors:
+            print(f"Falhas reportadas pelo Godot durante {label}:", file=sys.stderr)
+            print("\n".join(errors), file=sys.stderr)
+        if result.returncode != 0:
+            print(f"Código de saída Godot: {result.returncode}", file=sys.stderr)
+            if not errors:
+                print("\n".join(output.splitlines()[-40:]), file=sys.stderr)
+        fail(f"Godot {label} falhou; consulte o log {log_path}")
+
+    print(f"Godot {label}: OK (log: {log_path})")
+    return output
 
 
 def resolve_godot(explicit: str | None) -> Path:
@@ -75,15 +136,16 @@ def resolve_java_home(explicit: str | None) -> Path:
 
 
 def configure_editor_settings(
-    godot: Path, android_sdk: Path, java_home: Path, env: dict[str, str]
+    godot: Path, android_sdk: Path, java_home: Path, env: dict[str, str], logs_dir: Path
 ) -> None:
     config_root = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
     settings_path = config_root / "godot" / "editor_settings-4.5.tres"
     if not settings_path.is_file():
-        subprocess.run(
+        run_godot_logged(
             [str(godot), "--headless", "--editor", "--path", str(PROJECT_ROOT), "--quit"],
-            env=env,
-            check=True,
+            env,
+            logs_dir / "android-editor-settings.log",
+            "EditorSettings initialization",
         )
     if not settings_path.is_file():
         fail(f"Godot não criou o arquivo de configurações esperado: {settings_path}")
@@ -217,15 +279,43 @@ def validate_apk(apk: Path, android_sdk: Path, env: dict[str, str]) -> None:
     ]
     if leaked:
         fail("Recursos excluídos encontrados no APK: " + ", ".join(leaked[:10]))
-    required_runtime_files = (
-        "/assets/data/catalogs/mvp.json",
-        "/assets/game/data/first_island_layout.json",
-    )
-    missing_runtime_files = [path for path in required_runtime_files if path not in exported_files]
+    missing_runtime_files = [path for path in REQUIRED_RUNTIME_FILES if path not in exported_files]
     if missing_runtime_files:
         fail("Dados de runtime ausentes no APK: " + ", ".join(missing_runtime_files))
     print("Excluded resource paths in APK: none (tools/docs/references/build/dist)")
     print("Runtime JSON: catalogs and first island layout present")
+
+
+def write_build_info(apk: Path, engine_version: str) -> Path:
+    commit = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=PROJECT_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    digest = hashlib.sha256(apk.read_bytes()).hexdigest()
+    build_info = {
+        "engine": engine_version,
+        "source_commit": commit,
+        "built_at": datetime.now(timezone.utc).isoformat(),
+        "target": "Android",
+        "package_id": PACKAGE_NAME,
+        "apk": apk.name,
+        "sha256": digest,
+        "data": {
+            "status": "candidate",
+            "runtime_files": list(REQUIRED_RUNTIME_FILES),
+        },
+        "art_approval": "candidate; visual review pending",
+    }
+    sidecar = apk.parent / "BUILD_INFO.json"
+    sidecar.write_text(
+        json.dumps(build_info, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    print(f"SHA256: {digest}")
+    print(f"BUILD_INFO: {sidecar}")
+    return sidecar
 
 
 def main() -> None:
@@ -299,14 +389,17 @@ def main() -> None:
 
     build_dir = PROJECT_ROOT / "build"
     build_dir.mkdir(parents=True, exist_ok=True)
+    logs_dir = build_dir / "logs"
+    logs_dir.mkdir(parents=True, exist_ok=True)
     (build_dir / ".gdignore").write_text(
         "# Local exports and logs; keep outside Godot's project scan.\n", encoding="utf-8"
     )
-    configure_editor_settings(godot, android_sdk, java_home, env)
-    subprocess.run(
+    configure_editor_settings(godot, android_sdk, java_home, env, logs_dir)
+    run_godot_logged(
         [str(godot), "--headless", "--editor", "--path", str(PROJECT_ROOT), "--import", "--quit"],
         env=env,
-        check=True,
+        log_path=logs_dir / "android-import.log",
+        label="resource import",
     )
 
     output = Path(args.output).expanduser()
@@ -314,7 +407,7 @@ def main() -> None:
         output = PROJECT_ROOT / output
     output = output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run(
+    run_godot_logged(
         [
             str(godot),
             "--headless",
@@ -325,13 +418,15 @@ def main() -> None:
             str(output),
         ],
         env=env,
-        check=True,
+        log_path=logs_dir / "android-export.log",
+        label="Android export",
     )
     if not output.is_file() or output.stat().st_size == 0:
         fail(f"Godot não produziu o APK: {output}")
 
     print(f"APK: {output} ({output.stat().st_size:,} bytes)")
     validate_apk(output, android_sdk, env)
+    write_build_info(output, version)
 
 
 if __name__ == "__main__":
