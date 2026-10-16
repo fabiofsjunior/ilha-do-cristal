@@ -36,3 +36,9 @@ O guia [ANDROID_BUILD.md](docs/technical/ANDROID_BUILD.md) fixa SDK/JDK, configu
 Estrutura: `game/` (cenas, scripts e dados), `data/` (catálogo versionado), `assets/` (arte candidata e referências), `Docs/Main/` (referência durável), `Docs/Context/` (journal/handoff), `docs/art/` e `docs/technical/`. O harness técnico de sprites permanece em `tools/art/sprite_test/sprite_test.tscn`. Relatórios de criaturas e [prancha nativa/nearest](docs/art/evidence/creatures-contact-candidates.png) documentam uma pose SE estática por animal; direções, animações e alpha final não estão aprovados.
 
 Não publicar fotos originais das crianças, credenciais, keystores ou saves pessoais. A prancha conceitual não substitui sprites de produção.
+
+## Correção de teste: retrato 0.1.1
+
+A versão de teste mais recente usa **retrato 9:16**, mundo em tela inteira com expansão para outras proporções, HUD inspirado no protótipo enviado, alvo destacado/trocável e dano numérico flutuante. A seleção de aparência usa grade 2×2 e os painéis cabem no retrato.
+
+Builds: `python3 tools/build/export_android.py` e `python3 tools/build/export_web.py` com Godot 4.5.1. O Web solicita tela cheia ao entrar como visitante, conforme suporte do navegador; o canvas preenche o viewport mesmo sem permissão. APK debug 0.1.1/versionCode 2. Instalação em aparelho ainda requer playtest. Detalhes e verificações: [validação retrato](docs/gameplay/PORTRAIT_BUILD_VALIDATION.md).

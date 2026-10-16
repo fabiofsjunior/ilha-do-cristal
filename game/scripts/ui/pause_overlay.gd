@@ -49,7 +49,7 @@ func _ready() -> void:
 	start.pressed.connect(func() -> void: start_requested.emit())
 	stack.add_child(start)
 	var note := Label.new()
-	note.text = "Esta demo não salva progresso."
+	note.text = "O progresso é salvo localmente ao pausar."
 	note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	UI_STYLE.style_label(note, 13, UI_STYLE.MUTED)
 	stack.add_child(note)

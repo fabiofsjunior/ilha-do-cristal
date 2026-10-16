@@ -17,6 +17,7 @@ var pause_overlay
 
 
 func _ready() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().paused = false
 	selected_character_id = EXPEDITION_STATE.active_character_id(OS.get_environment("GAMEPLAY_TEST_SAVE_DIR"))
@@ -25,6 +26,7 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	screen_host = Control.new()
 	screen_host.name = "ScreenHost"
+	screen_host.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	screen_host.process_mode = Node.PROCESS_MODE_PAUSABLE
 	screen_host.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(screen_host)
@@ -103,6 +105,7 @@ func _show_gameplay() -> void:
 func _show_pause() -> void:
 	if gameplay == null or pause_overlay != null:
 		return
+	gameplay.get_node("HUD").release_movement()
 	get_tree().paused = true
 	pause_overlay = _instantiate(PAUSE_SCENE)
 	if pause_overlay == null:

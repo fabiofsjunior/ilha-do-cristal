@@ -12,7 +12,7 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-BASE_COMMIT = "16e759350ad9a3f76ded314e0050a820939b3a5f"
+BASE_COMMIT = "d0abbb6"
 DIRECTIONS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
 
 
@@ -55,7 +55,7 @@ def check_scenes() -> int:
     hud_script = (ROOT / "game/scripts/world/first_island.gd").read_text(encoding="utf-8")
     require("overlay_layer.layer = 10" in pause_script and "_hud.layer = 1" in hud_script,
             "pause deve sombrear mapa e HUD em CanvasLayers ordenadas")
-    for setting in ["window/handheld/orientation=0", "2d/snap/snap_2d_transforms_to_pixel=true"]:
+    for setting in ["window/handheld/orientation=1", "2d/snap/snap_2d_transforms_to_pixel=true"]:
         require(setting in project, f"configuração de viewport ausente: {setting}")
     return len(scenes) + len(scripts)
 

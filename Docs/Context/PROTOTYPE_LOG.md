@@ -91,3 +91,13 @@ Preserva a v0.4 e acrescenta uma árvore passiva navegável candidata: 25 círcu
 ## Registro futuro por fase
 
 Ao atualizar uma fase, preserve versões anteriores e acrescente a aprovação e o link para a versão validada. Após implementar, anote comparação visual, testes e dispositivo sem alterar retroativamente o resultado da revisão do protótipo.
+
+### HUD retrato v0.8 — referência fornecida e implementação autorizada
+
+- Data: 2026-10-16 UTC (2026-10-15 Recife).
+- Origem: anexo do usuário `1001362477.jpg`; instrução explícita: implementar UI/HUD/visão conforme o protótipo, orientação 9:16, tela inteira, seleção melhor e dano flutuante. Essa instrução valida a referência para este incremento; não exige recriar e reapresentar uma alternativa antes da correção solicitada.
+- Estado: referência aprovada para implementação por solicitação explícita.
+- Viewport base: 720×1280; testes adicionais 720×1600 e 960×1280.
+- Comparação: Godot 4.5.1/OpenGL Compatibility/Mesa llvmpipe em Xvfb; captura local `build/portrait-gameplay.png`.
+- Desvios intencionais: mesma hierarquia com a arte pixel candidata da ilha; não reproduz dungeon, ouro, goblins nem habilidades ilustrativas fora do catálogo. Mochila usa seções verticais para caber no retrato.
+- Aceite de aparelho Android permanece pendente; render desktop e manifesto não substituem teste no dispositivo.

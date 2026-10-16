@@ -63,3 +63,14 @@ Após GDD, produzir em sequência: contratos JSON em `data/`, protótipo de cont
 - [ ] Aceite S2: demonstrar coleta → combate → curativo → retorno → fechar/reabrir no Android; comparar visualmente o HUD com v0.7 e revisar Web no navegador.
 
 O recorte usa quatro aparências Warrior e mapa estático. Upgrades II/III persistem números/custos; baú compartilhado, poço, cerca e torres funcionais, Archer/Mage, árvore, chunks, LAN e conta seguem pendentes. Resultados e limitações: [guia solo](../../docs/gameplay/MVP_SOLO_TEST.md) e [validação das builds](../../docs/gameplay/MVP_BUILD_VALIDATION.md). As fases principais permanecem abertas até seus aceites completos.
+
+### Correção retrato 9:16 — 2026-10-16
+
+A solicitação atual substitui a orientação horizontal das descrições históricas acima.
+
+- [x] HUD retrato conforme hierarquia do anexo do usuário; mundo expandido até as bordas, controles em safe area Android.
+- [x] Menus e painéis de inventário/refúgio em retrato, alvo por toque no corpo, ciclo de alvos visíveis, anel/barra e números de dano com limpeza.
+- [x] Regressões em três proporções, seleção em quatro zooms e render Godot Compatibility/Mesa.
+- [ ] Aceite Android físico: instalação, notch/navegação, multitouch e estabilidade por 10 minutos.
+
+A aprovação técnica desta correção não fecha os gates físicos de S0–S2.

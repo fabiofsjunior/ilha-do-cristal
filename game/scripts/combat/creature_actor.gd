@@ -1,6 +1,7 @@
 class_name CreatureActor
 extends CharacterBody2D
 
+signal damage_received(amount: float, point: Vector2)
 signal player_damaged(amount: float, species_id: String)
 signal feedback_requested(message: String)
 signal defeated(actor: CreatureActor, death_id: String)
@@ -29,6 +30,7 @@ var _world_state: ExpeditionState
 var _player: CharacterBody2D
 var _refuge_position := Vector2.ZERO
 var _label: Label
+var selected := false
 var _pose: Sprite2D
 
 
@@ -148,7 +150,10 @@ func take_hit(amount: float) -> bool:
 	if not is_alive or amount <= 0.0:
 		return false
 	provoked = true
+	var actual := minf(hp, amount)
 	hp = maxf(0.0, hp - amount)
+	damage_received.emit(actual, global_position + Vector2(0, -48))
+	queue_redraw()
 	_sync_state()
 	if hp <= 0.0:
 		is_alive = false
@@ -177,3 +182,29 @@ func _sync_state() -> void:
 			"windup_remaining": windup_remaining,
 			"stunned_remaining": stunned_remaining
 		})
+
+
+func set_selected(value: bool) -> void:
+	selected = value
+	queue_redraw()
+
+
+func selection_distance(point: Vector2, zoom: float) -> float:
+	# Target the visible body, not just the feet. Keep a minimum touch radius
+	# in logical screen pixels at every supported camera zoom.
+	var center := global_position + Vector2(0, -30 if species_id != "bear" else -40)
+	var delta := point - center
+	var radii := Vector2(28, 38) if species_id != "bear" else Vector2(42, 52)
+	radii = radii.max(Vector2.ONE * 36.0 / zoom)
+	return Vector2(delta.x / radii.x, delta.y / radii.y).length()
+
+
+func _draw() -> void:
+	var width := 64.0 if species_id != "bear" else 90.0
+	if selected:
+		draw_arc(Vector2.ZERO, width * 0.54, 0.0, TAU, 48, Color("ffbd58"), 4.0, true)
+		draw_colored_polygon(PackedVector2Array([Vector2(-7, -78), Vector2(7, -78), Vector2(0, -68)]), Color("ffbd58"))
+	if selected or hp < max_hp:
+		var point := Vector2(-width / 2.0, -58 if species_id != "bear" else -72)
+		draw_rect(Rect2(point - Vector2.ONE, Vector2(width + 2, 8)), Color("18191e"))
+		draw_rect(Rect2(point, Vector2(width * clampf(hp / max_hp, 0, 1), 6)), Color("d94848"))

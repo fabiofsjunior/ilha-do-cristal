@@ -49,7 +49,7 @@ func _build_screen() -> void:
 	UI_STYLE.style_label(title, 28, UI_STYLE.CREAM)
 	header.add_child(title)
 	var spacer := Control.new()
-	spacer.custom_minimum_size.x = 108
+	spacer.custom_minimum_size.x = 0
 	header.add_child(spacer)
 
 	var intro := Label.new()
@@ -62,9 +62,9 @@ func _build_screen() -> void:
 	UI_STYLE.style_label(intro, 15, UI_STYLE.MUTED)
 	stack.add_child(intro)
 
-	var cards := HBoxContainer.new()
+	var cards := GridContainer.new()
+	cards.columns = 2
 	cards.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	cards.alignment = BoxContainer.ALIGNMENT_CENTER
 	cards.add_theme_constant_override("separation", 14)
 	stack.add_child(cards)
 	for profile in APPEARANCE_DATA.profiles():
@@ -75,7 +75,7 @@ func _build_screen() -> void:
 		"panel", UI_STYLE.panel_style(Color("241d31"), Color("75608c"))
 	)
 	stack.add_child(footer)
-	var footer_row := HBoxContainer.new()
+	var footer_row := VBoxContainer.new()
 	footer_row.add_theme_constant_override("separation", 14)
 	footer.add_child(footer_row)
 	_selected_name = Label.new()
@@ -93,7 +93,7 @@ func _build_screen() -> void:
 
 func _make_card(profile: Dictionary) -> Control:
 	var card := PanelContainer.new()
-	card.custom_minimum_size = Vector2(250, 0)
+	card.custom_minimum_size = Vector2(290, 340)
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var id := str(profile.get("id", ""))
 	card.name = "Appearance_%s" % id

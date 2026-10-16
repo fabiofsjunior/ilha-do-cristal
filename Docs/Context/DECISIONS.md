@@ -76,3 +76,9 @@ Validar antes de consolidar integração: fluxo Firebase Auth offline/online em 
 - O save desta fatia separa progresso por aparência Warrior no dispositivo, schema 1. Isso não substitui o futuro modelo host/mundo/conta. A gravação verifica o temporário antes de rotacionar dois slots; snapshots inválidos são preservados para diagnóstico.
 - As três criaturas têm somente uma pose SE para teste. Alpha intermediário e direções/animações finais bloqueiam aprovação artística; nenhum asset foi promovido a produção. Os atlas existentes dos quatro jogadores e os 56 tiles foram preservados.
 - Web é exportado com um ZIP portátil e servidor localhost; Android é um APK debug assinado localmente, ARMv7/ARM64, paisagem e sem permissões. SDK, Godot, chaves, builds e saves não entram no Git. Testes de pacote/assinatura/headless não substituem execução gráfica ou aparelho.
+
+## 2026-10-16 — Retrato e HUD de combate
+
+A solicitação explícita do usuário substitui a orientação horizontal anterior: base 720×1280 (9:16), retrato Android, stretch expand e mundo até as bordas em outras proporções. O anexo `1001362477.jpg` é o protótipo escolhido para implementar a hierarquia: retrato e HP/MP/EXP no topo esquerdo, alvo/HP no topo direito, navegação compacta, joystick esquerdo e ações circulares à direita. Não adiciona goblins, dungeon, ouro ou habilidades fora do catálogo. Preservados os sprites candidatos e o mundo da ilha.
+
+Seleção usa elipse no corpo visível, mínimo de 36 pixels lógicos por raio corrigido pelo zoom, escolhe o centro normalizado mais próximo em sobreposição e preserva o alvo em toque no chão. Trocar alvo percorre monstros visíveis ordenados por distância ao jogador. Número flutuante usa HP efetivamente removido, inclusive bleed/skills e golpe fatal; amarelo para causado, vermelho para recebido.

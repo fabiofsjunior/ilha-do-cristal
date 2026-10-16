@@ -11,6 +11,7 @@ signal skill_pressed(skill_id: String)
 signal bandage_pressed
 signal craft_bandage_pressed
 signal upgrade_camp_pressed
+signal cycle_target_pressed
 signal respawn_pressed
 
 const UI_STYLE = preload("res://game/scripts/ui/ui_style.gd")
@@ -27,7 +28,14 @@ const ITEM_LABELS := {
 	"axe_basic": "Machado", "pickaxe_basic": "Picareta"
 }
 
+var _joystick: Control
 var _root: Control
+var _hp_text: Label
+var _mp_text: Label
+var _xp_bar: ProgressBar
+var _target_bar: ProgressBar
+var _target_portrait: TextureRect
+var _portrait: TextureRect
 var _status: Label
 var _name_label: Label
 var _hp_bar: ProgressBar
@@ -64,171 +72,153 @@ func _ready() -> void:
 	_build_inventory_overlay()
 	_build_camp_overlay()
 	_build_downed_panel()
+	get_viewport().size_changed.connect(_layout_safe_area)
+	_layout_safe_area()
 
 
 func _build_hud() -> void:
+	# All HUD positions use a 720-wide logical portrait canvas; the world expands.
 	var header := PanelContainer.new()
-	header.position = Vector2(18, 16)
-	header.custom_minimum_size = Vector2(430, 96)
-	header.mouse_filter = Control.MOUSE_FILTER_PASS
-	header.add_theme_stylebox_override(
-		"panel", UI_STYLE.panel_style(Color(0.10, 0.08, 0.15, 0.9), Color("75608c"))
-	)
+	header.position = Vector2(12, 16)
+	header.custom_minimum_size = Vector2(410, 164)
+	header.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	header.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color(0.08, 0.10, 0.12, 0.94), Color("b19a70")))
 	_root.add_child(header)
-	var header_box := VBoxContainer.new()
-	header_box.add_theme_constant_override("separation", 3)
-	header_box.mouse_filter = Control.MOUSE_FILTER_PASS
-	header.add_child(header_box)
+	var row := HBoxContainer.new()
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	header.add_child(row)
+	_portrait = TextureRect.new()
+	_portrait.custom_minimum_size = Vector2(82, 116)
+	_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(_portrait)
+	var bars := VBoxContainer.new()
+	bars.custom_minimum_size.x = 292
+	bars.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(bars)
 	_name_label = Label.new()
-	_name_label.text = "A Ilha do Cristal · sessão solo"
+	UI_STYLE.style_label(_name_label, 20, UI_STYLE.GOLD)
 	_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI_STYLE.style_label(_name_label, 16, UI_STYLE.GOLD)
-	header_box.add_child(_name_label)
-	var level_row := HBoxContainer.new()
-	level_row.mouse_filter = Control.MOUSE_FILTER_PASS
-	header_box.add_child(level_row)
-	_level_label = Label.new()
-	_level_label.text = "Nível 1 · 0 / 100 XP"
-	_level_label.custom_minimum_size.x = 138
-	_level_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI_STYLE.style_label(_level_label, 12, UI_STYLE.CREAM)
-	level_row.add_child(_level_label)
-	_hp_bar = _make_bar("HP", Color("d86f70"))
-	level_row.add_child(_hp_bar)
-	_mp_bar = _make_bar("MP", Color("69b9da"))
-	_hp_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_mp_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	level_row.add_child(_mp_bar)
-	_status = Label.new()
-	_status.position = Vector2(18, 120)
-	_status.custom_minimum_size = Vector2(600, 42)
-	_status.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	UI_STYLE.style_label(_status, 13, UI_STYLE.CREAM)
-	_root.add_child(_status)
-	_target_label = Label.new()
-	_target_label.anchor_left = 0.5
-	_target_label.anchor_right = 0.5
-	_target_label.position = Vector2(-170, 22)
-	_target_label.size = Vector2(340, 42)
-	_target_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_target_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_target_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI_STYLE.style_label(_target_label, 15, UI_STYLE.GOLD)
-	_root.add_child(_target_label)
+	bars.add_child(_name_label)
+	_hp_bar = _make_bar("HP", Color("bd393e"))
+	bars.add_child(_hp_bar)
+	_hp_text = _bar_caption(_hp_bar)
+	_mp_bar = _make_bar("MP", Color("237dba"))
+	bars.add_child(_mp_bar)
+	_mp_text = _bar_caption(_mp_bar)
+	_xp_bar = _make_bar("EXP", Color("408442"))
+	bars.add_child(_xp_bar)
+	_level_label = _bar_caption(_xp_bar)
 
-	var pause := Button.new()
-	pause.text = "Ⅱ Pausa"
-	pause.anchor_left = 1.0
-	pause.anchor_right = 1.0
-	pause.position = Vector2(-150, 18)
-	pause.custom_minimum_size = Vector2(132, 48)
-	UI_STYLE.style_button(pause, true)
-	pause.pressed.connect(func() -> void: pause_pressed.emit())
-	_root.add_child(pause)
-	var bag := Button.new()
-	bag.text = "▤ Mochila"
-	bag.anchor_left = 1.0
-	bag.anchor_right = 1.0
-	bag.position = Vector2(-360, 18)
-	bag.custom_minimum_size = Vector2(94, 48)
-	UI_STYLE.style_button(bag)
-	bag.pressed.connect(func() -> void: _toggle_inventory())
-	_root.add_child(bag)
-	var camp := Button.new()
-	camp.text = "⌂ Refúgio"
-	camp.anchor_left = 1.0
-	camp.anchor_right = 1.0
-	camp.position = Vector2(-258, 18)
-	camp.custom_minimum_size = Vector2(100, 48)
-	UI_STYLE.style_button(camp)
-	camp.pressed.connect(func() -> void: _toggle_camp())
-	_root.add_child(camp)
-	var zoom_out := Button.new()
-	zoom_out.text = "−"
-	zoom_out.anchor_left = 1.0
-	zoom_out.anchor_right = 1.0
-	zoom_out.position = Vector2(-128, 76)
-	zoom_out.custom_minimum_size = Vector2(48, 42)
-	UI_STYLE.style_button(zoom_out)
-	zoom_out.pressed.connect(func() -> void: zoom_requested.emit(-1))
-	_root.add_child(zoom_out)
-	var zoom_in := Button.new()
-	zoom_in.text = "+"
-	zoom_in.anchor_left = 1.0
-	zoom_in.anchor_right = 1.0
-	zoom_in.position = Vector2(-72, 76)
-	zoom_in.custom_minimum_size = Vector2(48, 42)
-	UI_STYLE.style_button(zoom_in)
-	zoom_in.pressed.connect(func() -> void: zoom_requested.emit(1))
-	_root.add_child(zoom_in)
+	var target_panel := PanelContainer.new()
+	target_panel.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	target_panel.position = Vector2(-286, 16)
+	target_panel.custom_minimum_size = Vector2(274, 116)
+	target_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	target_panel.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color(0.12, 0.06, 0.06, 0.93), Color("bd5350")))
+	_root.add_child(target_panel)
+	var target_box := VBoxContainer.new()
+	target_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	target_panel.add_child(target_box)
+	_target_label = Label.new()
+	_target_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_target_label.custom_minimum_size = Vector2(244, 56)
+	_target_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI_STYLE.style_label(_target_label, 20, UI_STYLE.CREAM)
+	var target_row := HBoxContainer.new()
+	target_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	target_box.add_child(target_row)
+	_target_portrait = TextureRect.new()
+	_target_portrait.custom_minimum_size = Vector2(64, 64)
+	_target_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_target_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_target_portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	target_row.add_child(_target_portrait)
+	_target_label.custom_minimum_size.x = 174
+	target_row.add_child(_target_label)
+	_target_bar = _make_bar("Alvo", Color("bd393e"))
+	target_box.add_child(_target_bar)
+	_hud_button("Trocar alvo", Vector2(-206, 140), Vector2(194, 56), func() -> void: cycle_target_pressed.emit(), Control.PRESET_TOP_RIGHT)
+	_hud_button("Mochila", Vector2(12, 192), Vector2(122, 62), _toggle_inventory)
+	_hud_button("Refúgio", Vector2(142, 192), Vector2(122, 62), _toggle_camp)
+	_hud_button("Ⅱ", Vector2(272, 192), Vector2(62, 62), func() -> void: pause_pressed.emit())
+	_hud_button("−", Vector2(342, 192), Vector2(62, 62), func() -> void: zoom_requested.emit(-1))
+	_hud_button("+", Vector2(412, 192), Vector2(62, 62), func() -> void: zoom_requested.emit(1))
+	_status = Label.new()
+	_status.position = Vector2(18, 266)
+	_status.size = Vector2(684, 70)
+	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_status.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI_STYLE.style_label(_status, 19, UI_STYLE.CREAM)
+	_status.add_theme_color_override("font_outline_color", Color("11151b"))
+	_status.add_theme_constant_override("outline_size", 6)
+	_root.add_child(_status)
 
 	var joystick = JOYSTICK.new()
+	_joystick = joystick
 	joystick.name = "VirtualJoystick"
 	joystick.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
-	joystick.position = Vector2(18, -190)
-	joystick.size = Vector2(160, 160)
-	joystick.radius = 68.0
+	joystick.position = Vector2(20, -252)
+	joystick.size = Vector2(216, 216)
+	joystick.radius = 96.0
 	joystick.vector_changed.connect(func(value: Vector2) -> void: joystick_moved.emit(value))
 	_root.add_child(joystick)
-	var hint := Label.new()
-	hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	hint.text = "WASD / setas"
-	hint.position = Vector2(28, -30)
-	hint.add_theme_font_size_override("font_size", 12)
-	hint.add_theme_color_override("font_color", UI_STYLE.CREAM)
-	joystick.add_child(hint)
+	_interact_button = _hud_button("Interagir", Vector2(20, -326), Vector2(216, 62), func() -> void: interact_pressed.emit(), Control.PRESET_BOTTOM_LEFT)
+	_bandage_button = _hud_button("Curativo", Vector2(-132, -406), Vector2(112, 100), func() -> void: bandage_pressed.emit(), Control.PRESET_BOTTOM_RIGHT, Color("318e52"), true)
+	_auto_attack_button = _hud_button("Espada\nAuto ON", Vector2(-164, -162), Vector2(144, 136), _toggle_auto_attack, Control.PRESET_BOTTOM_RIGHT, Color("bd7729"), true)
+	var skills := [
+		["war_combo", "Combo\n10 MP", Vector2(-286, -150), Color("ba5928")],
+		["war_circle", "Corte\n15 MP", Vector2(-298, -280), Color("9250bf")],
+		["war_quake", "Terremoto\n35 MP", Vector2(-156, -286), Color("3a8a9c")]
+	]
+	for data in skills:
+		var id := str(data[0])
+		var button := _hud_button(str(data[1]), data[2], Vector2(112, 100), func() -> void: skill_pressed.emit(id), Control.PRESET_BOTTOM_RIGHT, data[3], true)
+		_skill_buttons[id] = button
 
-	_interact_button = Button.new()
-	_interact_button.text = "E · Interagir"
-	_interact_button.anchor_left = 1.0
-	_interact_button.anchor_top = 1.0
-	_interact_button.anchor_right = 1.0
-	_interact_button.anchor_bottom = 1.0
-	_interact_button.position = Vector2(-230, -192)
-	_interact_button.custom_minimum_size = Vector2(208, 48)
-	UI_STYLE.style_button(_interact_button, true)
-	_interact_button.pressed.connect(func() -> void: interact_pressed.emit())
-	_root.add_child(_interact_button)
-	_bandage_button = Button.new()
-	_bandage_button.text = "Curativo"
-	_bandage_button.anchor_left = 1.0
-	_bandage_button.anchor_top = 1.0
-	_bandage_button.anchor_right = 1.0
-	_bandage_button.anchor_bottom = 1.0
-	_bandage_button.position = Vector2(-230, -246)
-	_bandage_button.custom_minimum_size = Vector2(208, 44)
-	UI_STYLE.style_button(_bandage_button)
-	_bandage_button.pressed.connect(func() -> void: bandage_pressed.emit())
-	_root.add_child(_bandage_button)
 
-	var hotbar := HBoxContainer.new()
-	hotbar.anchor_left = 1.0
-	hotbar.anchor_top = 1.0
-	hotbar.anchor_right = 1.0
-	hotbar.anchor_bottom = 1.0
-	hotbar.position = Vector2(-506, -103)
-	hotbar.size = Vector2(488, 82)
-	hotbar.add_theme_constant_override("separation", 6)
-	hotbar.mouse_filter = Control.MOUSE_FILTER_PASS
-	_root.add_child(hotbar)
-	_auto_attack_button = _make_hotbar_button("⚔\nAuto", true)
-	_auto_attack_button.pressed.connect(_toggle_auto_attack)
-	hotbar.add_child(_auto_attack_button)
-	for skill_data in [
-		{"id": "war_combo", "label": "Combo\n10 MP"},
-		{"id": "war_circle", "label": "Corte\n15 MP"},
-		{"id": "war_quake", "label": "Terremoto\n35 MP"}
-	]:
-		var skill_button := _make_hotbar_button(str(skill_data.label), false)
-		skill_button.pressed.connect(func() -> void: skill_pressed.emit(str(skill_data.id)))
-		hotbar.add_child(skill_button)
-		_skill_buttons[str(skill_data.id)] = skill_button
+func _bar_caption(bar: ProgressBar) -> Label:
+	var label := Label.new()
+	label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI_STYLE.style_label(label, 19, UI_STYLE.CREAM)
+	label.add_theme_color_override("font_outline_color", Color("15151b"))
+	label.add_theme_constant_override("outline_size", 4)
+	bar.add_child(label)
+	return label
+
+
+func _hud_button(text: String, point: Vector2, dimensions: Vector2, action: Callable, preset := Control.PRESET_TOP_LEFT, tint := Color("786d58"), round_button := false) -> Button:
+	var button := Button.new()
+	button.text = text
+	button.set_anchors_preset(preset)
+	button.position = point
+	button.custom_minimum_size = dimensions
+	button.size = dimensions
+	UI_STYLE.style_button(button)
+	button.add_theme_font_size_override("font_size", 20)
+	for state in ["normal", "hover", "pressed", "disabled"]:
+		var style := UI_STYLE.panel_style(Color("182027").lerp(tint, 0.25), tint)
+		if round_button:
+			style.set_corner_radius_all(48)
+			style.set_border_width_all(3)
+		if state == "pressed":
+			style.bg_color = tint.darkened(0.25)
+		if state == "disabled":
+			style.bg_color = Color("202125")
+			style.border_color = Color("55545b")
+		button.add_theme_stylebox_override(state, style)
+	button.pressed.connect(action)
+	_root.add_child(button)
+	return button
 
 
 func _make_bar(label_text: String, fill_color: Color) -> ProgressBar:
 	var bar := ProgressBar.new()
-	bar.custom_minimum_size = Vector2(118, 19)
+	bar.custom_minimum_size = Vector2(118, 30)
 	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	bar.min_value = 0
 	bar.max_value = 1
@@ -263,7 +253,7 @@ func _build_inventory_overlay() -> void:
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_inventory_overlay.add_child(center)
 	var panel := PanelContainer.new()
-	panel.custom_minimum_size = Vector2(1030, 560)
+	panel.custom_minimum_size = Vector2(668, 1080)
 	panel.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color("241d31"), Color("a77ce8")))
 	center.add_child(panel)
 	var margin := MarginContainer.new()
@@ -285,7 +275,7 @@ func _build_inventory_overlay() -> void:
 	var close := _close_button()
 	close.pressed.connect(func() -> void: _inventory_overlay.hide())
 	heading.add_child(close)
-	var columns := HBoxContainer.new()
+	var columns := VBoxContainer.new()
 	columns.add_theme_constant_override("separation", 12)
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	stack.add_child(columns)
@@ -294,7 +284,7 @@ func _build_inventory_overlay() -> void:
 	var equipment_box := _subpanel_stack(equipment_panel)
 	equipment_box.add_theme_constant_override("separation", 7)
 	var equipment_grid := GridContainer.new()
-	equipment_grid.columns = 3
+	equipment_grid.columns = 6
 	equipment_grid.add_theme_constant_override("h_separation", 4)
 	equipment_grid.add_theme_constant_override("v_separation", 4)
 	equipment_box.add_child(equipment_grid)
@@ -370,7 +360,7 @@ func _build_camp_overlay() -> void:
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_camp_overlay.add_child(center)
 	var panel := PanelContainer.new()
-	panel.custom_minimum_size = Vector2(650, 490)
+	panel.custom_minimum_size = Vector2(668, 580)
 	panel.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color("241d31"), Color("a77ce8")))
 	center.add_child(panel)
 	var margin := MarginContainer.new()
@@ -513,8 +503,8 @@ func _toggle_camp() -> void:
 
 func _toggle_auto_attack() -> void:
 	_auto_attack_enabled = not _auto_attack_enabled
-	_auto_attack_button.text = "⚔\nAuto: %s" % ("ON" if _auto_attack_enabled else "OFF")
-	UI_STYLE.style_button(_auto_attack_button, _auto_attack_enabled)
+	_auto_attack_button.text = "Espada\nAuto %s" % ("ON" if _auto_attack_enabled else "OFF")
+	_auto_attack_button.modulate = Color.WHITE if _auto_attack_enabled else Color(0.65, 0.65, 0.65)
 	auto_attack_toggled.emit(_auto_attack_enabled)
 
 
@@ -553,7 +543,7 @@ func _refresh_inventory() -> void:
 	if _use_bandage_button != null:
 		_use_bandage_button.disabled = int(_inventory_items.get("bandage", 0)) <= 0
 	if _bandage_button != null:
-		_bandage_button.text = "Curativo · %d" % int(_inventory_items.get("bandage", 0))
+		_bandage_button.text = "Curativo\n%d" % int(_inventory_items.get("bandage", 0))
 		_bandage_button.disabled = int(_inventory_items.get("bandage", 0)) <= 0
 
 
@@ -617,7 +607,18 @@ func _find_label(parent: Node, prefix: String) -> Label:
 
 func set_character_name(value: String) -> void:
 	if _name_label != null:
-		_name_label.text = "A Ilha do Cristal · %s (Guerreiro)" % value
+		_name_label.text = "%s · Guerreiro" % value
+		var profiles = preload("res://game/scripts/actors/appearance_data.gd")
+		for profile in profiles.profiles():
+			if str(profile.get("name", "")) == value:
+				var metadata_path := str(profile.get("idle_metadata", ""))
+				var metadata: Dictionary = profiles.metadata(metadata_path)
+				var frame := AtlasTexture.new()
+				frame.atlas = load(profiles.atlas_path(metadata_path, metadata))
+				var cell: Array = metadata.get("cell", [96, 96])
+				var directions: Array = metadata.get("directions", [])
+				frame.region = Rect2(0, maxi(0, directions.find("S")) * int(cell[1]), int(cell[0]), int(cell[1]))
+				_portrait.texture = frame
 
 
 func set_status(value: String) -> void:
@@ -657,24 +658,35 @@ func set_combat_state(
 	if _hp_bar != null:
 		_hp_bar.max_value = maxf(1.0, max_hp)
 		_hp_bar.value = hp
+		_hp_text.text = "HP %d / %d" % [ceili(hp), roundi(max_hp)]
 		_hp_bar.tooltip_text = "HP %d / %d" % [roundi(hp), roundi(max_hp)]
 		_hp_bar.modulate = Color.WHITE
 	if _mp_bar != null:
 		_mp_bar.max_value = maxf(1.0, max_mp)
 		_mp_bar.value = mp
+		_mp_text.text = "MP %d / %d" % [floori(mp), roundi(max_mp)]
 		_mp_bar.tooltip_text = "MP %d / %d" % [roundi(mp), roundi(max_mp)]
 	if _level_label != null:
-		_level_label.text = "Nível %d · %d / %d XP" % [level, xp_into_level, xp_for_level]
+		_level_label.text = "Nv. %d · EXP %d / %d" % [level, xp_into_level, xp_for_level]
+		_xp_bar.max_value = maxi(1, xp_for_level)
+		_xp_bar.value = xp_into_level
 	_inventory_items = items.duplicate(true)
 	_camp_level = camp_level
 	_refresh_inventory()
 	_refresh_camp()
 	if selected_target.is_empty():
-		_target_label.text = ""
+		_target_label.text = "Toque num monstro\nou troque o alvo"
+		_target_bar.value = 0
+		_target_portrait.texture = null
 	else:
-		_target_label.text = "%s · %d / %d HP" % [selected_target, roundi(target_hp), roundi(target_max_hp)]
+		var species := str({"Raposa": "fox", "Lobo": "wolf", "Urso": "bear"}.get(selected_target, ""))
+		if not species.is_empty():
+			_target_portrait.texture = load("res://assets/creatures/%s/%s_se_candidate_v1.png" % [species, species])
+		_target_bar.max_value = maxf(1.0, target_max_hp)
+		_target_bar.value = target_hp
+		_target_label.text = "%s\nHP %d / %d" % [selected_target, roundi(target_hp), roundi(target_max_hp)]
 	if bandage_active:
-		_bandage_button.text = "Curando · %d%%" % roundi(bandage_progress * 25.0)
+		_bandage_button.text = "Curando\n%d%%" % roundi(bandage_progress * 25.0)
 		_bandage_button.disabled = true
 	if down_remaining >= 0.0:
 		_downed_shade.show()
@@ -686,7 +698,7 @@ func set_combat_state(
 		_update_skill_button("war_circle", "Corte", mp, cooldowns)
 		_update_skill_button("war_quake", "Terremoto", mp, cooldowns)
 	if not bandage_active:
-		_bandage_button.text = "Curativo · %d" % int(_inventory_items.get("bandage", 0))
+		_bandage_button.text = "Curativo\n%d" % int(_inventory_items.get("bandage", 0))
 		_bandage_button.disabled = int(_inventory_items.get("bandage", 0)) <= 0
 
 
@@ -708,3 +720,26 @@ func set_target_feedback(value: String) -> void:
 
 func toggle_inventory_from_game() -> void:
 	_toggle_inventory()
+
+
+func _layout_safe_area() -> void:
+	# The world stays edge-to-edge; only controls respect camera cutouts.
+	if OS.get_name() != "Android":
+		return
+	var safe := DisplayServer.get_display_safe_area()
+	var screen := DisplayServer.screen_get_size()
+	if screen.x <= 0 or screen.y <= 0 or safe.size == Vector2i.ZERO:
+		return
+	var ratio := get_viewport().get_visible_rect().size / Vector2(screen)
+	_root.offset_left = safe.position.x * ratio.x
+	_root.offset_top = safe.position.y * ratio.y
+	_root.offset_right = -(screen.x - safe.end.x) * ratio.x
+	_root.offset_bottom = -(screen.y - safe.end.y) * ratio.y
+
+
+func _process(_delta: float) -> void:
+	_joystick.set_blocked(_inventory_overlay.visible or _camp_overlay.visible or _downed_shade.visible)
+
+
+func release_movement() -> void:
+	_joystick.set_blocked(true)
