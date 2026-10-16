@@ -101,3 +101,7 @@ Ao atualizar uma fase, preserve versões anteriores e acrescente a aprovação e
 - Comparação: Godot 4.5.1/OpenGL Compatibility/Mesa llvmpipe em Xvfb; captura local `build/portrait-gameplay.png`.
 - Desvios intencionais: mesma hierarquia com a arte pixel candidata da ilha; não reproduz dungeon, ouro, goblins nem habilidades ilustrativas fora do catálogo. Mochila usa seções verticais para caber no retrato.
 - Aceite de aparelho Android permanece pendente; render desktop e manifesto não substituem teste no dispositivo.
+
+## 2026-10-16 — Prancha pixel HUD selecionada pelo usuário
+
+Solicitação explícita de colocar a prancha pixel art no repositório e substituir o HUD autoriza a integração dessa referência. Fonte `assets/ui/pixel_hud_v1/source_sheet.png` preservada byte a byte; regiões AtlasTexture em `regions.json` para barras, molduras, spells, joystick e navegação. Textos/HP/MP/EXP/cooldowns continuam valores reais do jogo, não números pintados na imagem. Barras recompõem o preenchimento para esconder os valores ilustrativos da fonte. Ícones em nearest com legendas compactas. Import, regressão de retrato e render Godot/Mesa passaram. Android físico segue pendente. Prancha é referência gerada com algumas junções entre peças, registradas no manifesto, sem aprovação implícita de todo o restante da arte.

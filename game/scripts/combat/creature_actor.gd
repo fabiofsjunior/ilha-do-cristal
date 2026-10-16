@@ -6,6 +6,7 @@ signal player_damaged(amount: float, species_id: String)
 signal feedback_requested(message: String)
 signal defeated(actor: CreatureActor, death_id: String)
 
+const HUD_ART = preload("res://game/scripts/ui/hud_art.gd")
 const ART_LOADER = preload("res://game/scripts/actors/creature_art_loader.gd")
 
 const MOVE_SPEEDS := {"fox": 116.0, "wolf": 92.0, "bear": 39.0}
@@ -202,8 +203,8 @@ func selection_distance(point: Vector2, zoom: float) -> float:
 func _draw() -> void:
 	var width := 64.0 if species_id != "bear" else 90.0
 	if selected:
-		draw_arc(Vector2.ZERO, width * 0.54, 0.0, TAU, 48, Color("ffbd58"), 4.0, true)
-		draw_colored_polygon(PackedVector2Array([Vector2(-7, -78), Vector2(7, -78), Vector2(0, -68)]), Color("ffbd58"))
+		draw_texture_rect(HUD_ART.texture("selection_ring"), Rect2(-width * 0.6, -width * 0.25, width * 1.2, width * 0.65), false)
+		draw_texture_rect(HUD_ART.texture("target_marker"), Rect2(-8, -80, 16, 14), false)
 	if selected or hp < max_hp:
 		var point := Vector2(-width / 2.0, -58 if species_id != "bear" else -72)
 		draw_rect(Rect2(point - Vector2.ONE, Vector2(width + 2, 8)), Color("18191e"))

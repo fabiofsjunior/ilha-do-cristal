@@ -42,3 +42,5 @@ Não publicar fotos originais das crianças, credenciais, keystores ou saves pes
 A versão de teste mais recente usa **retrato 9:16**, mundo em tela inteira com expansão para outras proporções, HUD inspirado no protótipo enviado, alvo destacado/trocável e dano numérico flutuante. A seleção de aparência usa grade 2×2 e os painéis cabem no retrato.
 
 Builds: `python3 tools/build/export_android.py` e `python3 tools/build/export_web.py` com Godot 4.5.1. O Web solicita tela cheia ao entrar como visitante, conforme suporte do navegador; o canvas preenche o viewport mesmo sem permissão. APK debug 0.1.1/versionCode 2. Instalação em aparelho ainda requer playtest. Detalhes e verificações: [validação retrato](docs/gameplay/PORTRAIT_BUILD_VALIDATION.md).
+
+O HUD pixel usa a prancha escolhida pelo usuário em `assets/ui/pixel_hud_v1/`, com recortes por metadados e valores/captions dinâmicos.

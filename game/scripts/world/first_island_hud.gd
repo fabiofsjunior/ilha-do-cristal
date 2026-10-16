@@ -15,6 +15,8 @@ signal cycle_target_pressed
 signal respawn_pressed
 
 const UI_STYLE = preload("res://game/scripts/ui/ui_style.gd")
+const ART = preload("res://game/scripts/ui/hud_art.gd")
+const RESOURCE_BAR = preload("res://game/scripts/ui/hud_resource_bar.gd")
 const JOYSTICK = preload("res://game/scripts/ui/virtual_joystick.gd")
 const COMBAT_RULES = preload("res://game/scripts/combat/combat_rules.gd")
 const BAG_ITEM_IDS := [
@@ -29,6 +31,7 @@ const ITEM_LABELS := {
 }
 
 var _joystick: Control
+var _art_buttons: Array[Button] = []
 var _root: Control
 var _hp_text: Label
 var _mp_text: Label
@@ -78,73 +81,43 @@ func _ready() -> void:
 
 func _build_hud() -> void:
 	# All HUD positions use a 720-wide logical portrait canvas; the world expands.
-	var header := PanelContainer.new()
-	header.position = Vector2(12, 16)
-	header.custom_minimum_size = Vector2(410, 164)
-	header.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	header.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color(0.08, 0.10, 0.12, 0.94), Color("b19a70")))
-	_root.add_child(header)
-	var row := HBoxContainer.new()
-	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	header.add_child(row)
-	_portrait = TextureRect.new()
-	_portrait.custom_minimum_size = Vector2(82, 116)
-	_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	_portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	row.add_child(_portrait)
-	var bars := VBoxContainer.new()
-	bars.custom_minimum_size.x = 292
-	bars.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	row.add_child(bars)
+	# Sprite frames and live bars, using the exact user-selected pixel sheet.
+	_portrait = _framed_portrait("player_frame", Vector2(10, 30), Vector2(96, 112))
 	_name_label = Label.new()
+	_name_label.position = Vector2(110, 18)
+	_name_label.size = Vector2(310, 26)
 	UI_STYLE.style_label(_name_label, 20, UI_STYLE.GOLD)
 	_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	bars.add_child(_name_label)
+	_root.add_child(_name_label)
 	_hp_bar = _make_bar("HP", Color("bd393e"))
-	bars.add_child(_hp_bar)
+	_place_bar(_hp_bar, Vector2(106, 48), Vector2(312, 40))
 	_hp_text = _bar_caption(_hp_bar)
 	_mp_bar = _make_bar("MP", Color("237dba"))
-	bars.add_child(_mp_bar)
+	_place_bar(_mp_bar, Vector2(106, 90), Vector2(312, 40))
 	_mp_text = _bar_caption(_mp_bar)
 	_xp_bar = _make_bar("EXP", Color("408442"))
-	bars.add_child(_xp_bar)
+	_place_bar(_xp_bar, Vector2(106, 132), Vector2(312, 40))
 	_level_label = _bar_caption(_xp_bar)
-
-	var target_panel := PanelContainer.new()
-	target_panel.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	target_panel.position = Vector2(-286, 16)
-	target_panel.custom_minimum_size = Vector2(274, 116)
-	target_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	target_panel.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color(0.12, 0.06, 0.06, 0.93), Color("bd5350")))
-	_root.add_child(target_panel)
-	var target_box := VBoxContainer.new()
-	target_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	target_panel.add_child(target_box)
+	_target_portrait = _framed_portrait("enemy_frame", Vector2(-282, 18), Vector2(88, 98), Control.PRESET_TOP_RIGHT)
 	_target_label = Label.new()
+	_target_label.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	_target_label.position = Vector2(-190, 30)
+	_target_label.size = Vector2(178, 70)
 	_target_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_target_label.custom_minimum_size = Vector2(244, 56)
 	_target_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI_STYLE.style_label(_target_label, 20, UI_STYLE.CREAM)
-	var target_row := HBoxContainer.new()
-	target_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	target_box.add_child(target_row)
-	_target_portrait = TextureRect.new()
-	_target_portrait.custom_minimum_size = Vector2(64, 64)
-	_target_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_target_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	_target_portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	target_row.add_child(_target_portrait)
-	_target_label.custom_minimum_size.x = 174
-	target_row.add_child(_target_label)
+	_target_label.add_theme_color_override("font_outline_color", Color("15151b"))
+	_target_label.add_theme_constant_override("outline_size", 5)
+	_root.add_child(_target_label)
 	_target_bar = _make_bar("Alvo", Color("bd393e"))
-	target_box.add_child(_target_bar)
-	_hud_button("Trocar alvo", Vector2(-206, 140), Vector2(194, 56), func() -> void: cycle_target_pressed.emit(), Control.PRESET_TOP_RIGHT)
-	_hud_button("Mochila", Vector2(12, 192), Vector2(122, 62), _toggle_inventory)
-	_hud_button("Refúgio", Vector2(142, 192), Vector2(122, 62), _toggle_camp)
-	_hud_button("Ⅱ", Vector2(272, 192), Vector2(62, 62), func() -> void: pause_pressed.emit())
-	_hud_button("−", Vector2(342, 192), Vector2(62, 62), func() -> void: zoom_requested.emit(-1))
-	_hud_button("+", Vector2(412, 192), Vector2(62, 62), func() -> void: zoom_requested.emit(1))
+	_target_bar.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	_place_bar(_target_bar, Vector2(-282, 120), Vector2(268, 42))
+	_hud_button("Trocar alvo", Vector2(-132, 176), Vector2(112, 78), func() -> void: cycle_target_pressed.emit(), Control.PRESET_TOP_RIGHT)
+	_hud_button("Mochila", Vector2(12, 184), Vector2(76, 76), _toggle_inventory)
+	_hud_button("Refúgio", Vector2(96, 184), Vector2(76, 76), _toggle_camp)
+	_hud_button("Ⅱ", Vector2(180, 184), Vector2(76, 76), func() -> void: pause_pressed.emit())
+	_hud_button("−", Vector2(264, 184), Vector2(76, 76), func() -> void: zoom_requested.emit(-1))
+	_hud_button("+", Vector2(348, 184), Vector2(76, 76), func() -> void: zoom_requested.emit(1))
 	_status = Label.new()
 	_status.position = Vector2(18, 266)
 	_status.size = Vector2(684, 70)
@@ -165,7 +138,7 @@ func _build_hud() -> void:
 	joystick.vector_changed.connect(func(value: Vector2) -> void: joystick_moved.emit(value))
 	_root.add_child(joystick)
 	_interact_button = _hud_button("Interagir", Vector2(20, -326), Vector2(216, 62), func() -> void: interact_pressed.emit(), Control.PRESET_BOTTOM_LEFT)
-	_bandage_button = _hud_button("Curativo", Vector2(-132, -406), Vector2(112, 100), func() -> void: bandage_pressed.emit(), Control.PRESET_BOTTOM_RIGHT, Color("318e52"), true)
+	_bandage_button = _hud_button("Curativo", Vector2(-132, -406), Vector2(112, 112), func() -> void: bandage_pressed.emit(), Control.PRESET_BOTTOM_RIGHT, Color("318e52"), true)
 	_auto_attack_button = _hud_button("Espada\nAuto ON", Vector2(-164, -162), Vector2(144, 136), _toggle_auto_attack, Control.PRESET_BOTTOM_RIGHT, Color("bd7729"), true)
 	var skills := [
 		["war_combo", "Combo\n10 MP", Vector2(-286, -150), Color("ba5928")],
@@ -174,17 +147,23 @@ func _build_hud() -> void:
 	]
 	for data in skills:
 		var id := str(data[0])
-		var button := _hud_button(str(data[1]), data[2], Vector2(112, 100), func() -> void: skill_pressed.emit(id), Control.PRESET_BOTTOM_RIGHT, data[3], true)
+		var button := _hud_button(str(data[1]), data[2], Vector2(112, 112), func() -> void: skill_pressed.emit(id), Control.PRESET_BOTTOM_RIGHT, data[3], true)
+		_apply_button_art(button, id)
 		_skill_buttons[id] = button
 
 
 func _bar_caption(bar: ProgressBar) -> Label:
 	var label := Label.new()
-	label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	label.anchor_right = 1.0
+	label.anchor_bottom = 1.0
+	label.offset_left = 42
+	label.offset_top = 7
+	label.offset_right = -22
+	label.offset_bottom = -6
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI_STYLE.style_label(label, 19, UI_STYLE.CREAM)
+	UI_STYLE.style_label(label, 16, UI_STYLE.CREAM)
 	label.add_theme_color_override("font_outline_color", Color("15151b"))
 	label.add_theme_constant_override("outline_size", 4)
 	bar.add_child(label)
@@ -211,29 +190,97 @@ func _hud_button(text: String, point: Vector2, dimensions: Vector2, action: Call
 			style.bg_color = Color("202125")
 			style.border_color = Color("55545b")
 		button.add_theme_stylebox_override(state, style)
+	var mapping := {"Mochila": "bag", "Refúgio": "refuge", "Ⅱ": "pause", "−": "zoom_out", "+": "zoom_in", "Trocar alvo": "target", "Curativo": "bandage", "Espada\nAuto ON": "attack"}
+	if mapping.has(text):
+		_apply_button_art(button, str(mapping[text]))
 	button.pressed.connect(action)
 	_root.add_child(button)
 	return button
 
 
-func _make_bar(label_text: String, fill_color: Color) -> ProgressBar:
-	var bar := ProgressBar.new()
-	bar.custom_minimum_size = Vector2(118, 30)
-	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	bar.min_value = 0
+func _make_bar(label_text: String, _fill_color: Color) -> ProgressBar:
+	var bar = RESOURCE_BAR.new()
+	bar.skin = {"HP": "hp", "MP": "mp", "EXP": "xp", "Alvo": "enemy_hp"}.get(label_text, "hp")
+	bar.custom_minimum_size = Vector2(118, 36)
+	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	bar.max_value = 1
 	bar.value = 1
 	bar.show_percentage = false
 	bar.tooltip_text = label_text
-	var background := StyleBoxFlat.new()
-	background.bg_color = Color("211821")
-	background.border_color = Color("e4d7bd")
-	background.set_border_width_all(1)
-	bar.add_theme_stylebox_override("background", background)
-	var fill := StyleBoxFlat.new()
-	fill.bg_color = fill_color
-	bar.add_theme_stylebox_override("fill", fill)
 	return bar
+
+
+func _place_bar(bar: ProgressBar, point: Vector2, dimensions: Vector2) -> void:
+	bar.position = point
+	bar.size = dimensions
+	_root.add_child(bar)
+
+
+func _framed_portrait(id: String, point: Vector2, dimensions: Vector2, preset := Control.PRESET_TOP_LEFT) -> TextureRect:
+	var holder := Control.new()
+	holder.set_anchors_preset(preset)
+	holder.position = point
+	holder.size = dimensions
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_root.add_child(holder)
+	var portrait := TextureRect.new()
+	portrait.position = dimensions * Vector2(0.19, 0.20)
+	portrait.size = dimensions * Vector2(0.62, 0.60)
+	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	holder.add_child(portrait)
+	var frame := TextureRect.new()
+	frame.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	frame.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	frame.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	frame.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	frame.texture = ART.texture(id)
+	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	holder.add_child(frame)
+	return portrait
+
+
+func _apply_button_art(button: Button, id: String) -> void:
+	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+		button.add_theme_stylebox_override(state, StyleBoxEmpty.new())
+	var icon := TextureRect.new()
+	icon.name = "PixelArtwork"
+	icon.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	icon.texture = ART.texture(id)
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_child(icon)
+	button.set_meta("art_id", id)
+	var caption := Label.new()
+	caption.name = "LiveCaption"
+	caption.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	caption.offset_top = -23
+	caption.offset_bottom = -1
+	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI_STYLE.style_label(caption, 17, UI_STYLE.CREAM)
+	caption.add_theme_color_override("font_outline_color", Color("12151b"))
+	caption.add_theme_constant_override("outline_size", 6)
+	button.add_child(caption)
+	_set_button_text(button, button.text)
+	_art_buttons.append(button)
+
+
+func _set_button_text(button: Button, value: String) -> void:
+	button.tooltip_text = value.replace("\n", " · ")
+	var caption := button.get_node_or_null("LiveCaption") as Label
+	if caption == null:
+		button.text = value
+		return
+	button.text = ""
+	var lines := value.split("\n")
+	caption.text = str(lines[-1]) if lines.size() > 1 else value
+	if str(button.get_meta("art_id", "")) in ["pause", "zoom_in", "zoom_out"]:
+		caption.text = ""
 
 
 func _make_hotbar_button(label_text: String, primary: bool) -> Button:
@@ -503,7 +550,7 @@ func _toggle_camp() -> void:
 
 func _toggle_auto_attack() -> void:
 	_auto_attack_enabled = not _auto_attack_enabled
-	_auto_attack_button.text = "Espada\nAuto %s" % ("ON" if _auto_attack_enabled else "OFF")
+	_set_button_text(_auto_attack_button, "Espada\nAuto %s" % ("ON" if _auto_attack_enabled else "OFF"))
 	_auto_attack_button.modulate = Color.WHITE if _auto_attack_enabled else Color(0.65, 0.65, 0.65)
 	auto_attack_toggled.emit(_auto_attack_enabled)
 
@@ -543,7 +590,7 @@ func _refresh_inventory() -> void:
 	if _use_bandage_button != null:
 		_use_bandage_button.disabled = int(_inventory_items.get("bandage", 0)) <= 0
 	if _bandage_button != null:
-		_bandage_button.text = "Curativo\n%d" % int(_inventory_items.get("bandage", 0))
+		_set_button_text(_bandage_button, "Curativo\n%d" % int(_inventory_items.get("bandage", 0)))
 		_bandage_button.disabled = int(_inventory_items.get("bandage", 0)) <= 0
 
 
@@ -686,7 +733,7 @@ func set_combat_state(
 		_target_bar.value = target_hp
 		_target_label.text = "%s\nHP %d / %d" % [selected_target, roundi(target_hp), roundi(target_max_hp)]
 	if bandage_active:
-		_bandage_button.text = "Curando\n%d%%" % roundi(bandage_progress * 25.0)
+		_set_button_text(_bandage_button, "Curando\n%d%%" % roundi(bandage_progress * 25.0))
 		_bandage_button.disabled = true
 	if down_remaining >= 0.0:
 		_downed_shade.show()
@@ -698,7 +745,7 @@ func set_combat_state(
 		_update_skill_button("war_circle", "Corte", mp, cooldowns)
 		_update_skill_button("war_quake", "Terremoto", mp, cooldowns)
 	if not bandage_active:
-		_bandage_button.text = "Curativo\n%d" % int(_inventory_items.get("bandage", 0))
+		_set_button_text(_bandage_button, "Curativo\n%d" % int(_inventory_items.get("bandage", 0)))
 		_bandage_button.disabled = int(_inventory_items.get("bandage", 0)) <= 0
 
 
@@ -709,7 +756,7 @@ func _update_skill_button(skill_id: String, label: String, current_mp: float, co
 	var mana_cost := int(COMBAT_RULES.skill(skill_id).get("mp", 0))
 	var remaining := float(cooldowns.get(skill_id, 0.0))
 	var suffix := "%.0f s" % remaining if remaining > 0.0 else "%d MP" % mana_cost
-	button.text = "%s\n%s" % [label, suffix]
+	_set_button_text(button, "%s\n%s" % [label, suffix])
 	button.disabled = current_mp < mana_cost or remaining > 0.0
 
 
@@ -738,6 +785,9 @@ func _layout_safe_area() -> void:
 
 
 func _process(_delta: float) -> void:
+	for button in _art_buttons:
+		var icon := button.get_node("PixelArtwork") as TextureRect
+		icon.modulate = Color(0.42, 0.42, 0.42, 0.85) if button.disabled else (Color(0.75, 0.75, 0.75) if button.is_pressed() else Color.WHITE)
 	_joystick.set_blocked(_inventory_overlay.visible or _camp_overlay.visible or _downed_shade.visible)
 
 

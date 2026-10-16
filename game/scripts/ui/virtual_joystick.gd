@@ -1,5 +1,7 @@
 extends Control
 
+const ART = preload("res://game/scripts/ui/hud_art.gd")
+
 signal vector_changed(value: Vector2)
 
 @export var radius := 72.0
@@ -13,6 +15,19 @@ var blocked := false
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	custom_minimum_size = Vector2(radius * 2.0 + 16.0, radius * 2.0 + 16.0)
+	var mask := Control.new()
+	mask.size = size
+	mask.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	mask.clip_children = CanvasItem.CLIP_CHILDREN_ONLY
+	mask.draw.connect(func() -> void: mask.draw_circle(size * 0.5, size.x * 0.49, Color.WHITE))
+	add_child(mask)
+	var ring := TextureRect.new()
+	ring.size = size
+	ring.texture = ART.texture("joystick_ring")
+	ring.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	ring.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	ring.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	mask.add_child(ring)
 	queue_redraw()
 
 
@@ -61,12 +76,11 @@ func _set_value(next_value: Vector2) -> void:
 
 
 func _draw() -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	var center := size * 0.5
-	draw_circle(center, radius, Color(0.08, 0.12, 0.15, 0.68))
-	draw_arc(center, radius, 0.0, TAU, 48, Color(0.74, 0.69, 0.56, 0.9), 3.0, true)
-	var knob := center + value * radius * 0.62
-	draw_circle(knob, radius * 0.42, Color(0.33, 0.31, 0.26, 0.92))
-	draw_arc(knob, radius * 0.42, 0.0, TAU, 32, Color(0.97, 0.80, 0.49, 0.9), 2.0, true)
+	var knob := center + value * radius * 0.52
+	var dimensions := Vector2.ONE * radius * 0.92
+	draw_texture_rect(ART.texture("joystick_knob"), Rect2(knob - dimensions * 0.5, dimensions), false)
 
 
 func set_blocked(next_value: bool) -> void:
