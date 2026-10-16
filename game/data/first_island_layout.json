@@ -43,6 +43,25 @@
   ],
   "spawn_cell": [16, 23],
   "beacon_cell": [21, 23],
+  "creature_spawns": [
+    { "id": "fox_1", "species": "fox", "cell": [27, 24] },
+    { "id": "wolf_1", "species": "wolf", "cell": [40, 22] },
+    { "id": "bear_1", "species": "bear", "cell": [56, 22] }
+  ],
+  "harvest_nodes": [
+    { "id": "fiber_22_18", "resource": "fiber", "quantity": 5, "cell": [22, 18] },
+    { "id": "fiber_29_27", "resource": "fiber", "quantity": 5, "cell": [29, 27] },
+    { "id": "fiber_34_23", "resource": "fiber", "quantity": 5, "cell": [34, 23] },
+    { "id": "fiber_39_31", "resource": "fiber", "quantity": 5, "cell": [39, 31] },
+    { "id": "fiber_45_22", "resource": "fiber", "quantity": 5, "cell": [45, 22] },
+    { "id": "fiber_48_34", "resource": "fiber", "quantity": 5, "cell": [48, 34] },
+    { "id": "herb_20_20", "resource": "herb", "quantity": 1, "cell": [20, 20] },
+    { "id": "herb_25_25", "resource": "herb", "quantity": 1, "cell": [25, 25] },
+    { "id": "herb_35_21", "resource": "herb", "quantity": 1, "cell": [35, 21] },
+    { "id": "herb_43_16", "resource": "herb", "quantity": 1, "cell": [43, 16] },
+    { "id": "herb_49_30", "resource": "herb", "quantity": 1, "cell": [49, 30] },
+    { "id": "herb_31_29", "resource": "herb", "quantity": 1, "cell": [31, 29] }
+  ],
   "obstacles": [
     { "kind": "tree", "cell": [24, 17] },
     { "kind": "tree", "cell": [27, 21] },

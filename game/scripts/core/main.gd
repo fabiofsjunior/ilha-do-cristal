@@ -6,6 +6,7 @@ const SESSION_SCENE := "res://game/scenes/session_select.tscn"
 const GAME_SCENE := "res://game/scenes/first_island.tscn"
 const PAUSE_SCENE := "res://game/scenes/pause_overlay.tscn"
 const APPEARANCE_DATA = preload("res://game/scripts/actors/appearance_data.gd")
+const EXPEDITION_STATE = preload("res://game/scripts/save/expedition_state.gd")
 
 var screen_host: Control
 var selected_character_id := "melissa"
@@ -18,6 +19,9 @@ var pause_overlay
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().paused = false
+	selected_character_id = EXPEDITION_STATE.active_character_id(OS.get_environment("GAMEPLAY_TEST_SAVE_DIR"))
+	var remembered_profile: Dictionary = APPEARANCE_DATA.profile_for_id(selected_character_id)
+	selected_character_name = str(remembered_profile.get("name", "Melissa"))
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	screen_host = Control.new()
 	screen_host.name = "ScreenHost"
@@ -28,6 +32,8 @@ func _ready() -> void:
 
 
 func _clear_host() -> void:
+	if gameplay != null and is_instance_valid(gameplay) and gameplay.has_method("save_progress"):
+		gameplay.save_progress()
 	get_tree().paused = false
 	for child in screen_host.get_children():
 		screen_host.remove_child(child)
@@ -116,9 +122,19 @@ func _resume_gameplay() -> void:
 
 
 func _show_session_from_pause() -> void:
+	if gameplay != null and is_instance_valid(gameplay) and gameplay.has_method("save_progress"):
+		gameplay.save_progress()
 	_show_session()
 
 
 func _on_interaction_requested() -> void:
 	if gameplay != null and gameplay.has_method("interact_with_beacon"):
 		gameplay.interact_with_beacon()
+
+
+func _notification(what: int) -> void:
+	if what in [NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_FOCUS_OUT]:
+		if gameplay != null and is_instance_valid(gameplay) and gameplay.has_method("save_progress"):
+			gameplay.save_progress()
+		if what == NOTIFICATION_WM_CLOSE_REQUEST:
+			get_tree().quit()

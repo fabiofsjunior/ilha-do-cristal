@@ -7,6 +7,7 @@ const APPEARANCE_DATA = preload("res://game/scripts/actors/appearance_data.gd")
 var selected_character_id := "melissa"
 var joystick_vector := Vector2.ZERO
 var facing := "S"
+var input_enabled := true
 var _sprite: AnimatedSprite2D
 var _sprite_frames: SpriteFrames
 
@@ -22,7 +23,19 @@ func set_joystick_vector(value: Vector2) -> void:
 	joystick_vector = value.limit_length(1.0)
 
 
+func set_input_enabled(enabled: bool) -> void:
+	input_enabled = enabled
+	if not enabled:
+		joystick_vector = Vector2.ZERO
+		velocity = Vector2.ZERO
+
+
 func _physics_process(_delta: float) -> void:
+	if not input_enabled:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		_play("idle_" + facing)
+		return
 	var direction := _keyboard_vector()
 	if direction.length_squared() < 0.001:
 		direction = joystick_vector
