@@ -190,3 +190,7 @@ Testes: import Godot sem erros de script; smoke completo menu/aparência/sessão
 Export final e evidência Web/APK descritos em `docs/gameplay/PORTRAIT_BUILD_VALIDATION.md`. Não há aparelho Android conectado; aceitação de toque físico, recortes de fabricante e estabilidade de 10 minutos continua pendente.
 
 Entrega técnica concluída: builds 0.1.1 do commit `b02cf9c`, APK assinado/manifesto portrait/CRC/runtime aprovados; ZIP Web e compile WASM aprovados. Tentativa WebGL em Chromium bloqueada por socket do ambiente. PR #10 aberta sobre a branch jogável. Hashes completos em `PORTRAIT_BUILD_VALIDATION.md`; pacote Web inclui o launcher local. Não houve teste Android físico nem validação WebGL/IndexedDB.
+
+## 2026-10-16 — Prancha pixel HUD selecionada pelo usuário
+
+Solicitação explícita de colocar a prancha pixel art no repositório e substituir o HUD autoriza a integração dessa referência. Fonte `assets/ui/pixel_hud_v1/source_sheet.png` preservada byte a byte; regiões AtlasTexture em `regions.json` para barras, molduras, spells, joystick e navegação. Textos/HP/MP/EXP/cooldowns continuam valores reais do jogo, não números pintados na imagem. Barras recompõem o preenchimento para esconder os valores ilustrativos da fonte. Ícones em nearest com legendas compactas. Import, regressão de retrato e render Godot/Mesa passaram. Android físico segue pendente. Prancha é referência gerada com algumas junções entre peças, registradas no manifesto, sem aprovação implícita de todo o restante da arte.
