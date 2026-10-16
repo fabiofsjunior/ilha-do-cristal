@@ -15,7 +15,7 @@ python3 tools/validate_catalogs.py
 
 O smoke da cena confirma a navegação já aprovada, as quatro aparências Warrior, os três candidatos SE, clique para selecionar, autoataque, raposa pacífica até receber dano, fuga e revide da raposa, golpe anunciado do urso cancelado pelo cristal, 2.816 células de terreno, movimento, barreira da água e pausa. O teste de estado usa um diretório `user://mvp_solo_loop_<id>` único e deixa esses arquivos de teste no disco; ele não apaga saves.
 
-Também foram executados `--headless --editor --import --quit` e a cena principal por 300 frames no Godot 4.5.1. A exportação Web foi tentada com `--export-release Web`; falhou antes da geração porque os templates Web 4.5.1 não estão instalados neste ambiente. Nenhum APK foi gerado ou testado em aparelho neste incremento.
+Também foram executados `--headless --editor --import --quit` e a cena principal por 300 frames no Godot 4.5.1. Os templates ausentes no worktree inicial foram instalados durante a integração. Exportações e limitações de plataforma são registradas em [MVP_BUILD_VALIDATION.md](MVP_BUILD_VALIDATION.md); não houve teste em aparelho neste incremento.
 
 ## Controles e ciclo
 
@@ -34,7 +34,7 @@ HP/MP iniciais e atributos vêm do Warrior no catálogo; XP por coleta, níveis 
 
 ## Save e recuperação
 
-O slot guarda a aparência escolhida, posição, direção, zoom, HP/MP, nível/XP, inventário, coletas concluídas, inimigos e vida, ledger de recompensas, receitas, cooldowns, cura, acampamento e mochilas. O formato é schema 1 sob `user://worlds/solo/<aparência>/`, com temporário, slot ativo, slot anterior e checksum SHA-256. Um slot anterior é arquivado antes de ser substituído; cópias inválidas também são preservadas. Ao carregar, o jogo usa o snapshot válido de maior revisão ou apresenta erro e bloqueia mutações se nenhum slot passar na validação. Não há botão de apagar saves.
+O slot guarda a aparência escolhida, posição, direção, zoom, HP/MP, nível/XP, inventário, coletas concluídas, inimigos e vida, ledger de recompensas, receitas, cooldowns, cura, acampamento e mochilas. O formato é schema 1 sob `user://worlds/solo/<aparência>/`, com temporário, slot ativo, slot anterior e checksum SHA-256. As gravações normais mantêm dois slots, após verificar o temporário, sem acumular um arquivo por autosave; cópias inválidas são preservadas para diagnóstico. Ao carregar, o jogo usa o snapshot válido de maior revisão ou apresenta erro e bloqueia mutações se nenhum slot passar na validação. Não há botão de apagar saves.
 
 ## Arte e limites desta fatia
 

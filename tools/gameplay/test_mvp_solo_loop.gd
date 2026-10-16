@@ -83,6 +83,15 @@ func _run() -> void:
 	var saved_meat: int = state.amount("meat")
 	if not _expect(state.save() and state.save(), "Atomic save did not create active and previous slots."):
 		return
+	for _rotation in range(5):
+		if not _expect(state.save(), "Repeated snapshot rotation failed."):
+			return
+	var snapshot_files := 0
+	for filename in DirAccess.get_files_at(root_path):
+		if filename.begins_with("snapshot.") and filename.ends_with(".json"):
+			snapshot_files += 1
+	if not _expect(snapshot_files == 2, "Routine saves accumulated snapshots instead of retaining two slots."):
+		return
 	var snapshot_path: String = state.snapshot_path()
 	var active_file := FileAccess.open(snapshot_path, FileAccess.WRITE)
 	if not _expect(active_file != null, "Could not open the isolated test slot for corruption recovery test."):

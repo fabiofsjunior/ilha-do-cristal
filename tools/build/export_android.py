@@ -49,7 +49,7 @@ def classify_godot_output(output: str) -> tuple[list[str], list[str]]:
         if "SCRIPT ERROR:" in line:
             errors.append(line)
         elif "ERROR:" in line:
-            if line.startswith(KNOWN_PROJECT_ICON_ERROR):
+            if line.strip() == KNOWN_PROJECT_ICON_ERROR:
                 warnings.append(line)
             else:
                 errors.append(line)

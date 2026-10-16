@@ -279,12 +279,10 @@ func save() -> bool:
 	var active_check := _read_snapshot(active_path) if FileAccess.file_exists(active_path) else {"ok": false}
 	if active_check.ok:
 		if FileAccess.file_exists(previous_path):
-			var archived_previous := save_root.path_join("snapshot.archive.%d.%d.json" % [revision, Time.get_unix_time_from_system()])
-			var archive_error := DirAccess.rename_absolute(
-				ProjectSettings.globalize_path(previous_path), ProjectSettings.globalize_path(archived_previous)
-			)
-			if archive_error != OK:
-				push_error("Não foi possível preservar o snapshot anterior %s: %s" % [previous_path, error_string(archive_error)])
+			# The verified temporary snapshot and active slot remain intact during rotation.
+			var rotation_error := DirAccess.remove_absolute(ProjectSettings.globalize_path(previous_path))
+			if rotation_error != OK:
+				push_error("Não foi possível rotacionar o slot anterior %s: %s" % [previous_path, error_string(rotation_error)])
 				return false
 		var rename_previous := DirAccess.rename_absolute(
 			ProjectSettings.globalize_path(active_path), ProjectSettings.globalize_path(previous_path)
