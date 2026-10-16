@@ -1,0 +1,109 @@
+{
+  "id": "wolf_se_candidate_v1",
+  "species": "wolf",
+  "catalog_id": "wolf",
+  "asset_stage": "candidate",
+  "hp": 90,
+  "attack": 12,
+  "behavior": "aggressive_short_range",
+  "atlas": {
+    "file": "wolf_se_candidate_v1.png",
+    "columns": 1,
+    "rows": 1
+  },
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "SE"
+  ],
+  "animations": {
+    "idle": {
+      "frames": 1,
+      "fps": 1,
+      "loop": true
+    }
+  },
+  "status": "corrigir",
+  "approved": false,
+  "source": {
+    "file": "../../references/generated-candidates/wolf/wolf_se_source_v3.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "tool": "built-in imagegen; one generation and two targeted edits"
+  },
+  "packing": {
+    "method": "uniform nearest-neighbor",
+    "source_canvas_resampled_to": [
+      72,
+      72
+    ],
+    "placement_in_cell": [
+      10,
+      10
+    ],
+    "cropped": false,
+    "alpha_binarized": false,
+    "alpha_values_in_atlas": 52,
+    "intermediate_alpha_values_in_atlas": 50,
+    "alpha_bbox": [
+      19,
+      24,
+      77,
+      81
+    ],
+    "display_only_preview": "../../../docs/art/evidence/wolf/wolf_se_nearest_preview_v1.png",
+    "preview_scale": 8
+  },
+  "required_contract": {
+    "status": "pending",
+    "directions": [
+      "N",
+      "NE",
+      "E",
+      "SE",
+      "S",
+      "SW",
+      "W",
+      "NW"
+    ],
+    "directions_pending": [
+      "N",
+      "NE",
+      "E",
+      "S",
+      "SW",
+      "W",
+      "NW"
+    ],
+    "animations": {
+      "idle": {
+        "frames": 4,
+        "status": "pending"
+      },
+      "walk": {
+        "frames": 6,
+        "status": "pending"
+      },
+      "attack": {
+        "frames": 6,
+        "status": "pending"
+      },
+      "hit": {
+        "frames": 3,
+        "status": "pending"
+      },
+      "death": {
+        "frames": 6,
+        "status": "pending"
+      }
+    }
+  }
+}
