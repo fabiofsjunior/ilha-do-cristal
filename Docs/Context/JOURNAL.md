@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 9198)
-Total output lines: 192
-
 # Journal — Diário de bordo
 
 ## 2026-10-14 — Organização de pré-produção
@@ -72,7 +69,79 @@ Criado protótipo navegável de interface com telas do GDD em `docs/prototypes/m
 - Criados o protótipo navegável `docs/prototypes/mvp_ui_v0_4.html`, preservando a v0.3, e a cena técnica `tools/art/sprite_test/fabio_stage1_test.tscn` para comparar v1/v2, direção, animação, frame, zoom, SQM e fundos. A cena ficou sem execução por indisponibilidade do Godot.
 - Fábio aparece no protótipo de seleção com placeholder geométrico; o protótipo aguarda validação explícita e não libera implementação de UI.
 - Atualizada a validação do catálogo para exigir os quatro IDs (`melissa`, `helena`, `maira`, `fabio`). `python tools/validate_catalogs.py`, `node --check` do JS da v0.4 e `git diff --check` passaram. Nenhum arquivo de foto privada está rastreado.
-- O PR #5 foi mantido em rascunho e sua descrição atualizada. Fábio Warrior etapa 1 continua **corrigir**; Godot/Android não foram validados. A revisão corretiva delegada a GPT-6 Luna com racio…3198 tokens truncated…a/interação, zoom 50–125%, câmera sem smoothing/nearest/pixel snap, colisão com água, bordas, árvores e pedras placeholder, além de cristal interativo somente demonstrativo.
+- O PR #5 foi mantido em rascunho e sua descrição atualizada. Fábio Warrior etapa 1 continua **corrigir**; Godot/Android não foram validados. A revisão corretiva delegada a GPT-6 Luna com raciocínio máximo gerou uma v2 isolada: escala uniforme nearest 1,075× nas linhas norte, pivô candidato (48,80), alpha preservado e v1 intacta. A altura alpha ≥128 aproximou idle N/S de ~58/64 para 62/64 px; no walk, N/S ficou em 66 contra 63–64 px. O acabamento suavizado ainda deixa a arte em **corrigir**; o verificador estrutural de atlas reporta dez avisos conhecidos de alpha intermediário e nenhum erro de célula vazia/limite. Godot/Android continuam pendentes.
+- Próximo gate: validar o protótipo v0.4 e revisar a correção técnica Warrior etapa 1 antes de qualquer ampliação.
+
+
+## 2026-10-15 — árvore passiva candidata v0.5
+
+- O usuário orientou uma rede de passivas com 25 círculos, 6 nós retangulares e três atores; em seguida pediu que os nós retangulares fossem quadrados ou círculos maiores. A v0.5 usa 25 círculos pequenos, 6 quadrados grandes e 3 origens em losango com figuras de ator e rótulo “Actor”.
+- A malha distribuída conecta Warrior (alto), Archer (esquerda) e Mage (direita) por 61 ligações bidirecionais. Cada origem alcança os 34 nós. A tela permite selecionar nós para ver tipo, efeito, custo e estado e simular compra de nós adjacentes; pontos são separados por vocação e não persistem.
+- Registradas no catálogo as 34 entradas candidatas e um roadmap visual de quatro etapas. Os 31 nós passivos custam 37 pontos no total; o nível 10 dispõe de 30. Os valores não substituem o plano vigente (100 por vocação/18 candidatos iniciais) até revisão explícita.
+- Verificações estáticas no protótipo: sintaxe JavaScript, contagens (25/6/3), 61 conexões bidirecionais, sem IDs duplicadas ou pontas soltas, e conectividade completa desde as três origens. Catálogo JSON validado por parse; não houve execução em navegador, Godot ou Android neste ambiente.
+- Próximo gate: revisão do usuário da árvore v0.5 e dos nomes/efeitos/custos candidatos. Nenhuma UI de produção foi implementada.
+
+
+## 2026-10-15 — árvore conceitual v0.6
+
+O usuário selecionou a imagem endgame anexada para orientar a estrutura do protótipo. O PNG foi validado (1672×941, RGBA) e salvo em `docs/prototypes/assets/passive_skill_tree_endgame_reference.png`. A v0.6 mostra essa imagem, lista nós para inspeção, alterna Warrior/Archer/Mage e simula níveis 1–10. Origem inicia desbloqueada; outros nós são liberados automaticamente por nível. A sequência de geração em 2/4/6/8/10 é ilustrativa e aguarda validação. A imagem conceitual não contém dados exatos de topologia; v0.5 foi preservada.
+
+
+## 2026-10-15 — inventário e atributos v0.7
+
+A pedido do usuário, o protótipo navegável ganha tela de inventário em três colunas: 12 slots de equipamento na matriz 4×3, 24 espaços de mochila e painel contextual à direita. A seleção de item troca o painel de atributos por detalhes, status/localização e ações de equipar/desequipar ou usar. O painel de atributos exibe descrições de FOR/AGI/INT, multiplicadores por vocação, efeitos por ponto e prévia de HP/MP máximo. A simulação inicia no nível 4 com 3 pontos livres; atributos brutos são zero e HP/MP base permanecem por vocação. O protótipo não salva progresso e segue aguardando revisão; a árvore e a referência v0.6 são preservadas.
+
+
+## 2026-10-15 — candidata técnica Helena Warrior etapa 1
+
+- A etapa foi limitada a uma aparência/candidata Warrior, direções N/S, `idle` 4 e `walk` 6. O GDD permite qualquer vocação para Helena sem default; Warrior foi usado apenas como suposição do primeiro exemplar.
+- Validado o concept oficial intacto pelo Git blob SHA `82a60ab282c23d0e6846a10a2d8b5e8614537ac3`. Ele serviu apenas como referência de identidade; os quadros vêm de fontes geradas separadas.
+- O GDD requer movimento em oito direções, mas não fixa pixel-cell/pivô. Para a etapa 1, o contrato do PR #5 e a direção de arte indicam N/S, 96×96 px, pivô candidato (48,80), idle4 e walk6; o tamanho e pivô ainda dependem de validação visual e em aparelho.
+- Preservadas três fontes RGBA em `assets/references/generated-candidates/`; criados atlas e JSON em `assets/characters/helena/warrior/`, empacotador/verificador em `tools/art/` e prancha/relatório/diagnóstico em `docs/art/evidence/helena/`.
+- Fonte idle é 1774×887, alpha 0–255 com 667.058 pixels intermediários; o atlas idle é 384×192 e tem 17.568 intermediários. Walk N e S são 1536×1024, alpha 0–254 com 518.795/518.217 pixels intermediários; o atlas walk é 576×192 com 20.476 intermediários e nenhum alpha 255. O alpha foi preservado; halo e bordas suaves mantêm a arte em **corrigir**.
+- Validador estrutural passou para RGBA, dimensões, contagens, regiões, direções, células, metadados de pivô, concept e alpha≥128 sem tocar a borda; `py_compile` passou. O relatório registra boxes, pivô e deriva de até 18 px no centro dos quadros walk S. Esses checks não são validação artística nem provam contato dos pés.
+- Sem execução Godot, zoom/SQM ou teste Android. Próximo gate: corrigir/refazer alpha e deriva, revisar ciclo/contato no motor, manter o escopo fechado até aprovação.
+
+
+## 2026-10-15 — protótipo v0.7 validado e terreno MVP candidato
+
+- O usuário validou o protótipo navegável v0.7 em 2026-10-15 (“Protótipos validado.”). O registro marca o protótipo de interface como aprovado; esse aceite não valida telas de produção, gameplay, sprites, Godot ou Android.
+- Criada a candidata de terreno v1 em `assets/environments/terrain_mvp_candidate_v1/`: 56 tiles em célula candidata 32×32 (17 bases, 24 transições e 15 overlays de caminho), atlas 256×224. O tamanho não está congelado.
+- Fonte e validação reproduzíveis em `tools/art/generate_mvp_terrain_tileset.py` e `tools/art/validate_mvp_terrain_tileset.py`; prancha de contato, amostra scripted e relatório em `docs/art/evidence/terrain/`. Nenhuma sprite de personagem foi alterada.
+- Resultado estrutural: PNG RGBA, alpha apenas 0/255, 56 IDs/regiões válidas, base 17/transition 24/overlay 15, sem falha de borda nas superfícies repetíveis; Python compile e JSON parse passaram. Status permanece **CANDIDATO**, aguardando revisão visual, cena TileMap no Godot, zoom 50–125% e Android. A amostra não é render do motor.
+- Próximo gate: importar em cena de QA Godot, examinar vizinhança costeira/caminho no tamanho real, testar aparelho; só então solicitar revisão/expandir. S0 e todas as sprites de personagens continuam com estados independentes e não aprovados.
+
+
+## 2026-10-15 — auditoria orquestrada de arte
+
+- Inspecionados AGENTS, GDD, catálogos, direção de arte, conceitos, assets, histórico e validadores. Cinco revisões isoladas (Fábio, Helena, Maíra, Melissa e terreno) foram coordenadas em worktrees detached, usando GPT-6 Luna com raciocínio máximo. Nenhuma branch remota temporária foi criada.
+- Os quatro candidatos Warrior existentes têm somente `idle` e `walk` em oito direções. O contrato da direção de arte propõe também `attack`, `hit`, `death` e `cast`; esses estados e as vocações Archer/Mage não foram criados nesta auditoria.
+- Não alteramos atlas raster: tentativas de edição generativa que mudaram a grade ou não removeram o halo foram descartadas. Defeitos que requerem redesenho quadro a quadro ficam pendentes para editor de pixel art com revisão manual. Maíra tem 12 fontes PNG malformadas/truncadas; o packer não consegue decodificá-las e não há cópia íntegra no histórico.
+- Fábio: alpha suave/halo e fragmentos desconectados em células diagonais; ciclo e apoios não comprovados. Helena: alpha/halo e deriva de pivô/passada; o validador stage1 foi corrigido para listar exatamente três fontes e testar ausência. Maíra: E/W e diagonais inconsistentes, passada incerta e fontes inválidas. Melissa: alpha intermediário e poses de espada/passadas inconsistentes. Todos permanecem **CORRIGIR**.
+- Terreno: prancha de contato e amostra nearest não mostraram falha demonstrável; o relatório foi atualizado. Os 56 tiles permanecem candidatos, aguardando TileMapLayer em Godot e Android.
+- Ferramentas gratuitas pesquisadas: Pixelorama (recomendação para edição frame a frame e onion skinning), LibreSprite e Piskel. Nenhum editor ou Godot está instalado no runner; não foi feita captura no motor nem teste Android.
+- Validações: atlas geral retornou 20 erros de alpha intermediário; Helena 8-dir passou estruturalmente com alertas; Helena stage1 passou após correção, com teste negativo de arquivo ausente; terreno passou **somente estruturalmente**; catálogos passaram (10 grupos/54 IDs); packer Maíra falha nas fontes inválidas; `git diff --check` passou.
+- Relatórios de Maíra/terreno e validador Helena foram integrados em `feature/fabio-warrior-stage1` nos commits `35b17d7`, `e41c173` e `df35d71`. `main` permaneceu intacta; a lista remota observada contém apenas `main` e `feature/fabio-warrior-stage1`.
+- Próximo gate: usar um editor gráfico para recuperar/refazer fontes inválidas e corrigir direções, alpha, passadas e âncoras; validar no Godot e em Android. Manter cada asset em **CORRIGIR/CANDIDATO** até evidência específica.
+
+## 2026-10-15 — retoques de pixels e revalidação
+
+- O usuário autorizou cinco frentes isoladas (Fábio, Helena, Maíra, Melissa e terreno) e uso de editores gratuitos como Pixelorama, LibreSprite ou Piskel. Nenhum agente aplicou um editor GUI nesta rodada; onde houve correção, foram seleções pixel a pixel delimitadas, reproduzíveis e revisadas em tamanho nativo/nearest. Nenhuma saída generativa substituiu os atlas.
+- Fábio v3: oito caixas manuais removeram artefatos vermelhos desconectados em idle SW/NW e walk SE/SW; a comparação antes/depois de SW walk quadros 2 e 5 confirma a remoção. Foram preservados fontes, v1 e v2. Alpha intermediário, halo e ciclo/pivô seguem pendentes.
+- Helena: nenhum retoque raster foi considerado seguro nesta rodada. A auditoria visual das oito direções mantém dúvidas de passada e pivô; validadores estruturais passam com alertas de alpha e alinhamento.
+- Maíra: nenhuma correção raster. As 12 fontes PNG das direções novas falham ao decodificar (IDAT truncado); ângulos E/W/diagonais e ciclo de passada do atlas v2 seguem sem aprovação.
+- Melissa: foi preservado o candidato v1 e criado v2 com remoção de dois pixels desconectados alpha=1 em N/idle/quadro 2. Alpha/halo nas demais bordas, variação da espada, direção sul e passadas seguem pendentes.
+- Terreno: mantidos 56 tiles; além da correção do caminho fora da máscara, foram alinhadas junções de canto. A prancha 3×3 foi revisada em nearest; contraste no solo e integração no TileMap ainda aguardam Godot/Android.
+- Commits integrados na branch `feature/fabio-warrior-stage1`: `2e560a0` (overlay do terreno), `a95e66d` (cantos do terreno), `e40b5a2` (Melissa v2), `d811261` (Fábio v3). Nenhuma alteração foi feita em `main`.
+- Revalidação: `validate_sprite_atlases.py` falha com 21 entradas de alpha intermediário; `validate_helena_8dir.py` passa estruturalmente com alertas; `validate_helena_stage1.py` passa estrutura mas registra 17.568 pixels intermediários em idle e 20.476 em walk; `validate_mvp_terrain_tileset.py` passa estrutura e junções (56 tiles, alpha 0/255); catálogos passam (10 grupos/54 IDs). Godot, Android e inspeção em motor permanecem pendentes; os candidatos seguem **CORRIGIR**, terreno **CANDIDATO**.
+- `git ls-remote --heads origin` confirmou somente `main` e `feature/fabio-warrior-stage1`; não havia branches remotas antigas para excluir. Os novos commits locais ainda aguardam tentativa de push.
+- Próxima ação: recuperar ou refazer as fontes truncadas de Maíra, continuar a correção manual dos contornos e ciclos em editor de pixel art e concluir revisão Godot/Android antes de qualquer status de produção.
+
+## 2026-10-15 — primeira fatia jogável desktop
+
+- Iniciada em worktree isolada `feature/s01-gameplay-slice`, baseada exatamente no HEAD local `16e759350ad9a3f76ded314e0050a820939b3a5f` da `feature/fabio-warrior-stage1`. A worktree base permaneceu limpa; não houve branch remota, cherry-pick ou push.
+- Confirmado no Journal e no registro do protótipo que o usuário validou explicitamente a UI navegável v0.7 em 2026-10-15. O código segue abertura → escolha de aparência Warrior → “Criar/entrar na ilha” → gameplay; “Hospedar solo” entra localmente e “Entrar” dá erro mockado recuperável; pausa retoma, volta à sessão ou ao início.
+- Criados scenes/scripts de roteamento, seleção de quatro aparências candidatas, sessão, pausa, mapa e jogador. A movimentação de oito direções lê WASD/setas e o joystick touch; há botão touch de pausa/interação, zoom 50–125%, câmera sem smoothing/nearest/pixel snap, colisão com água, bordas, árvores e pedras placeholder, além de cristal interativo somente demonstrativo.
 - Primeiro mapa estático tem 64×44 células candidatas de 32 px e compõe os 56 IDs do atlas existente: 17 bases, 24 transições, 15 overlays. A estrutura mantém todas as 17 variações base, as 24 transições e uma rede conectada usando cada overlay uma vez. O terreno segue **CANDIDATO**.
 - As quatro aparências usam atlas Warrior já existente e metadata atual; idle 4 quadros/6 FPS e walk 6 quadros/10 FPS em N, NE, E, SE, S, SW, W, NW. O loader aceita metadata plana e `animations.idle/walk` (formato da Helena). Nenhum PNG de personagem foi reprocessado; todas permanecem **CORRIGIR**, `approved:false`.
 - `project.godot` agora inicia `game/scenes/main.tscn`; o harness QA técnico segue disponível em `tools/art/sprite_test/`. README, Roadmap, DECISIONS, Handoff e `docs/gameplay/PLAYABLE_SLICE.md` descrevem o recorte. O Roadmap marca subitens de código, mas mantém S0/S1 incompletos até importação, execução e aceite Android.
