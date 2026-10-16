@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import errno
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -22,6 +23,12 @@ REQUIRED_FILES = ("index.html", "index.js", "index.wasm", "index.pck")
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
+        "--web-dir",
+        type=Path,
+        default=WEB_DIR,
+        help="pasta que contém index.html e seus arquivos de exportação",
+    )
+    parser.add_argument(
         "--port",
         type=int,
         default=8000,
@@ -32,17 +39,20 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="inicia o servidor sem abrir o navegador automaticamente",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if not 0 <= args.port <= 65535:
+        parser.error("a porta deve estar entre 0 e 65535")
+    return args
 
 
-def check_build() -> None:
-    if not WEB_DIR.is_dir():
+def check_build(web_dir: Path) -> None:
+    if not web_dir.is_dir():
         raise SystemExit(
-            f"Build Web não encontrada: {WEB_DIR}\n"
+            f"Build Web não encontrada: {web_dir}\n"
             "Exporte primeiro com o preset Web para build/web/."
         )
 
-    missing = [name for name in REQUIRED_FILES if not (WEB_DIR / name).is_file()]
+    missing = [name for name in REQUIRED_FILES if not (web_dir / name).is_file()]
     if missing:
         raise SystemExit(
             "Build Web incompleta. Arquivos ausentes: " + ", ".join(missing) + "\n"
@@ -50,12 +60,12 @@ def check_build() -> None:
         )
 
 
-def create_server(port: int) -> ThreadingHTTPServer:
-    handler = partial(SimpleHTTPRequestHandler, directory=str(WEB_DIR))
+def create_server(port: int, web_dir: Path) -> ThreadingHTTPServer:
+    handler = partial(SimpleHTTPRequestHandler, directory=str(web_dir))
     try:
         return ThreadingHTTPServer(("127.0.0.1", port), handler)
     except OSError as error:
-        if port == 0:
+        if port == 0 or error.errno != errno.EADDRINUSE:
             raise
         print(f"A porta {port} está ocupada; vou selecionar outra.", flush=True)
         try:
@@ -77,9 +87,10 @@ def wait_until_ready(url: str) -> bool:
 
 def main() -> int:
     args = parse_args()
-    check_build()
+    web_dir = args.web_dir.resolve()
+    check_build(web_dir)
 
-    server = create_server(args.port)
+    server = create_server(args.port, web_dir)
     url = f"http://127.0.0.1:{server.server_port}/"
     server_thread = threading.Thread(target=server.serve_forever, daemon=True)
     server_thread.start()
