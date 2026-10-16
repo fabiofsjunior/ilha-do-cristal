@@ -1,5 +1,7 @@
 # Demo jogável — primeira fatia
 
+> Registro histórico da primeira fatia de navegação e movimento. O incremento solo seguinte e os comandos atuais estão em [MVP_SOLO_TEST.md](MVP_SOLO_TEST.md). As listas de funcionalidades ausentes abaixo descrevem a entrega anterior.
+
 **Estado:** cenas e scripts de gameplay integrados em `feature/fabio-warrior-stage1`. Godot 4.5.1 Linux headless importou o projeto e passou o smoke test automatizado de fluxo, atlas, mapa, movimento, colisão e pausa. O preset Web exporta a build para `build/web/`; a validação em navegador, a revisão visual e o aceite de S0/S1 continuam pendentes. Android também continua pendente.
 
 ## Fluxo

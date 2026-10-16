@@ -1,24 +1,32 @@
-# Handoff — validação visual da build Web
+# Handoff — testar o recorte solo em Web e Android
 
-**Branch de trabalho:** `feature/fabio-warrior-stage1`
-**Base antes deste incremento:** `968974a` (`build: add Godot Web export preset`)
-**Engine local:** `Godot_v4.5.1-stable_linux.x86_64` na raiz; versão `4.5.1.stable.official.f62fdbde1`, excluída localmente do Git.
+**Data:** 2026-10-16 UTC
 
-## Próxima ação
+**Branch:** `feature/fabio-warrior-stage1`
 
-No Windows, executar `Testar_Jogo_Web.bat` na raiz para abrir a build local em um navegador. Revisar início → seleção → sessão → gameplay, controles, HUD/mapa e escala nearest comparando com o protótipo validado v0.7. Depois abrir o projeto no editor Godot e testar Android: exportar/instalar APK e jogar em paisagem por 10 minutos, dois tamanhos de tela, zoom 50–125%, joystick, pausa, interação, colisões, legibilidade, estabilidade e desempenho. Não fechar S0/S1 sem essas evidências.
+**Checkpoint de código usado nas builds:** `bbba04f8d278f141cef7cb431dbecd22d1c02c49` (publicado). Commits posteriores de entrega atualizam documentação/ferramenta de export.
 
-## Estado testado nesta sessão
+**Main preservada:** `b3d3f9a0f9405dae020d04785069b55c702f6894`. Somente `main` e `feature/fabio-warrior-stage1` no remoto.
 
-- Importação limpa no Godot 4.5.1 Linux headless; cena principal executada por 300 frames sem log de erro.
-- `tools/gameplay/smoke_playable_slice.gd` passou fluxo de cenas, carregamento de quatro atlas, mapa 64×44 (2.816 células base), caminho, movimento pelo joystick, colisão com água, pausa/retomada, retorno à sessão e ao início.
-- `tools/art/sprite_test/check_scene.gd` passou 240 seleções de quadros e 48 estados de controles entre três versões Melissa. Isso é QA técnico, não aprovação visual.
-- Validadores estruturais gameplay, terreno e catálogo passaram. Helena 8-dir/stage1 passaram com alertas; `validate_sprite_atlases.py` continua falhando em 21 atlas por alpha intermediário. Estado artístico continua **CORRIGIR**; terreno **CANDIDATO**.
-- Preset Web exportou com código 0; WASM compilou no Node e o ZIP passou CRC. O launcher `tools/web/serve_web_build.py --no-browser` respondeu HTML/WASM/PCK por HTTP, escolheu porta alternativa quando a porta inicial estava ocupada e encerrou via Ctrl+C. Teste gráfico em navegador ainda não foi feito neste runner.
+## Próxima ação exata
 
-## Pendências e bloqueios
+1. Baixar/extrair `build/ilha-do-cristal-web.zip`; no Windows com Python3, executar `Testar_Jogo_Web.bat`. Em outro sistema, servir a pasta extraída com `python3 -m http.server 8000` e abrir localhost:8000.
+2. Instalar `build/android/ilha-do-cristal-debug.apk` em Android ARM, API24 ou superior. Testar menu → aparência Warrior → sessão solo → coleta → craft de curativo → combate/skills → cura → cristal/refúgio → pausa → fechar/reabrir. Testar pausa/retorno do aplicativo, toque, zoom 50–125%, água/colisões, legibilidade em dois tamanhos e 10 minutos de estabilidade. Comparar com UI v0.7.
+3. Registrar resultados e falhas no Journal antes de fechar S0/S1/S2. Não promover sprites ou terreno por sucesso de export.
 
-- Não houve captura/comparação visual em editor nem validação em Android; este runner não fornece display/SDK/aparelho.
-- Doze PNGs fonte direcionais de Maíra estão truncados no próprio histórico remoto e não há cópia íntegra nos worktrees. A pasta de referência tem `.gdignore` para não bloquear o import/runtime; isso não recupera fontes, não altera atlas e não muda o status **CORRIGIR**.
-- LAN, conta, saves, combate, coleta, inventário funcional e progressão continuam fora desta fatia.
-- `main` permanece intacta. Não houve push; o conjunto remoto observado é somente `main` e `feature/fabio-warrior-stage1`.
+## Entrega e testes
+
+- Godot local na raiz: `Godot_v4.5.1-stable_linux.x86_64`, versão 4.5.1 oficial; não versionado. SDK `/opt/android-sdk`, Java17, templates 4.5.1 Android + Web nothreads; chave debug somente local.
+- Exportadores: `python3 tools/build/export_web.py` e `python3 tools/build/export_android.py`. Android/export logs ficam em `build/logs`; `BUILD_INFO.json` e `build/SHA256SUMS.txt` identificam os artefatos. Scripts e versões em `docs/technical/ANDROID_BUILD.md`.
+- Import/boot e os dois testes `smoke_playable_slice.gd` / `test_mvp_solo_loop.gd` passaram. Incluem clique/alvo, IA, área segura, coleta/curativo, reward idempotente, camp II/III, save/recovery e rotação limitada a dois slots. Harness de atlas: 240 seleções/48 estados.
+- Pacote Web extraído passou smoke headless sem checkout, CRC, compile WASM e servidor HTTP/MIME com caminho contendo espaços. Isso não valida WebGL ou IndexedDB.
+- APK passou assinatura v2/v3, manifesto paisagem, min24/target35, sem permissões, CRC e dados de runtime. Não foi instalado neste ambiente. Aviso conhecido: ícone do projeto ausente usa padrão do template debug.
+- Resultados, hashes e arquivos alterados: `docs/gameplay/MVP_BUILD_VALIDATION.md`. Regras/controles: `docs/gameplay/MVP_SOLO_TEST.md`.
+
+## Limites preservados
+
+- Recorte solo, quatro aparências Warrior e ilha estática 64×44. Archer/Mage, árvore, chunks/seed, LAN/conta/cloud, baú compartilhado e construções funcionais continuam pendentes. Camp II/III altera custos e nível persistido.
+- Raposa/lobo/urso usam uma pose SE estática cada, sem espelhamento ou animação inventada. Alpha parcial, sete direções e ciclos finais permanecem CORRIGIR, approved:false. PNGs existentes de jogadores e os 56 tiles foram preservados.
+- `validate_sprite_atlases.py` falha em 21 atlas por alpha; Helena passa estrutura com alertas; strict-art de criaturas falha. Terreno passa estrutura/junções, mas permanece CANDIDATO.
+- 12 PNGs fonte antigos de Maíra continuam truncados no histórico. A pasta de referência é isolada do import, sem recuperar ou aprovar a arte.
+- Não há dispositivo/emulador/KVM. Chrome local foi bloqueado pelo ambiente e navegador remoto não alcançou o localhost do workspace. Revisão gráfica Godot/Web e aceite Android permanecem pendentes.

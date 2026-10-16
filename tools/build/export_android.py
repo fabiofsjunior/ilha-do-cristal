@@ -30,7 +30,10 @@ FORBIDDEN_EXPORTED_PATH_PREFIXES = (
     "/assets/dist/",
 )
 ANDROID_XMLNS = "http://schemas.android.com/apk/res/android"
-KNOWN_PROJECT_ICON_ERROR = "ERROR: No project icon specified."
+KNOWN_PROJECT_ICON_ERROR = (
+    "ERROR: No project icon specified. Please specify one in the Project Settings "
+    "under Application -> Config -> Icon"
+)
 REQUIRED_RUNTIME_FILES = (
     "/assets/data/catalogs/mvp.json",
     "/assets/game/data/first_island_layout.json",

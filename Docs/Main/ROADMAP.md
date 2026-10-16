@@ -47,9 +47,19 @@ Os itens marcados como implementados descrevem validação técnica desktop/head
 - [x] S0 parcial: `project.godot` inicia uma cena de jogo (`game/scenes/main.tscn`), mantém viewport horizontal 1280×720, stretch `canvas_items` e renderer Compatibility; o harness de sprites foi preservado em `tools/art/sprite_test/`.
 - [x] S0 técnico desktop: importação do projeto e execução da cena principal em Godot 4.5.1 Linux headless; smoke test automatizado cobre cenas, atlas, mapa e movimento. A pasta de fontes de referência truncadas da Maíra é explicitamente excluída do import Godot; ela não é dependência de runtime.
 - [x] Ferramenta de teste Web: preset Godot 4.5.1 e launcher local que abre a build exportada no navegador; a execução visual em navegador ainda precisa de revisão.
-- [ ] S0 restante: preset/export debug Android, APK instalado e testado.
+- [x] S0 export: preset Android Debug, SDK/JDK/templates e scripts de export Web/APK; APK com assinatura debug e manifesto validados.
+- [ ] S0 restante: APK instalado e testado em aparelho.
 - [x] S1 parcial: mapa inicial estático 64×44; tile atlas mantém 56 IDs (17 base, 24 transições, 15 overlays); jogador usa idle/walk das quatro aparências Warrior e movimentação em oito direções por teclado/joystick touch; há colisão de água, bordas e proxies, câmera nearest com zoom 50–125% e interação demonstrativa com cristal.
 - [x] Fluxo de tela validado em Godot headless: início → aparência/vocação → sessão local → gameplay; pause overlay permite retomar ou navegar à sessão/início. “Entrar” permanece erro mockado.
 - [ ] S1 restante: revisão visual no editor e comparação com a v0.7; aceitar Android após 10 min em paisagem, dois tamanhos de tela, zoom 50–125%, revisão de legibilidade, toque, colisões, estabilidade e desempenho.
 
 Após GDD, produzir em sequência: contratos JSON em `data/`, protótipo de controles, sprites técnicos com pivôs, teste de cache/chunks, save resiliente, rede LAN. O tamanho 1000×1000 é limite de mundo, não requisito de preencher toda área com conteúdo no primeiro APK.
+
+#### Recorte solo S2 para teste — 2026-10-16
+
+- [x] Código e testes headless: madeira/pedra/fibra/erva, receita de curativo, cura interrompível, seleção por clique/toque, ataque automático, três skills Warrior e raposa/lobo/urso com comportamentos distintos.
+- [x] Estado local: XP 1–10, materiais, custos de acampamento II/III, queda/retorno solo, mochilas, recompensa única por vida e snapshot schema 1 com checksum, temporário e slot anterior. Rotação normal mantém dois slots; teste de corrupção recupera a cópia válida.
+- [x] Três candidatos estáticos SE integrados sem espelhamento ou animação inventada. QA estrutural passou; **arte CORRIGIR**, com alpha e demais direções/animações pendentes.
+- [ ] Aceite S2: demonstrar coleta → combate → curativo → retorno → fechar/reabrir no Android; comparar visualmente o HUD com v0.7 e revisar Web no navegador.
+
+O recorte usa quatro aparências Warrior e mapa estático. Upgrades II/III persistem números/custos; baú compartilhado, poço, cerca e torres funcionais, Archer/Mage, árvore, chunks, LAN e conta seguem pendentes. Resultados e limitações: [guia solo](../../docs/gameplay/MVP_SOLO_TEST.md) e [validação das builds](../../docs/gameplay/MVP_BUILD_VALIDATION.md). As fases principais permanecem abertas até seus aceites completos.

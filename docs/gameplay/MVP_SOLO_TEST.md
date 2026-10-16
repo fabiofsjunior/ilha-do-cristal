@@ -42,4 +42,4 @@ O slot guarda a aparência escolhida, posição, direção, zoom, HP/MP, nível/
 
 Esta versão cobre somente a sessão solo local e a vocação Warrior. Não inclui rede/LAN/cloud, Archer, Mage, árvore completa, baú compartilhado funcional, poço, cerca ou torres em funcionamento. A tela de equipamentos mantém a estrutura da UI v0.7; não faz troca de equipamento. O mapa original, a composição de 56 tiles, a colisão e os controles existentes foram preservados.
 
-Exportação APK/Web, inspeção visual no Godot, leitura em escalas reais e teste em aparelho seguem como gates de integração/aceite. Este incremento sozinho não declara S0/S1 nem o GDD MVP inteiros concluídos.
+APK/Web foram exportados e verificados na integração; consulte [MVP_BUILD_VALIDATION.md](MVP_BUILD_VALIDATION.md). Inspeção gráfica no Godot/navegador, leitura em escalas reais e teste em aparelho continuam como gates de aceite. Este incremento não declara S0/S1 nem o GDD MVP inteiros concluídos.

@@ -18,7 +18,7 @@ Versões fixadas para reprodutibilidade:
 | Java | OpenJDK 17; `JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64` |
 | Android SDK | `/opt/android-sdk`; Platform 35, Build Tools 35.0.0, Platform Tools, Command-line Tools latest |
 | NDK / CMake | NDK `28.1.13356709`; CMake `3.10.2.4988404` |
-| Templates Godot | `~/.local/share/godot/export_templates/4.5.1.stable/`; `android_debug.apk`, `web_debug.zip`, `web_release.zip` |
+| Templates Godot | `~/.local/share/godot/export_templates/4.5.1.stable/`; `android_debug.apk`, `web_nothreads_debug.zip`, `web_nothreads_release.zip` |
 | Keystore debug | `~/.local/share/godot/keystores/debug.keystore`, criado localmente se ausente; alias `androiddebugkey` |
 
 O executável Godot, SDK, templates e keystore ficam fora do Git. Para outro computador Linux, instale os pacotes indicados pela [documentação Android do Godot 4.5](https://docs.godotengine.org/en/4.5/tutorials/export/exporting_for_android.html), configure **Editor > Editor Settings > Export > Android** com os caminhos do JDK e SDK, e instale os templates correspondentes ao Godot 4.5.1. A Godot recomenda OpenJDK 17; a lista de pacotes Android inclui Platform Tools, Build Tools 35.0.0, Platform 35, NDK 28.1.13356709 e CMake 3.10.2.4988404. Baixe Android Command-line Tools somente de [Android Developers](https://developer.android.com/studio#command-tools) e os templates da [release oficial Godot 4.5.1](https://github.com/godotengine/godot/releases/tag/4.5.1-stable).
@@ -42,7 +42,7 @@ python3 tools/build/export_android.py
 
 O script usa `Godot_v4.5.1-stable_linux.x86_64` na raiz quando presente; `--godot` ou `GODOT_BIN` apontam para outra localização. `--sdk` ou `ANDROID_SDK_ROOT` selecionam o Android SDK. Ele configura os caminhos de SDK/Java nas preferências locais do editor, cria a chave debug se necessário, cria `build/.gdignore`, importa recursos, exporta com `--export-debug` e valida package ID, orientação, permissões, CRC do APK, assinatura e ausência dos caminhos de ferramentas/documentação/referências no payload.
 
-Os logs são gravados em `build/logs/android-import.log` e `build/logs/android-export.log`. O script falha se o Godot emitir `SCRIPT ERROR:` ou `ERROR:`, ainda que retorne código zero. A única exceção é o texto exato `ERROR: No project icon specified.`: ele é mostrado como aviso não fatal no terminal e a interpretação é acrescentada ao log, junto da linha original do Godot. Depois da validação, o script grava `build/android/BUILD_INFO.json` com engine, commit-fonte, data UTC, package ID, SHA-256 do APK, arquivos JSON runtime incluídos e os status de dados/arte candidata.
+Os logs são gravados em `build/logs/android-import.log` e `build/logs/android-export.log`. O script falha se o Godot emitir `SCRIPT ERROR:` ou `ERROR:`, ainda que retorne código zero. A única exceção é a mensagem completa de ícone ausente do Godot 4.5.1: `ERROR: No project icon specified. Please specify one in the Project Settings under Application -> Config -> Icon`. Ela é mostrada como aviso não fatal e acrescentada ao log, junto da linha original. Depois da validação, o script grava `build/android/BUILD_INFO.json` com engine, commit-fonte, data UTC, package ID, SHA-256 do APK, arquivos JSON runtime incluídos e os status de dados/arte candidata.
 
 Exemplo com caminhos explícitos:
 
@@ -73,6 +73,8 @@ Com um Android conectado e autorizado para depuração USB, `adb devices` lista 
 ## Evidência e gate de aparelho
 
 O export baseline deste worktree (commit `e7eb0e0`) produziu um APK de 59.450.686 bytes. O verificador encontrou `com.fabiofsjunior.ilhadocristal`, API mínima 24, alvo 35, orientação Android landscape (`screenOrientation=0`), nenhuma permissão `uses-permission`, assinatura APK v2/v3 válida, CRC válido e JSONs de runtime presentes. `apkanalyzer files list` confirmou que `tools/`, `docs/`, `Docs/`, `assets/references/`, `build/` e `dist/` não foram empacotados. Esta validação do baseline não substitui uma reexportação após integração do loop S2. `build/`, logs, sidecar e APKs são ignorados pelo Git. Essas verificações demonstram integridade estrutural, assinatura debug e manifesto; não demonstram que a UI abriu ou que o controle funciona num aparelho.
+
+A integração S2 foi reexportada a partir de `bbba04f8d278f141cef7cb431dbecd22d1c02c49`, com os mesmos gates de pacote aprovados. O APK final tem 59.550.750 bytes; hashes e testes estão em [MVP_BUILD_VALIDATION.md](../gameplay/MVP_BUILD_VALIDATION.md). O preset Web sem threads precisa dos templates `web_nothreads_*.zip`; os templates `web_debug.zip`/`web_release.zip` servem para a variante com threads.
 
 Nesta sessão não havia `/dev/kvm`, emulador Android, system image nem aparelho USB conectado. Por isso não foi possível instalar/abrir o APK nem registrar teste de tela ou desempenho. S0 continua pendente até instalar e testar em aparelho real; não marcar a etapa como concluída com base somente no export.
 
