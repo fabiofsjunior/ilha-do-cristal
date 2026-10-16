@@ -1,0 +1,71 @@
+{
+  "id": "fox",
+  "species": "fox",
+  "atlas": {
+    "file": "fox_se_candidate_v1.png",
+    "columns": 1,
+    "rows": 1
+  },
+  "cell": [
+    96,
+    96
+  ],
+  "pivot": [
+    48,
+    80
+  ],
+  "directions": [
+    "SE"
+  ],
+  "animations": {
+    "idle": {
+      "frames": 1,
+      "fps": 1,
+      "loop": true
+    }
+  },
+  "approved": false,
+  "status": "corrigir",
+  "candidate_stage": "single_static_pose",
+  "source": {
+    "file": "../../references/generated-candidates/fox/fox_se_source_imagegen_v2.png",
+    "native_size": [
+      1254,
+      1254
+    ],
+    "alpha": {
+      "distinct_values": 256,
+      "intermediate_values": 254,
+      "intermediate_pixels": 194705,
+      "bbox": [
+        33,
+        37,
+        1222,
+        1089
+      ]
+    },
+    "generation": "built-in image_gen; source retained unchanged"
+  },
+  "packing": {
+    "operation": "whole square canvas scaled 1254x1254 to 96x96 using nearest neighbor",
+    "alpha_operation": "none; alpha samples were preserved by nearest-neighbor resampling",
+    "crop": "none",
+    "trim": "none",
+    "manual_pixel_edits": "none",
+    "nearest_preview": "../../../docs/art/evidence/fox/fox_se_candidate_v1_nearest_8x.png"
+  },
+  "validation": {
+    "output_alpha": {
+      "distinct_values": 58,
+      "intermediate_values": 56,
+      "intermediate_pixels": 1147,
+      "bbox": [
+        11,
+        29,
+        80,
+        77
+      ]
+    },
+    "status_reason": "source or atlas contains intermediate alpha; visual art approval remains pending"
+  }
+}
