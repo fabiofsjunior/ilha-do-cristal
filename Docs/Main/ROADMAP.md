@@ -49,7 +49,7 @@ Os itens marcados como implementados descrevem validação técnica desktop/head
 - [x] Ferramenta de teste Web: preset Godot 4.5.1 e launcher local que abre a build exportada no navegador; a execução visual em navegador ainda precisa de revisão.
 - [x] S0 export: preset Android Debug, SDK/JDK/templates e scripts de export Web/APK; APK com assinatura debug e manifesto validados.
 - [ ] S0 restante: APK instalado e testado em aparelho.
-- [x] S1 parcial: mapa inicial estático 64×44; tile atlas mantém 56 IDs (17 base, 24 transições, 15 overlays); jogador usa idle/walk das quatro aparências Warrior e movimentação em oito direções por teclado/joystick touch; há colisão de água, bordas e proxies, câmera nearest com zoom 50–125% e interação demonstrativa com cristal.
+- [x] S1 parcial: mapa inicial estático 64×44; tile atlas mantém 56 IDs (17 base, 24 transições, 15 overlays); jogador usa idle/walk das quatro aparências Warrior e movimentação em oito direções por teclado/joystick touch, alinhada aos eixos da câmera 2.5D; há colisão de água, bordas e proxies, câmera nearest com zoom 50–125% e interação demonstrativa com cristal.
 - [x] Fluxo de tela validado em Godot headless: início → aparência/vocação → sessão local → gameplay; pause overlay permite retomar ou navegar à sessão/início. “Entrar” permanece erro mockado.
 - [ ] S1 restante: revisão visual no editor e comparação com a v0.7; aceitar Android após 10 min em paisagem, dois tamanhos de tela, zoom 50–125%, revisão de legibilidade, toque, colisões, estabilidade e desempenho.
 

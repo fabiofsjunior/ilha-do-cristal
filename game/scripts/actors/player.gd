@@ -11,6 +11,8 @@ var facing := "S"
 var input_enabled := true
 var _sprite: AnimatedSprite2D
 var _sprite_frames: SpriteFrames
+var _screen_right_in_world := Vector2.RIGHT
+var _screen_down_in_world := Vector2.DOWN
 
 
 func _ready() -> void:
@@ -23,6 +25,19 @@ func _ready() -> void:
 
 func set_joystick_vector(value: Vector2) -> void:
 	joystick_vector = value.limit_length(1.0)
+
+
+func set_camera_ground_basis(camera_basis: Basis) -> void:
+	# Invert the camera projection on the XZ ground plane so screen-relative
+	# controls stay aligned with what the player sees in the isometric view.
+	var camera_right := Vector2(camera_basis.x.x, camera_basis.x.z)
+	var camera_up := Vector2(camera_basis.y.x, camera_basis.y.z)
+	var determinant := camera_right.cross(camera_up)
+	if absf(determinant) < 0.001:
+		push_error("Câmera sem projeção invertível no plano do chão para mapear o movimento.")
+		return
+	_screen_right_in_world = Vector2(camera_up.y, -camera_up.x) / determinant
+	_screen_down_in_world = Vector2(camera_right.y, -camera_right.x) / determinant
 
 
 func set_input_enabled(enabled: bool) -> void:
@@ -38,18 +53,17 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		_play("idle_" + facing)
 		return
-	var direction := _keyboard_vector()
-	if direction.length_squared() < 0.001:
-		direction = joystick_vector
-	if direction.length_squared() > 1.0:
-		direction = direction.normalized()
+	var screen_direction := _keyboard_vector()
+	if screen_direction.length_squared() < 0.001:
+		screen_direction = joystick_vector
+	var direction := _screen_direction_to_world(screen_direction)
 	velocity = direction * SPEED
 	velocity = COMBAT_GEOMETRY.constrain_velocity_to_visual_contact(
 		self, get_tree().get_nodes_in_group("combat_creatures"), velocity, delta
 	)
 	move_and_slide()
-	if direction.length_squared() > 0.001:
-		facing = _direction_name(direction)
+	if screen_direction.length_squared() > 0.001:
+		facing = _direction_name(screen_direction)
 		_play("walk_" + facing)
 	else:
 		_play("idle_" + facing)
@@ -70,6 +84,17 @@ func _keyboard_vector() -> Vector2:
 	if Input.is_key_pressed(KEY_S) or Input.is_key_pressed(KEY_DOWN):
 		result.y += 1.0
 	return result.normalized() if result.length_squared() > 1.0 else result
+
+
+func _screen_direction_to_world(screen_direction: Vector2) -> Vector2:
+	var strength := minf(screen_direction.length(), 1.0)
+	if strength < 0.001:
+		return Vector2.ZERO
+	var world_direction := (
+		_screen_right_in_world * screen_direction.x
+		+ _screen_down_in_world * screen_direction.y
+	)
+	return world_direction.normalized() * strength
 
 
 func _direction_name(direction: Vector2) -> String:
