@@ -14,6 +14,7 @@ var selected_character_name := "Melissa"
 var current_screen
 var gameplay
 var pause_overlay
+var simplified_interface := false
 
 
 func _ready() -> void:
@@ -98,6 +99,7 @@ func _show_gameplay() -> void:
 	current_screen = gameplay
 	if gameplay == null:
 		return
+	gameplay.get_node("HUD").set_simplified(simplified_interface)
 	gameplay.connect("pause_requested", Callable(self, "_show_pause"))
 	gameplay.connect("interaction_requested", Callable(self, "_on_interaction_requested"))
 
@@ -107,13 +109,24 @@ func _show_pause() -> void:
 		return
 	gameplay.get_node("HUD").release_movement()
 	get_tree().paused = true
-	pause_overlay = _instantiate(PAUSE_SCENE)
+	pause_overlay = _instantiate(PAUSE_SCENE, {"simplified": simplified_interface})
 	if pause_overlay == null:
 		get_tree().paused = false
 		return
 	pause_overlay.connect("resume_requested", Callable(self, "_resume_gameplay"))
 	pause_overlay.connect("session_requested", Callable(self, "_show_session_from_pause"))
 	pause_overlay.connect("start_requested", Callable(self, "_show_start"))
+	pause_overlay.connect("save_requested", Callable(self, "_save_from_pause"))
+	pause_overlay.connect("zoom_requested", func(delta: int) -> void: gameplay.get_node("HUD").zoom_requested.emit(delta))
+	pause_overlay.connect("simplified_changed", func(enabled: bool) -> void:
+		simplified_interface = enabled
+		gameplay.get_node("HUD").set_simplified(enabled)
+	)
+	_save_from_pause()
+
+func _save_from_pause() -> void:
+	if gameplay != null and pause_overlay != null:
+		pause_overlay.show_save_result(bool(gameplay.save_progress()))
 
 
 func _resume_gameplay() -> void:
@@ -141,3 +154,5 @@ func _notification(what: int) -> void:
 			gameplay.save_progress()
 		if what == NOTIFICATION_WM_CLOSE_REQUEST:
 			get_tree().quit()
+
+
