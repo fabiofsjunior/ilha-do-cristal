@@ -31,7 +31,7 @@ func _build_screen() -> void:
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = Vector2(620, 500)
 	panel.add_theme_stylebox_override(
-		"panel", UI_STYLE.panel_style(Color("241d31"), Color("a77ce8"))
+		"panel", UI_STYLE.classic_style()
 	)
 	center.add_child(panel)
 
@@ -110,3 +110,5 @@ func _begin() -> void:
 		})();
 		""")
 	begin_requested.emit()
+
+
