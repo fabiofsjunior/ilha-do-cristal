@@ -306,3 +306,12 @@ Verificação Godot4.5.1: import e smoke jogável, test_close_view (três propor
 - Incluído `out_of_combat_rate_multiplier: 1.2` no catálogo. O runtime multiplica a soma de base e bônus de atributo somente fora de combate, antes dos caps. Combate, delay, caps, clamp no máximo, pausa em personagem caído/morto e restauração ao subir de nível permanecem iguais.
 - Documentados os valores efetivos no GDD, catálogo, dados de balanceamento, README e roadmap. O teste de regras verifica as seis taxas base pós-fator, as taxas com atributos nas três vocações, taxas de combate, caps, clamp e tick integrado; o teste do painel valida os bônus exibidos.
 - Godot 4.5.1 headless: import (exit 0), `test_regeneration_rules.gd`, `test_attributes_window.gd` e `smoke_playable_slice.gd` passaram. O import emitiu o aviso `Unable to open Android 'build-tools' directory`; não houve exportação APK nem teste em aparelho.
+
+
+## 2026-10-17 — Kit UI Crystal v2
+
+- Branch `feature/s03-crystal-ui-kit-v2`, implementada a partir das referências visuais anexadas pelo usuário e do spritesheet `assets/ui/crystal_v2/sheet.b64`. O atlas/runtime renderer recorta molduras, botões, barras, slots, navegação, itens e estruturas; os fluxos de HUD, mochila/equipamento, fabricação/refúgio, talentos/vocações, seleção, pausa, minimapa e alertas passaram a compartilhar o kit.
+- Atualizados componentes Godot e presets de exportação; adicionados `tools/gameplay/test_crystal_kit.gd` e `test_crystal_ui_flow.gd`. Limites respeitados: Guerreiro continua a única vocação jogável, talentos ainda não implementados; Arqueiro/Mago são prévias. Imagens de personagens separadas do sprite sheet não foram incorporadas ao projeto.
+- Godot 4.5.1: importação/editor, checagem de `main.gd`, teste de regiões do atlas e teste integrado de fluxo passaram. Exportações Web e APK debug completadas. APK validado por integridade ZIP, manifesto/launcher/ícones/permissões e assinatura; APK e ZIP Web também entregues fora do repositório. Web ainda sem inspeção gráfica em navegador; APK não foi instalado/testado em aparelho físico. Builds são artefatos de teste, não publicação.
+- Capturas locais de revisão: inventário e pausa. O diff inclui os arquivos de interface, atlas e testes no branch; arte dos personagens permanece sem promoção de status.
+- Próxima ação: revisar PR, testar fluxo e safe areas/toque por 10 min em Android físico e fazer smoke gráfico Web em navegador. Resolver eventuais regressões com base nas evidências e manter vocações/talentos não implementados explicitamente indisponíveis.
