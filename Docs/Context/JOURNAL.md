@@ -315,3 +315,11 @@ Verificação Godot4.5.1: import e smoke jogável, test_close_view (três propor
 - Godot 4.5.1: importação/editor, checagem de `main.gd`, teste de regiões do atlas e teste integrado de fluxo passaram. Exportações Web e APK debug completadas. APK validado por integridade ZIP, manifesto/launcher/ícones/permissões e assinatura; APK e ZIP Web também entregues fora do repositório. Web ainda sem inspeção gráfica em navegador; APK não foi instalado/testado em aparelho físico. Builds são artefatos de teste, não publicação.
 - Capturas locais de revisão: inventário e pausa. O diff inclui os arquivos de interface, atlas e testes no branch; arte dos personagens permanece sem promoção de status.
 - Próxima ação: revisar PR, testar fluxo e safe areas/toque por 10 min em Android físico e fazer smoke gráfico Web em navegador. Resolver eventuais regressões com base nas evidências e manter vocações/talentos não implementados explicitamente indisponíveis.
+
+
+## 2026-10-17 — APK de preview armazenado na branch
+
+- A pedido do usuário, o APK foi disponibilizado pelo plugin GitHub em `artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk`, commit `28dee2d3df72dd3ba225eefd624c2859f476c2e0`, branch `feature/s03-crystal-ui-kit-v2`. [Download direto](https://github.com/fabiofsjunior/ilha-do-cristal/raw/refs/heads/feature/s03-crystal-ui-kit-v2/artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk).
+- A variante dual-arch excedia o limite de transmissão do conector. A partir do APK de preview Godot validado, removida somente a biblioteca `armeabi-v7a`, reempacotado o arquivo e aplicada assinatura debug novamente. Resultado ARM64-only: 39.337.295 bytes; SHA-256 `9d723315cae0bfe5f4f68c88527484e618e61897ddcef0be0de8489c25b9e88a`.
+- Verificados com Godot 4.5.1/helper: manifesto portrait, ID/label preview, ícones, ausência de permissões, JSON de runtime, CRC/integridade ZIP e assinatura v2/v3. `aapt` exibiu um diagnóstico de atributo `android:required` no dump de badging, mas o manifesto XML-tree do APK passou e o APK permaneceu válido; teste em aparelho ainda pendente.
+- Documentos atualizados para identificar o link da branch e a limitação de 64 bits. O artefato permanece no PR #21 e não foi integrado a `main`.
