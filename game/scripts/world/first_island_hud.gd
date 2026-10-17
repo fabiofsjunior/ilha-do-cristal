@@ -137,6 +137,13 @@ func _build_hud() -> void:
 	_root.add_child(_minimap)
 	var attributes_button := _hud_button("ATR", Vector2(128, 130), Vector2(52, 52), _toggle_attributes)
 	attributes_button.tooltip_text = "Atributos"
+	attributes_button.text = ""
+	attributes_button.icon = UI_STYLE.icon("INT")
+	attributes_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	attributes_button.expand_icon = true
+	attributes_button.add_theme_constant_override("icon_max_width", 32)
+	for state in ["normal", "hover", "pressed", "disabled"]:
+		attributes_button.add_theme_stylebox_override(state, UI_STYLE.classic_style("slot"))
 	_nav_buttons = [
 		_hud_button("Bolsa", Vector2(12, 130), Vector2(52, 52), _toggle_inventory),
 		_hud_button("Base", Vector2(70, 130), Vector2(52, 52), _toggle_camp),
@@ -328,8 +335,8 @@ func _build_inventory_overlay() -> void:
 	_inventory_overlay.add_child(center)
 	_inventory_panel = PanelContainer.new()
 	_inventory_panel.name = "InventoryPanel"
-	_inventory_panel.custom_minimum_size = Vector2(656, 1080)
-	_inventory_panel.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color("241d31"), Color("a77ce8")))
+	_inventory_panel.custom_minimum_size = Vector2(680, 920)
+	_inventory_panel.add_theme_stylebox_override("panel", UI_STYLE.classic_style())
 	center.add_child(_inventory_panel)
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 18)
@@ -341,9 +348,13 @@ func _build_inventory_overlay() -> void:
 	stack.add_theme_constant_override("separation", 10)
 	margin.add_child(stack)
 	var heading := HBoxContainer.new()
-	stack.add_child(heading)
+	var header_frame := PanelContainer.new()
+	header_frame.add_theme_stylebox_override("panel", UI_STYLE.classic_style("button"))
+	stack.add_child(header_frame)
+	header_frame.add_child(heading)
 	var title := Label.new()
 	title.text = "INVENTÁRIO"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	UI_STYLE.style_label(title, 25, UI_STYLE.CREAM)
 	heading.add_child(title)
@@ -362,26 +373,31 @@ func _build_inventory_overlay() -> void:
 	columns.name = "InventoryContent"
 	columns.add_theme_constant_override("separation", 12)
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	columns.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_inventory_scroll.add_child(columns)
+	var panes := HBoxContainer.new()
+	panes.name = "InventoryPanes"
+	panes.add_theme_constant_override("separation", 10)
+	columns.add_child(panes)
 	var equipment_panel := _subpanel("EQUIPAMENTO", Vector2(0, 324))
 	equipment_panel.name = "EquipmentPanel"
-	columns.add_child(equipment_panel)
+	panes.add_child(equipment_panel)
 	var equipment_box := _subpanel_stack(equipment_panel)
 	equipment_box.add_theme_constant_override("separation", 5)
-	var equipment_row := HBoxContainer.new()
+	var equipment_row := VBoxContainer.new()
 	equipment_row.name = "EquipmentRow"
 	equipment_row.add_theme_constant_override("separation", 8)
 	equipment_row.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	equipment_box.add_child(equipment_row)
 	var equipment_board := Control.new()
 	equipment_board.name = "EquipmentBoard"
-	equipment_board.custom_minimum_size = Vector2(344, 300)
+	equipment_board.custom_minimum_size = Vector2(260, 420)
 	equipment_board.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	equipment_row.add_child(equipment_board)
 	_character_preview = TextureRect.new()
 	_character_preview.name = "CharacterPreview"
-	_character_preview.position = Vector2(128, 48)
-	_character_preview.size = Vector2(96, 96)
+	_character_preview.position = Vector2(50, 70)
+	_character_preview.size = Vector2(160, 248)
 	_character_preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_character_preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_character_preview.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -389,27 +405,35 @@ func _build_inventory_overlay() -> void:
 	equipment_board.add_child(_character_preview)
 	var character_caption := Label.new()
 	character_caption.text = "PERSONAGEM"
-	character_caption.position = Vector2(115, 142)
+	character_caption.position = Vector2(64, 322)
 	character_caption.size = Vector2(124, 20)
 	character_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	character_caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI_STYLE.style_label(character_caption, 10, UI_STYLE.MUTED)
 	equipment_board.add_child(character_caption)
 	var equipment_layout := [
-		{"id": "amulet", "label": "AMULETO", "short": "AM", "position": Vector2(76, 0)},
-		{"id": "head", "label": "CABEÇA", "short": "ELM", "position": Vector2(152, 0)},
-		{"id": "main_hand", "label": "ARMA · MÃO PRINCIPAL", "short": "ARM", "position": Vector2(24, 88)},
-		{"id": "offhand", "label": "ARMA · MÃO SECUNDÁRIA", "short": "OFF", "position": Vector2(280, 88)},
-		{"id": "jewel_left", "label": "ACESSÓRIO I", "short": "J1", "position": Vector2(76, 168)},
-		{"id": "chest", "label": "PEITORAL", "short": "ARM", "position": Vector2(152, 168)},
-		{"id": "jewel_right", "label": "ACESSÓRIO II", "short": "J2", "position": Vector2(228, 168)},
-		{"id": "pants", "label": "CALÇAS", "short": "CAL", "position": Vector2(76, 244)},
-		{"id": "boots", "label": "BOTAS", "short": "BOT", "position": Vector2(152, 244)}
+		{"id": "amulet", "label": "AMULETO", "short": "AM", "position": Vector2(208, 20)},
+		{"id": "head", "label": "CABEÇA", "short": "ELM", "position": Vector2(104, 0)},
+		{"id": "main_hand", "label": "ARMA · MÃO PRINCIPAL", "short": "ARM", "position": Vector2(0, 112)},
+		{"id": "offhand", "label": "ARMA · MÃO SECUNDÁRIA", "short": "OFF", "position": Vector2(208, 112)},
+		{"id": "jewel_left", "label": "ACESSÓRIO I", "short": "J1", "position": Vector2(0, 284)},
+		{"id": "chest", "label": "PEITORAL", "short": "ARM", "position": Vector2(0, 200)},
+		{"id": "jewel_right", "label": "ACESSÓRIO II", "short": "J2", "position": Vector2(208, 284)},
+		{"id": "pants", "label": "CALÇAS", "short": "CAL", "position": Vector2(0, 368)},
+		{"id": "boots", "label": "BOTAS", "short": "BOT", "position": Vector2(208, 368)}
 	]
 	for slot_data in equipment_layout:
 		var slot := _make_equipment_slot(slot_data)
 		equipment_board.add_child(slot)
 		_equipment_slots[str(slot_data.id)] = slot
+		var slot_name := Label.new()
+		var names := {"head":"Cabeça", "amulet":"Amuleto", "main_hand":"Mão dir.", "offhand":"Mão esq.", "chest":"Peitoral", "jewel_left":"Joia I", "jewel_right":"Joia II", "pants":"Calças", "boots":"Botas"}
+		slot_name.text = names.get(str(slot_data.id), "")
+		slot_name.position = slot_data.position - Vector2(10, 17)
+		slot_name.size = Vector2(68, 16)
+		slot_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		UI_STYLE.style_label(slot_name, 12, UI_STYLE.MUTED)
+		equipment_board.add_child(slot_name)
 	var stats_panel := _subpanel("STATUS DO PERSONAGEM", Vector2(196, 0))
 	stats_panel.name = "InventoryCharacterStatus"
 	stats_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -418,26 +442,26 @@ func _build_inventory_overlay() -> void:
 	_inventory_stats.name = "InventoryStatusText"
 	_inventory_stats.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_inventory_stats.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	UI_STYLE.style_label(_inventory_stats, 11, UI_STYLE.CREAM)
+	UI_STYLE.style_label(_inventory_stats, 14, UI_STYLE.CREAM)
 	_subpanel_stack(stats_panel).add_child(_inventory_stats)
 
 	var bag_panel := _subpanel("MOCHILA · 0 / 24 PILHAS", Vector2(0, 310))
 	bag_panel.name = "BagPanel"
-	columns.add_child(bag_panel)
+	panes.add_child(bag_panel)
 	var bag_box := _subpanel_stack(bag_panel)
 	bag_box.add_theme_constant_override("separation", 8)
 	_bag_header = bag_panel.find_children("*", "Label", true, false)[0] as Label
 	_bag_header.name = "BagHeader"
-	var bag_content := HBoxContainer.new()
+	var bag_content := VBoxContainer.new()
 	bag_content.name = "BagContent"
 	bag_content.add_theme_constant_override("separation", 10)
 	bag_content.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	bag_box.add_child(bag_content)
 	var bag_grid := GridContainer.new()
 	bag_grid.name = "BagGrid"
-	bag_grid.columns = 6
+	bag_grid.columns = 4
 	bag_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	bag_grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	bag_grid.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	bag_grid.add_theme_constant_override("h_separation", 5)
 	bag_grid.add_theme_constant_override("v_separation", 5)
 	bag_content.add_child(bag_grid)
@@ -446,16 +470,32 @@ func _build_inventory_overlay() -> void:
 		slot.name = "BagSlot%02d" % (index + 1)
 		slot.text = ""
 		slot.custom_minimum_size = Vector2(58, 58)
-		slot.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		slot.autowrap_mode = TextServer.AUTOWRAP_OFF
 		UI_STYLE.style_button(slot)
 		slot.add_theme_font_size_override("font_size", 10)
 		slot.pressed.connect(func() -> void: _select_bag_slot(index))
+		var art := UI_STYLE.picture(null, Vector2.ZERO)
+		art.name = "ItemIcon"
+		art.position = Vector2(9, 5)
+		art.size = Vector2(40, 40)
+		slot.add_child(art)
+		var quantity := Label.new()
+		quantity.name = "Quantity"
+		quantity.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+		quantity.position = Vector2(-52, -22)
+		quantity.size = Vector2(46, 18)
+		quantity.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		quantity.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI_STYLE.style_label(quantity, 13, UI_STYLE.CREAM)
+		quantity.add_theme_color_override("font_shadow_color", Color.BLACK)
+		quantity.add_theme_constant_override("shadow_outline_size", 4)
+		slot.add_child(quantity)
 		bag_grid.add_child(slot)
 		_bag_slots.append(slot)
 	var detail_panel := _subpanel("ITEM SELECIONADO", Vector2(154, 0))
 	detail_panel.name = "SelectedItemPanel"
 	detail_panel.custom_minimum_size.x = 154
-	detail_panel.size_flags_horizontal = Control.SIZE_SHRINK_END
+	detail_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	bag_content.add_child(detail_panel)
 	var detail_box := _subpanel_stack(detail_panel)
 	detail_box.add_theme_constant_override("separation", 7)
@@ -464,7 +504,7 @@ func _build_inventory_overlay() -> void:
 	_item_detail.text = "Selecione um item para ver a quantidade e a ação disponível."
 	_item_detail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_item_detail.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	UI_STYLE.style_label(_item_detail, 11, UI_STYLE.CREAM)
+	UI_STYLE.style_label(_item_detail, 14, UI_STYLE.CREAM)
 	detail_box.add_child(_item_detail)
 	_craft_bandage_button = Button.new()
 	_craft_bandage_button.name = "CraftBandageButton"
@@ -501,7 +541,8 @@ func _build_inventory_overlay() -> void:
 	_bag_summary.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_bag_summary.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	_bag_summary.size_flags_vertical = Control.SIZE_SHRINK_END
-	_bag_summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_bag_summary.autowrap_mode = TextServer.AUTOWRAP_OFF
+	_bag_summary.custom_minimum_size.x = 180
 	UI_STYLE.style_label(_bag_summary, 11, UI_STYLE.MUTED)
 	footer.add_child(_bag_summary)
 	_refresh_inventory()
@@ -515,15 +556,19 @@ func _make_equipment_slot(slot_data: Dictionary) -> PanelContainer:
 	slot.size = Vector2(48, 48)
 	slot.tooltip_text = "%s · equipamento não configurável no MVP" % str(slot_data.label)
 	slot.mouse_filter = Control.MOUSE_FILTER_STOP
-	slot.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color("171421"), Color("8d7957")))
+	slot.add_theme_stylebox_override("panel", UI_STYLE.classic_style("slot"))
 	var caption := Label.new()
 	caption.name = "SlotCaption"
-	caption.text = str(slot_data.short)
+	caption.text = ""
 	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI_STYLE.style_label(caption, 9, UI_STYLE.GOLD)
+	var icon := UI_STYLE.picture(UI_STYLE.icon(str(slot_data.id)), Vector2(32, 32))
+	icon.name = "EquipmentIcon"
+	icon.modulate = Color(0.7, 0.72, 0.65, 0.38) if str(slot_data.id) != "main_hand" else Color.WHITE
+	slot.add_child(icon)
 	slot.add_child(caption)
 	return slot
 
@@ -642,7 +687,7 @@ func _subpanel(title_text: String, min_size: Vector2) -> PanelContainer:
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = min_size
 	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	panel.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color("201b29"), Color("75608c")))
+	panel.add_theme_stylebox_override("panel", UI_STYLE.classic_style("slot"))
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 10)
 	margin.add_theme_constant_override("margin_top", 10)
@@ -654,7 +699,7 @@ func _subpanel(title_text: String, min_size: Vector2) -> PanelContainer:
 	margin.add_child(stack)
 	var title := Label.new()
 	title.text = title_text
-	UI_STYLE.style_label(title, 12, UI_STYLE.GOLD)
+	UI_STYLE.style_label(title, 14, UI_STYLE.GOLD)
 	stack.add_child(title)
 	return panel
 
@@ -742,7 +787,9 @@ func _refresh_inventory() -> void:
 			continue
 		var item_id: String = str(BAG_ITEM_IDS[index])
 		var count := int(_inventory_items.get(item_id, 0))
-		button.text = "%s\n×%d" % [_inventory_short_label(item_id), count] if count > 0 else ""
+		button.text = ""
+		(button.get_node("ItemIcon") as TextureRect).texture = UI_STYLE.icon(item_id) if count > 0 else null
+		(button.get_node("Quantity") as Label).text = "×%d" % count if count > 0 else ""
 		button.tooltip_text = str(ITEM_LABELS.get(item_id, item_id))
 		button.disabled = count <= 0
 	if _bag_summary != null:
@@ -782,7 +829,7 @@ func _refresh_inventory_character_status() -> void:
 	var level_text := _level_label.text if _level_label != null else "Nv. 1"
 	var hp_text := _hp_text.text if _hp_text != null else "HP —"
 	var mp_text := _mp_text.text if _mp_text != null else "MP —"
-	_inventory_stats.text = "%s\n%s\n%s\n%s\n\nCOMBATE\nArma base: %s\nDano da arma: %s\nDefesa por equipamento: —" % [
+	_inventory_stats.text = "%s\n%s\n%s\n%s\n\n%s\nDano da arma: %s" % [
 		character_title,
 		level_text,
 		hp_text,
@@ -795,7 +842,7 @@ func _refresh_inventory_character_status() -> void:
 		var slot_caption := weapon_slot.get_node_or_null("SlotCaption") as Label
 		if slot_caption != null:
 			var count := int(_inventory_items.get("sword_basic", 0))
-			slot_caption.text = "ESP\n×%d" % count if count > 0 else "ARM"
+			slot_caption.text = ""
 		weapon_slot.tooltip_text = "Arma base de combate: %s (%s de dano no catálogo). Equipamentos não podem ser trocados no MVP." % [weapon_name, "%.0f" % weapon_damage]
 
 
@@ -818,6 +865,8 @@ func _load_inventory_character_preview(display_name: String) -> Texture2D:
 		var frame := AtlasTexture.new()
 		frame.atlas = atlas
 		frame.region = Rect2(0, south_row * int(cell[1]), int(cell[0]), int(cell[1]))
+		var used := frame.get_image().get_used_rect()
+		frame.region = Rect2(frame.region.position + Vector2(used.position), Vector2(used.size))
 		return frame
 	return null
 
@@ -1013,7 +1062,7 @@ func _layout_safe_area() -> void:
 		var inventory_modal_scale := minf(1.0, _root.size.y / 1160.0)
 		var inventory_global_scale := maxf(factor * inventory_modal_scale, 0.01)
 		var available_panel_height := maxf(320.0, (viewport_size.y - 32.0) / inventory_global_scale)
-		_inventory_panel.custom_minimum_size.y = minf(1080.0, available_panel_height)
+		_inventory_panel.custom_minimum_size.y = minf(920.0, available_panel_height)
 	for overlay in [_inventory_overlay, _camp_overlay, _downed_shade]:
 		var modal_scale := minf(1.0, _root.size.y / 1160.0)
 		overlay.set_anchors_preset(Control.PRESET_TOP_LEFT)

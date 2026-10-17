@@ -19,7 +19,7 @@ func _run() -> void:
 	var overlay: Control = hud._inventory_overlay
 	_check(overlay != null and not overlay.visible, "Inventory overlay was not created hidden.")
 	_check(overlay.find_child("EquipmentBoard", true, false) != null, "Paper-doll equipment board is missing.")
-	_check(overlay.find_child("InventoryCharacterStatus", true, false) != null, "Character status panel to the right of the paper doll is missing.")
+	_check(overlay.find_child("InventoryCharacterStatus", true, false) != null, "Character summary below the paper doll is missing.")
 	var character_preview: TextureRect = overlay.find_child("CharacterPreview", true, false) as TextureRect
 	_check(character_preview != null and character_preview.texture != null, "Pixel-art character preview is missing or has no atlas frame.")
 	_check(overlay.find_child("InventoryContentScroll", true, false) is ScrollContainer, "Inventory content is missing its height-limited scroll container.")
@@ -32,7 +32,7 @@ func _run() -> void:
 	var helmet: Control = board.find_child("EquipmentSlot_head", false, false)
 	var chest: Control = board.find_child("EquipmentSlot_chest", false, false)
 	var boots: Control = board.find_child("EquipmentSlot_boots", false, false)
-	_check(main_hand.position.x < 128.0 and offhand.position.x > 224.0, "Main-hand and off-hand slots are not flanking the character.")
+	_check(main_hand.position.x < 80.0 and offhand.position.x > 200.0, "Main-hand and off-hand slots are not flanking the character.")
 	_check(helmet.position.y < chest.position.y and boots.position.y > chest.position.y, "Helmet, chest, and boots are not vertically arranged.")
 
 	hud._inventory_items = {"wood": 3, "sword_basic": 1}
@@ -62,7 +62,7 @@ func _run() -> void:
 		var viewport_bounds := Rect2(Vector2.ZERO, Vector2(dimensions))
 		var panel := overlay.find_child("InventoryPanel", true, false) as PanelContainer
 		_check(panel != null and viewport_bounds.encloses(panel.get_global_rect()), "Inventory panel overflows %s viewport: %s" % [dimensions, panel.get_global_rect() if panel != null else Rect2()])
-		_check(status_panel.get_global_rect().position.x >= board.get_global_rect().end.x - 1.0, "Character status panel is not positioned to the right of the paper doll at %s." % dimensions)
+		_check(status_panel.get_global_rect().position.y >= board.get_global_rect().end.y - 1.0, "Character summary is not positioned below the paper doll at %s." % dimensions)
 		_check_visible_inventory_bounds(overlay, viewport_bounds)
 
 	if failures == 0:

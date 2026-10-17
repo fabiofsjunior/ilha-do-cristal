@@ -57,7 +57,7 @@ func _ready() -> void:
 	_build_world_collision()
 	_build_beacon()
 	_connect_hud()
-	_hud._minimap.set_map(load("res://assets/environments/tropical_oblique_candidate/ground.png"))
+	_build_minimap()
 	if not _state.is_ready():
 		_fatal_save_error = true
 		_hud.set_status(_state.load_error)
@@ -921,7 +921,13 @@ func _update_hud() -> void:
 	if _hud == null:
 		return
 	if _hud._minimap != null and _player != null:
-		_hud._minimap.update_position(_player.global_position, Vector2(2048.0, 1408.0))
+		var grid: Array = _layout.get("grid_size", [192, 132])
+		_hud._minimap.update_position(_player.global_position, Vector2(float(grid[0]), float(grid[1])) * TILE_SIZE)
+		var enemies := PackedVector2Array()
+		for actor in _creature_actors.values():
+			if is_instance_valid(actor) and actor.is_alive:
+				enemies.append(actor.global_position)
+		_hud._minimap.update_enemies(enemies)
 	if _state == null or not _state.is_ready():
 		return
 	var maximum := _state.max_hp_mp()
@@ -980,3 +986,16 @@ func _load_json(path: String) -> Dictionary:
 		push_error("Dados do mapa inválidos: %s" % path)
 		return {}
 	return result
+
+
+func _build_minimap() -> void:
+	var grid: Array = _layout.get("grid_size", [192, 132])
+	var image := Image.create(int(grid[0]), int(grid[1]), false, Image.FORMAT_RGBA8)
+	var palette := {"water_deep": Color("28536c"), "water_shallow": Color("528c98"), "sand": Color("c7ad70"), "grass": Color("738955"), "forest": Color("3d6448"), "soil": Color("78634b")}
+	var layer := get_node("BaseTiles") as TileMapLayer
+	var groups: Dictionary = {}
+	for tile in _tile_lookup.values():
+		groups[tile.atlas] = str(tile.group)
+	for cell in layer.get_used_cells():
+		image.set_pixelv(cell, palette.get(groups.get(layer.get_cell_atlas_coords(cell), "grass"), Color("738955")))
+	_hud._minimap.set_map(ImageTexture.create_from_image(image))

@@ -336,6 +336,8 @@ def write_build_info(apk: Path, engine_version: str) -> Path:
     build_info = {
         "engine": engine_version,
         "source_commit": commit,
+        "source_tree": subprocess.check_output(["git", "rev-parse", "HEAD^{tree}"], cwd=PROJECT_ROOT, text=True).strip(),
+        "source_dirty": bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=PROJECT_ROOT, text=True).strip()),
         "built_at": datetime.now(timezone.utc).isoformat(),
         "target": "Android",
         "package_id": PACKAGE_NAME,
@@ -357,6 +359,7 @@ def write_build_info(apk: Path, engine_version: str) -> Path:
 
 
 def main() -> None:
+    global PACKAGE_NAME, APP_NAME
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--output",
@@ -365,7 +368,11 @@ def main() -> None:
     )
     parser.add_argument("--godot", help="Godot 4.5.1 executable; can also use GODOT_BIN.")
     parser.add_argument("--sdk", help="Android SDK root; defaults to ANDROID_SDK_ROOT or /opt/android-sdk.")
+    parser.add_argument("--parallel-install", action="store_true", help="Export a separate .preview app, preserving existing installs and saves.")
     args = parser.parse_args()
+    if args.parallel_install:
+        PACKAGE_NAME += ".preview"
+        APP_NAME += " — Teste"
 
     godot = resolve_godot(args.godot)
     version = subprocess.run(
@@ -445,20 +452,32 @@ def main() -> None:
         output = PROJECT_ROOT / output
     output = output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
-    run_godot_logged(
-        [
-            str(godot),
-            "--headless",
-            "--path",
-            str(PROJECT_ROOT),
-            "--export-debug",
-            PRESET_NAME,
-            str(output),
-        ],
-        env=env,
-        log_path=logs_dir / "android-export.log",
-        label="Android export",
-    )
+    preset_path = PROJECT_ROOT / "export_presets.cfg"
+    original_preset = preset_path.read_text(encoding="utf-8")
+    if args.parallel_install:
+        preview_preset = original_preset.replace(
+            'package/unique_name="com.fabiofsjunior.ilhadocristal"',
+            f'package/unique_name="{PACKAGE_NAME}"',
+        ).replace('package/name="A Ilha do Cristal"', f'package/name="{APP_NAME}"')
+        preset_path.write_text(preview_preset, encoding="utf-8")
+    try:
+        run_godot_logged(
+            [
+                str(godot),
+                "--headless",
+                "--path",
+                str(PROJECT_ROOT),
+                "--export-debug",
+                PRESET_NAME,
+                str(output),
+            ],
+            env=env,
+            log_path=logs_dir / "android-export.log",
+            label="Android export",
+        )
+    finally:
+        if args.parallel_install:
+            preset_path.write_text(original_preset, encoding="utf-8")
     if not output.is_file() or output.stat().st_size == 0:
         fail(f"Godot não produziu o APK: {output}")
 

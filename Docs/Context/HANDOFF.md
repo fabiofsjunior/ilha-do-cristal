@@ -1,17 +1,9 @@
-# Handoff — APK 0.1.6 integrado e validado estruturalmente
+# Handoff — correção mobile 0.1.7
 
-- Main remota após PR #12: `84a68f891ef63f7d6949832f0a8065dc3d75e600`.
-- PR: https://github.com/fabiofsjunior/ilha-do-cristal/pull/12
-- Árvore de código conferida integralmente: `fd8dc0ada0301d5efe62e6b1b959ba91ae3f020a`, idêntica ao snapshot local validado. As features empilhadas estão incluídas na main.
-- APK debug entregue: 0.1.6/versionCode 7, package `com.fabiofsjunior.ilhadocristal`, portrait, ARMv7/ARM64, 64.680.671 bytes.
-- SHA-256: `94a3e75920b3608c870e42af0172aaef3d23e28b465243b1077dfb7cfe153517`.
+Branch: feature/s02-mobile-ui-017, baseline main a1a47165d083057b45e7ee0a9235808ce244d11d. Esta entrega integra UI clássica, profundidade/pivôs, câmera e minimapa completo. O commit/árvore exatos exportados são registrados em build/android/BUILD_INFO.json; consulte o head da PR de integração para o código remoto.
 
-## Evidências
+A referência visual veio dos anexos 3/4 selecionados pelo usuário; capturas reais de comparação estão em docs/art/evidence/mobile_017/. Ver docs/gameplay/MOBILE_UI_017_VALIDATION.md para mudanças, testes e limites. A arte dos personagens/criaturas não foi reclassificada como aprovada.
 
-CRC ZIP sem falhas, manifesto e presença das assinaturas v2/v3 conferidos. Os 89 arquivos fonte diretamente comparáveis dentro do APK coincidem byte a byte com a árvore local; os scripts GDScript estão exportados em bytecode. O sidecar registra a base 8140343; o relatório da exportação documenta o worktree sujo posteriormente consolidado em b0b7b7f.
+Godot 4.5.1, SDK 35 e JDK17 foram preparados. A chave antiga da 0.1.6 não existe neste ambiente; gerar a variante --parallel-install para instalar ao lado do app antigo e preservar seus saves. Package preview e progresso separados. Não enviar chaves ao Git.
 
-Passaram nesta sessão: catálogo (10 grupos/54 IDs), validate_playable_slice.py, test_melee_visual_spacing.py e validate_mvp_terrain_tileset.py. O validador da fatia passou após restringir a guarda aos atlas usados em runtime.
-
-## Próxima ação e bloqueios
-
-Instalar a 0.1.6 em Android físico e validar joystick, janela de atributos, restauração de HP/MP ao subir de nível, HUD, combate, save e estabilidade. Esta sessão não tinha Godot, Android SDK, adb ou dispositivo, portanto não houve nova exportação nem playtest físico. Não declarar o gate mobile concluído. A build Web permanece 0.1.5.
+Próxima ação: instalar 0.1.7 de teste no Android do usuário; verificar ordem do terreno/atores, minimapa vermelho, ícones, legibilidade, alocação/confirmar/resetar, coleta/cura/save e estabilidade. Não declarar aceite físico nem FPS mobile com base nos testes Mesa. Web permanece na exportação anterior.

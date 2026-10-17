@@ -18,6 +18,7 @@ const CHARACTER_LABELS := {
 }
 const ATTRIBUTE_EFFECTS_PATH := ["ui_and_audio", "inventory_prototype_v0_7", "attribute_derived_effects"]
 
+var _profile_preview: TextureRect
 var _state: Object
 var _pending := {"FOR": 0, "AGI": 0, "INT": 0}
 var _tree_was_paused := false
@@ -147,7 +148,7 @@ func _build_interface() -> void:
 	_main_frame.name = "MainFrame"
 	_main_frame.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_main_frame.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	_main_frame.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color("211d29"), Color("d0a85c")))
+	_main_frame.add_theme_stylebox_override("panel", UI_STYLE.classic_style())
 	center.add_child(_main_frame)
 
 	var body := VBoxContainer.new()
@@ -158,9 +159,13 @@ func _build_interface() -> void:
 	var header := HBoxContainer.new()
 	header.name = "Header"
 	header.alignment = BoxContainer.ALIGNMENT_CENTER
-	body.add_child(header)
+	var header_frame := PanelContainer.new()
+	header_frame.add_theme_stylebox_override("panel", UI_STYLE.classic_style("button"))
+	body.add_child(header_frame)
+	header_frame.add_child(header)
 	var title := _label("ATRIBUTOS", 23, UI_STYLE.GOLD)
 	title.name = "Title"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(title)
 	var close_button := Button.new()
@@ -171,17 +176,27 @@ func _build_interface() -> void:
 	close_button.pressed.connect(close_window)
 	header.add_child(close_button)
 
+	var columns := HBoxContainer.new()
+	columns.name = "AttributesColumns"
+	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	columns.add_theme_constant_override("separation", 10)
+	body.add_child(columns)
 	var identity_panel := PanelContainer.new()
 	identity_panel.name = "CharacterSummary"
-	identity_panel.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color("30283a"), Color("b9874f")))
-	body.add_child(identity_panel)
+	identity_panel.add_theme_stylebox_override("panel", UI_STYLE.classic_style("slot"))
+	identity_panel.custom_minimum_size.x = 218
+	columns.add_child(identity_panel)
 	var identity_box := VBoxContainer.new()
 	identity_box.add_theme_constant_override("separation", 2)
 	identity_panel.add_child(identity_box)
 	_identity_label = _label("", 16, UI_STYLE.CREAM)
 	_identity_label.name = "CharacterIdentity"
 	_identity_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_identity_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	identity_box.add_child(_identity_label)
+	_profile_preview = UI_STYLE.picture(null, Vector2(190, 330))
+	_profile_preview.name = "AttributeCharacterPreview"
+	identity_box.add_child(_profile_preview)
 	_xp_label = _label("", 13, UI_STYLE.MUTED)
 	_xp_label.name = "ExperienceProgress"
 	_xp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -189,7 +204,7 @@ func _build_interface() -> void:
 	_points_label = _label("", 16, UI_STYLE.GOLD)
 	_points_label.name = "AvailablePoints"
 	_points_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	identity_box.add_child(_points_label)
+	body.add_child(_points_label)
 
 	var scroll := ScrollContainer.new()
 	scroll.name = "AttributesScroll"
@@ -197,7 +212,8 @@ func _build_interface() -> void:
 	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.mouse_filter = Control.MOUSE_FILTER_PASS
-	body.add_child(scroll)
+	scroll.custom_minimum_size.x = 360
+	columns.add_child(scroll)
 	var content := VBoxContainer.new()
 	content.name = "AttributesContent"
 	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -209,8 +225,8 @@ func _build_interface() -> void:
 		content.add_child(_make_attribute_row(attribute_id))
 
 	var resources_panel := _make_section_panel("RECURSOS DO PERSONAGEM", Color("18242b"), Color("547782"))
-	content.add_child(resources_panel)
-	_resource_label = _label("", 14, UI_STYLE.CREAM)
+	identity_box.add_child(resources_panel)
+	_resource_label = _label("", 12, UI_STYLE.CREAM)
 	_resource_label.name = "ResourceSummary"
 	_resource_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	resources_panel.get_node("SectionContent").add_child(_resource_label)
@@ -266,7 +282,7 @@ func _build_interface() -> void:
 func _make_attribute_row(attribute_id: String) -> Control:
 	var card := PanelContainer.new()
 	card.name = "%sRow" % attribute_id.capitalize()
-	card.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color("292533"), Color("76634b")))
+	card.add_theme_stylebox_override("panel", UI_STYLE.classic_style("parchment"))
 	var stack := VBoxContainer.new()
 	stack.add_theme_constant_override("separation", 3)
 	card.add_child(stack)
@@ -276,15 +292,16 @@ func _make_attribute_row(attribute_id: String) -> Control:
 	var text_stack := VBoxContainer.new()
 	text_stack.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	text_stack.add_theme_constant_override("separation", 1)
+	row.add_child(UI_STYLE.picture(UI_STYLE.icon(attribute_id), Vector2(40, 40)))
 	row.add_child(text_stack)
-	var title := _label(str(ATTRIBUTE_COPY[attribute_id].title), 15, UI_STYLE.GOLD)
+	var title := _label(str(ATTRIBUTE_COPY[attribute_id].title), 15, Color("493e2b"))
 	title.name = "%sTitle" % attribute_id.capitalize()
 	text_stack.add_child(title)
-	var value := _label("Bruto 0", 13, UI_STYLE.CREAM)
+	var value := _label("Bruto 0", 13, Color("29332e"))
 	value.name = "%sValue" % attribute_id.capitalize()
 	_value_labels[attribute_id] = value
 	text_stack.add_child(value)
-	var effective := _label("Efetivo 0", 12, UI_STYLE.BLUE)
+	var effective := _label("Efetivo 0", 12, Color("315d65"))
 	effective.name = "%sEffective" % attribute_id.capitalize()
 	_effective_labels[attribute_id] = effective
 	text_stack.add_child(effective)
@@ -297,11 +314,11 @@ func _make_attribute_row(attribute_id: String) -> Control:
 	add_button.pressed.connect(func() -> void: allocate_point(attribute_id))
 	_add_buttons[attribute_id] = add_button
 	row.add_child(add_button)
-	var description := _label(str(ATTRIBUTE_COPY[attribute_id].description), 11, UI_STYLE.MUTED)
+	var description := _label(str(ATTRIBUTE_COPY[attribute_id].description), 11, Color("574b36"))
 	description.name = "%sDescription" % attribute_id.capitalize()
 	description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	stack.add_child(description)
-	var benefit := _label("", 12, UI_STYLE.CREAM)
+	var benefit := _label("", 12, Color("29332e"))
 	benefit.name = "%sNextPointBenefit" % attribute_id.capitalize()
 	benefit.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_benefit_labels[attribute_id] = benefit
@@ -311,7 +328,7 @@ func _make_attribute_row(attribute_id: String) -> Control:
 
 func _make_section_panel(title: String, background: Color, border: Color) -> PanelContainer:
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", UI_STYLE.panel_style(background, border))
+	panel.add_theme_stylebox_override("panel", UI_STYLE.classic_style("slot"))
 	var section := VBoxContainer.new()
 	section.name = "SectionContent"
 	section.add_theme_constant_override("separation", 3)
@@ -353,11 +370,13 @@ func _refresh() -> void:
 	var vocation_id := str(_state.get("vocation_id"))
 	var character_name := str(CHARACTER_LABELS.get(character_id, character_id.capitalize()))
 	var level := int(_state.get("level"))
-	_identity_label.text = "%s  ·  %s  ·  Nível %d" % [character_name, VOCATION_LABELS.get(vocation_id, vocation_id), level]
+	_identity_label.text = "%s\n%s · Nv. %d" % [character_name, VOCATION_LABELS.get(vocation_id, vocation_id), level]
+	_profile_preview.texture = _portrait_texture(character_id)
+	_xp_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_xp_label.text = _experience_summary(level, int(_state.get("total_xp")))
 	var available := int(_state.get("available_attribute_points"))
 	var spent := _spent_points()
-	_points_label.text = "PONTOS LIVRES  %d    ·    ALOCADOS  %d" % [maxi(0, available - spent), spent]
+	_points_label.text = "Pontos disponíveis: %d    ·    Pendentes: %d" % [maxi(0, available - spent), spent]
 
 	var raw := _read_state_dictionary(_state, "raw_attributes")
 	var preview_raw := raw.duplicate(true)
@@ -572,5 +591,24 @@ func _update_frame_size() -> void:
 		return
 	var viewport_size := get_viewport_rect().size
 	var width := minf(660.0, maxf(280.0, viewport_size.x - 24.0))
-	var height := minf(1180.0, maxf(380.0, viewport_size.y - 28.0))
+	var height := minf(1000.0, maxf(380.0, viewport_size.y - 28.0))
 	_main_frame.custom_minimum_size = Vector2(width, height)
+
+
+func _portrait_texture(character_id: String) -> Texture2D:
+	var appearances = preload("res://game/scripts/actors/appearance_data.gd")
+	for profile in appearances.profiles():
+		if str(profile.get("id", "")) != character_id:
+			continue
+		var path := str(profile.get("idle_metadata", ""))
+		var metadata: Dictionary = appearances.metadata(path)
+		var atlas := load(appearances.atlas_path(path, metadata)) as Texture2D
+		var cell: Array = metadata.get("cell", [96, 96])
+		var directions: Array = metadata.get("directions", ["S"])
+		var frame := AtlasTexture.new()
+		frame.atlas = atlas
+		frame.region = Rect2(0, maxi(0, directions.find("S")) * int(cell[1]), int(cell[0]), int(cell[1]))
+		var used := frame.get_image().get_used_rect()
+		frame.region = Rect2(frame.region.position + Vector2(used.position), Vector2(used.size))
+		return frame
+	return null

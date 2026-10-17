@@ -115,3 +115,7 @@ Mudanças: zoom lógico 150–300%, padrão200%, normalizado pelo lado curto do 
 Limites: top-down oblíquo com profundidade visual, não transformação isométrica64x32, nem reprodução integral do lago/ruínas. Arte candidata. Checkout recuperado do GitHub (branch feature/s02-pixel-hud-assets); alterações não publicadas de sessões anteriores não estavam disponíveis. Não afirmar que esta build contém regeneração/XP10x/inventário novos de outro checkout.
 
 Verificações: Godot4.5.1 import e smoke de fluxo/coleta/combate/movimento; test_close_view em1280x720,720x1280,1920x1080; catálogo54 IDs; diff-check. Render gráfico bloqueado pelo ambiente (Xvfb não consegue criar sockets); Android físico e WebGL pendentes. Preview terrain é composição offline, não screenshot do jogo.
+
+## UI 0.1.7 — referências fornecidas em 2026-10-17
+
+O usuário identificou os anexos 3/4 como “como deveria ser” e instruiu aplicar essa composição ao jogo, corrigindo os anexos 1/2. Essas pranchas são o alvo visual fornecido e selecionado explicitamente para esta correção. A adaptação mantém GDD/pixel art, equipamento fixo e conteúdo real; não adota ouro ou valores ilustrativos. Comparação implementada e capturada em `docs/art/evidence/mobile_017/`; ícones/molduras nativos em `assets/ui/classic_v2/`. Revisão de produção em Android ainda pendente; não confundir a direção selecionada com aceite físico da build.
