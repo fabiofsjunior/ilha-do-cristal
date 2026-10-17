@@ -6,6 +6,7 @@ const MAIN = preload("res://game/scenes/main.tscn")
 const PLAYER_SCENE = preload("res://game/scenes/player.tscn")
 const CREATURE_ACTOR = preload("res://game/scripts/combat/creature_actor.gd")
 const COMBAT_GEOMETRY = preload("res://game/scripts/combat/combat_geometry.gd")
+const FOOTPRINTS_PATH := "res://game/data/melee_visual_footprints.json"
 
 var failures := 0
 
@@ -29,10 +30,11 @@ func _settle_physics(frames: int) -> void:
 
 func _run() -> void:
 	await _test_player_approach_for_each_species()
+	await _test_profile_direction_contact_window()
 	await _test_monster_approach_to_player()
 	await _test_combat_contact_and_unchanged_skill_range()
 	if failures == 0:
-		print("PASS melee: alpha-based footprints stop both approaches; world capsules stay unchanged; both basic attacks work at visible/physical contact; sword stays at 1 SQM and war_quake still hits at 100 px")
+		print("PASS melee: profile/facing alpha footprints stop both approaches within 1 px; fox/wolf/bear attacks wait until within 2 px; world capsules stay unchanged; sword stays at 1 SQM and war_quake still hits at 100 px")
 	quit(0 if failures == 0 else 1)
 
 
@@ -87,13 +89,88 @@ func _test_player_approach_for_each_species() -> void:
 		_check((player.collision_mask & 2) != 0, "Player mask must continue to include the creature collision layer")
 		_check((player_shape.shape as CapsuleShape2D).radius == 10.0, "Player navigation collider must stay at its authored 10 px radius")
 		_check((creature_shape.shape as CapsuleShape2D).radius == expected_creature_radius, "%s navigation collider must stay unchanged" % species)
-		_check(visual_gap >= 0.0 and visual_gap <= 8.0, "%s player approach must stop without alpha overlap, near the 4 px margin; got %0.2f" % [species, visual_gap])
+		_check(visual_gap >= 0.0 and visual_gap <= 2.0, "%s player approach must stop without alpha overlap, near the 1 px margin; got %0.2f" % [species, visual_gap])
 		_check(capsule_gap > 30.0, "%s must stop by alpha footprint without inflating the world collider" % species)
 		_check(visual_gap <= 32.0, "%s contact must remain inside the sword's catalogued 1 SQM surface reach" % species)
 		_check(creature.is_player_in_basic_attack_range(), "%s must be able to basic-attack at the visible stop point" % species)
 		player.queue_free()
 		creature.queue_free()
 		await process_frame
+
+
+func _test_profile_direction_contact_window() -> void:
+	var player := _new_player(Vector2(400, 400))
+	player.set_physics_process(false)
+	var creatures: Dictionary = {}
+	for index in range(3):
+		var species: String = ["fox", "wolf", "bear"][index]
+		creatures[species] = _new_creature(player, species, Vector2(900 + index * 100, 400))
+	await process_frame
+	for actor in creatures.values():
+		(actor as CreatureActor).set_physics_process(false)
+	var footprint_data = JSON.parse_string(FileAccess.get_file_as_string(FOOTPRINTS_PATH))
+	var expected_by_profile: Dictionary = footprint_data.get("player_alpha_extents_by_profile_and_facing", {})
+	var directions := {
+		"N": Vector2(0, -1),
+		"NE": Vector2(1, -1),
+		"E": Vector2(1, 0),
+		"SE": Vector2(1, 1),
+		"S": Vector2(0, 1),
+		"SW": Vector2(-1, 1),
+		"W": Vector2(-1, 0),
+		"NW": Vector2(-1, -1),
+	}
+	var attack_gap_tolerance := float(CREATURE_ACTOR.ATTACK_VISUAL_GAP_TOLERANCE)
+	for profile in ["melissa", "helena", "maira", "fabio"]:
+		player.selected_character_id = profile
+		player._build_animations()
+		for facing in directions:
+			player.facing = facing
+			player._play("idle_" + facing)
+			var actual_extents: Vector4 = player.melee_visual_alpha_extents_px()
+			var expected_values: Array = expected_by_profile.get(profile, {}).get(facing, [])
+			var expected_extents := Vector4(
+				float(expected_values[0]), float(expected_values[1]),
+				float(expected_values[2]), float(expected_values[3])
+			)
+			_check(actual_extents.is_equal_approx(expected_extents), "%s %s must use its visible alpha footprint" % [profile, facing])
+			for species in ["fox", "wolf", "bear"]:
+				var creature := creatures[species] as CreatureActor
+				var direction: Vector2 = directions[facing]
+				var unit_direction := direction.normalized()
+				var stop_distance := COMBAT_GEOMETRY.visual_contact_distance(
+					player, creature, direction, COMBAT_GEOMETRY.visual_footprint_margin_px()
+				)
+				var original_player_position := player.global_position
+				creature.global_position = original_player_position + unit_direction * (stop_distance + 5.0)
+				var player_velocity := COMBAT_GEOMETRY.constrain_velocity_to_visual_contact(
+					player, [creature], unit_direction * 100.0, 0.2
+				)
+				player.global_position = original_player_position + player_velocity * 0.2
+				var player_stop_gap := COMBAT_GEOMETRY.projected_visual_surface_gap_px_between(player, creature)
+				_check(player_stop_gap >= -0.05 and player_stop_gap <= 1.1, "%s %s player blocking must stop at alpha contact; got %0.2f px" % [species, facing, player_stop_gap])
+				player.global_position = original_player_position
+				var creature_velocity := COMBAT_GEOMETRY.constrain_velocity_to_visual_contact(
+					creature, [player], -unit_direction * 100.0, 0.2
+				)
+				creature.global_position += creature_velocity * 0.2
+				var creature_stop_gap := COMBAT_GEOMETRY.projected_visual_surface_gap_px_between(player, creature)
+				_check(creature_stop_gap >= -0.05 and creature_stop_gap <= 1.1, "%s %s creature blocking must stop at alpha contact; got %0.2f px" % [species, facing, creature_stop_gap])
+				creature.global_position = player.global_position + direction.normalized() * stop_distance
+				var contact_gap := COMBAT_GEOMETRY.projected_visual_surface_gap_px_between(player, creature)
+				_check(contact_gap >= -0.05 and contact_gap <= 1.1, "%s %s stop should match visible contact; got %0.2f px" % [species, facing, contact_gap])
+				_check(creature.is_player_in_basic_attack_range(), "%s %s must attack at visible contact" % [species, facing])
+				var outside_distance := COMBAT_GEOMETRY.visual_contact_distance(
+					player, creature, direction, attack_gap_tolerance + 1.0
+				)
+				creature.global_position = player.global_position + direction.normalized() * outside_distance
+				var outside_gap := COMBAT_GEOMETRY.projected_visual_surface_gap_px_between(player, creature)
+				_check(outside_gap > attack_gap_tolerance, "%s %s attack began before alpha contact; got %0.2f px" % [species, facing, outside_gap])
+				_check(not creature.is_player_in_basic_attack_range(), "%s %s must not attack beyond the 2 px contact window" % [species, facing])
+	player.queue_free()
+	for actor in creatures.values():
+		(actor as CreatureActor).queue_free()
+	await process_frame
 
 
 func _test_monster_approach_to_player() -> void:
@@ -105,7 +182,7 @@ func _test_monster_approach_to_player() -> void:
 		await _settle_physics(3)
 		await _settle_physics(150)
 		var visual_gap := COMBAT_GEOMETRY.projected_visual_surface_gap_px_between(creature, player)
-		_check(visual_gap >= 0.0 and visual_gap <= 8.0, "%s approach must stop without alpha overlap, near the 4 px margin; got %0.2f" % [species, visual_gap])
+		_check(visual_gap >= 0.0 and visual_gap <= 2.0, "%s approach must stop without alpha overlap, near the 1 px margin; got %0.2f" % [species, visual_gap])
 		_check(creature.is_player_in_basic_attack_range(), "%s could not basic-attack after approaching visual contact" % species)
 		_check(COMBAT_GEOMETRY.visual_surface_gap_between(player, creature) <= 32.0, "Player-side one-SQM melee must also allow %s contact" % species)
 		player.queue_free()
@@ -140,7 +217,7 @@ func _test_combat_contact_and_unchanged_skill_range() -> void:
 		for actor in game.get("_creature_actors").values():
 			actor.set_physics_process(false)
 		player.global_position = game.get("_beacon_position") + Vector2(400, 0)
-		var contact_distance := COMBAT_GEOMETRY.visual_contact_distance(player, wolf, Vector2.RIGHT)
+		var contact_distance := COMBAT_GEOMETRY.visual_contact_distance(player, wolf, Vector2.RIGHT, 1.0)
 		wolf.global_position = player.global_position + Vector2(contact_distance, 0)
 		game._set_target(wolf)
 		_check(game.player_basic_attack_can_reach(wolf), "Game basic attack must reach a target at visible alpha contact")

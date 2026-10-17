@@ -1,12 +1,12 @@
 {
-  "schema_version": 1,
-  "description": "Conservative alpha bounds for actor-only melee spacing in the fixed 2.5D view. Navigation CollisionShape2D dimensions remain independent.",
+  "schema_version": 2,
+  "description": "Alpha bounds for the active Warrior appearance/facing plus creature poses, projected through the fixed 2.5D view. Navigation CollisionShape2D dimensions remain independent.",
   "alpha_threshold": 31,
   "camera": {
     "yaw_degrees": 45,
     "pitch_degrees": 30
   },
-  "separation_margin_px": 4,
+  "separation_margin_px": 1,
   "player_alpha_bounds_px": [
     65,
     67
@@ -73,6 +73,208 @@
         54.6,
         0,
         96.2
+      ]
+    }
+  },
+  "player_alpha_extents_by_profile_and_facing": {
+    "melissa": {
+      "N": [
+        -25,
+        25,
+        -3,
+        61
+      ],
+      "NE": [
+        -26,
+        31,
+        -1,
+        58
+      ],
+      "E": [
+        -25,
+        28,
+        -1,
+        61
+      ],
+      "SE": [
+        -24,
+        29,
+        0,
+        61
+      ],
+      "S": [
+        -25,
+        24,
+        -1,
+        62
+      ],
+      "SW": [
+        -28,
+        33,
+        -1,
+        61
+      ],
+      "W": [
+        -29,
+        26,
+        -3,
+        58
+      ],
+      "NW": [
+        -27,
+        25,
+        1,
+        57
+      ]
+    },
+    "helena": {
+      "N": [
+        -24,
+        22,
+        -3,
+        61
+      ],
+      "NE": [
+        -26,
+        31,
+        2,
+        63
+      ],
+      "E": [
+        -25,
+        29,
+        2,
+        63
+      ],
+      "SE": [
+        -23,
+        17,
+        4,
+        64
+      ],
+      "S": [
+        -24,
+        28,
+        -2,
+        60
+      ],
+      "SW": [
+        -27,
+        28,
+        3,
+        64
+      ],
+      "W": [
+        -26,
+        25,
+        1,
+        62
+      ],
+      "NW": [
+        -28,
+        28,
+        2,
+        65
+      ]
+    },
+    "maira": {
+      "N": [
+        -21,
+        20,
+        -2,
+        58
+      ],
+      "NE": [
+        -24,
+        26,
+        -1,
+        62
+      ],
+      "E": [
+        -22,
+        26,
+        0,
+        64
+      ],
+      "SE": [
+        -25,
+        25,
+        -2,
+        62
+      ],
+      "S": [
+        -23,
+        21,
+        -1,
+        64
+      ],
+      "SW": [
+        -25,
+        28,
+        -2,
+        63
+      ],
+      "W": [
+        -24,
+        26,
+        -1,
+        64
+      ],
+      "NW": [
+        -30,
+        30,
+        -2,
+        62
+      ]
+    },
+    "fabio": {
+      "N": [
+        -29,
+        28,
+        0,
+        67
+      ],
+      "NE": [
+        -32,
+        31,
+        -1,
+        63
+      ],
+      "E": [
+        -35,
+        30,
+        0,
+        64
+      ],
+      "SE": [
+        -34,
+        34,
+        4,
+        69
+      ],
+      "S": [
+        -26,
+        25,
+        0,
+        65
+      ],
+      "SW": [
+        -30,
+        34,
+        -1,
+        62
+      ],
+      "W": [
+        -31,
+        33,
+        3,
+        68
+      ],
+      "NW": [
+        -31,
+        34,
+        2,
+        69
       ]
     }
   }

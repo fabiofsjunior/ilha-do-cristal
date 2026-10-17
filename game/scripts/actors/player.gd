@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 
 
 func melee_visual_alpha_extents_px() -> Vector4:
-	return COMBAT_GEOMETRY.player_visual_alpha_extents()
+	return COMBAT_GEOMETRY.player_visual_alpha_extents(selected_character_id, facing)
 
 
 func _keyboard_vector() -> Vector2:
