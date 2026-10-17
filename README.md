@@ -2,7 +2,7 @@
 
 RPG de sobrevivência em pixel art. Melissa, Helena, Maíra e Fábio sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
 
-**Estado:** recorte solo de teste em Godot 4.5.1. O código atual inclui queda/reanimação solo, contato corpo a corpo calculado pela projeção dos footprints visuais, movimento relativo à câmera, regeneração fora de combate a 1,2× e uma wiki local. A exportação Web foi feita a partir de `main`; a revisão gráfica no navegador continua pendente. O APK 0.1.7 é histórico e não foi recompilado com as mudanças das PRs #15–#18. Uma nova exportação Android está bloqueada neste ambiente pela ausência do SDK Platform 35 e do Build Tools 35.0.0; a instalação e o teste em aparelho também continuam pendentes. **Arte:** personagens e criaturas seguem **CORRIGIR**, terreno **CANDIDATO**. A [prancha conceitual](assets/references/concept-rpg-classico.png) é referência visual.
+**Estado:** recorte solo de teste em Godot 4.5.1. O código atual inclui queda/reanimação solo, contato corpo a corpo calculado pela projeção dos footprints visuais, movimento relativo à câmera, regeneração fora de combate a 1,2× e uma wiki local. A branch `feature/s03-crystal-ui-kit-v2` implementa o kit visual enviado: atlas de interface, molduras e botões, HUD, mochila/equipamento, fabricação/refúgio, talentos/vocações, seleção e pausa. O Web e o APK debug de teste foram exportados com Godot 4.5.1; os links e limites de validação estão no handoff da branch. **Arte:** personagens e criaturas seguem **CORRIGIR**, terreno **CANDIDATO**. A [prancha conceitual](assets/references/concept-rpg-classico.png) é referência visual.
 
 A cena principal é `game/scenes/main.tscn`. O fluxo percorre início → uma das quatro aparências Warrior → sessão solo → ilha 192×132, com movimento, coleta, raposa/lobo/urso, ataque automático ao alcance, três habilidades Warrior, curativo, XP, inventário de materiais e melhorias de acampamento. O save local separa as quatro aparências e usa slots com checksum e recuperação. Contas, LAN, Archer/Mage, árvore completa e mundo procedural continuam pendentes; o recorte não fecha o aceite integral do GDD. Consulte o [guia do teste solo](docs/gameplay/MVP_SOLO_TEST.md) e a [validação das builds](docs/gameplay/MVP_BUILD_VALIDATION.md).
 
@@ -36,6 +36,10 @@ Para exportar Web e Android, instale Godot 4.5.1 e os templates correspondentes.
 Estrutura: `game/` (cenas, scripts e dados), `data/` (catálogo versionado), `assets/` (arte candidata e referências), `Docs/Main/` (referência durável), `Docs/Context/` (journal/handoff), `docs/art/` e `docs/technical/`. O harness técnico de sprites permanece em `tools/art/sprite_test/sprite_test.tscn`. Relatórios de criaturas e [prancha nativa/nearest](docs/art/evidence/creatures-contact-candidates.png) documentam uma pose SE estática por animal; direções, animações e alpha final não estão aprovados.
 
 Não publicar fotos originais das crianças, credenciais, keystores ou saves pessoais. A prancha conceitual não substitui sprites de produção.
+
+## Kit UI Crystal v2 — 2026-10-17
+
+A branch `feature/s03-crystal-ui-kit-v2` integra o spritesheet `assets/ui/crystal_v2/sheet.b64` e componentes reutilizáveis nos fluxos principais. O catálogo de mochila usa 24 espaços; estados indisponíveis permanecem bloqueados/identificados como prévia. A UI reutiliza dados e ações existentes, sem simular vocações, talentos ou sistemas não implementados. Validações headless do kit/fluxo e importação Godot 4.5.1 passaram; APK é uma build debug e ainda requer teste em aparelho. O Web foi empacotado, sem validação gráfica em navegador.
 
 ## Histórico visual e de build 0.1.7
 
