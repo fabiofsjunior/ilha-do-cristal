@@ -7,9 +7,10 @@ const VISUAL_FOOTPRINTS_PATH := "res://game/data/melee_visual_footprints.json"
 const EPSILON := 0.0001
 const CAMERA_YAW_DEGREES := 45.0
 const CAMERA_PITCH_DEGREES := 30.0
-const VISUAL_FOOTPRINT_MARGIN_PX := 4.0
+const VISUAL_FOOTPRINT_MARGIN_PX := 1.0
 
 static var _visual_footprints_cache: Dictionary = {}
+static var _missing_player_footprint_warnings: Dictionary = {}
 
 
 static func surface_gap_between(first: CollisionObject2D, second: CollisionObject2D) -> float:
@@ -78,8 +79,19 @@ static func projected_visual_surface_gap_px_between(first: Node2D, second: Node2
 		var needed_x := first_extents.y - second_extents.x if projected_x > 0.0 else second_extents.y - first_extents.x
 		gap_x = absf(projected_x) - needed_x
 	if absf(projected_y) > EPSILON:
-		var needed_y := first_extents.w - second_extents.z if projected_y > 0.0 else second_extents.w - first_extents.z
+		var first_bottom := first_extents.z * cos(pitch)
+		var first_top := first_extents.w * cos(pitch)
+		var second_bottom := second_extents.z * cos(pitch)
+		var second_top := second_extents.w * cos(pitch)
+		var needed_y := first_top - second_bottom if projected_y > 0.0 else second_top - first_bottom
 		gap_y = absf(projected_y) - needed_y
+	# A ground direction can project exactly along one screen axis. In that
+	# case the unused axis has infinite clearance and must not force the result
+	# to INF when the other axis still has a finite gap.
+	if is_inf(gap_x):
+		return gap_y
+	if is_inf(gap_y):
+		return gap_x
 	# Screen-space rectangles are separated when either axis has a positive
 	# clearance. Use the Euclidean edge distance only when both axes are clear;
 	# when they overlap on both axes, return the shallowest penetration depth.
@@ -155,9 +167,12 @@ static func constrain_velocity_to_visual_contact(
 			separation = start - blocker.global_position
 			if separation.length_squared() <= EPSILON:
 				separation = Vector2.RIGHT
-		var minimum_distance := visual_contact_distance(mover, blocker, separation.normalized())
+		var away_from_blocker := separation.normalized()
+		# visual_contact_distance expects first-to-second, while `separation`
+		# points from the blocker back toward the mover.
+		var minimum_distance := visual_contact_distance(mover, blocker, -away_from_blocker)
 		if separation.length() < minimum_distance:
-			end = blocker.global_position + separation.normalized() * minimum_distance
+			end = blocker.global_position + away_from_blocker * minimum_distance
 	return (end - start) / delta
 
 
@@ -167,9 +182,18 @@ static func player_visual_alpha_bounds() -> Vector2:
 	return Vector2(float(bounds[0]), float(bounds[1])) if bounds.size() >= 2 else Vector2.ZERO
 
 
-static func player_visual_alpha_extents() -> Vector4:
-	var extents: Array = _visual_footprints().get("player_alpha_extents_px", [])
-	return _array_to_extents(extents)
+static func player_visual_alpha_extents(profile_id: String, facing: String) -> Vector4:
+	var data := _visual_footprints()
+	var by_profile: Dictionary = data.get("player_alpha_extents_by_profile_and_facing", {})
+	var by_facing: Dictionary = by_profile.get(profile_id, {})
+	var extents: Array = by_facing.get(facing, [])
+	if extents.size() >= 4:
+		return _array_to_extents(extents)
+	var key := "%s/%s" % [profile_id, facing]
+	if not _missing_player_footprint_warnings.has(key):
+		push_warning("Footprint alpha não encontrado para %s; usando envelope conservador." % key)
+		_missing_player_footprint_warnings[key] = true
+	return _array_to_extents(data.get("player_alpha_extents_px", []))
 
 
 static func creature_visual_alpha_bounds(species_id: String) -> Vector2:

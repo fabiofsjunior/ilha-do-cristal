@@ -98,6 +98,23 @@ def player_extents(profiles: list[dict], threshold: int) -> tuple[int, int, int,
     return int(min_x), int(max_x), int(min_up), int(max_up)
 
 
+def player_extents_for_facing(profile: dict, facing: str, threshold: int) -> tuple[int, int, int, int]:
+    min_x = min_up = math.inf
+    max_x = max_up = -math.inf
+    for metadata_key in ("idle_metadata", "walk_metadata"):
+        metadata_path = ROOT / profile[metadata_key].replace("res://", "")
+        for frame, pivot in metadata_frames(metadata_path, facing):
+            bounds = frame.getchannel("A").point(lambda value: 255 if value >= threshold else 0).getbbox()
+            if bounds:
+                min_x = min(min_x, bounds[0] - pivot[0])
+                max_x = max(max_x, bounds[2] - pivot[0])
+                min_up = min(min_up, pivot[1] - bounds[3])
+                max_up = max(max_up, pivot[1] - bounds[1])
+    if min_x == math.inf:
+        raise AssertionError(f"no player alpha footprint: {profile['id']} {facing}")
+    return int(min_x), int(max_x), int(min_up), int(max_up)
+
+
 def player_mask_for_direction(profile: dict, direction: str, threshold: int) -> tuple[set[tuple[float, float]], tuple[int, int]]:
     points: set[tuple[float, float]] = set()
     bounds = (0, 0)
@@ -242,13 +259,22 @@ def projected_boxes_overlap_at_contact(
     return not (separated_x or separated_y)
 
 
-def contact_distances(extents: tuple[float, float, float, float], species_data: dict, config: dict) -> list[float]:
+def contact_distances(profiles: list[dict], species_data: dict, config: dict) -> list[float]:
     creature_extents = species_data["rendered_alpha_extents_px"]
     margin = float(config["separation_margin_px"])
     camera = config["camera"]
+    profile_extents = config["player_alpha_extents_by_profile_and_facing"]
     return [
-        projected_clearance(extents, creature_extents, direction, camera["yaw_degrees"], camera["pitch_degrees"], margin)
-        for direction in DIRECTIONS.values()
+        projected_clearance(
+            tuple(profile_extents[profile["id"]][facing]),
+            creature_extents,
+            direction,
+            camera["yaw_degrees"],
+            camera["pitch_degrees"],
+            margin,
+        )
+        for profile in profiles
+        for facing, direction in DIRECTIONS.items()
     ]
 
 
@@ -263,6 +289,17 @@ def check() -> None:
     )
     assert list(player_offsets) == config["player_alpha_extents_px"], (
         f"player alpha pivot extents changed: actual={player_offsets} contract={config['player_alpha_extents_px']}"
+    )
+    expected_profile_extents = {
+        profile["id"]: {
+            facing: list(player_extents_for_facing(profile, facing, threshold))
+            for facing in DIRECTIONS
+        }
+        for profile in profiles
+    }
+    assert expected_profile_extents == config["player_alpha_extents_by_profile_and_facing"], (
+        "profile/facing alpha extents changed: "
+        f"actual={expected_profile_extents} contract={config['player_alpha_extents_by_profile_and_facing']}"
     )
 
     species_data = {}
@@ -286,6 +323,7 @@ def check() -> None:
     player_masks = {}
     for profile in profiles:
         for facing in DIRECTIONS:
+            profile_offsets = tuple(expected_profile_extents[profile["id"]][facing])
             player_mask, _ = player_mask_for_direction(profile, facing, threshold)
             assert player_mask, f"{profile['id']} {facing} sprite direction is empty"
             player_masks[profile["id"], facing] = rasterize_projected(
@@ -295,17 +333,17 @@ def check() -> None:
                 creature_extent = species_data[species]
                 for angle_index, vector in enumerate(APPROACH_ANGLES):
                     required = projected_clearance(
-                        player_offsets, creature_extent, vector,
+                        profile_offsets, creature_extent, vector,
                         config["camera"]["yaw_degrees"], config["camera"]["pitch_degrees"],
                         config["separation_margin_px"],
                     )
                     assert not projected_boxes_overlap_at_contact(
-                        player_offsets, creature_extent, vector, required,
+                        profile_offsets, creature_extent, vector, required,
                         config["camera"]["yaw_degrees"], config["camera"]["pitch_degrees"],
                     ), f"projected alpha bounds overlap at contact: {profile['id']} facing {facing} vs {species} at angle {angle_index}"
                 for axis_name, vector in DIRECTIONS.items():
                     required = projected_clearance(
-                        player_offsets, creature_extent, vector,
+                        profile_offsets, creature_extent, vector,
                         config["camera"]["yaw_degrees"], config["camera"]["pitch_degrees"],
                         config["separation_margin_px"],
                     )
@@ -314,10 +352,10 @@ def check() -> None:
                         config["camera"]["yaw_degrees"], config["camera"]["pitch_degrees"],
                     ), f"alpha masks overlap at contact: {profile['id']} facing {facing} vs {species} at axis {axis_name}"
 
-    print("PASS visual melee alpha: all 4 Warrior profiles × 8 facing rows × 3 creatures × 32 projected angles and 8 pixel-mask axes are disjoint at contact")
+    print("PASS visual melee alpha: all 4 Warrior profiles × 8 facing rows × 3 creatures × 32 projected angles and 8 pixel-mask axes are disjoint at 1 px contact margin")
     for species in CREATURES:
-        distances = contact_distances(player_offsets, config["creatures"][species], config)
-        print(f"{species}: {min(distances):.1f}–{max(distances):.1f} logical px over 8 common axes (margin {config['separation_margin_px']} px)")
+        distances = contact_distances(profiles, config["creatures"][species], config)
+        print(f"{species}: {min(distances):.1f}–{max(distances):.1f} logical px over all profiles/facings (margin {config['separation_margin_px']} px)")
 
 
 if __name__ == "__main__":

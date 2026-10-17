@@ -13,8 +13,8 @@ const COMBAT_GEOMETRY = preload("res://game/scripts/combat/combat_geometry.gd")
 const MOVE_SPEEDS := {"fox": 116.0, "wolf": 92.0, "bear": 39.0}
 const ATTACK_INTERVALS := {"fox": 2.0, "wolf": 1.8, "bear": 3.0}
 const AGGRO_RANGES := {"fox": 0.0, "wolf": 190.0, "bear": 170.0}
-## Basic attacks connect at projected alpha contact plus a 4 px movement buffer.
-const ATTACK_VISUAL_GAP_TOLERANCE := 8.0
+## Basic attacks connect only within 2 logical pixels of projected alpha contact.
+const ATTACK_VISUAL_GAP_TOLERANCE := 2.0
 const BEAR_WINDUP := 0.9
 
 var slot_id := ""
