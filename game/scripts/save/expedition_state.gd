@@ -4,6 +4,9 @@ extends RefCounted
 
 const SCHEMA_VERSION := 1
 const MONSTER_RESPAWN_SECONDS := 15
+const DOWNED_DURATION_SECONDS := 60.0
+const ALLY_REVIVE_DURATION_SECONDS := 5.0
+const ALLY_REVIVE_HP_FRACTION := 0.30
 const DEFAULT_SAVE_ROOT := "user://worlds/solo"
 const APPEARANCE_IDS := ["melissa", "helena", "maira", "fabio"]
 
@@ -38,6 +41,8 @@ var bandage_heal_target := 0.0
 var bandages_in_use := false
 var skill_cooldowns: Dictionary = {}
 var downed_remaining := -1.0
+var ally_revive_remaining := -1.0
+var ally_reviver_id := ""
 var persistent_bags: Array[Dictionary] = []
 var recent_activity := ""
 
@@ -202,6 +207,9 @@ func _apply_payload(payload: Dictionary) -> void:
 	bandages_in_use = bool(payload.get("bandages_in_use", false))
 	skill_cooldowns = payload.get("skill_cooldowns", {}).duplicate(true)
 	downed_remaining = float(payload.get("downed_remaining", -1.0))
+	# A save cannot restore an in-progress ally action after the peer disconnects.
+	ally_revive_remaining = -1.0
+	ally_reviver_id = ""
 	persistent_bags = []
 	for bag in payload.get("persistent_bags", []):
 		if bag is Dictionary:
@@ -441,8 +449,66 @@ func take_damage(amount_value: float) -> float:
 	hp -= actual
 	if hp <= 0.0:
 		hp = 0.0
-		downed_remaining = 60.0
+		downed_remaining = DOWNED_DURATION_SECONDS
+		ally_revive_remaining = -1.0
+		ally_reviver_id = ""
 	return actual
+
+
+func downed_penalty_preview() -> Dictionary:
+	var lost: Dictionary = {}
+	for item_id in expedition_items:
+		var quantity := int(floor(float(expedition_items[item_id]) * 0.5))
+		if quantity > 0:
+			lost[str(item_id)] = quantity
+	return lost
+
+
+## Entry point for an already-authenticated session/host to begin ally revival.
+## This local game has no multiplayer peer validation or transport.
+func request_ally_revive(reviver_id: String) -> bool:
+	if not is_ready() or downed_remaining <= 0.0 or reviver_id.strip_edges().is_empty():
+		return false
+	if ally_revive_remaining >= 0.0:
+		return false
+	ally_reviver_id = reviver_id.strip_edges()
+	ally_revive_remaining = ALLY_REVIVE_DURATION_SECONDS
+	return true
+
+
+## Host/session adapter can cancel an accepted action when the ally disconnects.
+func cancel_ally_revive(reviver_id: String) -> bool:
+	if ally_revive_remaining < 0.0 or ally_reviver_id != reviver_id.strip_edges():
+		return false
+	_clear_ally_revive()
+	return true
+
+
+## Advance the downed deadline and any accepted five-second revive request.
+## Returns "revived", "expired", or "" while waiting.
+func tick_downed(delta: float) -> String:
+	if downed_remaining < 0.0 or delta <= 0.0:
+		return ""
+	var elapsed_before_deadline := minf(delta, downed_remaining)
+	downed_remaining = maxf(0.0, downed_remaining - delta)
+	if ally_revive_remaining >= 0.0:
+		ally_revive_remaining = maxf(0.0, ally_revive_remaining - elapsed_before_deadline)
+		if ally_revive_remaining <= 0.0:
+			var maximum := max_hp_mp()
+			hp = maximum.x * ALLY_REVIVE_HP_FRACTION
+			downed_remaining = -1.0
+			_clear_ally_revive()
+			recent_activity = "Um aliado reanimou você."
+			return "revived"
+	if downed_remaining <= 0.0:
+		_clear_ally_revive()
+		return "expired"
+	return ""
+
+
+func _clear_ally_revive() -> void:
+	ally_revive_remaining = -1.0
+	ally_reviver_id = ""
 
 
 func award_creature(actor_death_id: String, species_id: String) -> Dictionary:
@@ -570,13 +636,11 @@ func tick_regeneration(delta: float, seconds_since_combat_activity: float) -> Di
 
 
 func begin_downed_respawn(refuge_position: Vector2, bag_position: Vector2) -> Dictionary:
-	var lost: Dictionary = {}
-	for item_id in expedition_items.keys():
-		var carried := int(expedition_items[item_id])
-		var quantity := int(floor(float(carried) * 0.5))
-		if quantity > 0:
-			lost[str(item_id)] = quantity
-			_consume_inventory(str(item_id), quantity)
+	if not is_ready() or downed_remaining < 0.0:
+		return {}
+	var lost := downed_penalty_preview()
+	for item_id in lost:
+		_consume_inventory(str(item_id), int(lost[item_id]))
 	if not lost.is_empty():
 		persistent_bags.append({
 			"id": "downed_bag_%d" % persistent_bags.size(),
@@ -589,6 +653,7 @@ func begin_downed_respawn(refuge_position: Vector2, bag_position: Vector2) -> Di
 	hp = maximum.x
 	mp = maximum.y
 	downed_remaining = -1.0
+	_clear_ally_revive()
 	bandages_in_use = false
 	bandage_progress = 0.0
 	bandage_hp_applied = 0.0

@@ -35,6 +35,10 @@ const ITEM_LABELS := {
 	"crystal_shard": "Fragmento", "sword_basic": "Espada básica", "sword_reinforced": "Espada reforçada",
 	"axe_basic": "Machado", "pickaxe_basic": "Picareta"
 }
+const PENALTY_ITEM_LABELS := {
+	"wood": "madeira", "stone": "pedra", "fiber": "fibra", "herb": "erva",
+	"meat": "carne", "hide": "couro", "fang": "presa", "crystal_shard": "fragmento de cristal"
+}
 
 var _minimap: Control
 var _joystick: Control
@@ -78,6 +82,9 @@ var _craft_bandage_button: Button
 var _camp_summary: Label
 var _camp_upgrade_button: Button
 var _downed_shade: ColorRect
+var _downed_revive_label: Label
+var _downed_penalty_label: Label
+var _downed_respawn_button: Button
 var _inventory_items: Dictionary = {}
 var _safe_rect := Rect2(16.0, 16.0, 688.0, 1248.0)
 var _camp_level := 1
@@ -632,7 +639,7 @@ func _build_downed_panel() -> void:
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_downed_shade.add_child(center)
 	_downed_panel = PanelContainer.new()
-	_downed_panel.custom_minimum_size = Vector2(410, 270)
+	_downed_panel.custom_minimum_size = Vector2(520, 0)
 	_downed_panel.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color("241d31"), Color("a77ce8")))
 	center.add_child(_downed_panel)
 	var box := VBoxContainer.new()
@@ -647,19 +654,29 @@ func _build_downed_panel() -> void:
 	_downed_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	UI_STYLE.style_label(_downed_label, 18, UI_STYLE.GOLD)
 	box.add_child(_downed_label)
-	var return_button := Button.new()
-	return_button.text = "Voltar à barraca agora"
-	return_button.custom_minimum_size.y = 52
-	UI_STYLE.style_button(return_button, true)
-	return_button.pressed.connect(func() -> void: respawn_pressed.emit())
-	box.add_child(return_button)
+	_downed_revive_label = Label.new()
+	_downed_revive_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_downed_revive_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	UI_STYLE.style_label(_downed_revive_label, 14, UI_STYLE.MUTED)
+	box.add_child(_downed_revive_label)
+	_downed_penalty_label = Label.new()
+	_downed_penalty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_downed_penalty_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_downed_penalty_label.custom_minimum_size.y = 96
+	UI_STYLE.style_label(_downed_penalty_label, 15, UI_STYLE.CREAM)
+	box.add_child(_downed_penalty_label)
+	_downed_respawn_button = Button.new()
+	_downed_respawn_button.text = "Renascer no acampamento"
+	_downed_respawn_button.custom_minimum_size.y = 60
+	UI_STYLE.style_button(_downed_respawn_button, true)
+	_downed_respawn_button.pressed.connect(func() -> void: respawn_pressed.emit())
+	box.add_child(_downed_respawn_button)
 	var note := Label.new()
-	note.text = "No solo, o retorno não espera por outro jogador. Metade dos materiais desta expedição fica numa mochila persistente."
+	note.text = "XP e equipamentos permanecem. Sem reanimação, o retorno ocorre quando o prazo termina."
 	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	UI_STYLE.style_label(note, 12, UI_STYLE.MUTED)
 	box.add_child(note)
-	_downed_panel.get_parent().hide()
 
 
 func _build_attributes_window() -> void:
@@ -976,7 +993,6 @@ func set_combat_state(
 	selected_target: String,
 	target_hp: float,
 	target_max_hp: float,
-	down_remaining: float,
 	cooldowns: Dictionary
 ) -> void:
 	if _hp_bar != null:
@@ -1015,11 +1031,6 @@ func set_combat_state(
 	if bandage_active:
 		_set_button_text(_bandage_button, "Curando\n%d%%" % roundi(bandage_progress * 25.0))
 		_bandage_button.disabled = true
-	if down_remaining >= 0.0:
-		_downed_shade.show()
-		_downed_label.text = "Retorno solo em %02d s" % ceili(down_remaining)
-	else:
-		_downed_shade.hide()
 	if _skill_buttons.has("war_combo"):
 		_update_skill_button("war_combo", "Combo", mp, cooldowns)
 		_update_skill_button("war_circle", "Corte", mp, cooldowns)
@@ -1027,6 +1038,42 @@ func set_combat_state(
 	if not bandage_active:
 		_set_button_text(_bandage_button, "Curativo\n%d" % int(_inventory_items.get("bandage", 0)))
 		_bandage_button.disabled = int(_inventory_items.get("bandage", 0)) <= 0
+
+
+func set_downed_state(
+	down_remaining: float,
+	penalty_items: Dictionary,
+	ally_revive_remaining: float,
+	ally_reviver_id: String
+) -> void:
+	if down_remaining < 0.0:
+		_downed_shade.hide()
+		_refresh_joystick_blocking()
+		return
+	_downed_shade.show()
+	_downed_label.text = "Prazo para reanimação por aliado: %02d s" % ceili(down_remaining)
+	if ally_revive_remaining >= 0.0:
+		_downed_revive_label.text = "Aliado %s está reanimando · %.1f s restantes de 5 s." % [ally_reviver_id, ally_revive_remaining]
+	else:
+		_downed_revive_label.text = "Esta build solo ainda não tem co-op. Quando disponível, um aliado leva 5 s para reanimar."
+	var dropped_summary := _format_downed_penalty(penalty_items)
+	if dropped_summary.is_empty():
+		_downed_penalty_label.text = "Ao renascer agora, nenhum material atual vai para a mochila persistente."
+	else:
+		_downed_penalty_label.text = "Ao renascer agora, %s vai para a mochila persistente recuperável. São 50%% de cada material, arredondados para baixo." % dropped_summary
+	_refresh_joystick_blocking()
+
+
+func _format_downed_penalty(items: Dictionary) -> String:
+	var item_ids: Array[String] = []
+	for item_id in items:
+		if int(items[item_id]) > 0:
+			item_ids.append(str(item_id))
+	item_ids.sort()
+	var parts: Array[String] = []
+	for item_id in item_ids:
+		parts.append("%d %s" % [int(items[item_id]), str(PENALTY_ITEM_LABELS.get(item_id, item_id))])
+	return ", ".join(parts)
 
 
 func _update_skill_button(skill_id: String, label: String, current_mp: float, cooldowns: Dictionary) -> void:

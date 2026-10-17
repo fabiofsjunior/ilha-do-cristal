@@ -58,7 +58,9 @@ Após GDD, produzir em sequência: contratos JSON em `data/`, protótipo de cont
 #### Recorte solo S2 para teste — 2026-10-16
 
 - [x] Código e testes headless: madeira/pedra/fibra/erva, receita de curativo, cura interrompível, seleção por clique/toque, ataque automático, três skills Warrior e raposa/lobo/urso com comportamentos distintos.
-- [x] Estado local: XP 1–10, materiais, custos de acampamento II/III, queda/retorno solo, mochilas, recompensa única por vida e snapshot schema 1 com checksum, temporário e slot anterior. Rotação normal mantém dois slots; teste de corrupção recupera a cópia válida.
+- [x] Estado local: XP 1–10, materiais, custos de acampamento II/III, queda/retorno solo com prévia exata da penalidade, mochilas persistentes, recompensa única por vida e snapshot schema 1 com checksum, temporário e slot anterior. Rotação normal mantém dois slots; testes cobrem revive local via API, timer, respawn e recuperação de mochila.
+
+Reanimação por aliado usa API/sinais locais de cinco segundos para futura integração pelo host; não há sessão LAN nem jogadores remotos nesta build. Isso não fecha S4.
 - [x] Três candidatos estáticos SE integrados sem espelhamento ou animação inventada. QA estrutural passou; **arte CORRIGIR**, com alpha e demais direções/animações pendentes.
 - [ ] Aceite S2: demonstrar coleta → combate → curativo → retorno → fechar/reabrir no Android; comparar visualmente o HUD com v0.7 e revisar Web no navegador.
 

@@ -11,9 +11,12 @@ python3 tools/gameplay/validate_playable_slice.py
 python3 tools/validate_catalogs.py
 ./Godot_v4.5.1-stable_linux.x86_64 --headless --path . --script tools/gameplay/smoke_playable_slice.gd
 ./Godot_v4.5.1-stable_linux.x86_64 --headless --path . --script tools/gameplay/test_mvp_solo_loop.gd
+./Godot_v4.5.1-stable_linux.x86_64 --headless --path . --script tools/gameplay/test_death_revive.gd
 ```
 
 O smoke da cena confirma a navegação já aprovada, as quatro aparências Warrior, os três candidatos SE, clique para selecionar, autoataque, raposa pacífica até receber dano, fuga e revide da raposa, golpe anunciado do urso cancelado pelo cristal, 2.816 células de terreno, movimento, barreira da água e pausa. O teste de estado usa um diretório `user://mvp_solo_loop_<id>` único e deixa esses arquivos de teste no disco; ele não apaga saves.
+
+`test_death_revive.gd` usa um save temporário único e cobre timer de 60 s, indicação de penalidade material exata, API/sinais de reanimação em 5 s, cancelamento por desconexão, retorno com 30% HP sem perda de MP/XP/equipamento, botão e retorno automático ao acampamento, mochila após reabrir o save e preservação de mochilas antigas. A API é exercitada localmente; nenhum multiplayer é simulado.
 
 Também foram executados `--headless --editor --import --quit` e a cena principal por 300 frames no Godot 4.5.1. Os templates ausentes no worktree inicial foram instalados durante a integração. Exportações e limitações de plataforma são registradas em [MVP_BUILD_VALIDATION.md](MVP_BUILD_VALIDATION.md); não houve teste em aparelho neste incremento.
 
@@ -28,7 +31,7 @@ Também foram executados `--headless --editor --import --quit` e a cena principa
 - **Refúgio:** recupera HP/MP e oferece melhorias quando o jogador está perto do cristal. Níveis II/III consomem os custos do catálogo.
 - **Esc / P / Pausa:** pausa; pausa, retorno à sessão, retorno ao início, fechamento da janela e pausa de aplicativo salvam o estado.
 
-Raposa foge enquanto pacífica e ataca quando provocada; lobo persegue ao entrar no alcance curto; urso é lento e anuncia o golpe. A área do cristal impede ataques recebidos e do jogador. No retorno solo após queda, materiais desta expedição podem ser deixados em uma mochila persistente.
+Raposa foge enquanto pacífica e ataca quando provocada; lobo persegue ao entrar no alcance curto; urso é lento e anuncia o golpe. A área do cristal impede ataques recebidos e do jogador. Ao cair, há 60 s para a reanimação por aliado; no retorno solo, 50% de cada pilha atual da expedição (arredondado para baixo) forma uma mochila persistente recuperável. XP/equipamentos permanecem. Reanimação restaura provisoriamente 30% do HP máximo e mantém o MP atual.
 
 HP/MP iniciais e atributos vêm do Warrior no catálogo; XP por coleta, níveis 1–10, XP de criatura, drops, receita, habilidades e melhorias derivam de `mvp.json`. Quantidades por nó, cadência básica e tempos de decisão da IA são parâmetros provisórios desta fatia, pois o catálogo não os define como balanceamento final. Cada morte de vida de criatura só paga XP/drop uma vez; probabilidades de drop seguem o catálogo.
 

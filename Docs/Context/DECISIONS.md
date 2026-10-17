@@ -114,3 +114,10 @@ O mapeamento Android da safe area só é aplicado quando o retângulo intersecta
 ## 2026-10-16 — Marcador de seleção 3D
 
 O alvo selecionado deve usar uma elipse pixel art pequena, sem billboard, plana no XZ do mundo e centralizada sob os pés da criatura. Reaproveitar o arco antigo do atlas em `Sprite3D` vertical aumentava demais o marcador no retrato. A seleção continua limitada ao alvo ativo.
+
+## 2026-10-17 — Reanimação por aliado e perda na queda
+
+- O GDD fixa a janela de queda em 60 s, reanimação por aliado em 5 s e perda de metade dos materiais atuais da expedição numa mochila persistente ao renascer no acampamento. XP e equipamentos permanecem.
+- Como o GDD não especifica HP após reanimação, a regra provisória é voltar com 30% do HP máximo e manter o MP atual; a reanimação não cria mochila nem remove itens, XP ou equipamento.
+- `FirstIsland.request_ally_revive(reviver_id)` e `cancel_ally_revive(reviver_id)` são entradas locais para integração futura no host, com sinais de início, conclusão e cancelamento. O chamador da futura sessão deve validar identidade/alcance do peer. A build solo não tem LAN, descoberta ou autenticação e não simula um aliado.
+- Pedidos de reanimação em andamento são descartados ao reabrir um save; o prazo restante de queda e as mochilas continuam persistidos. Ao renascer, cada pilha de material perde `floor(quantidade_atual × 0.5)` e a tela mostra os valores exatos.
