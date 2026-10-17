@@ -264,3 +264,9 @@ Verificação Godot4.5.1: import e smoke jogável, test_close_view (três propor
 - Revalidados catálogo, validação da fatia, espaçamento melee e composição estrutural do terreno. O validador da fatia inicialmente acusou PNGs candidatos de Mago fora do runtime; sua guarda foi corrigida para verificar os atlases Warrior efetivamente referenciados, e o teste passou.
 - Limite desta validação: este ambiente não tem Godot, Android SDK, adb ou dispositivo. Não houve nova exportação nem instalação física. O sidecar da APK aponta para a base `8140343`; o relatório da build registra que ela foi exportada do worktree sujo que depois virou o commit `b0b7b7f`.
 - Próxima ação: publicar a integração em `main` via PR, entregar a APK e solicitar playtest físico; a Web não foi reexportada e permanece 0.1.5.
+
+## Integração e entrega — APK 0.1.6
+
+- PR #12 mesclada na main em 84a68f891ef63f7d6949832f0a8065dc3d75e600; árvore fd8dc0ada0301d5efe62e6b1b959ba91ae3f020a conferida contra o snapshot local, incluindo todos os 211 blobs alterados desde a base HUD.
+- APK 0.1.6/versionCode 7 disponibilizado para download; mesmo SHA-256 registrado na validação anterior. Comparação adicional: 89 arquivos fonte diretamente comparáveis do APK coincidem byte a byte, sem divergências. GDScript está em bytecode.
+- Nenhuma nova exportação, mudança de gameplay ou validação física foi feita nesta etapa. Próximo gate continua sendo o playtest Android; Web permanece 0.1.5.
