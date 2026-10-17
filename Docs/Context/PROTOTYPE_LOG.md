@@ -134,4 +134,4 @@ O usuário pediu a implementação completa do kit mostrado nos anexos (mockup d
 
 ### APK de preview publicado na branch — 2026-10-17
 
-O usuário pediu armazenar o APK no repositório. A branch do kit contém `artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk` e link direto pelo GitHub. É um artefato debug ARM64-only, derivado da exportação de preview dual-arch; 32 bits e instalação física não foram validados. O link de branch não representa merge em `main`.
+O usuário pediu armazenar o APK no repositório. A branch do kit contém `artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk` e [link direto para baixar o APK](https://raw.githubusercontent.com/fabiofsjunior/ilha-do-cristal/feature/s03-crystal-ui-kit-v2/artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk). É um artefato debug ARM64-only, derivado da exportação de preview dual-arch; 32 bits e instalação física não foram validados. O link de branch não representa merge em `main`.
