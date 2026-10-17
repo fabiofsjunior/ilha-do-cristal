@@ -1,11 +1,12 @@
 class_name UIStyle
 extends RefCounted
+const KIT = preload("res://game/scripts/ui/crystal_kit.gd")
 
 const CREAM := Color("f4e8cb")
 const MUTED := Color("c1bca9")
 const GOLD := Color("f4c875")
 const BLUE := Color("83d9e8")
-const PANEL := Color("232c2c")
+const PANEL := Color("191727")
 
 
 static func style_label(label: Label, font_size: int, color: Color) -> void:
@@ -18,7 +19,7 @@ static func panel_style(background: Color, border: Color = Color("5f4d72")) -> S
 	style.bg_color = background
 	style.border_color = border
 	style.set_border_width_all(2)
-	style.set_corner_radius_all(10)
+	style.set_corner_radius_all(2)
 	style.content_margin_left = 12
 	style.content_margin_top = 10
 	style.content_margin_right = 12
@@ -27,16 +28,10 @@ static func panel_style(background: Color, border: Color = Color("5f4d72")) -> S
 
 
 static func classic_style(kind := "panel") -> StyleBoxTexture:
-	var style := StyleBoxTexture.new()
-	style.texture = load("res://assets/ui/classic_v2/%s.png" % kind)
-	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
-		style.set_texture_margin(side, 10.0)
-		style.set_content_margin(side, 6.0 if kind == "slot" else 14.0)
-	return style
+	return KIT.style(kind, 6.0 if kind == "slot" else 14.0)
 
 static func icon(id: String) -> Texture2D:
-	var path := "res://assets/ui/classic_v2/%s.png" % id
-	return load(path) as Texture2D if ResourceLoader.exists(path) else null
+	return KIT.texture(id) if KIT.REGIONS.has(id) or id == "main_hand" else null
 
 static func picture(texture: Texture2D, dimensions: Vector2) -> TextureRect:
 	var rect := TextureRect.new()
@@ -50,18 +45,20 @@ static func picture(texture: Texture2D, dimensions: Vector2) -> TextureRect:
 
 static func style_button(button: Button, primary := false) -> void:
 	button.add_theme_font_size_override("font_size", 18)
-	button.add_theme_color_override("font_color", CREAM)
+	button.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	button.add_theme_color_override("font_color", Color("281b16") if primary else CREAM)
+	button.add_theme_color_override("font_focus_color", Color("281b16") if primary else CREAM)
 	button.add_theme_color_override("font_disabled_color", Color("938e7e"))
-	button.add_theme_color_override("font_hover_color", GOLD)
-	button.add_theme_color_override("font_pressed_color", BLUE)
+	button.add_theme_color_override("font_hover_color", Color.WHITE)
+	button.add_theme_color_override("font_pressed_color", Color("281b16"))
 	for state in ["normal", "hover", "pressed", "disabled"]:
-		var box := classic_style("confirm" if primary else "button")
-		if state == "hover": box.modulate_color = Color("fff0bd")
-		if state == "pressed": box.modulate_color = Color("adbfa6")
-		if state == "disabled": box.modulate_color = Color("92958d")
+		var art: String = ("confirm" if primary else "button") if state == "normal" else str(state)
+		var box := KIT.style(art)
 		button.add_theme_stylebox_override(state, box)
 	var focus := StyleBoxFlat.new()
 	focus.bg_color = Color.TRANSPARENT
 	focus.border_color = BLUE
 	focus.set_border_width_all(2)
 	button.add_theme_stylebox_override("focus", focus)
+
+
