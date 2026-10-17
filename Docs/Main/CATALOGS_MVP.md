@@ -15,7 +15,15 @@ Qualquer conta pode usar qualquer aparência, inclusive repetida na LAN. O equip
 
 ## 2. Atributos e níveis
 
-FOR: melee, vida e regeneração. AGI: físico à distância, crítico e esquiva. INT: mana, regeneração de mana e mágico. Conversões provisórias por ponto efetivo: FOR +0,6 melee e +3 HP; AGI +0,6 distância, +0,05 ponto percentual de crítico e de esquiva; INT +0,6 mágico e +3 MP. Crítico base 5%, esquiva base 3%; tetos de 20% cada. Regeneração HP limitada a 2%/s fora de combate e 0,5%/s em combate; não começa no teto.
+FOR: melee, vida e regeneração. AGI: físico à distância, crítico e esquiva. INT: mana, regeneração de mana e mágico. Conversões provisórias por ponto efetivo: FOR +0,6 melee e +3 HP; AGI +0,6 distância, +0,05 ponto percentual de crítico e de esquiva; INT +0,6 mágico e +3 MP. Crítico base 5%, esquiva base 3%; tetos de 20% cada.
+
+Regeneração usa o máximo atual de HP/MP como base e as taxas abaixo por segundo. O estado de combate termina após 8 s sem atacar nem receber dano. FOR/INT efetiva (após o multiplicador da vocação) acrescenta, respectivamente, +0,003/+0,010 p.p. de HP/s (combate/fora) e +0,001/+0,004 p.p. de MP/s. Caps: HP 0,5%/s em combate e 2%/s fora; MP 0,25%/s em combate e 1%/s fora. Os caps também limitam personagens de atributos altos.
+
+| Vocação | HP combate / fora | MP combate / fora |
+|---|---:|---:|
+| Guerreiro | 0,20% / 0,60% | 0,03% / 0,12% |
+| Arqueiro | 0,15% / 0,50% | 0,06% / 0,25% |
+| Mago | 0,10% / 0,35% | 0,10% / 0,40% |
 
 | Nível alcançado | XP necessário desde o anterior | XP total | Pontos de atributo acumulados de subidas | Pontos de árvore disponíveis |
 |---:|---:|---:|---:|---:|
@@ -189,7 +197,7 @@ Personagens: 8 direções (N, NE, E, SE, S, SO, O, NO) × `idle` 4, `walk` 6, `a
 
 ## 12. Interface e áudio
 
-**Telas:** abertura, visitante/vínculo da conta, escolha de aparência e vocação, criar/entrar em ilha LAN, gameplay, inventário/craft, árvore, pausa/salvar, resultado da expedição e erro recuperável. **HUD:** retrato, HP/MP, objetivo, minimapa, joystick esquerdo, ataque/três skills à direita, curativo, mochila, interação e zoom 50–125%. Layout sensível a polegares, recorte/notch, DPI e orientação horizontal.
+**Telas:** abertura, visitante/vínculo da conta, escolha de aparência e vocação, criar/entrar em ilha LAN, gameplay, inventário/craft, árvore, pausa/salvar, resultado da expedição e erro recuperável. **HUD:** retrato, HP/MP, objetivo, minimapa, joystick esquerdo, ataque/três skills à direita, curativo, mochila, interação e zoom 50–125%. Layout sensível a polegares, recorte/notch, DPI e orientação retrato 9:16.
 
 **Áudio mínimo:** tema de abertura/refúgio, ambiência de praia/floresta, coleta, passos, ataque por vocação, nove skills (podem compartilhar camadas), dano, drop, cura, construção, UI e aviso de aliado caído. Arquivos/licenças e mixagem aguardam produção; áudio deve poder ser silenciado por categoria. Efeitos visuais e sonoros confirmam ação, cooldown, erro de mana e salvamento; placeholders técnicos não são aprovação visual.
 

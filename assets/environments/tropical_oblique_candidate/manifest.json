@@ -1,0 +1,30 @@
+{
+  "status": "candidate",
+  "style": "classic RPG pixel art, oblique top-down",
+  "seed": 20261016,
+  "ground_size": [
+    2048,
+    1408
+  ],
+  "sqm_px": 32,
+  "pivots": {
+    "palm": [
+      56,
+      117
+    ],
+    "tree": [
+      52,
+      117
+    ],
+    "boulder": [
+      32,
+      42
+    ],
+    "crystal": [
+      42,
+      84
+    ]
+  },
+  "collision": "unchanged; decoration does not introduce walkable elevation",
+  "reference": "image(20261016-162915).png"
+}

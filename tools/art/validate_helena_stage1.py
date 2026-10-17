@@ -37,15 +37,15 @@ def main() -> None:
     if actual_concept_blob != expected_concept_blob:
         fail(f"concept Git blob SHA mismatch: {actual_concept_blob}")
 
-    source_paths = sorted(SOURCES.glob("helena_warrior_*_source_v1.png"))
-    if len(source_paths) != 3:
-        fail(f"expected 3 original generated source PNGs, found {len(source_paths)}")
     expected_source_sizes = {
         "helena_warrior_idle_source_v1.png": (1774, 887),
         "helena_warrior_walk_n_source_v1.png": (1536, 1024),
         "helena_warrior_walk_s_source_v1.png": (1536, 1024),
     }
+    source_paths = [SOURCES / name for name in expected_source_sizes]
     for path in source_paths:
+        if not path.exists():
+            fail(f"missing stage-1 source PNG: {path.name}")
         with Image.open(path) as image:
             if image.mode != "RGBA":
                 fail(f"source is not RGBA: {path.name} mode={image.mode}")
@@ -102,7 +102,7 @@ def main() -> None:
     print("PASS output: all frames have visible pixels, fixed regions, and alpha>=128 clear of cell edges")
     for warning in warnings:
         print(f"WARN {warning}; candidate remains CORRIGIR")
-    print("PENDING: visual approval, Godot import/render, zoom/SQM review, and Android")
+    print("PENDING: visual approval/render, zoom/SQM review, and Android")
 
 
 if __name__ == "__main__":

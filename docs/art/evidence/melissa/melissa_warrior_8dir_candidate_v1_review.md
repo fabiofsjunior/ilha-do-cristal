@@ -29,3 +29,19 @@ O validador canônico `python tools/art/validate_sprite_atlases.py` retornou có
 ## Decisão e correções necessárias
 
 Manter os atlas como candidatos e preservar todos os arquivos V1/V2/V3 anteriores. Corrigir o alpha/contornos na fonte em uma tentativa revisável, reforçar fases de passada e consistência da espada, revisar o S cardinal, depois importar/reproduzir no Godot e validar zoom/SQM. O aceite da interface v0.7 não valida arte, Godot ou Android.
+
+## Retoque isolado em cópia — 2026-10-15
+
+Foi feita uma tentativa manual e localizada no `idle` de Melissa Warrior, sem substituir V1. A folha `melissa_idle_n_frame1_pixel_retouch_v2.png` apresenta N/idle/quadro 2 em nearest 8×, sobre fundos claro e escuro. A inspeção mostrou dois pixels alfa completamente destacados da personagem: célula local `(49,7)` acima do cabelo e `(21,33)` à esquerda do cabelo. Ambos tinham RGBA com alpha `1` e nenhum vizinho com alpha visível. Foram removidos somente esses dois pixels da cópia `melissa_warrior_idle_8dir_candidate_v2.png`.
+
+O método versionado está em `tools/art/retouch_melissa_isolated_alpha_artifacts_v2.py`; ele verifica dimensões, alpha `1` e isolamento 8-vizinhos antes de editar. Metadados adjacentes registram os pixels e os valores RGBA antes/depois. A fonte candidate_v1 e a imagem conceitual não foram alteradas; não houve binarização global, alteração dos demais valores alfa, redimensionamento, corte ou mudança de quadros/direções.
+
+**Resultado limitado:** o preview nearest confirma a remoção dos dois resíduos destacados e não mostra dano adjacente à silhueta nessa ampliação. O atlas continua `CORRIGIR`: a maior parte do antialias/alpha intermediário permanece, assim como os defeitos distribuídos de passada, variação da espada e direção S registrados acima. O candidato v2 é somente uma correção experimental de duas amostras, não evidência de acabamento pixel art. Não há editor raster/pixel dedicado instalado neste runner; o retoque é explícito, reproduzível e inspecionável em qualquer editor PNG gratuito. Godot e Android continuam sem validação nesta cópia.
+
+### Validação desta tentativa
+
+- `python -m py_compile tools/art/retouch_melissa_isolated_alpha_artifacts_v2.py` e parse JSON passaram.
+- Comparação RGBA entre idle V1 e V2 confirmou exatamente duas diferenças: `(145,7)` e `(117,33)` no atlas; ambas mudaram de `(0,0,0,1)` para `(0,0,0,0)`. Grade 384×768, oito direções e quatro quadros permanecem iguais.
+- Pixels alpha intermediários no idle caíram de 68.358 para 68.356; os 254 valores intermediários distintos continuam presentes. Walk permanece com 104.647 pixels intermediários.
+- `python tools/validate_catalogs.py` passou (10 grupos, 54 IDs). `python tools/art/validate_sprite_atlases.py` continua retornando erro: 21 erros globais, todos de alpha intermediário; o novo idle V2 não acusa dimensão, célula vazia nem pixels na borda.
+- Nenhuma cena Godot nem aparelho Android foi usado; importação, reprodução animada, zoom/SQM e legibilidade no dispositivo permanecem pendentes.

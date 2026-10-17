@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Package the Fábio Warrior 8-direction candidate without masking source alpha.
+"""Package the Fábio Warrior 8-direction candidate with local manual retouches.
 
 The N/S cells are copied unchanged from the existing v2 candidate. New cells
 are sliced from declared 6x4, 256 px source grids, uniformly reduced with
-nearest-neighbor sampling, and placed with one fixed offset. This diagnostic
-candidate is not approved for production.
+nearest-neighbor sampling, and placed with one fixed offset. Only explicitly
+listed disconnected residues are erased in the packaged output; source alpha
+is otherwise preserved. This diagnostic candidate is not approved for production.
 """
 
 from __future__ import annotations
@@ -36,6 +37,31 @@ SOURCE_FILES = {
     "cardinal": SOURCES / "fabio_warrior_8dir_cardinal_edited_v1.png",
     "NE_SE": SOURCES / "fabio_warrior_8dir_NE_SE_source_v1.png",
     "SW_NW": SOURCES / "fabio_warrior_8dir_SW_NW_source_v1.png",
+}
+
+# Hand-reviewed eraser selections for disconnected red residues visible outside
+# the figure on checkerboard and nearest-neighbor inspection. Coordinates are
+# (frame_index, x1, y1, x2, y2) in the 96x96 output cell, with x2/y2 exclusive.
+# These exact rectangles are applied only to the packaged candidates; the
+# generated source sheets and earlier v1/v2 candidates remain untouched.
+# No thresholding, flood-fill, or batch alpha binarization is performed.
+MANUAL_ERASE_RECTS = {
+    "idle": {
+        "SW": [(2, 10, 51, 15, 63)],
+        "NW": [(2, 10, 50, 15, 61)],
+    },
+    "walk": {
+        "SE": [
+            (1, 10, 37, 16, 54),
+            (2, 10, 37, 17, 58),
+            (3, 10, 39, 18, 55),
+            (4, 10, 36, 15, 50),
+        ],
+        "SW": [
+            (2, 10, 51, 14, 60),
+            (5, 10, 50, 14, 59),
+        ],
+    },
 }
 
 # The directions below map to fixed source rows: each sheet is 6 columns by 4
@@ -220,8 +246,14 @@ def main() -> None:
                 content = source_frame.resize(CONTENT, Image.Resampling.NEAREST)
                 frame = Image.new("RGBA", CELL, (0, 0, 0, 0))
                 frame.alpha_composite(content, FIXED_OFFSET)
+                manual_rectangles = [
+                    rect[1:] for rect in MANUAL_ERASE_RECTS.get(state, {}).get(direction, [])
+                    if rect[0] == frame_index
+                ]
+                for rectangle in manual_rectangles:
+                    frame.paste((0, 0, 0, 0), rectangle)
                 atlas.alpha_composite(frame, (frame_index * CELL[0], output_row * CELL[1]))
-                frame_records.append({
+                frame_record = {
                     "frame": frame_index,
                     "source_region_px": list(region),
                     "source_cell_px": list(SOURCE_CELL),
@@ -232,7 +264,18 @@ def main() -> None:
                     "output_bbox_alpha_gte_128": alpha_bbox(frame, 128),
                     "fixed_offset_px": list(FIXED_OFFSET),
                     "operation": "fixed cell region, uniform nearest 256x256 to 72x72, then fixed 10,10 placement in 96x96; no per-frame trim, flip, mask, or alpha threshold",
-                })
+                }
+                if manual_rectangles:
+                    frame_record["manual_pixel_retouches"] = [
+                        {
+                            "operation": "clear exact RGBA rectangle to transparent",
+                            "cell_rect_px_exclusive": list(rectangle),
+                            "reason": "visually isolated red residue outside the character silhouette",
+                        }
+                        for rectangle in manual_rectangles
+                    ]
+                    frame_record["operation"] += "; reviewed exact rectangles only; no threshold, flood-fill, or binarization"
+                frame_records.append(frame_record)
             row_descriptions[state][direction] = {
                 "source": str(source_path.relative_to(ROOT)),
                 "source_sha256": sha256(source_path),
@@ -276,6 +319,18 @@ def main() -> None:
             "animation": state,
             "animations": {state: {"frames": frame_count, "fps": FPS[state], "loop": True}},
             "row_sources": row_descriptions[state],
+            "manual_pixel_retouches": [
+                {
+                    "direction": direction,
+                    "frame_index_zero_based": frame_index,
+                    "cell_rectangles_px_exclusive": [list(rect[1:]) for rect in rectangles],
+                    "operation": "manually reviewed rectangle erasure to RGBA (0,0,0,0) on the packaged atlas",
+                    "reason": "disconnected red residue visible outside the figure in the candidate source cell",
+                }
+                for direction, frame_rects in MANUAL_ERASE_RECTS.get(state, {}).items()
+                for frame_index in sorted({rect[0] for rect in frame_rects})
+                for rectangles in [[rect for rect in frame_rects if rect[0] == frame_index]]
+            ],
             "art_review": {
                 "overall": "corrigir",
                 "reasons": [
@@ -306,7 +361,7 @@ def main() -> None:
                 name: {"path": str(path.relative_to(ROOT)), "sha256": sha256(path), "dimensions": list(source_images[name].size), "alpha": alpha_summary(source_images[name])}
                 for name, path in SOURCE_FILES.items()
             },
-            "source_alpha_policy": "Alpha preserved by nearest sampling; no binarization, thresholding, matte removal, or procedural masking. The selected source sheets still contain intermediate alpha and background contamination.",
+            "source_alpha_policy": "Source alpha is preserved by nearest sampling. Only the exact manual eraser rectangles listed in manual_pixel_retouches were cleared on the packaged candidate; no batch binarization, thresholding, flood-fill, matte removal, or procedural masking. Intermediate alpha and other background contamination remain.",
             "godot_validation": "pendente",
             "android_validation": "pendente",
             "diagnostic_rows": output_rows,

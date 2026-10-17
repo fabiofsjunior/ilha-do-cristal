@@ -58,3 +58,75 @@ As medidas de bbox usam pixels com alpha ≥128 e são `largura × altura` em pi
 4. Identificar pés, certificar pivô e importar/testar em Godot nos zooms de 50–125%, SQM e Android. Godot e aparelho Android não estavam disponíveis nesta execução.
 
 O conceito confirma identidade geral — cabelo castanho longo, roupa dourada/creme, acessórios e espada —, mas não valida os novos ângulos nem animações. O candidato permanece **CORRIGIR**.
+
+## Importação Godot — 2026-10-15
+
+Godot 4.5.1 confirmou `IDAT: invalid distance code` e `ERR_FILE_CORRUPT` ao importar as 12 fontes descritas acima. A auditoria comparou os blobs de `HEAD`, `origin/feature/fabio-warrior-stage1` e `main`; todos são idênticos e têm aproximadamente 786 KiB, embora o chunk IDAT declare de 1,07 a 1,38 MiB. Não foi localizada uma cópia íntegra nos worktrees locais.
+
+Como as fontes ficam numa pasta de referências e não são carregadas pelo jogo, foi adicionado `.gdignore` apenas nesse diretório para manter o import/runtime do jogo separado desses arquivos. Isso é isolamento de importação, não reparo dos PNGs: o empacotador de Maíra continua sem fontes decodificáveis e a aprovação de oito direções permanece bloqueada. Os atlas candidatos continuam em `assets/characters/maira/warrior/` e seguem com estado **CORRIGIR**.
+
+## Reauditoria de integridade das fontes — 2026-10-15
+
+**Estado geral: CORRIGIR.** A inspeção em escala nativa dos 80 quadros dos atlas v2 confirma os problemas visuais já descritos: E e W mostram o olhar para o mesmo lado, NE/E/SE se confundem e as quatro diagonais não formam orientações consistentes. Em `walk`, não há alternância de passada esquerda/direita clara ao longo do ciclo. A identidade geral continua reconhecível, mas esses defeitos impedem aprovação.
+
+### Fontes de seis direções novas
+
+As 12 imagens de origem referenciadas pelo empacotador estão malformadas/truncadas e não são decodificáveis integralmente:
+
+- `idle_e_source_oai_v1.png`, `idle_ne_source_oai_v1.png`, `idle_nw_source_oai_v1.png`, `idle_se_source_oai_v1.png`, `idle_sw_source_oai_v1.png`, `idle_w_source_oai_v1.png`;
+- `walk_e_source_oai_v1.png`, `walk_ne_source_oai_v1.png`, `walk_nw_source_oai_v1.png`, `walk_se_source_oai_v1.png`, `walk_sw_source_oai_v1.png`, `walk_w_source_oai_v1.png`.
+
+O teste com Pillow abriu cada arquivo, mas `Image.load()` falhou nos 12 com `OSError: broken data stream when reading image file`. Reprodução a partir da raiz do repositório:
+
+```sh
+python - <<'PY'
+from pathlib import Path
+from PIL import Image
+
+folder = Path("assets/references/generated-candidates/maira_warrior")
+for path in sorted(folder.glob("*_source_oai_v1.png")):
+    try:
+        with Image.open(path) as image:
+            image.load()
+        print("OK", path.name)
+    except OSError as error:
+        print("INVALID", path.name, repr(error))
+PY
+```
+
+A leitura estrutural dos chunks PNG confirma a causa. Por exemplo, `walk_ne_source_oai_v1.png` chega ao chunk IDAT no offset 21.926; o chunk declara 1.290.536 bytes, mas restam apenas 764.517 bytes no arquivo a partir do início desse chunk (incluindo cabeçalho/CRC). ImageMagick também acusa `IDAT: invalid distance code` para essa fonte.
+
+### Empacotamento e recuperação
+
+`python tools/art/pack_maira_8dir_candidates.py` falha durante `Image.open(path).convert("RGBA")`, em `get_source_cells()`, com `OSError: broken data stream when reading image file`. Portanto, os atlas v2 existentes não podem ser reproduzidos com as fontes versionadas atuais.
+
+`git log --all --follow` encontra somente o commit `774ca93` (“Add Maíra Warrior eight-direction candidates”) para as fontes, sem uma versão íntegra anterior recuperável no histórico local. Os arquivos publicados permanecem preservados; não foram reconstruídos a partir dos atlas nem substituídos por novas imagens nesta reauditoria.
+
+### Resultado
+
+O concept ainda confirma a identidade geral, mas as fontes quebradas impedem correção confiável dos ângulos, das passadas e do alpha. Os atlas mantêm `status: corrigir` e `approved: false`; Godot, teste de escala/SQM e Android continuam pendentes. Não houve alteração nos PNGs, atlas ou empacotador.
+
+## Reavaliação de retoque manual seguro — 2026-10-15
+
+**Conclusão: não há retoque manual seguro e verificável com os arquivos disponíveis.** O estado continua **CORRIGIR** e nenhum PNG, JSON ou empacotador foi alterado nesta revisão.
+
+### Evidência examinada
+
+- Revisei as células de 96 × 96 px dos atlas v2 na prancha existente, ampliada por nearest-neighbor, e conferi os PNGs sem reamostragem. Os defeitos estruturais persistem: NE/E/SE são próximos demais, E e W apontam para o mesmo lado, e os quadros de `walk` não demonstram alternância clara de pernas.
+- Comparei a linha N e a linha S de cada atlas v2 com o respectivo candidato v1: os pixels são idênticos. Escala relativa, contato dos pés e sequência de passada já eram pendências na etapa 1; não há uma transformação objetiva que corrija isso sem redesenhar poses.
+- Recarreguei as 12 fontes das seis direções novas. `Image.load()` falha em todas com `OSError: broken data stream when reading image file`. O empacotador também falha ao abrir a primeira direção nova. O histórico local mostra somente o commit que introduziu as fontes, sem versão íntegra anterior recuperável.
+- Os atlas v2 têm 256 valores únicos de alpha, incluindo 254 valores intermediários. Uma troca automática de limiar mudaria contornos sem decidir quais cores de borda conservar; não foi feita binarização nem limpeza por lote.
+- Não há editor de pixels instalado nesta sessão (Pixelorama, LibreSprite, GIMP, Krita e Aseprite não estão disponíveis). `convert` do ImageMagick está disponível, mas não oferece um fluxo de pintura/revisão por pixel adequado para redesenhar ângulos, pés e silhuetas. Godot também não está disponível.
+
+Os atlas v2 são resultados empacotados, não substitutos das fontes originais. Redesenhar sobre eles ou reconstruir fontes a partir deles apagaria a proveniência e não permitiria corrigir com segurança os cortes nas partições originais. A decisão é preservar as fontes malformadas e os atlas existentes intactos até haver fontes íntegrafas e um editor visual adequado.
+
+### Validação nesta cópia
+
+- A rechecagem das fontes encontrou 12/12 falhas de decodificação; `python3 tools/art/pack_maira_8dir_candidates.py` falha em `get_source_cells()` ao abrir a primeira fonte.
+- As linhas N/S dos dois atlas v2 são pixel-idênticas às linhas de origem do v1. As dimensões seguem 96 × 96 px por célula.
+- `python3 tools/art/validate_sprite_atlases.py` retorna código 1 com 20 avisos de alpha intermediário no repositório; 2 pertencem aos atlas v2 de Maíra e 18 a candidatos de outros personagens. Para Maíra, não há falha estrutural de dimensões, regiões vazias ou bordas de célula; esses resultados não aprovam direção, passada, pivô ou acabamento.
+- `python3 -m py_compile tools/art/pack_maira_8dir_candidates.py tools/art/validate_sprite_atlases.py` e `git diff --check` passam. Godot, zoom/SQM em engine e Android seguem pendentes.
+
+### Próximo gate
+
+Obter fontes originais completas e decodificáveis (ou aprovar uma nova fonte independente do atlas), então redesenhar as direções e passadas em editor visual gratuito, em cópia, mantendo as fontes originais. Conferir cada alteração em tamanho nativo e nearest; revisar alpha deliberadamente em claro/escuro; só depois empacotar e repetir a validação. Até esse gate, a matriz continua **CORRIGIR**, sem alegar aprovação de arte ou de plataforma.

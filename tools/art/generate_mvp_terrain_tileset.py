@@ -20,6 +20,7 @@ OUT_ATLAS = "assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_
 OUT_MANIFEST = "assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.json"
 OUT_CONTACT = "docs/art/evidence/terrain/terrain_mvp_candidate_v1_contact.png"
 OUT_SAMPLE = "docs/art/evidence/terrain/terrain_mvp_candidate_v1_sample.png"
+OUT_CONTEXT = "docs/art/evidence/terrain/terrain_mvp_candidate_v1_context.png"
 
 PALETTES = {
     "water_deep": ["#244a64", "#2f6178", "#367489", "#18394f"],
@@ -164,9 +165,12 @@ def orient_edge(material_a, material_b, direction, edge_palette, foam=False, til
 def corner_transition(material_base, material_corner, corner, edge_palette, foam=False, tile_id=""):
     img = base_tile(material_base, 0, tile_id + "_base")
     patch = base_tile(material_corner, 1, tile_id + "_corner")
-    # L-shaped, stair-stepped coastline/biome boundary from the corner inward.
-    # Define the corner mask at top-left, mirror for other corners.
-    points = [(0,0),(13,0),(13,4),(9,4),(9,8),(5,8),(5,12),(0,12)]
+    # Fill the two outside edges with material_corner, then step the diagonal
+    # boundary to the half-cell joins used by the adjacent cardinal connectors.
+    # This makes each corner's inner sides line up pixel-for-pixel with its two
+    # neighboring edge tiles in a 3x3 boundary composition.
+    points = [(0,0),(31,0),(31,14),(27,14),(27,18),(23,18),(23,22),
+              (19,22),(19,26),(15,26),(15,31),(0,31)]
     corner_masks = {
         "NW": (False, False), "NE": (True, False),
         "SW": (False, True), "SE": (True, True),
@@ -175,32 +179,68 @@ def corner_transition(material_base, material_corner, corner, edge_palette, foam
     pts = [mirror_xy(p, mx, my) for p in points]
     mask = Image.new("1", (CELL,CELL), 0); ImageDraw.Draw(mask).polygon(pts, fill=1)
     img.paste(patch, (0,0), mask)
-    # Crisp dashes along the stepped edge, transformed with the corner orientation.
+    # A few crisp material-edge accents follow the diagonal; no resampling.
     d = ImageDraw.Draw(img)
-    for i,(x,y) in enumerate([(13,2),(11,5),(7,9),(3,12)]):
-        q1=mirror_xy((x,y),mx,my); q2=mirror_xy((x+1,y),mx,my)
-        d.line((q1,q2),fill=rgba(edge_palette[i % len(edge_palette)]),width=1)
+    for i, point in enumerate([(29,14),(26,18),(22,22),(18,26)]):
+        x,y=mirror_xy(point,mx,my)
+        d.point((x,y),fill=rgba(edge_palette[i % len(edge_palette)]))
+
+    # Copy only the shared inner borders from the matching cardinal connectors.
+    # Their outer borders remain the corner material, so they meet solid regions.
+    adjacent = {
+        "NW": (("right", "N", "left"), ("bottom", "W", "top")),
+        "NE": (("left", "N", "right"), ("bottom", "E", "top")),
+        "SE": (("left", "S", "right"), ("top", "E", "bottom")),
+        "SW": (("right", "S", "left"), ("top", "W", "bottom")),
+    }
+    edge_tiles = {
+        direction: orient_edge(material_base, material_corner, direction,
+                               edge_palette, foam, tile_id + "_join_" + direction)
+        for direction in "NESW"
+    }
+
+    def copy_side(target_side, edge_direction, source_side):
+        source = edge_tiles[edge_direction]
+        for offset in range(CELL):
+            target_xy = {
+                "left": (0, offset), "right": (CELL - 1, offset),
+                "top": (offset, 0), "bottom": (offset, CELL - 1),
+            }[target_side]
+            source_xy = {
+                "left": (0, offset), "right": (CELL - 1, offset),
+                "top": (offset, 0), "bottom": (offset, CELL - 1),
+            }[source_side]
+            img.putpixel(target_xy, source.getpixel(source_xy))
+
+    for target_side, edge_direction, source_side in adjacent[corner]:
+        copy_side(target_side, edge_direction, source_side)
     return img
+
+PATH_ARMS = {
+    "h": ["W", "E"], "v": ["N", "S"],
+    "turn_ne": ["N", "E"], "turn_es": ["E", "S"], "turn_sw": ["S", "W"], "turn_wn": ["W", "N"],
+    "tee_n": ["N", "E", "W"], "tee_e": ["N", "E", "S"], "tee_s": ["E", "S", "W"], "tee_w": ["N", "S", "W"],
+    "dead_n": ["N"], "dead_e": ["E"], "dead_s": ["S"], "dead_w": ["W"],
+    "cross": ["N", "E", "S", "W"],
+}
+
+def path_mask(kind):
+    mask = Image.new("1", (CELL, CELL), 0)
+    draw = ImageDraw.Draw(mask)
+    # central hub is 12x12; each arm extends to the cell border.
+    draw.rectangle((10,10,21,21), fill=1)
+    for arm in PATH_ARMS[kind]:
+        if arm == "N": draw.rectangle((10,0,21,16), fill=1)
+        elif arm == "S": draw.rectangle((10,15,21,31), fill=1)
+        elif arm == "W": draw.rectangle((0,10,16,21), fill=1)
+        elif arm == "E": draw.rectangle((15,10,31,21), fill=1)
+    return mask
 
 def overlay_path(kind, variant, tile_id):
     img = Image.new("RGBA", (CELL,CELL), (0,0,0,0))
     d = ImageDraw.Draw(img)
-    # masks built from 12 px wide cardinal arms; arms meet on cell borders for seamless joins.
-    arms = {
-      "h": ["W","E"], "v": ["N","S"],
-      "turn_ne": ["N","E"], "turn_es": ["E","S"], "turn_sw": ["S","W"], "turn_wn": ["W","N"],
-      "tee_n": ["N","E","W"], "tee_e": ["N","E","S"], "tee_s": ["E","S","W"], "tee_w": ["N","S","W"],
-      "dead_n": ["N"], "dead_e": ["E"], "dead_s": ["S"], "dead_w": ["W"],
-      "cross": ["N","E","S","W"],
-    }[kind]
-    mask = Image.new("1", (CELL,CELL), 0); m = ImageDraw.Draw(mask)
-    # central hub is 12x12; each arm extends to the outer edge.
-    m.rectangle((10,10,21,21), fill=1)
-    for arm in arms:
-        if arm == "N": m.rectangle((10,0,21,16), fill=1)
-        elif arm == "S": m.rectangle((10,15,21,31), fill=1)
-        elif arm == "W": m.rectangle((0,10,16,21), fill=1)
-        elif arm == "E": m.rectangle((15,10,31,21), fill=1)
+    # Twelve-pixel arms meet on cell borders for seamless joins.
+    mask = path_mask(kind)
     r = seeded(tile_id)
     # alpha remains exactly 0/255. Fill pixels and subtle stone-colored dashes only inside mask.
     pa = PALETTES["path"]
@@ -213,8 +253,13 @@ def overlay_path(kind, variant, tile_id):
     for _ in range(3):
         x, y = r.randint(5, 26), r.randint(5, 26)
         if mask.getpixel((x,y)):
-            d.rectangle((x,y,x+1,y), fill=rgba(pa[1 + r.randrange(3)]))
-    # two small dry-earth specks, deterministic, clipped to mask
+            # Clip both pixels: a valid first pixel can sit on the edge of a
+            # narrow arm, with its neighbor falling outside the path footprint.
+            color = rgba(pa[1 + r.randrange(3)])
+            for px in (x, x + 1):
+                if mask.getpixel((px, y)):
+                    d.point((px, y), fill=color)
+    # Three small dry-earth accents, deterministic and clipped to the mask.
     return img
 
 def build_tiles():
@@ -254,10 +299,137 @@ def checker(size):
             if (x//8+y//8)%2: d.rectangle((x,y,x+7,y+7),fill=(105,108,105,255))
     return im
 
+def border_pixels(img, side):
+    if side == "left": return [img.getpixel((0,y)) for y in range(CELL)]
+    if side == "right": return [img.getpixel((CELL-1,y)) for y in range(CELL)]
+    if side == "top": return [img.getpixel((x,0)) for x in range(CELL)]
+    return [img.getpixel((x,CELL-1)) for x in range(CELL)]
+
+CORNER_EDGE_PAIRS = {
+    "nw": (("right", "n", "left"), ("bottom", "w", "top")),
+    "ne": (("left", "n", "right"), ("bottom", "e", "top")),
+    "se": (("left", "s", "right"), ("top", "e", "bottom")),
+    "sw": (("right", "s", "left"), ("top", "w", "bottom")),
+}
+TRANSITION_FAMILIES = (
+    ("shore_sand_water", "sand_01", "water_shallow_01"),
+    ("beach_grass", "grass_01", "sand_01"),
+    ("grass_soil", "grass_01", "soil_01"),
+)
+EDGE_MATERIAL_SIDES = {
+    "n": (("top", "b"), ("bottom", "a")),
+    "e": (("right", "b"), ("left", "a")),
+    "s": (("bottom", "b"), ("top", "a")),
+    "w": (("left", "b"), ("right", "a")),
+}
+CORNER_OUTER_SIDES = {
+    "nw": ("top", "left"), "ne": ("top", "right"),
+    "se": ("bottom", "right"), "sw": ("bottom", "left"),
+}
+
+def audit_corner_edge_joins(tiles):
+    lookup={tid:img for tid,kind,group,img,note in tiles}
+    prefixes=("shore_sand_water", "beach_grass", "grass_soil")
+    failures=[]
+    checked=0
+    for prefix in prefixes:
+        for corner,joins in CORNER_EDGE_PAIRS.items():
+            for corner_side,edge_direction,edge_side in joins:
+                checked+=1
+                corner_img=lookup[f"{prefix}_corner_{corner}"]
+                edge_img=lookup[f"{prefix}_edge_{edge_direction}"]
+                if border_pixels(corner_img,corner_side)!=border_pixels(edge_img,edge_side):
+                    failures.append({"corner":f"{prefix}_corner_{corner}",
+                                     "side":corner_side,
+                                     "edge":f"{prefix}_edge_{edge_direction}",
+                                     "edge_side":edge_side})
+    return checked,failures
+
+def audit_transition_material_joins(tiles):
+    lookup={tid:img for tid,kind,group,img,note in tiles}
+    failures=[]
+    checked=0
+    for prefix,material_a,material_b in TRANSITION_FAMILIES:
+        for direction,sides in EDGE_MATERIAL_SIDES.items():
+            edge_img=lookup[f"{prefix}_edge_{direction}"]
+            for side,material in sides:
+                checked+=1
+                base_id=material_b if material=="b" else material_a
+                if border_pixels(edge_img,side)!=border_pixels(lookup[base_id],side):
+                    failures.append({"edge":f"{prefix}_edge_{direction}",
+                                     "side":side,"base":base_id})
+    return checked,failures
+
+def audit_corner_outer_material_joins(tiles):
+    lookup={tid:img for tid,kind,group,img,note in tiles}
+    failures=[]
+    checked=0
+    for prefix,material_a,material_b in TRANSITION_FAMILIES:
+        for corner,sides in CORNER_OUTER_SIDES.items():
+            corner_img=lookup[f"{prefix}_corner_{corner}"]
+            for side in sides:
+                checked+=1
+                if border_pixels(corner_img,side)!=border_pixels(lookup[material_b],side):
+                    failures.append({"corner":f"{prefix}_corner_{corner}",
+                                     "side":side,"base":material_b})
+    return checked,failures
+
+def make_context_review(lookup):
+    """Build nearest-neighbor context evidence for every transition family and path."""
+    scale=4; margin=16; title_h=22
+    families=(
+        ("ÁGUA / AREIA", "shore_sand_water", "sand_02"),
+        ("AREIA / GRAMA", "beach_grass", "grass_02"),
+        ("GRAMA / SOLO", "grass_soil", "grass_02"),
+    )
+    panel=3*CELL*scale
+    family_w=panel+24
+    path_w=2*CELL*scale
+    path_h=CELL*scale
+    path_label_h=20
+    path_cols=5; path_rows=3
+    width=max(3*family_w+2*margin, path_cols*(path_w+10)+2*margin)
+    top_h=title_h+panel
+    bottom_h=title_h+path_rows*(path_h+path_label_h+8)
+    height=2*margin+top_h+22+bottom_h
+    out=Image.new("RGB",(width,height),(28,34,37)); d=ImageDraw.Draw(out)
+    font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",12)
+    label_font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",10)
+    d.text((margin,margin),"TRANSIÇÕES EM CONTEXTO — composição 3×3, nearest 4×",font=font,fill=(238,235,215))
+    start_y=margin+title_h
+    for idx,(title,prefix,base_id) in enumerate(families):
+        x=margin+idx*family_w
+        d.text((x,start_y),title,font=label_font,fill=(238,235,215))
+        y=start_y+14
+        names=((f"{prefix}_corner_nw",f"{prefix}_edge_n",f"{prefix}_corner_ne"),
+               (f"{prefix}_edge_w",base_id,f"{prefix}_edge_e"),
+               (f"{prefix}_corner_sw",f"{prefix}_edge_s",f"{prefix}_corner_se"))
+        for row_idx,row in enumerate(names):
+            for col_idx,name in enumerate(row):
+                tile=lookup[name].resize((CELL*scale,CELL*scale),Image.Resampling.NEAREST)
+                out.paste(tile,(x+col_idx*CELL*scale,y+row_idx*CELL*scale))
+    path_y=start_y+panel+18
+    d.text((margin,path_y),"CAMINHOS SOBRE GRAMA (ESQUERDA) E SOLO (DIREITA), nearest 4×",font=font,fill=(238,235,215))
+    path_y+=title_h
+    names=[tid for tid in lookup if tid.startswith("path_overlay_")]
+    for i,name in enumerate(names):
+        col,row=i%path_cols,i//path_cols
+        x=margin+col*(path_w+10); y=path_y+row*(path_h+path_label_h+8)
+        left=lookup["grass_02"].copy(); left.alpha_composite(lookup[name])
+        right=lookup["soil_02"].copy(); right.alpha_composite(lookup[name])
+        pair=Image.new("RGBA",(2*CELL,CELL),(0,0,0,255))
+        pair.alpha_composite(left,(0,0)); pair.alpha_composite(right,(CELL,0))
+        out.paste(pair.resize((path_w,path_h),Image.Resampling.NEAREST).convert("RGB"),(x,y))
+        d.text((x,y+path_h+3),name.removeprefix("path_overlay_"),font=label_font,fill=(238,235,215))
+    return out
+
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument("--output-dir",default=".")
     args=ap.parse_args(); root=Path(args.output_dir); tiles=build_tiles()
     if len(tiles)!=56: raise SystemExit(f"expected 56 tiles, got {len(tiles)}")
+    corner_edge_joins_checked,corner_edge_join_failures=audit_corner_edge_joins(tiles)
+    transition_base_joins_checked,transition_base_join_failures=audit_transition_material_joins(tiles)
+    corner_outer_base_joins_checked,corner_outer_base_join_failures=audit_corner_outer_material_joins(tiles)
     atlas=Image.new("RGBA",(COLS*CELL,((len(tiles)+COLS-1)//COLS)*CELL),(0,0,0,0))
     for i,(tid,kind,group,img,note) in enumerate(tiles):
         atlas.paste(img,((i%COLS)*CELL,(i//COLS)*CELL))
@@ -300,6 +472,8 @@ def main():
         sample.alpha_composite(overlay,(x*CELL,y*CELL))
     sample_path=root/OUT_SAMPLE; sample_path.parent.mkdir(parents=True,exist_ok=True)
     sample.convert("RGB").resize((cols*CELL*2,rows*CELL*2),Image.Resampling.NEAREST).save(sample_path,optimize=True)
+    context_path=root/OUT_CONTEXT; context_path.parent.mkdir(parents=True,exist_ok=True)
+    make_context_review(lookup).save(context_path,optimize=True)
     # Metadata and repeatability diagnostics.
     entries=[]
     for i,(tid,kind,group,img,note) in enumerate(tiles):
@@ -314,8 +488,19 @@ def main():
         bg=im.getpixel((0,0))
         if any(im.getpixel((x,0))!=bg or im.getpixel((x,31))!=bg for x in range(32)) or any(im.getpixel((0,y))!=bg or im.getpixel((31,y))!=bg for y in range(32)):
             repeat_fail.append(tid)
-    manifest={"id":"terrain_mvp_candidate_v1","status":"candidate_pending_visual_and_engine_review","created":"2026-10-15","cell_px_candidate":[CELL,CELL],"fixed_scale":False,"project":"A Ilha do Cristal","art_direction":"RPG Classico 2D pixel art; orthogonal grid; top-down slightly oblique; hard pixel clusters; no antialiasing","scope":["beach/spawn","forest","inland/interior ground"],"atlas":{"file":"terrain_mvp_candidate_v1.png","size_px":list(atlas.size),"columns":COLS,"rows":7,"tile_count":len(tiles),"tile_order":"row-major; see tiles[].atlas_xy_tiles"},"rendering":{"filter":"nearest","mipmaps":"disabled for candidate test","tile_layers":"surface base + optional path overlay; collision/navigation not encoded","alpha_values":alpha_values},"generation":{"script":"tools/art/generate_mvp_terrain_tileset.py","seed":SEED,"method":"Pillow integer-coordinate raster drawing at native cell resolution; no resampling of source artwork; source does not overwrite concepts or character sprites","prompt":"RPG Classico 2D top-down slightly oblique orthogonal terrain for a family-friendly island survival RPG; readable warm beach/spawn, forest and inland surfaces; compact repeat-safe pixel clusters; crisp pixel edges, no anti-aliasing, no characters, no props, no labels in atlas; 32x32 px candidate cell only."},"validation":{"png_rgba":atlas.mode=="RGBA","dimensions_multiple_of_cell":atlas.width%CELL==0 and atlas.height%CELL==0,"alpha_values":alpha_values,"alpha_binary":set(alpha_values).issubset({0,255}),"base_tiles_seam_edge_check":"all base-cell edge pixels equal that tile's corner/base color; repeats without boundary discontinuity","base_tiles_checked":len(base_tiles),"base_repeat_failures":repeat_fail,"transitions_checked":"N/E/S/W connectors plus four corners per boundary family; composition only, not auto-tile engine tested","engine_validation":"pending; no Godot render or device test","sample_render":"scripted tile composition, not a Godot screenshot"},"tiles":entries,"visual_evidence":{"contact_sheet":"docs/art/evidence/terrain/terrain_mvp_candidate_v1_contact.png","composed_sample":"docs/art/evidence/terrain/terrain_mvp_candidate_v1_sample.png"},"limitations":["32x32 px per SQM is a candidate; test at 50–125% zoom and Android sizes before fixing scale.","Top-down slightly oblique visual is a flat ground tile contract; the current sample is not gameplay or engine evidence.","Transition cells occupy a tile on the boundary; no Godot terrain-set/autotile resource or collision/navigation data is included.","No trees, rocks as props, resource nodes, buildings, characters or hazards are included; add only after separate GDD scope/review.","Review palette coherence, shore continuity, repeat seams and readability in Godot before production approval."]}
+    overlay_footprint_failures=[]
+    for tid,kind,group,tile,note in tiles:
+        if kind!="overlay":
+            continue
+        mask=path_mask(tid.removeprefix("path_overlay_"))
+        for y in range(CELL):
+            for x in range(CELL):
+                if tile.getpixel((x,y))[3] and not mask.getpixel((x,y)):
+                    overlay_footprint_failures.append({"id":tid,"pixel":[x,y]})
+    manifest={"id":"terrain_mvp_candidate_v1","status":"candidate_pending_visual_and_engine_review","created":"2026-10-15","cell_px_candidate":[CELL,CELL],"fixed_scale":False,"project":"A Ilha do Cristal","art_direction":"RPG Classico 2D pixel art; orthogonal grid; top-down slightly oblique; hard pixel clusters; no antialiasing","scope":["beach/spawn","forest","inland/interior ground"],"atlas":{"file":"terrain_mvp_candidate_v1.png","size_px":list(atlas.size),"columns":COLS,"rows":7,"tile_count":len(tiles),"tile_order":"row-major; see tiles[].atlas_xy_tiles"},"rendering":{"filter":"nearest","mipmaps":"disabled for candidate test","tile_layers":"surface base + optional path overlay; collision/navigation not encoded","alpha_values":alpha_values},"generation":{"script":"tools/art/generate_mvp_terrain_tileset.py","seed":SEED,"method":"Pillow integer-coordinate raster drawing at native cell resolution; no resampling of source artwork; source does not overwrite concepts or character sprites","prompt":"RPG Classico 2D top-down slightly oblique orthogonal terrain for a family-friendly island survival RPG; readable warm beach/spawn, forest and inland surfaces; compact repeat-safe pixel clusters; crisp pixel edges, no anti-aliasing, no characters, no props, no labels in atlas; 32x32 px candidate cell only."},"validation":{"png_rgba":atlas.mode=="RGBA","dimensions_multiple_of_cell":atlas.width%CELL==0 and atlas.height%CELL==0,"alpha_values":alpha_values,"alpha_binary":set(alpha_values).issubset({0,255}),"base_tiles_seam_edge_check":"all base-cell edge pixels equal that tile's corner/base color; repeats without boundary discontinuity","base_tiles_checked":len(base_tiles),"base_repeat_failures":repeat_fail,"transitions_checked":"N/E/S/W connectors plus four corners per boundary family; cardinal-to-base, corner-to-edge, and corner-to-base joins checked in 3x3 composition; no engine test","transition_base_joins_checked":transition_base_joins_checked,"transition_base_join_failures":transition_base_join_failures,"corner_edge_joins_checked":corner_edge_joins_checked,"corner_edge_join_failures":corner_edge_join_failures,"corner_outer_base_joins_checked":corner_outer_base_joins_checked,"corner_outer_base_join_failures":corner_outer_base_join_failures,"engine_validation":"pending; no Godot render or device test","sample_render":"scripted tile composition, not a Godot screenshot"},"tiles":entries,"visual_evidence":{"contact_sheet":"docs/art/evidence/terrain/terrain_mvp_candidate_v1_contact.png","composed_sample":"docs/art/evidence/terrain/terrain_mvp_candidate_v1_sample.png","context_composition_review":"docs/art/evidence/terrain/terrain_mvp_candidate_v1_context.png"},"limitations":["32x32 px per SQM is a candidate; test at 50–125% zoom and Android sizes before fixing scale.","Top-down slightly oblique visual is a flat ground tile contract; the current sample is not gameplay or engine evidence.","Transition cells occupy a tile on the boundary; no Godot terrain-set/autotile resource or collision/navigation data is included.","No trees, rocks as props, resource nodes, buildings, characters or hazards are included; add only after separate GDD scope/review.","Review palette coherence, shore continuity, repeat seams and readability in Godot before production approval."]}
+    manifest["validation"]["overlay_tiles_checked"]=sum(1 for tile in tiles if tile[1]=="overlay")
+    manifest["validation"]["overlay_footprint_failures"]=overlay_footprint_failures
     manifest_path=root/OUT_MANIFEST; manifest_path.parent.mkdir(parents=True,exist_ok=True); manifest_path.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
-    print(json.dumps({"atlas":str(atlas_path),"manifest":str(manifest_path),"contact":str(contact_path),"sample":str(sample_path),"tile_count":len(tiles),"atlas_size":list(atlas.size),"alpha_values":alpha_values,"base_repeat_failures":repeat_fail},indent=2))
+    print(json.dumps({"atlas":str(atlas_path),"manifest":str(manifest_path),"contact":str(contact_path),"sample":str(sample_path),"context":str(context_path),"tile_count":len(tiles),"atlas_size":list(atlas.size),"alpha_values":alpha_values,"base_repeat_failures":repeat_fail,"transition_base_joins_checked":transition_base_joins_checked,"transition_base_join_failures":transition_base_join_failures,"corner_edge_joins_checked":corner_edge_joins_checked,"corner_edge_join_failures":corner_edge_join_failures,"corner_outer_base_joins_checked":corner_outer_base_joins_checked,"corner_outer_base_join_failures":corner_outer_base_join_failures,"overlay_footprint_failures":overlay_footprint_failures},indent=2))
 
 if __name__=="__main__": main()

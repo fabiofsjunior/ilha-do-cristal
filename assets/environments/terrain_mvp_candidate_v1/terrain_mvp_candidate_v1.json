@@ -51,9 +51,17 @@
     "base_tiles_seam_edge_check": "all base-cell edge pixels equal that tile's corner/base color; repeats without boundary discontinuity",
     "base_tiles_checked": 17,
     "base_repeat_failures": [],
-    "transitions_checked": "N/E/S/W connectors plus four corners per boundary family; composition only, not auto-tile engine tested",
+    "transitions_checked": "N/E/S/W connectors plus four corners per boundary family; cardinal-to-base, corner-to-edge, and corner-to-base joins checked in 3x3 composition; no engine test",
+    "transition_base_joins_checked": 24,
+    "transition_base_join_failures": [],
+    "corner_edge_joins_checked": 24,
+    "corner_edge_join_failures": [],
+    "corner_outer_base_joins_checked": 24,
+    "corner_outer_base_join_failures": [],
     "engine_validation": "pending; no Godot render or device test",
-    "sample_render": "scripted tile composition, not a Godot screenshot"
+    "sample_render": "scripted tile composition, not a Godot screenshot",
+    "overlay_tiles_checked": 15,
+    "overlay_footprint_failures": []
   },
   "tiles": [
     {
@@ -1011,7 +1019,8 @@
   ],
   "visual_evidence": {
     "contact_sheet": "docs/art/evidence/terrain/terrain_mvp_candidate_v1_contact.png",
-    "composed_sample": "docs/art/evidence/terrain/terrain_mvp_candidate_v1_sample.png"
+    "composed_sample": "docs/art/evidence/terrain/terrain_mvp_candidate_v1_sample.png",
+    "context_composition_review": "docs/art/evidence/terrain/terrain_mvp_candidate_v1_context.png"
   },
   "limitations": [
     "32x32 px per SQM is a candidate; test at 50–125% zoom and Android sizes before fixing scale.",

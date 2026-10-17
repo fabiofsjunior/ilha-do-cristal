@@ -1,0 +1,28 @@
+{
+  "status": "candidate",
+  "source": "palm_generated_source.png",
+  "source_size": [
+    1086,
+    1448
+  ],
+  "output_size": [
+    96,
+    128
+  ],
+  "scale": 0.08839779005524862,
+  "resample": "nearest",
+  "crop": null,
+  "alpha": "preserved; intermediate values remain",
+  "pivot_px": [
+    69,
+    126
+  ],
+  "runtime_pivot_px": [
+    69,
+    118
+  ],
+  "runtime_offset_reason": "align foot with existing collider centered at local y=8",
+  "generator": "built-in imagegen",
+  "prompt": "single isolated coconut palm sprite, classic 16-bit RPG, oblique top-down, full curved segmented trunk, lush olive dark-green fronds, top-left golden light, transparent, no soil/shadow/text/UI",
+  "review": "single representative candidate; engine/device visual approval pending"
+}

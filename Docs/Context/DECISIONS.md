@@ -58,3 +58,59 @@ Validar antes de consolidar integração: fluxo Firebase Auth offline/online em 
 - A demonstração começa no nível 4 com 3 pontos disponíveis (um por nível ganho desde o nível 2). FOR/AGI/INT brutos começam em zero; a eficácia de cada ponto segue os multiplicadores existentes do GDD.
 - HP/MP base continuam vinculados à vocação (Warrior 200/100, Archer 150/150, Mage 100/200). Com +3 HP por FOR efetiva e +3 MP por INT efetiva, representar todo o HP/MP inicial apenas com atributos exigiria aproximadamente 100 pontos Warrior, 117 Archer e 100 Mage. Esses pontos não são alocados na criação.
 - v0.7 é uma simulação sem salvamento. A revisão do protótipo não aprova implementação de produção.
+
+
+## Incremento técnico — primeira fatia jogável (2026-10-15)
+
+- O usuário validou explicitamente o protótipo navegável v0.7 em 2026-10-15. Esta implementação segue seu fluxo inicial: abertura, seleção de aparência/vocação, etapa “Criar/entrar na ilha”, gameplay e pausa. A validação foi do protótipo; telas reais ainda exigem importação Godot e revisão visual.
+- A fatia foi desenvolvida em worktree isolada baseada em `feature/fabio-warrior-stage1` no commit local `16e7593` e integrada localmente nessa branch nos commits `b1c66a5` (implementação) e `b8339e6` (checkpoint documental). `main` não foi alterada e não houve push. `project.godot` aponta para a demo e preserva `tools/art/sprite_test/` como harness QA separado.
+- A seleção limita-se à vocação Warrior porque as quatro aparências têm apenas atlas candidatos Warrior com `idle` e `walk` disponíveis. O mapa usa primeira composição estática 64×44 e os 56 IDs completos do atlas candidato; não inicia o sistema de chunks/seed do mundo final.
+- Joystick touch e botão touch de pausa estão implementados em código junto aos controles desktop. LAN/conta/save, combate, inventário/progressão e persistência não existem; “Hospedar solo” é local e “Entrar” mostra erro mockado e recuperável. O alvo do cristal e props de cenário são proxies geométricos demonstrativos.
+- Os PNGs de personagens permanecem byte a byte sem mudança; a implementação lê pivô, grade, direção e FPS das metadata e não promove `corrigir`/`CANDIDATO`. Sem Godot/Android no runner, S0/S1 permanecem incompletos; a verificação em aparelho Android (10 min, paisagem, dois tamanhos, zoom 50–125%) é obrigatória antes do aceite.
+
+## Recorte solo distribuível para teste — 2026-10-16
+
+- O usuário pediu continuidade com APK/Web testáveis e delegação das sprites da raposa, lobo e urso. Cinco frentes isoladas, GPT-6 Luna com esforço máximo, produziram criaturas, gameplay e export Android; a integração permaneceu em `feature/fabio-warrior-stage1`.
+- A implementação avança o loop solo da interface v0.7 já validada. É um recorte técnico S2; os gates de aparelho de S0/S1 permanecem abertos. O aceite integral do GDD continua exigindo três vocações, LAN em dois Androids e o restante do conteúdo.
+- O catálogo provisório é usado como fonte dos valores para playtest: HP/MP, XP, drops, receitas, custos e skills. Quantidade por nó, cadência de ataques/IA e respawn de criatura em 90 s fora da visão são provisórios; o mapa continua estático 64×44.
+- O save desta fatia separa progresso por aparência Warrior no dispositivo, schema 1. Isso não substitui o futuro modelo host/mundo/conta. A gravação verifica o temporário antes de rotacionar dois slots; snapshots inválidos são preservados para diagnóstico.
+- As três criaturas têm somente uma pose SE para teste. Alpha intermediário e direções/animações finais bloqueiam aprovação artística; nenhum asset foi promovido a produção. Os atlas existentes dos quatro jogadores e os 56 tiles foram preservados.
+- Web é exportado com um ZIP portátil e servidor localhost; Android é um APK debug assinado localmente, ARMv7/ARM64, paisagem e sem permissões. SDK, Godot, chaves, builds e saves não entram no Git. Testes de pacote/assinatura/headless não substituem execução gráfica ou aparelho.
+
+## 2026-10-16 — Retrato e HUD de combate
+
+A solicitação explícita do usuário substitui a orientação horizontal anterior: base 720×1280 (9:16), retrato Android, stretch expand e mundo até as bordas em outras proporções. O anexo `1001362477.jpg` é o protótipo escolhido para implementar a hierarquia: retrato e HP/MP/EXP no topo esquerdo, alvo/HP no topo direito, navegação compacta, joystick esquerdo e ações circulares à direita. Não adiciona goblins, dungeon, ouro ou habilidades fora do catálogo. Preservados os sprites candidatos e o mundo da ilha.
+
+Seleção usa elipse no corpo visível, mínimo de 36 pixels lógicos por raio corrigido pelo zoom, escolhe o centro normalizado mais próximo em sobreposição e preserva o alvo em toque no chão. Trocar alvo percorre monstros visíveis ordenados por distância ao jogador. Número flutuante usa HP efetivamente removido, inclusive bleed/skills e golpe fatal; amarelo para causado, vermelho para recebido.
+
+## 2026-10-16 — Prancha pixel HUD selecionada pelo usuário
+
+Solicitação explícita de colocar a prancha pixel art no repositório e substituir o HUD autoriza a integração dessa referência. Fonte `assets/ui/pixel_hud_v1/source_sheet.png` preservada byte a byte; regiões AtlasTexture em `regions.json` para barras, molduras, spells, joystick e navegação. Textos/HP/MP/EXP/cooldowns continuam valores reais do jogo, não números pintados na imagem. Barras recompõem o preenchimento para esconder os valores ilustrativos da fonte. Ícones em nearest com legendas compactas. Import, regressão de retrato e render Godot/Mesa passaram. Android físico segue pendente. Prancha é referência gerada com algumas junções entre peças, registradas no manifesto, sem aprovação implícita de todo o restante da arte.
+
+## Revisão visual 2026-10-16
+
+Pedido de visão próxima substitui faixa antiga50–125% por150–300%. Orientação mobile existente preservada, com layout responsivo para a referência horizontal. Profundidade oblíqua implementada sem mudar coordenadas de save/colisão; isometria64×32 continua pendente.
+
+## Câmera 3D ortogonal 2026-10-16
+
+O usuário reafirmou sua escolha por Camera3D na visão 2.5D isométrica. Implementado como ponte de apresentação: câmera ortogonal, terreno plano XZ e sprites verticais; modelo, colisões e saves seguem em SQM 2D. Na Godot, −30° em X olha para baixo; +30° apontaria para cima. Y = 45°. A lógica do jogo ainda não foi convertida para malhas tridimensionais.
+
+## 2026-10-16 — Renascimento corrigido
+
+Monstros renascem após15s quando o jogador está a mais de5SQMs (160px) do ponto de origem. Removido bloqueio por visibilidade da câmera; refúgio permanece protegido. Teste test_respawn_radius.gd passou: prazo, distâncias0/159/160/161px e ausência de renascimento duplicado.
+
+## 2026-10-16 — Ícone e área segura do Android
+
+O launcher Android usa o cristal pixel art existente, com ícone clássico, camadas adaptativas e variante monocromática; o rótulo é “A Ilha do Cristal”. O HUD preserva sua composição e calcula a área útil como retângulo positivo de posição/tamanho; offsets direito/inferior negativos colapsavam o layout em telas edge-to-edge. Atualização de teste 0.1.2/versionCode 3.
+
+## 2026-10-16 — Controles mobile relativos ao viewport
+
+O `CanvasLayer` deve ocupar o viewport inteiro para manter uma origem de coordenadas estável. A safe area do Android orienta somente margens internas dos controles; ela não redimensiona nem desloca a raiz do HUD. No retrato 9:16, joystick/curativo ficam embaixo à esquerda e skills/interação embaixo à direita. Esta implementação corresponde ao APK 0.1.3/versionCode 4.
+
+## 2026-10-16 — Fallback para safe area inconsistente
+
+O mapeamento Android da safe area só é aplicado quando o retângulo intersectado mantém ao menos 80% da largura e da altura do viewport. Se o sistema retorna dimensões incompatíveis com a orientação do jogo, usar o viewport inteiro evita posicionar joystick e skills fora da tela. APK 0.1.4/versionCode 5.
+
+## 2026-10-16 — Marcador de seleção 3D
+
+O alvo selecionado deve usar uma elipse pixel art pequena, sem billboard, plana no XZ do mundo e centralizada sob os pés da criatura. Reaproveitar o arco antigo do atlas em `Sprite3D` vertical aumentava demais o marcador no retrato. A seleção continua limitada ao alvo ativo.

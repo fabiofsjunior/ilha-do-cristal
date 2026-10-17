@@ -2,9 +2,11 @@
 .godot/
 .import/
 *.tmp
+__pycache__/
+*.pyc
 
 # Local builds and secrets
-build/
+/build/
 dist/
 *.apk
 *.aab

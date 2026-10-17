@@ -8,6 +8,8 @@
 
 Seed + gerador determinístico para costa, água, vegetação, recursos iniciais e regiões. Ilha até 1000×1000 células. Chunks 32×32 por camada lógica (terreno, decoração, colisão, recursos/construções). Carregar/atualizar os próximos aos jogadores, retirar os distantes, manter modificações em memória até gravação. TileMapLayer/TileSet Godot, atlas de arte validado e configurações de pixel-perfect; benchmark em Android define raio ativo. Geração deve garantir praia acessível, madeira/pedra/ervas e rota ao interior.
 
+**Apresentação 2.5D:** first_island.tscn possui Node3D/Camera3D ortogonal. isometric_3d_view.gd apresenta o terreno num plano XZ, projeta props e sprites 2D com billboarding/profundidade, e segue o ator com interpolação. A simulação continua 2D: Vector2(x,y) → Vector3(x/32, altura, y/32). CanvasLayer permanece no viewport; câmera = −30° X, 45° Y. Essa ponte mantém saves e regras do MVP enquanto a migração não inclui malhas 3D navegáveis.
+
 ## LAN autoritativa
 
 Host executa simulação e guarda o mundo. Clientes enviam input/intenção com IDs e sequência; host valida distância, mana, cooldown, ownership de item e atualiza eventos/snapshot. Colheita, construção e drop precisam de IDs únicos e processamento idempotente. Enviar estado dos chunks relevantes, não milhão de tiles. Descoberta automática em LAN é protótipo a validar; fallback de entrada por IP local/código. Android requer permissão de rede no export. Não transferir host no MVP. Se host sair ou rede cair, salva checkpoint, encerra sessão e exibe estado; cliente não escreve no save de mundo.

@@ -110,7 +110,7 @@ def main() -> None:
         },
         "limitations": [
             "Structural validation is not visual art approval.",
-            "Godot import/render, zoom/SQM review, and Android remain pending.",
+            "Visual Godot render, zoom/SQM review, and Android remain pending.",
         ],
     }
 
@@ -217,7 +217,7 @@ def main() -> None:
                 f"visible_bottom_minus_pivot={frame_bottoms}"
             )
     print(f"WARN visual art remains CORRIGIR; detailed measurements: {report_path.relative_to(ROOT)}")
-    print("PENDING: Godot import/render, zoom/SQM review, and Android")
+    print("PENDING: visual Godot render, zoom/SQM review, and Android")
 
 
 if __name__ == "__main__":

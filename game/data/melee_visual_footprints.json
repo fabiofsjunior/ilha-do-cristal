@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "description": "Conservative alpha bounds for actor-only melee spacing in the fixed 2.5D view. Navigation CollisionShape2D dimensions remain independent.",
+  "alpha_threshold": 31,
+  "camera": {
+    "yaw_degrees": 45,
+    "pitch_degrees": 30
+  },
+  "separation_margin_px": 4,
+  "player_alpha_bounds_px": [
+    65,
+    67
+  ],
+  "player_alpha_extents_px": [
+    -35,
+    34,
+    -3,
+    69
+  ],
+  "player_profiles": [
+    "melissa",
+    "helena",
+    "maira",
+    "fabio"
+  ],
+  "creatures": {
+    "fox": {
+      "source_alpha_bounds_px": [
+        51,
+        48
+      ],
+      "render_scale": 1.0,
+      "rendered_alpha_bounds_px": [
+        51,
+        48
+      ],
+      "rendered_alpha_extents_px": [
+        -26,
+        25,
+        3,
+        51
+      ]
+    },
+    "wolf": {
+      "source_alpha_bounds_px": [
+        58,
+        52
+      ],
+      "render_scale": 1.0,
+      "rendered_alpha_bounds_px": [
+        58,
+        52
+      ],
+      "rendered_alpha_extents_px": [
+        -29,
+        29,
+        4,
+        56
+      ]
+    },
+    "bear": {
+      "source_alpha_bounds_px": [
+        82,
+        74
+      ],
+      "render_scale": 1.3,
+      "rendered_alpha_bounds_px": [
+        107,
+        97
+      ],
+      "rendered_alpha_extents_px": [
+        -52,
+        54.6,
+        0,
+        96.2
+      ]
+    }
+  }
+}

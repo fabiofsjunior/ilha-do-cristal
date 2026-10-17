@@ -1873,6 +1873,6 @@
   },
   "limitations": [
     "Structural validation is not visual art approval.",
-    "Godot import/render, zoom/SQM review, and Android remain pending."
+    "Visual Godot render, zoom/SQM review, and Android remain pending."
   ]
 }

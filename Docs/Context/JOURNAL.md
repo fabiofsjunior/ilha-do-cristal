@@ -110,3 +110,157 @@ A pedido do usuário, o protótipo navegável ganha tela de inventário em três
 - Fonte e validação reproduzíveis em `tools/art/generate_mvp_terrain_tileset.py` e `tools/art/validate_mvp_terrain_tileset.py`; prancha de contato, amostra scripted e relatório em `docs/art/evidence/terrain/`. Nenhuma sprite de personagem foi alterada.
 - Resultado estrutural: PNG RGBA, alpha apenas 0/255, 56 IDs/regiões válidas, base 17/transition 24/overlay 15, sem falha de borda nas superfícies repetíveis; Python compile e JSON parse passaram. Status permanece **CANDIDATO**, aguardando revisão visual, cena TileMap no Godot, zoom 50–125% e Android. A amostra não é render do motor.
 - Próximo gate: importar em cena de QA Godot, examinar vizinhança costeira/caminho no tamanho real, testar aparelho; só então solicitar revisão/expandir. S0 e todas as sprites de personagens continuam com estados independentes e não aprovados.
+
+
+## 2026-10-15 — auditoria orquestrada de arte
+
+- Inspecionados AGENTS, GDD, catálogos, direção de arte, conceitos, assets, histórico e validadores. Cinco revisões isoladas (Fábio, Helena, Maíra, Melissa e terreno) foram coordenadas em worktrees detached, usando GPT-6 Luna com raciocínio máximo. Nenhuma branch remota temporária foi criada.
+- Os quatro candidatos Warrior existentes têm somente `idle` e `walk` em oito direções. O contrato da direção de arte propõe também `attack`, `hit`, `death` e `cast`; esses estados e as vocações Archer/Mage não foram criados nesta auditoria.
+- Não alteramos atlas raster: tentativas de edição generativa que mudaram a grade ou não removeram o halo foram descartadas. Defeitos que requerem redesenho quadro a quadro ficam pendentes para editor de pixel art com revisão manual. Maíra tem 12 fontes PNG malformadas/truncadas; o packer não consegue decodificá-las e não há cópia íntegra no histórico.
+- Fábio: alpha suave/halo e fragmentos desconectados em células diagonais; ciclo e apoios não comprovados. Helena: alpha/halo e deriva de pivô/passada; o validador stage1 foi corrigido para listar exatamente três fontes e testar ausência. Maíra: E/W e diagonais inconsistentes, passada incerta e fontes inválidas. Melissa: alpha intermediário e poses de espada/passadas inconsistentes. Todos permanecem **CORRIGIR**.
+- Terreno: prancha de contato e amostra nearest não mostraram falha demonstrável; o relatório foi atualizado. Os 56 tiles permanecem candidatos, aguardando TileMapLayer em Godot e Android.
+- Ferramentas gratuitas pesquisadas: Pixelorama (recomendação para edição frame a frame e onion skinning), LibreSprite e Piskel. Nenhum editor ou Godot está instalado no runner; não foi feita captura no motor nem teste Android.
+- Validações: atlas geral retornou 20 erros de alpha intermediário; Helena 8-dir passou estruturalmente com alertas; Helena stage1 passou após correção, com teste negativo de arquivo ausente; terreno passou **somente estruturalmente**; catálogos passaram (10 grupos/54 IDs); packer Maíra falha nas fontes inválidas; `git diff --check` passou.
+- Relatórios de Maíra/terreno e validador Helena foram integrados em `feature/fabio-warrior-stage1` nos commits `35b17d7`, `e41c173` e `df35d71`. `main` permaneceu intacta; a lista remota observada contém apenas `main` e `feature/fabio-warrior-stage1`.
+- Próximo gate: usar um editor gráfico para recuperar/refazer fontes inválidas e corrigir direções, alpha, passadas e âncoras; validar no Godot e em Android. Manter cada asset em **CORRIGIR/CANDIDATO** até evidência específica.
+
+## 2026-10-15 — retoques de pixels e revalidação
+
+- O usuário autorizou cinco frentes isoladas (Fábio, Helena, Maíra, Melissa e terreno) e uso de editores gratuitos como Pixelorama, LibreSprite ou Piskel. Nenhum agente aplicou um editor GUI nesta rodada; onde houve correção, foram seleções pixel a pixel delimitadas, reproduzíveis e revisadas em tamanho nativo/nearest. Nenhuma saída generativa substituiu os atlas.
+- Fábio v3: oito caixas manuais removeram artefatos vermelhos desconectados em idle SW/NW e walk SE/SW; a comparação antes/depois de SW walk quadros 2 e 5 confirma a remoção. Foram preservados fontes, v1 e v2. Alpha intermediário, halo e ciclo/pivô seguem pendentes.
+- Helena: nenhum retoque raster foi considerado seguro nesta rodada. A auditoria visual das oito direções mantém dúvidas de passada e pivô; validadores estruturais passam com alertas de alpha e alinhamento.
+- Maíra: nenhuma correção raster. As 12 fontes PNG das direções novas falham ao decodificar (IDAT truncado); ângulos E/W/diagonais e ciclo de passada do atlas v2 seguem sem aprovação.
+- Melissa: foi preservado o candidato v1 e criado v2 com remoção de dois pixels desconectados alpha=1 em N/idle/quadro 2. Alpha/halo nas demais bordas, variação da espada, direção sul e passadas seguem pendentes.
+- Terreno: mantidos 56 tiles; além da correção do caminho fora da máscara, foram alinhadas junções de canto. A prancha 3×3 foi revisada em nearest; contraste no solo e integração no TileMap ainda aguardam Godot/Android.
+- Commits integrados na branch `feature/fabio-warrior-stage1`: `2e560a0` (overlay do terreno), `a95e66d` (cantos do terreno), `e40b5a2` (Melissa v2), `d811261` (Fábio v3). Nenhuma alteração foi feita em `main`.
+- Revalidação: `validate_sprite_atlases.py` falha com 21 entradas de alpha intermediário; `validate_helena_8dir.py` passa estruturalmente com alertas; `validate_helena_stage1.py` passa estrutura mas registra 17.568 pixels intermediários em idle e 20.476 em walk; `validate_mvp_terrain_tileset.py` passa estrutura e junções (56 tiles, alpha 0/255); catálogos passam (10 grupos/54 IDs). Godot, Android e inspeção em motor permanecem pendentes; os candidatos seguem **CORRIGIR**, terreno **CANDIDATO**.
+- `git ls-remote --heads origin` confirmou somente `main` e `feature/fabio-warrior-stage1`; não havia branches remotas antigas para excluir. Os novos commits locais ainda aguardam tentativa de push.
+- Próxima ação: recuperar ou refazer as fontes truncadas de Maíra, continuar a correção manual dos contornos e ciclos em editor de pixel art e concluir revisão Godot/Android antes de qualquer status de produção.
+
+## 2026-10-15 — primeira fatia jogável desktop
+
+- Iniciada em worktree isolada `feature/s01-gameplay-slice`, baseada exatamente no HEAD local `16e759350ad9a3f76ded314e0050a820939b3a5f` da `feature/fabio-warrior-stage1`. A worktree base permaneceu limpa; não houve branch remota, cherry-pick ou push.
+- Confirmado no Journal e no registro do protótipo que o usuário validou explicitamente a UI navegável v0.7 em 2026-10-15. O código segue abertura → escolha de aparência Warrior → “Criar/entrar na ilha” → gameplay; “Hospedar solo” entra localmente e “Entrar” dá erro mockado recuperável; pausa retoma, volta à sessão ou ao início.
+- Criados scenes/scripts de roteamento, seleção de quatro aparências candidatas, sessão, pausa, mapa e jogador. A movimentação de oito direções lê WASD/setas e o joystick touch; há botão touch de pausa/interação, zoom 50–125%, câmera sem smoothing/nearest/pixel snap, colisão com água, bordas, árvores e pedras placeholder, além de cristal interativo somente demonstrativo.
+- Primeiro mapa estático tem 64×44 células candidatas de 32 px e compõe os 56 IDs do atlas existente: 17 bases, 24 transições, 15 overlays. A estrutura mantém todas as 17 variações base, as 24 transições e uma rede conectada usando cada overlay uma vez. O terreno segue **CANDIDATO**.
+- As quatro aparências usam atlas Warrior já existente e metadata atual; idle 4 quadros/6 FPS e walk 6 quadros/10 FPS em N, NE, E, SE, S, SW, W, NW. O loader aceita metadata plana e `animations.idle/walk` (formato da Helena). Nenhum PNG de personagem foi reprocessado; todas permanecem **CORRIGIR**, `approved:false`.
+- `project.godot` agora inicia `game/scenes/main.tscn`; o harness QA técnico segue disponível em `tools/art/sprite_test/`. README, Roadmap, DECISIONS, Handoff e `docs/gameplay/PLAYABLE_SLICE.md` descrevem o recorte. O Roadmap marca subitens de código, mas mantém S0/S1 incompletos até importação, execução e aceite Android.
+- Validações: `python3 tools/gameplay/validate_playable_slice.py` passou (18 cenas/scripts resolvidos, 8 animações de metadata, 56 IDs e nenhuma alteração em PNG de personagem); `python3 tools/art/validate_mvp_terrain_tileset.py` passou estrutura/composição e manteve Godot/Android pendentes; `python3 tools/validate_catalogs.py` passou (10 grupos/54 IDs); `python3 -m py_compile tools/gameplay/validate_playable_slice.py` e `git diff --check` passaram.
+- `python3 tools/art/validate_sprite_atlases.py` segue com saída 1 e 21 erros conhecidos de alpha intermediário nos atlas candidatos. Isso mantém o status **CORRIGIR** e não representa aprovação visual.
+- O runner não tem `godot`, `godot4`, `adb` ou executável Android; não foi possível fazer import/run no motor, captura Godot, build APK ou teste de dez minutos no aparelho. O `gdtoolkit` 4.5.0 foi instalado temporariamente em `/tmp` somente para parse/lint estático: todos os scripts GDScript passaram. Uma inspeção Pillow/layout confirmou os elementos do mapa, mas não é render do Godot. Esses gates ainda bloqueiam conclusão de S0/S1. LAN, contas, saves, inventário funcional, combate e progressão não foram simulados como funcionalidades existentes.
+- Commit local de implementação: `032f4266448a7c1f8cd8acbffc962aa6f124a6d8` (`feat: add playable local gameplay slice`). Este registro e o Handoff recebem uma atualização documental subsequente na mesma branch; o commit de gameplay é identificável sem cherry-pick ou push.
+- Integração concluída localmente em `feature/fabio-warrior-stage1`: `b1c66a5` traz a fatia, `b8339e6` registra o checkpoint documental e `63511d3` atualiza este estado de integração. `main` permaneceu intacta; os commits locais ainda não foram enviados a `origin`.
+
+## 2026-10-15 — Godot 4.5.1 e smoke test da primeira fatia
+
+- Baixado o binário oficial Godot 4.5.1 Linux x86_64 para a raiz do repositório, conferida a versão `4.5.1.stable.official.f62fdbde1`. O executável está excluído apenas localmente via `.git/info/exclude`; não será incluído no Git.
+- A primeira importação revelou 12 fontes PNG truncadas em `assets/references/generated-candidates/maira_warrior/`. Uma auditoria leu os blobs versionados e confirmou que `HEAD`, `main` e `origin/feature/fabio-warrior-stage1` têm os mesmos bytes; não foi encontrada cópia íntegra nos worktrees. Como são referências sem dependência de runtime, `.gdignore` isola essa pasta da varredura do Godot. A alteração não repara as imagens nem aprova Maíra; o empacotador e o trabalho artístico continuam bloqueados até restaurar/refazer fontes completas.
+- `Godot --headless --editor --path . --import --quit` passou sem warnings/erros após o isolamento, incluindo importação em uma cópia limpa sem cache ou sidecars `.import`. `Godot --headless --path . --quit-after 300` iniciou a cena principal sem erro. Criado `tools/gameplay/smoke_playable_slice.gd`: o teste percorre menu → seleção → sessão → ilha, carrega as quatro aparências Warrior, verifica 2.816 células base e caminho, move o jogador pelo joystick, confirma colisão da água e percorre pausa/retomada/volta à sessão/volta ao início. Passou.
+- `tools/art/sprite_test/check_scene.gd` passou: 240 seleções de quadros e 48 estados de controles para V1/V2/V3. Isso comprova o loader, não aprovação visual.
+- Validadores: gameplay passou (18 referências de cenas/scripts, quatro atlas idle/walk e composição 56 tiles); terreno passou estrutura/junções (56 tiles, alpha 0/255), revisão Godot visual/Android pendente; catálogos passaram (10 grupos, 54 IDs); Helena 8-dir e stage1 passaram estruturalmente com avisos de alpha/pivô e status **CORRIGIR**. `validate_sprite_atlases.py` segue com saída 1 por 21 atlas com alpha intermediário; personagens permanecem **CORRIGIR** e terreno **CANDIDATO**.
+- O runner não oferece servidor gráfico para comparação em tamanho nativo/nearest nem aparelho/SDK Android. S0/S1 continuam incompletos até revisão visual, comparação com v0.7 e teste/export Android. `main` não foi alterada e não houve push.
+
+## 2026-10-15 — launcher local para a build Web
+
+- Adicionado `Testar_Jogo_Web.bat` na raiz para iniciar o servidor e abrir a build exportada no navegador. O script Python em `tools/web/serve_web_build.py` valida os arquivos HTML/JS/WASM/PCK, serve somente em loopback, usa a porta 8000 ou escolhe outra se ocupada e encerra com Ctrl+C. Requer Python 3.
+- Adicionado `--no-browser` para validar o servidor sem abrir janela. A build continua em `build/web/`, ignorada pelo Git; `export_presets.cfg` e as instruções de uso ficam versionados.
+- A revisão gráfica no navegador segue pendente neste runner; a ferramenta abre a build para validação no computador do usuário. S0/S1 e arte mantêm os estados anteriores.
+
+## 2026-10-16 — recorte solo, criaturas e pacotes APK/Web
+
+- Atendido o pedido de continuar o MVP com APK/Web testáveis e delegar raposa, lobo e urso. Cinco frentes GPT-6 Luna, esforço máximo, trabalharam em worktrees detached: três criaturas, gameplay e Android. Não foram criadas branches remotas temporárias.
+- Integrados candidatos SE estáticos de raposa/lobo (96×96, pivô 48,80) e urso (128×128, pivô 64,108), fontes brutas, empacotadores, relatórios e previews nativos/nearest. Revisão do orquestrador confirmou a leitura básica. Alpha parcial persiste (1.147/1.659/4.158 pixels), sete direções e ciclos finais estão pendentes. Os três continuam CORRIGIR/approved:false; o validador conjunto separa estrutura de `--strict-art`.
+- O loop solo usa quatro aparências Warrior: coleta, receita/uso de curativo, alvo e autoataque, três skills, IA distinta, área protegida, XP, materiais, camp II/III e retorno solo com mochila. Save schema1 por aparência usa checksum, temporário e slot anterior. A revisão corrigiu raposa atacando sem provocação, golpe do urso dentro do refúgio, HUD bloqueando clique, deslocamento além do pivô e checksum int/float; a integração limitou gravações normais a dois slots para evitar acúmulo de arquivos.
+- Import, boot 300 frames, smoke de cena e teste de estado/recovery passaram no Godot 4.5.1. O smoke usa evento de ponteiro, testa coleta, autoataque, IA, segurança do urso, quatro aparências, 2.816 células, colisão e pausa. Teste de estado confirma receita, cura 40/4s/interrupção, prêmio único, camp II/III, rotação repetida e recovery após checksum adulterado. Harness de sprites passou 240 seleções e 48 estados.
+- SDK/JDK/templates foram preparados. Ativada importação ETC2/ASTC e refeita a importação. O primeiro Web falhou por ausência de `web_nothreads_*.zip`; instalados os dois templates corretos do pacote oficial 4.5.1 e a exportação passou. O APK registra visivelmente o aviso conhecido de ícone ausente; o exportador recusa outros ERROR/SCRIPT ERROR, inclusive com saída zero.
+- Gerados ZIP Web portátil de 12.434.884 bytes e APK debug de 59.550.750 bytes, ambos a partir do checkpoint de código remoto `bbba04f8d278f141cef7cb431dbecd22d1c02c49`. Hashes, comandos, lista de arquivos e limites estão em `docs/gameplay/MVP_BUILD_VALIDATION.md`. Builds, SDK, engine, chaves e saves permanecem fora do Git.
+- Web: CRC, compilação WASM no Node, smoke do PCK extraído em diretório sem checkout e servidor portátil HTTP/MIME/Ctrl+C passaram. APK: manifesto paisagem, min24/target35, ARMv7/ARM64, nenhuma permissão, assinatura v2/v3, CRC e dados runtime passaram. Não houve execução gráfica Web nem instalação Android: navegador local foi bloqueado, navegador remoto não acessa este localhost, e não há aparelho/emulador/KVM. Esses testes não fecham S0/S1/S2.
+- Catálogos, fatia e terreno passaram estrutura; Helena passou estrutura com alertas. Validador geral de atlas continua falhando em 21 candidatos por alpha; strict-art das criaturas falha por alpha/direções/animações. Personagens continuam CORRIGIR, terreno CANDIDATO e 12 fontes antigas de Maíra seguem truncadas.
+- Código/arte/exporters publicados em `feature/fabio-warrior-stage1` pela conexão GitHub autenticada, com árvores Git conferidas contra os commits locais. `main` permaneceu em `b3d3f9a0f9405dae020d04785069b55c702f6894`; o conjunto remoto contém somente main e a branch de trabalho. README, roadmap, decisões, registro do protótipo e handoff descrevem o recorte sem promover arte ou declarar o GDD completo.
+- Próxima ação: testar os pacotes no navegador e em Android real, comparar HUD/mapa com v0.7 e fechar/reabrir saves; depois corrigir arte e ampliar o conteúdo conforme os gates pendentes.
+
+## 2026-10-16 — HUD retrato e seleção/dano
+
+Retomada a branch jogável em `d0abbb6`, preservada main. Incremento em `feature/s02-portrait-combat-hud`: retrato 720×1280, expand sem letterbox, Android imersivo e safe area apenas nos controles; entrada web solicita fullscreen por gesto quando suportado. HUD com retrato, HP/MP/EXP numéricos, retrato/HP do alvo, ações circulares e joystick. Seleção por corpo corrigida por zoom, anel/barra e botão Trocar alvo. Os controles raiz do router agora ignoram mouse, removendo bloqueio invisível de cliques. Menus, escolha 2×2, mochila e refúgio adaptados ao retrato. Joystick é liberado ao pausar e bloqueado por painéis.
+
+Dano flutuante parte do HP efetivamente removido, em todo take_hit (básico, skills, sangramento, fatal) e dano ao jogador; efeito independente da vida do monstro, com tween/limpeza e escala compensada pelo zoom. Nenhum PNG de personagem foi modificado.
+
+Testes: import Godot sem erros de script; smoke completo menu/aparência/sessão/mundo/movimento/IA/seleção/pausa passou; estado solo/save/recovery passou (warnings de corrupção esperados); catálogos e validador de recursos passaram. Regressão nova verifica limites de painéis/botões em 3 viewports, toque em 4 zooms, retenção/ciclo do alvo e números recebido/causado/fatal/limpeza. Render Godot OpenGL/Mesa em Xvfb passou e captura inspecionada. Teste antigo agora define tamanho real da janela em headless e posiciona a raposa no campo visível; baseline do validador atualizado ao commit de origem existente.
+
+Export final e evidência Web/APK descritos em `docs/gameplay/PORTRAIT_BUILD_VALIDATION.md`. Não há aparelho Android conectado; aceitação de toque físico, recortes de fabricante e estabilidade de 10 minutos continua pendente.
+
+Entrega técnica concluída: builds 0.1.1 do commit `b02cf9c`, APK assinado/manifesto portrait/CRC/runtime aprovados; ZIP Web e compile WASM aprovados. Tentativa WebGL em Chromium bloqueada por socket do ambiente. PR #10 aberta sobre a branch jogável. Hashes completos em `PORTRAIT_BUILD_VALIDATION.md`; pacote Web inclui o launcher local. Não houve teste Android físico nem validação WebGL/IndexedDB.
+
+## 2026-10-16 — Prancha pixel HUD selecionada pelo usuário
+
+Solicitação explícita de colocar a prancha pixel art no repositório e substituir o HUD autoriza a integração dessa referência. Fonte `assets/ui/pixel_hud_v1/source_sheet.png` preservada byte a byte; regiões AtlasTexture em `regions.json` para barras, molduras, spells, joystick e navegação. Textos/HP/MP/EXP/cooldowns continuam valores reais do jogo, não números pintados na imagem. Barras recompõem o preenchimento para esconder os valores ilustrativos da fonte. Ícones em nearest com legendas compactas. Import, regressão de retrato e render Godot/Mesa passaram. Android físico segue pendente. Prancha é referência gerada com algumas junções entre peças, registradas no manifesto, sem aprovação implícita de todo o restante da arte.
+
+## 2026-10-16 — Visão próxima oblíqua e HUD compacta (candidata)
+
+Referência: anexos image(20261016-162830).png (estado anterior) e image(20261016-162915).png (objetivo). Pedido explícito autoriza implementar essa direção.
+
+Mudanças: zoom lógico 150–300%, padrão200%, normalizado pelo lado curto do viewport; smoothing5; HUD de rosto, alvo somente selecionado, sem botão Auto ON; minimapa com posição real; controles reancorados e modais escalados em paisagem/retrato. Chão contínuo com bordas orgânicas, faces de relevo decorativas, props com pivô e Y-sort. Sprites de personagens e regras de combate/save preservadas.
+
+Limites: top-down oblíquo com profundidade visual, não transformação isométrica64x32, nem reprodução integral do lago/ruínas. Arte candidata. Checkout recuperado do GitHub (branch feature/s02-pixel-hud-assets); alterações não publicadas de sessões anteriores não estavam disponíveis. Não afirmar que esta build contém regeneração/XP10x/inventário novos de outro checkout.
+
+Verificações: Godot4.5.1 import e smoke de fluxo/coleta/combate/movimento; test_close_view em1280x720,720x1280,1920x1080; catálogo54 IDs; diff-check. Render gráfico bloqueado pelo ambiente (Xvfb não consegue criar sockets); Android físico e WebGL pendentes. Preview terrain é composição offline, não screenshot do jogo.
+
+## 2026-10-16 — Renascimento corrigido
+
+Monstros renascem após15s quando o jogador está a mais de5SQMs (160px) do ponto de origem. Removido bloqueio por visibilidade da câmera; refúgio permanece protegido. Teste test_respawn_radius.gd passou: prazo, distâncias0/159/160/161px e ausência de renascimento duplicado.
+
+## 2026-10-16 — Migração da apresentação para Camera3D
+
+O usuário reafirmou que quer manter Camera3D ortogonal. Cena Isometric3DView: terreno renderizado como superfície no plano XZ, câmera X−30°/Y45°, size inicial16, zoom por Camera3D.size, seguimento com lerp exponencial speed5. Props, cristais, jogador, criaturas, recursos, alvo e dano têm proxies 3D; seleção usa projeção de tela; HUD/minimapa seguem no CanvasLayer. A lógica 2D, colisões e save preservam SQMs.
+
+Verificação Godot4.5.1: import e smoke jogável, test_close_view (três proporções), test_portrait_combat (toque/ciclo/dano em quatro tamanhos ortogonais) e test_respawn_radius passaram. Render em dispositivo e inspeção WebGL seguem pendentes; sprites permanecem candidatas. Ângulo X negativo é necessário para apontar para baixo na Godot.
+
+## 2026-10-16 — Ícone e controles mobile 0.1.2
+
+- Gerados ícones launcher clássicos/adaptativos/monocromáticos, derivados do cristal pixel art do projeto; rótulo Android confirmado como “A Ilha do Cristal”. Preset incrementado para versionCode 3 / 0.1.2.
+- Corrigido o cálculo da área segura no `CanvasLayer`: o HUD agora usa origem e tamanho positivos mapeados do safe rect físico para o viewport. Antes os offsets direito/inferior negativos podiam encolher o retângulo e deslocar controles para fora da tela.
+
+## 2026-10-16 — Reposicionamento touch 0.1.3
+
+- Corrigido o layout mobile após confirmação de que o joystick ainda ficava fora da tela: a raiz do HUD cobre o viewport completo e os insets do safe area são aplicados como margens dos controles.
+- Joystick/curativo agora ficam no canto inferior esquerdo; skills/interação no direito, com alinhamento inferior e adaptação à safe area 9:16. O layout também reposiciona HUD superior e minimapa dentro dos recortes seguros.
+- APK Android debug exportado como 0.1.3/versionCode 4; ZIP Web também reexportado para incluir o novo layout touch. Os testes simulam três proporções, verificam todos os controles visíveis e validam toque/soltura; aparelho físico não disponível.
+- SHA-256: APK `672b885a864465d37c4972675dc93c7c1feebeb89d778b4d72ecaa7518d3d7af`; Web `081a44301a9d8d199ca1f5ee44ff12cabaac93c5761137591e08dc78d425d5ed`.
+- Adicionado teste com recortes sintéticos em três proporções; joystick, skills, botão de interação, minimapa e retrato permanecem no safe rect/viewport. Toque de arrasto no joystick move o player e o toque de soltura interrompe o movimento.
+- Verificações: import Godot 4.5.1; `test_mobile_controls_layout.gd`, `test_close_view.gd`, `test_portrait_combat.gd`, `smoke_playable_slice.gd`, catálogos e export/validação APK passaram. O aparelho físico não está conectado; notch real, multitouch e usabilidade ainda precisam de playtest.
+
+## 2026-10-16 — Safe area Android validada 0.1.4
+
+- Captura enviada pelo usuário mostrou joystick/spells ausentes e textos dos botões do topo sobrepostos. O mapeamento da safe area agora é limitado ao viewport e rejeitado quando largura/altura ficam abaixo de 80% da tela; nesses casos usa o viewport inteiro.
+- Labels superiores encurtados para “Bolsa” e “Base”. Teste mobile expandido para quatro cenários, incluindo dimensões de safe area em orientação incompatível; todos os controles e toque/soltura do joystick passaram.
+- APK 0.1.4/versionCode 5 e ZIP Web reexportados. O Android físico ainda precisa confirmar a exibição real.
+- Hashes: APK `4d43316b2bd6229d78fdc44afe838aa2746575f688260c8046717b4629da06d4`; Web `06057289c6d511813e9e65ad7685120cebf2f51be8a8059b025c5a3b7d753cf5`.
+
+## 2026-10-16 — Marcador de alvo compacto 0.1.5
+
+- O anel de seleção que aparecia como arco grande no mobile foi trocado por uma elipse pixel art dourada, gerada em 48×48 px, desenhada horizontalmente no chão e alinhada ao ponto de apoio do sprite 3D. Continua invisível sem alvo selecionado; HUD e nome/vida do inimigo não mudaram.
+- `test_close_view.gd` verifica orientação horizontal voltada para cima, tamanho e alinhamento; `test_portrait_combat.gd` garante seleção/troca em quatro zooms. Também passaram `test_mobile_controls_layout.gd`, integridade do ZIP e validação da assinatura/manifesto Android.
+- APK debug 0.1.5/versionCode 6: `323a7bcc9579537f19fd2a2f7d0e86c215b1817501a2ef18803afd3e7dd94ab8`. ZIP Web: `b0754dcfdba4cd27235c76d3755b8b26567dc831842ad106725119e4a74bbc47`. WebGL no navegador e aparelho Android físico ainda precisam de playtest.
+
+## 2026-10-16 — Joystick, atributos e regeneração no level-up
+
+- Joystick mobile dobrado para 288×288 px lógicos e raio de movimento/touch 128; continua no canto inferior esquerdo dentro da safe area. Entrada agora converte coordenadas com a transformação completa do HUD.
+- Botão `ATR` abre modal em 9:16. A janela mostra vocação/nível, FOR/AGI/INT e prévia do máximo de vida/mana; alocação é temporária até confirmar. Confirmar salva e atualiza a HUD; Resetar/Fechar descartam alterações pendentes.
+- Cada level-up restaura vida e mana aos máximos atuais do personagem e concede os pontos catalogados por nível, inclusive quando um ganho de XP cruza mais de um limite.
+- Testes headless passaram: joystick/layout, painel e integração de atributos, close-view, level-up/save e smoke do loop solo. Alterações ainda não foram exportadas; APK/Web 0.1.5 não as contêm, conforme fluxo acordado com o usuário.
+
+## 2026-10-17 — APK Android atualizado para 0.1.6
+
+- O usuário avisou que o APK entregue não tinha as últimas mudanças. A inspeção do binário confirmou manifesto 0.1.5/versionCode 6, embora o preset da branch já estivesse em 0.1.6/versionCode 7.
+- QA delegada identificou expectativas de testes anteriores à expansão do mapa/câmera e uma regra de ataque básico que não permitia contato físico. Corrigidos o range projetado, nomes estáveis de colisores, sincronização de dano `Label3D` e fixtures/assertivas obsoletas sem ampliar os hitboxes.
+- Passaram no Godot 4.5.1: `test_melee_contact_spacing.gd`, `test_portrait_combat.gd`, `test_close_view.gd`, `smoke_playable_slice.gd`, `test_expanded_map_population.gd`, `test_mobile_controls_layout.gd`, `test_level_up_restores_resources.gd`, `test_respawn_radius.gd`, `test_mvp_solo_loop.gd`, `test_regeneration_rules.gd`, `test_attributes_window.gd`, `test_attributes_hud_integration.gd` e `test_inventory_overlay_layout.gd`. `tools/gameplay/validate_playable_slice.py` e `git diff --check` também passaram.
+- APK reexportado em `build/android/ilha-do-cristal-debug.apk`: 0.1.6/versionCode 7, 64.680.671 bytes, SHA-256 `94a3e75920b3608c870e42af0172aaef3d23e28b465243b1077dfb7cfe153517`. Manifesto portrait, ARMv7/ARM64, package ID, ícones, sem permissões, assinatura v2/v3, CRC e arquivos runtime passaram. O ZIP Web não foi reconstruído e não havia Android físico conectado.
+- Build feita do worktree atual em `feature/s02-pixel-hud-assets`, HEAD/base `8140343`; alterações continuam sem stage/commit. Próximo gate: instalar o APK e validar controles, legibilidade e estabilidade no aparelho.
+
+## 2026-10-16 — Validação do APK 0.1.6 e integração pendente
+
+- Cópia local consolidada em `b0b7b7f188e157642fd50de0dd26e19751c29bfe`, 33 commits à frente da `origin/main`; o GitHub ainda apontava `main` para `b3d3f9a`, com PRs #10/#11 empilhadas.
+- APK 0.1.6/versionCode 7: 64.680.671 bytes; SHA-256 `94a3e75920b3608c870e42af0172aaef3d23e28b465243b1077dfb7cfe153517`. Conferidos manifesto, package, versão, orientação portrait, ABIs ARMv7/ARM64, CRC e presença dos blocos APK Signature Scheme v2/v3.
+- Revalidados catálogo, validação da fatia, espaçamento melee e composição estrutural do terreno. O validador da fatia inicialmente acusou PNGs candidatos de Mago fora do runtime; sua guarda foi corrigida para verificar os atlases Warrior efetivamente referenciados, e o teste passou.
+- Limite desta validação: este ambiente não tem Godot, Android SDK, adb ou dispositivo. Não houve nova exportação nem instalação física. O sidecar da APK aponta para a base `8140343`; o relatório da build registra que ela foi exportada do worktree sujo que depois virou o commit `b0b7b7f`.
+- Próxima ação: publicar a integração em `main` via PR, entregar a APK e solicitar playtest físico; a Web não foi reexportada e permanece 0.1.5.

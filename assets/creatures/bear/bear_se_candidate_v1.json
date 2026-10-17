@@ -1,0 +1,95 @@
+{
+  "id": "bear",
+  "atlas": {
+    "file": "bear_se_candidate_v1.png",
+    "columns": 1,
+    "rows": 1
+  },
+  "cell": [
+    128,
+    128
+  ],
+  "pivot": [
+    64,
+    108
+  ],
+  "directions": [
+    "SE"
+  ],
+  "required_directions": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SO",
+    "O",
+    "NO"
+  ],
+  "pending_directions": [
+    "N",
+    "NE",
+    "E",
+    "S",
+    "SO",
+    "O",
+    "NO"
+  ],
+  "animations": {
+    "idle": {
+      "frames": 1,
+      "fps": 1,
+      "loop": true,
+      "status": "candidate_pose",
+      "animation_complete": false,
+      "note": "Uma pose estática SE; não é um ciclo idle animado."
+    }
+  },
+  "pending_animations": [
+    "idle",
+    "walk",
+    "attack",
+    "hit",
+    "death"
+  ],
+  "species": "bear",
+  "catalog": {
+    "region": "bear_interior",
+    "hp": 240,
+    "attack": 22,
+    "xp": 50,
+    "behavior": "lento; anuncia golpe forte"
+  },
+  "approved": false,
+  "status": "candidate",
+  "qa_status": "CORRIGIR",
+  "pose_only": true,
+  "source": {
+    "selected_raw": "../../references/generated-candidates/bear/bear_se_source_v2.png",
+    "earlier_raw": "../../references/generated-candidates/bear/bear_se_source_v1.png",
+    "generator": "built-in image_gen",
+    "edit_summary": "A v2 reduz os cristais do dorso de grandes e luminosos para três marcas menores."
+  },
+  "packing": {
+    "script": "../../../tools/art/pack_bear_candidate.py",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "resized_full_canvas": [
+      112,
+      112
+    ],
+    "nearest_neighbor": true,
+    "paste_position": [
+      8,
+      10
+    ],
+    "alpha_policy": "Valores alfa amostrados copiados sem limiarização ou binarização."
+  },
+  "limitations": [
+    "Redução nearest-neighbor é lossy e descarta detalhes da fonte.",
+    "Alfa intermediário permanece; aprovação de arte bloqueada até correção.",
+    "As demais direções e animações finais estão pendentes."
+  ]
+}

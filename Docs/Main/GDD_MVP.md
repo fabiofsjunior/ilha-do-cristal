@@ -1,6 +1,6 @@
 # GDD minimalista — A Ilha do Cristal
 
-**v0.3 · 2026-10-15 · Pré-produção.** Mobile-first Android horizontal, desktop futuro. RPG 2D top-down em SQMs, sobrevivência cooperativa casual, ritmo deliberado, exploração procedural e progressão permanente. Arte aprovada: RPG Clássico. Os números descritos são valores iniciais para playtest.
+**v0.3 · 2026-10-15 · Pré-produção.** Mobile-first Android retrato 9:16, desktop futuro. RPG 2D top-down em SQMs, sobrevivência cooperativa casual, ritmo deliberado, exploração procedural e progressão permanente. Arte aprovada: RPG Clássico. Os números descritos são valores iniciais para playtest.
 
 ## História e objetivo
 
@@ -16,13 +16,25 @@ No MVP: quatro aparências, três vocações, uma arma inicial e uma melhora por
 
 ## Controle e mundo
 
-Paisagem; joystick virtual à esquerda, ataque/3 skills à direita; toque em objeto para interagir. HP/MP, minimapa, mochila, objetivo, hotbar e zoom em bordas. Zoom padrão 75%, faixa 50–125%, ajustável e salvo localmente. Movimento em oito direções sobre SQMs, diagonal normalizada, ataque básico automático no alvo selecionado quando ao alcance; magias sempre manuais. Legibilidade do personagem e tamanho dos botões dependem de teste real.
+Retrato 9:16 (base 720×1280, mundo expandido para preencher outras proporções); joystick virtual à esquerda, ataque/3 skills à direita; toque em objeto para interagir. HP/MP, minimapa, mochila, objetivo, hotbar e zoom em bordas. O mapa é apresentado em 2.5D com Camera3D ortogonal, inclinação de 30° para baixo (rotação X = −30°) e giro Y = 45°. A cena renderiza a grade SQM existente no plano XZ; simulação, colisões e saves continuam em coordenadas 2D mapeadas para X/Z. A faixa de enquadramento é controlada por Camera3D.size. Movimento em oito direções sobre SQMs, diagonal normalizada, ataque básico automático no alvo selecionado quando ao alcance; magias sempre manuais. Legibilidade do personagem e tamanho dos botões dependem de teste real.
 
 Ilha máxima planejada 1000×1000 SQMs; seed e chunks 32×32. Praia/spawn com recursos básicos garantidos, floresta com lobos e interior com ursos. Raposas perto do início. Sem spawn em área protegida ou colado ao jogador. Pontos de interesse a cada ~80–150 SQMs nas áreas do MVP, ajustados pelo tempo de travessia. O MVP pode povoar apenas uma parte da ilha.
 
 ## Progressão
 
-HP/MP iniciais: Warrior 200/100; Archer 150/150; Mage 100/200. Força → dano físico melee, HP, regeneração; Agilidade → dano físico à distância, crítico, esquiva; Inteligência → mana, regeneração MP, dano mágico. Multiplicadores por ponto bruto: Warrior FOR 2 / AGI 0,75 / INT 0,5; Archer 1 / 2 / 0,75; Mage 0,5 / 0,75 / 2. Crescimento de atributo é linear; efeitos precisam de coeficientes próprios. Crítico e esquiva limitados a 20%. Regeneração de HP por Força no máximo 2% HP máximo/s fora de combate (após 8 s sem atacar/ser atingido) e 0,5%/s em combate; tetos não são valores iniciais. As três vocações devem poder usar habilidades sem investir em INT.
+HP/MP iniciais: Warrior 200/100; Archer 150/150; Mage 100/200. Força → dano físico melee, HP, regeneração; Agilidade → dano físico à distância, crítico, esquiva; Inteligência → mana, regeneração MP, dano mágico. Multiplicadores por ponto bruto: Warrior FOR 2 / AGI 0,75 / INT 0,5; Archer 1 / 2 / 0,75; Mage 0,5 / 0,75 / 2. Crescimento de atributo é linear; efeitos precisam de coeficientes próprios. Crítico e esquiva limitados a 20%. As três vocações devem poder usar habilidades sem investir em INT.
+
+### Regeneração de recursos
+
+As taxas são percentuais do máximo atual por segundo, antes do clamp no máximo. A taxa base depende da vocação; FOR/INT efetiva adiciona pontos percentuais por segundo. O estado passa a fora de combate após **8 s sem atacar nem receber dano**. Limites: HP até 0,5%/s em combate e 2%/s fora; MP até 0,25%/s em combate e 1%/s fora. FOR e INT muito altos não ultrapassam esses tetos. Ao subir de nível, HP e MP continuam sendo restaurados integralmente.
+
+| Vocação | HP combate / fora | MP combate / fora |
+|---|---:|---:|
+| Guerreiro | 0,20% / 0,60% | 0,03% / 0,12% |
+| Arqueiro | 0,15% / 0,50% | 0,06% / 0,25% |
+| Mago | 0,10% / 0,35% | 0,10% / 0,40% |
+
+Cada ponto de **FOR efetiva** acrescenta +0,003 ponto percentual de HP/s em combate e +0,010 p.p./s fora. Cada ponto de **INT efetiva** acrescenta +0,001 p.p. de MP/s em combate e +0,004 p.p./s fora. O valor bruto alocado passa primeiro pelo multiplicador da vocação. As taxas completas e caps também estão em [`data/catalogs/mvp.json`](../../data/catalogs/mvp.json).
 
 Cada subida dá 1 ponto bruto de atributo. Árvore: 3 pontos na criação e 3 por subida até nível 50, 150 pontos no total; após 50 continua 1 ponto bruto/subida. Por vocação, plano de 60 nós pequenos (1 ponto), 25 grandes (2) e 15 especiais (5): 185 pontos para comprar tudo. Conexões desde o centro e escolhas exclusivas dão identidade às builds. No nível 10: 30 pontos de árvore; implementar primeiro ~18 nós acessíveis por vocação, conforme `CONTENT_DATA.md`.
 

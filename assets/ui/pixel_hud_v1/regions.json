@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "source": "source_sheet.png",
+  "sheet_size": [941, 1672],
+  "status": "user-selected for HUD integration; Android visual acceptance pending",
+  "regions": {
+    "player_frame": [0, 140, 292, 313],
+    "enemy_frame": [651, 141, 289, 310],
+    "hp_frame": [290, 187, 355, 61],
+    "mp_frame": [290, 286, 355, 64],
+    "xp_frame": [290, 397, 355, 64],
+    "enemy_hp_frame": [649, 451, 292, 66],
+    "hp_fill": [344, 251, 243, 20],
+    "mp_fill": [345, 359, 235, 16],
+    "xp_fill": [345, 464, 240, 18],
+    "enemy_hp_fill": [696, 524, 184, 15],
+    "attack": [1, 680, 197, 220],
+    "war_combo": [197, 680, 184, 220],
+    "war_circle": [381, 680, 185, 220],
+    "war_quake": [566, 680, 184, 220],
+    "bandage": [750, 680, 191, 220],
+    "disabled": [273, 902, 194, 202],
+    "cooldown_sample": [467, 904, 199, 200],
+    "joystick_ring": [0, 1205, 376, 387],
+    "joystick_knob": [353, 1395, 173, 174],
+    "bag": [465, 1204, 118, 122],
+    "refuge": [585, 1204, 115, 122],
+    "pause": [701, 1204, 115, 122],
+    "target": [817, 1204, 124, 122],
+    "zoom_in": [496, 1327, 101, 97],
+    "zoom_out": [598, 1327, 101, 97],
+    "selection_ring": [550, 1423, 252, 170],
+    "target_marker": [632, 1585, 73, 63]
+  },
+  "bar_interiors": {
+    "hp": [55, 19, 269, 29],
+    "mp": [55, 20, 269, 29],
+    "xp": [55, 20, 269, 29],
+    "enemy_hp": [42, 21, 222, 29]
+  },
+  "notes": [
+    "Source PNG preserved byte-for-byte; AtlasTexture regions do not repaint pixels.",
+    "Frame artwork includes illustrative fixed fill. Runtime covers its interior and clips the separate fill strip according to actual HP/MP/XP.",
+    "Adjacent spell rims touch in the approved sheet; regions preserve their shared joints without synthesizing pixels.",
+    "Section titles and baked sample damage/cooldown are not used as live text or numeric state."
+  ]
+}
