@@ -1,6 +1,6 @@
 # GDD minimalista — A Ilha do Cristal
 
-**v0.3 · 2026-10-15 · Pré-produção.** Mobile-first Android horizontal, desktop futuro. RPG 2D top-down em SQMs, sobrevivência cooperativa casual, ritmo deliberado, exploração procedural e progressão permanente. Arte aprovada: RPG Clássico. Os números descritos são valores iniciais para playtest.
+**v0.3 · 2026-10-15 · Pré-produção.** Mobile-first Android retrato 9:16, desktop futuro. RPG 2D top-down em SQMs, sobrevivência cooperativa casual, ritmo deliberado, exploração procedural e progressão permanente. Arte aprovada: RPG Clássico. Os números descritos são valores iniciais para playtest.
 
 ## História e objetivo
 
@@ -16,7 +16,7 @@ No MVP: quatro aparências, três vocações, uma arma inicial e uma melhora por
 
 ## Controle e mundo
 
-Paisagem; joystick virtual à esquerda, ataque/3 skills à direita; toque em objeto para interagir. HP/MP, minimapa, mochila, objetivo, hotbar e zoom em bordas. Zoom padrão 75%, faixa 50–125%, ajustável e salvo localmente. Movimento em oito direções sobre SQMs, diagonal normalizada, ataque básico automático no alvo selecionado quando ao alcance; magias sempre manuais. Legibilidade do personagem e tamanho dos botões dependem de teste real.
+Retrato 9:16 (base 720×1280, mundo expandido para preencher outras proporções); joystick virtual à esquerda, ataque/3 skills à direita; toque em objeto para interagir. HP/MP, minimapa, mochila, objetivo, hotbar e zoom em bordas. Zoom padrão 75%, faixa 50–125%, ajustável e salvo localmente. Movimento em oito direções sobre SQMs, diagonal normalizada, ataque básico automático no alvo selecionado quando ao alcance; magias sempre manuais. Legibilidade do personagem e tamanho dos botões dependem de teste real.
 
 Ilha máxima planejada 1000×1000 SQMs; seed e chunks 32×32. Praia/spawn com recursos básicos garantidos, floresta com lobos e interior com ursos. Raposas perto do início. Sem spawn em área protegida ou colado ao jogador. Pontos de interesse a cada ~80–150 SQMs nas áreas do MVP, ajustados pelo tempo de travessia. O MVP pode povoar apenas uma parte da ilha.
 

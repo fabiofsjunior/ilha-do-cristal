@@ -23,7 +23,7 @@ func _build_screen() -> void:
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(center)
 	var panel := PanelContainer.new()
-	panel.custom_minimum_size = Vector2(760, 520)
+	panel.custom_minimum_size = Vector2(656, 790)
 	panel.add_theme_stylebox_override(
 		"panel", UI_STYLE.panel_style(Color("241d31"), Color("a77ce8"))
 	)
@@ -55,7 +55,7 @@ func _build_screen() -> void:
 	selected.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	UI_STYLE.style_label(selected, 16, UI_STYLE.GOLD)
 	stack.add_child(selected)
-	var actions := HBoxContainer.new()
+	var actions := VBoxContainer.new()
 	actions.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	actions.alignment = BoxContainer.ALIGNMENT_CENTER
 	actions.add_theme_constant_override("separation", 24)
@@ -63,7 +63,7 @@ func _build_screen() -> void:
 	actions.add_child(
 		_session_card(
 			"Hospedar solo",
-			"Abre uma sessão local de demonstração, sem rede e sem salvamento.",
+			"Abre uma sessão local de demonstração, sem rede, com salvamento local.",
 			"Entrar na ilha",
 			true
 		)
@@ -77,7 +77,7 @@ func _build_screen() -> void:
 		)
 	)
 	_status = Label.new()
-	_status.text = "LAN, contas e save ainda não existem. Hospedar solo inicia apenas o mapa local."
+	_status.text = "Sessão solo com salvamento local. LAN e contas ainda estão em desenvolvimento."
 	_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_status.custom_minimum_size.y = 44

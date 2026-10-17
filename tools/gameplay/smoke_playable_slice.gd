@@ -16,6 +16,7 @@ func _initialize() -> void:
 
 
 func _run() -> void:
+	root.size = Vector2i(720, 1280)
 	var app := MAIN_SCENE.instantiate() as Control
 	root.add_child(app)
 	await process_frame
@@ -150,6 +151,8 @@ func _test_creature_input_and_ai(gameplay: Node2D, player: CharacterBody2D) -> b
 	var player_origin := player.global_position
 	var state = gameplay.get("_state")
 	var hp_before: float = state.hp
+	fox.global_position = player.global_position + Vector2(120, 0)
+	await process_frame
 	var screen_point: Vector2 = gameplay.get_viewport().get_canvas_transform() * fox.global_position
 	var click := InputEventMouseButton.new()
 	click.button_index = MOUSE_BUTTON_LEFT

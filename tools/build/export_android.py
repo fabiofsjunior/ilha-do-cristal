@@ -231,8 +231,8 @@ def validate_apk(apk: Path, android_sdk: Path, env: dict[str, str]) -> None:
         "screenOrientation não encontrado",
     )
     print(f"aapt manifest orientation: {orientation}")
-    if "(type 0x10)0x0" not in orientation:
-        fail("O AndroidManifest.xml deve declarar landscape (screenOrientation=0)")
+    if "(type 0x10)0x1" not in orientation:
+        fail("O AndroidManifest.xml deve declarar portrait (screenOrientation=1)")
 
     manifest_xml = subprocess.run(
         [str(apkanalyzer), "manifest", "print", str(apk)],

@@ -77,7 +77,7 @@ func _build_screen() -> void:
 	begin_button.custom_minimum_size = Vector2(360, 62)
 	begin_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	UI_STYLE.style_button(begin_button, true)
-	begin_button.pressed.connect(func() -> void: begin_requested.emit())
+	begin_button.pressed.connect(_begin)
 	stack.add_child(begin_button)
 
 	var flow_note := Label.new()
@@ -92,3 +92,21 @@ func _build_screen() -> void:
 	art_note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	UI_STYLE.style_label(art_note, 13, UI_STYLE.BLUE)
 	stack.add_child(art_note)
+
+
+func _begin() -> void:
+	if OS.has_feature("web"):
+		# Browser fullscreen and orientation locking require a direct user gesture.
+		JavaScriptBridge.eval("""
+		(() => {
+		 const canvas = document.getElementById('canvas');
+		 if (!document.fullscreenElement && canvas && canvas.requestFullscreen) {
+		  canvas.requestFullscreen({navigationUI:'hide'}).then(() => {
+		   if (screen.orientation && screen.orientation.lock) {
+		    screen.orientation.lock('portrait').catch(e => console.info('Orientação gerenciada pelo navegador:', e.message));
+		   }
+		  }).catch(e => console.info('Tela cheia indisponível; usando viewport:', e.message));
+		 }
+		})();
+		""")
+	begin_requested.emit()

@@ -178,3 +178,15 @@ A pedido do usuário, o protótipo navegável ganha tela de inventário em três
 - Catálogos, fatia e terreno passaram estrutura; Helena passou estrutura com alertas. Validador geral de atlas continua falhando em 21 candidatos por alpha; strict-art das criaturas falha por alpha/direções/animações. Personagens continuam CORRIGIR, terreno CANDIDATO e 12 fontes antigas de Maíra seguem truncadas.
 - Código/arte/exporters publicados em `feature/fabio-warrior-stage1` pela conexão GitHub autenticada, com árvores Git conferidas contra os commits locais. `main` permaneceu em `b3d3f9a0f9405dae020d04785069b55c702f6894`; o conjunto remoto contém somente main e a branch de trabalho. README, roadmap, decisões, registro do protótipo e handoff descrevem o recorte sem promover arte ou declarar o GDD completo.
 - Próxima ação: testar os pacotes no navegador e em Android real, comparar HUD/mapa com v0.7 e fechar/reabrir saves; depois corrigir arte e ampliar o conteúdo conforme os gates pendentes.
+
+## 2026-10-16 — HUD retrato e seleção/dano
+
+Retomada a branch jogável em `d0abbb6`, preservada main. Incremento em `feature/s02-portrait-combat-hud`: retrato 720×1280, expand sem letterbox, Android imersivo e safe area apenas nos controles; entrada web solicita fullscreen por gesto quando suportado. HUD com retrato, HP/MP/EXP numéricos, retrato/HP do alvo, ações circulares e joystick. Seleção por corpo corrigida por zoom, anel/barra e botão Trocar alvo. Os controles raiz do router agora ignoram mouse, removendo bloqueio invisível de cliques. Menus, escolha 2×2, mochila e refúgio adaptados ao retrato. Joystick é liberado ao pausar e bloqueado por painéis.
+
+Dano flutuante parte do HP efetivamente removido, em todo take_hit (básico, skills, sangramento, fatal) e dano ao jogador; efeito independente da vida do monstro, com tween/limpeza e escala compensada pelo zoom. Nenhum PNG de personagem foi modificado.
+
+Testes: import Godot sem erros de script; smoke completo menu/aparência/sessão/mundo/movimento/IA/seleção/pausa passou; estado solo/save/recovery passou (warnings de corrupção esperados); catálogos e validador de recursos passaram. Regressão nova verifica limites de painéis/botões em 3 viewports, toque em 4 zooms, retenção/ciclo do alvo e números recebido/causado/fatal/limpeza. Render Godot OpenGL/Mesa em Xvfb passou e captura inspecionada. Teste antigo agora define tamanho real da janela em headless e posiciona a raposa no campo visível; baseline do validador atualizado ao commit de origem existente.
+
+Export final e evidência Web/APK descritos em `docs/gameplay/PORTRAIT_BUILD_VALIDATION.md`. Não há aparelho Android conectado; aceitação de toque físico, recortes de fabricante e estabilidade de 10 minutos continua pendente.
+
+Entrega técnica concluída: builds 0.1.1 do commit `b02cf9c`, APK assinado/manifesto portrait/CRC/runtime aprovados; ZIP Web e compile WASM aprovados. Tentativa WebGL em Chromium bloqueada por socket do ambiente. PR #10 aberta sobre a branch jogável. Hashes completos em `PORTRAIT_BUILD_VALIDATION.md`; pacote Web inclui o launcher local. Não houve teste Android físico nem validação WebGL/IndexedDB.

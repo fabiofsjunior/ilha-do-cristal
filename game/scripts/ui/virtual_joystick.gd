@@ -7,6 +7,7 @@ signal vector_changed(value: Vector2)
 var value := Vector2.ZERO
 var _touch_index := -1
 var _mouse_active := false
+var blocked := false
 
 
 func _ready() -> void:
@@ -16,6 +17,8 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if blocked:
+		return
 	if event is InputEventScreenTouch:
 		if event.pressed and _touch_index == -1 and get_global_rect().has_point(event.position):
 			_touch_index = event.index
@@ -59,8 +62,18 @@ func _set_value(next_value: Vector2) -> void:
 
 func _draw() -> void:
 	var center := size * 0.5
-	draw_circle(center, radius, Color(0.12, 0.10, 0.17, 0.64))
-	draw_arc(center, radius, 0.0, TAU, 48, Color(0.82, 0.74, 0.91, 0.85), 3.0, true)
+	draw_circle(center, radius, Color(0.08, 0.12, 0.15, 0.68))
+	draw_arc(center, radius, 0.0, TAU, 48, Color(0.74, 0.69, 0.56, 0.9), 3.0, true)
 	var knob := center + value * radius * 0.62
-	draw_circle(knob, radius * 0.42, Color(0.39, 0.30, 0.50, 0.9))
+	draw_circle(knob, radius * 0.42, Color(0.33, 0.31, 0.26, 0.92))
 	draw_arc(knob, radius * 0.42, 0.0, TAU, 32, Color(0.97, 0.80, 0.49, 0.9), 2.0, true)
+
+
+func set_blocked(next_value: bool) -> void:
+	if blocked == next_value:
+		return
+	blocked = next_value
+	if blocked:
+		_touch_index = -1
+		_mouse_active = false
+		_set_value(Vector2.ZERO)

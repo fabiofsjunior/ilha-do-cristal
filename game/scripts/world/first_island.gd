@@ -30,6 +30,7 @@ var _state: ExpeditionState
 var _resource_nodes: Array[Dictionary] = []
 var _creature_actors: Dictionary = {}
 var _creature_spawn_specs: Dictionary = {}
+var _damage_serial := 0
 var _target: CreatureActor
 var _auto_attack_enabled := true
 var _attack_remaining := 0.0
@@ -146,6 +147,7 @@ func _connect_hud() -> void:
 	_hud = get_node("HUD") as CanvasLayer
 	_hud.layer = 1
 	_hud.set_character_name(character_name)
+	_hud.cycle_target_pressed.connect(_cycle_target)
 	_hud.pause_pressed.connect(_on_pause_requested)
 	_hud.interact_pressed.connect(interact_with_nearest)
 	_hud.joystick_moved.connect(_set_joystick_vector)
@@ -500,6 +502,7 @@ func _spawn_creature(slot_id: String, creature_data: Dictionary, stored: Diction
 	actor.name = "Creature_%s" % slot_id
 	actor.configure(slot_id, creature_data, _state, _player, _beacon_position, stored, _state.actor_instance_id(slot_id))
 	actor.defeated.connect(_on_creature_defeated)
+	actor.damage_received.connect(func(amount: float, point: Vector2) -> void: _show_damage(amount, point, false))
 	actor.player_damaged.connect(_on_player_damaged)
 	actor.feedback_requested.connect(_hud.set_status)
 	get_node("Actors").add_child(actor)
@@ -590,22 +593,67 @@ func _select_target_at(point: Vector2) -> void:
 	if _state == null or not _state.is_ready() or _state.downed_remaining >= 0.0:
 		return
 	var nearest: CreatureActor
-	var distance := CREATURE_SELECT_RADIUS
+	var distance := 1.0
 	for actor_value in _creature_actors.values():
 		var actor := actor_value as CreatureActor
 		if not is_instance_valid(actor) or not actor.is_alive:
 			continue
-		var candidate := point.distance_to(actor.global_position)
+		var candidate := actor.selection_distance(point, _camera.zoom.x)
 		if candidate <= distance:
 			distance = candidate
 			nearest = actor
-	_target = nearest
-	if _target == null:
-		_state.recent_activity = ""
-	else:
-		_state.recent_activity = "%s selecionado. Ataque básico automático ao alcance." % _target.display_name
+	if nearest != null:
+		_set_target(nearest)
+
+
+func _set_target(actor: CreatureActor) -> void:
+	if is_instance_valid(_target):
+		_target.set_selected(false)
+	_target = actor
+	if is_instance_valid(_target):
+		_target.set_selected(true)
+		_state.recent_activity = "%s selecionado. Ataque automático ao alcance." % _target.display_name
 		_hud.set_status(_state.recent_activity)
 	_update_hud()
+
+
+func _cycle_target() -> void:
+	var candidates: Array[CreatureActor] = []
+	var screen := get_viewport_rect().grow(-24)
+	var transform := get_viewport().get_canvas_transform()
+	for value in _creature_actors.values():
+		var actor := value as CreatureActor
+		if is_instance_valid(actor) and actor.is_alive and screen.has_point(transform * actor.global_position):
+			candidates.append(actor)
+	candidates.sort_custom(func(a: CreatureActor, b: CreatureActor) -> bool:
+		return _player.global_position.distance_squared_to(a.global_position) < _player.global_position.distance_squared_to(b.global_position))
+	if candidates.is_empty():
+		_hud.set_status("Nenhum monstro visível. Explore a ilha.")
+		return
+	var index := candidates.find(_target)
+	_set_target(candidates[(index + 1) % candidates.size()])
+
+
+func _show_damage(amount: float, point: Vector2, received: bool) -> void:
+	if amount <= 0.0:
+		return
+	var label := Label.new()
+	label.name = "FloatingDamage"
+	label.text = "−%d" % maxi(1, roundi(amount))
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.z_index = 100
+	label.add_theme_font_size_override("font_size", 28)
+	label.add_theme_color_override("font_color", Color("ff6868") if received else Color("ffe9a6"))
+	label.add_theme_color_override("font_outline_color", Color("15141a"))
+	label.add_theme_constant_override("outline_size", 6)
+	label.scale = Vector2.ONE / _camera.zoom.x
+	_damage_serial += 1
+	label.position = point + Vector2(float((_damage_serial % 3) - 1) * 22.0, -float(_damage_serial % 2) * 16.0)
+	add_child(label, true)
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(label, "position:y", label.position.y - 68.0 / _camera.zoom.x, 0.95).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(label, "modulate:a", 0.0, 0.45).set_delay(0.5)
+	tween.chain().tween_callback(label.queue_free)
 
 
 func _perform_basic_attack() -> void:
@@ -740,6 +788,7 @@ func _on_player_damaged(amount: float, species_id: String) -> void:
 	var actual := _state.take_damage(amount)
 	if actual <= 0.0:
 		return
+	_show_damage(actual, _player.global_position + Vector2(0, -56), true)
 	_hud.set_status("%s atingiu você · %d de dano." % [species_id.capitalize(), roundi(actual)])
 	if _state.hp <= 0.0:
 		_player.set_input_enabled(false)
@@ -790,7 +839,7 @@ func _return_to_refuge(drop_materials: bool) -> void:
 		_build_persistent_bags()
 		_player.global_position = refuge
 		_player.set_input_enabled(true)
-		_target = null
+		_set_target(null)
 		_hud.set_status("Você voltou à barraca. Metade dos materiais foi deixada na mochila persistente." if not lost.is_empty() else "Você voltou à barraca e recuperou HP e MP.")
 		save_progress()
 		_update_hud()
