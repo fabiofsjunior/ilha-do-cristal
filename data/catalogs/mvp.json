@@ -80,6 +80,7 @@
     "mp_regen_cap_inside_combat_percent_per_sec": 0.25,
     "regeneration": {
       "out_of_combat_delay_sec": 8,
+      "out_of_combat_rate_multiplier": 1.2,
       "base_percent_per_sec": {
         "hp": {
           "warrior": { "combat": 0.20, "outside_combat": 0.60 },

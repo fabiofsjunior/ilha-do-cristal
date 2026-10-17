@@ -66,6 +66,11 @@ Reanimação por aliado usa API/sinais locais de cinco segundos para futura inte
 
 O recorte usa quatro aparências Warrior e mapa estático. Upgrades II/III persistem números/custos; baú compartilhado, poço, cerca e torres funcionais, Archer/Mage, árvore, chunks, LAN e conta seguem pendentes. Resultados e limitações: [guia solo](../../docs/gameplay/MVP_SOLO_TEST.md) e [validação das builds](../../docs/gameplay/MVP_BUILD_VALIDATION.md). As fases principais permanecem abertas até seus aceites completos.
 
+#### Regeneração fora de combate — 2026-10-17
+
+- [x] Taxas base e bônus de FOR/INT fora de combate multiplicados por 1,2 nas três vocações; rates em combate, tetos, clamp por máximo e pausa quando caído preservados. Teste de regras, painel de atributos, import Godot 4.5.1 e smoke do recorte solo passaram.
+- [ ] Playtest Android físico para validar o ritmo de recuperação; esta correção não fecha S3.
+
 ### Correção retrato 9:16 — 2026-10-16
 
 A solicitação atual substitui a orientação horizontal das descrições históricas acima.

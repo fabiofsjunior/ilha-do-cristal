@@ -112,6 +112,8 @@ static func regeneration_rates_percent_per_sec(raw: Dictionary, vocation_id: Str
 		var attribute_id := "FOR" if resource_id == "hp" else "INT"
 		var attribute_bonus: Dictionary = bonuses.get(attribute_id, {})
 		rate += float(effective.get(attribute_id, 0.0)) * float(attribute_bonus.get(period, 0.0))
+		if period == "outside_combat":
+			rate *= float(regeneration.get("out_of_combat_rate_multiplier", 1.0))
 		var cap_key := "%s_regen_cap_%s_combat_percent_per_sec" % [resource_id, "outside" if period == "outside_combat" else "inside"]
 		var cap_fallback := 1.0 if period == "outside_combat" else 0.25
 		if resource_id == "hp":
