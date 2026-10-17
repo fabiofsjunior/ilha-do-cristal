@@ -1,4 +1,5 @@
 extends Control
+const KIT = preload("res://game/scripts/ui/crystal_kit.gd")
 ## Live position over a map snapshot, with no input interception.
 var _position := Vector2.ZERO
 var _world_size := Vector2(2048, 1408)
@@ -39,3 +40,9 @@ func _draw() -> void:
 	draw_circle(marker, 5, Color("17232d"))
 	draw_circle(marker, 3, Color("fff3bb"))
 	draw_line(marker, marker + Vector2(0, -7), Color.WHITE, 2)
+	# Keep the complete live map visible; use the kit's jeweled rectangular frame.
+	var frame := KIT.style("panel", 0.0)
+	frame.draw_center = false
+	draw_style_box(frame, Rect2(Vector2.ZERO, size))
+
+
