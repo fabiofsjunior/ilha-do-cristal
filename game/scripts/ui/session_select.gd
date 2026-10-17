@@ -25,7 +25,7 @@ func _build_screen() -> void:
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = Vector2(656, 790)
 	panel.add_theme_stylebox_override(
-		"panel", UI_STYLE.panel_style(Color("241d31"), Color("a77ce8"))
+		"panel", UI_STYLE.classic_style()
 	)
 	center.add_child(panel)
 	var margin := MarginContainer.new()
@@ -89,7 +89,7 @@ func _session_card(title_text: String, detail: String, button_text: String, host
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = Vector2(300, 235)
 	panel.add_theme_stylebox_override(
-		"panel", UI_STYLE.panel_style(Color("211b2b"), Color("594b69"))
+		"panel", UI_STYLE.classic_style()
 	)
 	var box := VBoxContainer.new()
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -131,3 +131,5 @@ func _show_mock_connection_error() -> void:
 		+ "Você pode voltar ou hospedar solo."
 	)
 	UI_STYLE.style_label(_status, 14, UI_STYLE.GOLD)
+
+
