@@ -72,6 +72,7 @@ func _ready() -> void:
 	_change_zoom(_state.zoom_index - _current_zoom_index)
 	_iso_view = get_node("Isometric3DView")
 	_iso_view.configure(self)
+	_player.set_camera_ground_basis(_iso_view.camera.global_basis)
 	for layer_name in ["BaseTiles", "Transitions", "Paths", "Actors"]:
 		get_node(layer_name).visible = false
 	var old_ground := get_node_or_null("Ocean_Terrain_Cliffs")

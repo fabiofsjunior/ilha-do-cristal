@@ -76,6 +76,8 @@ func _run() -> void:
 	player._build_animations()
 	if not await _test_creature_input_and_ai(gameplay, player):
 		return
+	if not await _test_camera_relative_directions(gameplay, player):
+		return
 
 	var start_position := player.global_position
 	player.set_joystick_vector(Vector2.RIGHT)
@@ -125,7 +127,7 @@ func _run() -> void:
 	if not _expect(not paused and _script_path(app.get("current_screen")) == MAIN_MENU_SCRIPT, "Pause return-to-start transition failed."):
 		return
 
-	print("Playable slice smoke test passed: menu → character → session → island, four player atlases, world harvesting, static SE creature candidates, target click, auto-attack, peaceful/retaliating fox, aggressive wolf, safe bear windup, 25,344 terrain cells, movement, water collision and pause transitions.")
+	print("Playable slice smoke test passed: menu → character → session → island, four player atlases, world harvesting, static SE creature candidates, target click, auto-attack, peaceful/retaliating fox, aggressive wolf, safe bear windup, 25,344 terrain cells, camera-aligned eight-direction movement, water collision and pause transitions.")
 	quit(0)
 
 
@@ -252,6 +254,84 @@ func _test_creature_input_and_ai(gameplay: Node2D, player: CharacterBody2D) -> b
 	bear._sync_state()
 	state.hp = hp_before
 	gameplay.set("_auto_attack_enabled", true)
+	return true
+
+
+func _test_camera_relative_directions(gameplay: Node2D, player: CharacterBody2D) -> bool:
+	var view := gameplay.get_node("Isometric3DView")
+	var camera: Camera3D = view.camera
+	var original_position := player.global_position
+	var original_follow_speed := float(view.follow_speed)
+	view.follow_speed = 0.0
+	var origin_screen := camera.unproject_position(view.world_point(original_position, 0.04))
+	var legacy_up_screen := camera.unproject_position(view.world_point(original_position + Vector2.UP * 32.0, 0.04)) - origin_screen
+	var legacy_down_screen := camera.unproject_position(view.world_point(original_position + Vector2.DOWN * 32.0, 0.04)) - origin_screen
+	print("Pre-fix direct Y mapping projected N/S diagonally: up=%s down=%s" % [legacy_up_screen, legacy_down_screen])
+	var cases := [
+		{"label": "up", "input": Vector2.UP, "facing": "N"},
+		{"label": "up-right", "input": Vector2(1, -1).normalized(), "facing": "NE"},
+		{"label": "right", "input": Vector2.RIGHT, "facing": "E"},
+		{"label": "down-right", "input": Vector2(1, 1).normalized(), "facing": "SE"},
+		{"label": "down", "input": Vector2.DOWN, "facing": "S"},
+		{"label": "down-left", "input": Vector2(-1, 1).normalized(), "facing": "SW"},
+		{"label": "left", "input": Vector2.LEFT, "facing": "W"},
+		{"label": "up-left", "input": Vector2(-1, -1).normalized(), "facing": "NW"},
+	]
+	var reference_distance := -1.0
+	for direction_case in cases:
+		player.global_position = original_position
+		player.velocity = Vector2.ZERO
+		await process_frame
+		var before_screen := camera.unproject_position(view.world_point(player.global_position, 0.04))
+		var input_direction: Vector2 = direction_case.input
+		player.set_joystick_vector(input_direction)
+		for _tick in range(10):
+			await physics_frame
+		player.set_joystick_vector(Vector2.ZERO)
+		var world_delta := player.global_position - original_position
+		var after_screen := camera.unproject_position(view.world_point(player.global_position, 0.04))
+		var screen_delta := after_screen - before_screen
+		if not _expect(world_delta.length() > 5.0, "%s joystick direction did not move the player." % direction_case.label):
+			return false
+		if not _expect(screen_delta.length() > 3.0 and screen_delta.normalized().dot(input_direction) > 0.995, "%s input projected off its expected camera axis: %s." % [direction_case.label, screen_delta]):
+			return false
+		if not _expect(player.facing == str(direction_case.facing), "%s input selected the wrong facing animation: %s." % [direction_case.label, player.facing]):
+			return false
+		if reference_distance < 0.0:
+			reference_distance = world_delta.length()
+		elif not _expect(absf(world_delta.length() - reference_distance) < 4.0, "%s movement speed differs from other cardinal/diagonal directions." % direction_case.label):
+			return false
+		print("Direction %s: world=%s screen=%s" % [direction_case.label, world_delta, screen_delta])
+	for key_case in [
+		{"label": "keyboard up", "key": KEY_UP, "screen": Vector2.UP, "facing": "N"},
+		{"label": "keyboard down", "key": KEY_DOWN, "screen": Vector2.DOWN, "facing": "S"},
+	]:
+		player.global_position = original_position
+		player.velocity = Vector2.ZERO
+		await process_frame
+		var before_screen := camera.unproject_position(view.world_point(player.global_position, 0.04))
+		var key_down := InputEventKey.new()
+		key_down.keycode = int(key_case.key)
+		key_down.physical_keycode = int(key_case.key)
+		key_down.pressed = true
+		Input.parse_input_event(key_down)
+		for _tick in range(10):
+			await physics_frame
+		var key_up := InputEventKey.new()
+		key_up.keycode = int(key_case.key)
+		key_up.physical_keycode = int(key_case.key)
+		key_up.pressed = false
+		Input.parse_input_event(key_up)
+		var screen_delta := camera.unproject_position(view.world_point(player.global_position, 0.04)) - before_screen
+		var expected_screen: Vector2 = key_case.screen
+		if not _expect(screen_delta.length() > 3.0 and screen_delta.normalized().dot(expected_screen) > 0.995, "%s did not stay on its screen axis: %s." % [key_case.label, screen_delta]):
+			return false
+		if not _expect(player.facing == str(key_case.facing), "%s selected the wrong facing animation: %s." % [key_case.label, player.facing]):
+			return false
+	player.set_joystick_vector(Vector2.ZERO)
+	player.global_position = original_position
+	player.velocity = Vector2.ZERO
+	view.follow_speed = original_follow_speed
 	return true
 
 

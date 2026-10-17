@@ -277,3 +277,10 @@ Verificação Godot4.5.1: import e smoke jogável, test_close_view (três propor
 - Corrigidos offset Y do Sprite3D, pivôs de props e clamp projetado da câmera; minimapa integral com monstros vivos em vermelho.
 - Import, testes de UI/atributos/mobile/câmera/combate/fluxo passaram. Captura real em Xvfb TCP + Mesa 720×1280 comparada visualmente. Evidências e limitações em MOBILE_UI_017_VALIDATION.md.
 - Versão 0.1.7/code 8. Exportador oferece instalação paralela .preview porque a chave debug da 0.1.6 não está presente; preserva instalação/saves anteriores e usa progresso separado. Playtest físico continua aberto.
+
+## 2026-10-17 — Movimento alinhado à câmera 2.5D
+
+- Causa: teclado e joystick enviavam vetor de tela diretamente para X/Y da simulação. O render mapeia Y para Z e a câmera X−30°/Y45° projetava Norte/Sul em diagonais.
+- `player.gd` agora aplica a inversa da projeção da câmera no plano XZ ao input, e usa a direção da tela para selecionar facing/animação. `first_island.gd` fornece a base da câmera na inicialização.
+- O smoke do fluxo agora valida oito direções pelo deslocamento real e sua projeção no viewport, velocidades iguais em cardinais/diagonais e teclado ↑/↓. Godot 4.5.1 headless: import e fluxo jogável passaram. O teste imprime a projeção antiga de N/S para evidenciar o desvio.
+- Não houve mudança em colisão, regeneração, morte, HUD ou dados de jogo; teste físico Android não foi executado nesta microtarefa.
