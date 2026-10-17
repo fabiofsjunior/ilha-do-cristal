@@ -119,3 +119,9 @@ Verificações: Godot4.5.1 import e smoke de fluxo/coleta/combate/movimento; tes
 ## UI 0.1.7 — referências fornecidas em 2026-10-17
 
 O usuário identificou os anexos 3/4 como “como deveria ser” e instruiu aplicar essa composição ao jogo, corrigindo os anexos 1/2. Essas pranchas são o alvo visual fornecido e selecionado explicitamente para esta correção. A adaptação mantém GDD/pixel art, equipamento fixo e conteúdo real; não adota ouro ou valores ilustrativos. Comparação implementada e capturada em `docs/art/evidence/mobile_017/`; ícones/molduras nativos em `assets/ui/classic_v2/`. Revisão de produção em Android ainda pendente; não confundir a direção selecionada com aceite físico da build.
+
+## Reanimação e retorno — referência de fluxo v0.3 — 2026-10-17
+
+- Artefato consultado: `docs/prototypes/mvp_ui_v0_3.html`, estado navegável “Aliado caído”. A solicitação atual autorizou implementar esta tela como referência de fluxo; a página protótipo continua uma simulação e não passa a validar multiplayer, UI de produção ou Android.
+- Implementação comparada: janela Godot mostra prazo de 60 s, regra de reanimação em 5 s com indisponibilidade de co-op declarada no solo, conteúdo exato que irá para a mochila persistente e botão “Renascer no acampamento”. A perda é aplicada somente no respawn; XP e equipamentos são mantidos.
+- Reanimação é exposta por `FirstIsland.request_ally_revive(reviver_id)` e sinais de início/conclusão/cancelamento para um host futuro. Não há segundo jogador ou transporte LAN nesta versão. Revisão em aparelho Android e comparação gráfica seguem pendentes.

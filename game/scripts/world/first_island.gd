@@ -2,6 +2,9 @@ extends Node2D
 
 signal pause_requested
 signal interaction_requested
+signal ally_revive_started(reviver_id: String, duration_seconds: float)
+signal ally_revive_completed(reviver_id: String)
+signal ally_revive_cancelled(reviver_id: String)
 
 const TILE_MANIFEST_DIR := "res://assets/environments/terrain_mvp_candidate_v1"
 const TILE_MANIFEST := TILE_MANIFEST_DIR + "/terrain_mvp_candidate_v1.json"
@@ -104,8 +107,16 @@ func _process(delta: float) -> void:
 	if _state.bandages_in_use:
 		_state.tick_bandage(delta)
 	if _state.downed_remaining >= 0.0:
-		_state.downed_remaining = maxf(0.0, _state.downed_remaining - delta)
-		if _state.downed_remaining <= 0.0:
+		var reviver_id := _state.ally_reviver_id
+		var downed_result := _state.tick_downed(delta)
+		if downed_result == "revived":
+			_player.set_input_enabled(true)
+			_set_target(null)
+			ally_revive_completed.emit(reviver_id)
+			_hud.set_status("Reanimado por um aliado · HP %d / %d. XP e materiais foram mantidos." % [roundi(_state.hp), roundi(_state.max_hp_mp().x)])
+			save_progress()
+			_update_hud()
+		elif downed_result == "expired":
 			_return_to_refuge(true)
 	if _target != null and is_instance_valid(_target) and _auto_attack_enabled and _target.is_alive:
 		if player_basic_attack_can_reach(_target) and _attack_remaining <= 0.0:
@@ -813,9 +824,32 @@ func _on_player_damaged(amount: float, species_id: String) -> void:
 	if _state.hp <= 0.0:
 		_player.set_input_enabled(false)
 		_state.cancel_bandage()
-		_hud.set_status("Você caiu. No modo solo, volte à barraca ou aguarde o retorno.")
+		_hud.set_status("Você caiu. Reanimação por aliado: 5 s; prazo: 60 s. No modo solo, renasça no acampamento.")
 		save_progress()
 	_update_hud()
+
+
+## API de sessão para o host iniciar a reanimação após validar um aliado.
+## O modo solo atual não possui rede, descoberta de peers nem autenticação.
+func request_ally_revive(reviver_id: String) -> bool:
+	if _state == null or not _state.request_ally_revive(reviver_id):
+		return false
+	ally_revive_started.emit(_state.ally_reviver_id, EXPEDITION_STATE.ALLY_REVIVE_DURATION_SECONDS)
+	_hud.set_status("Um aliado iniciou a reanimação. Aguarde 5 segundos.")
+	save_progress()
+	_update_hud()
+	return true
+
+
+## Session host calls this when the accepted ally disconnects or leaves range.
+func cancel_ally_revive(reviver_id: String) -> bool:
+	if _state == null or not _state.cancel_ally_revive(reviver_id):
+		return false
+	ally_revive_cancelled.emit(reviver_id.strip_edges())
+	_hud.set_status("A reanimação foi interrompida. O prazo de 60 s continua.")
+	save_progress()
+	_update_hud()
+	return true
 
 
 func _use_bandage() -> void:
@@ -850,7 +884,7 @@ func _upgrade_camp() -> void:
 
 
 func _return_to_refuge(drop_materials: bool) -> void:
-	if _state == null or _player == null:
+	if _state == null or _player == null or _state.downed_remaining < 0.0:
 		return
 	if drop_materials:
 		var refuge := _beacon_position + Vector2(64.0, 36.0)
@@ -860,7 +894,10 @@ func _return_to_refuge(drop_materials: bool) -> void:
 		_player.global_position = refuge
 		_player.set_input_enabled(true)
 		_set_target(null)
-		_hud.set_status("Você voltou à barraca. Metade dos materiais foi deixada na mochila persistente." if not lost.is_empty() else "Você voltou à barraca e recuperou HP e MP.")
+		if lost.is_empty():
+			_hud.set_status("Você renasceu no acampamento. Nenhum material foi para a mochila; HP e MP foram restaurados. XP e equipamentos permanecem.")
+		else:
+			_hud.set_status("Você renasceu no acampamento. Mochila persistente: %s. XP e equipamentos permanecem." % _format_items(lost))
 		save_progress()
 		_update_hud()
 
@@ -946,7 +983,11 @@ func _update_hud() -> void:
 	_hud.set_combat_state(
 		_state.hp, maximum.x, _state.mp, maximum.y, _state.level, xp_into_level, xp_for_level,
 		_state.inventory, _state.camp_level, _state.bandages_in_use, _state.bandage_progress,
-		target_name, target_hp, target_max_hp, _state.downed_remaining, _state.skill_cooldowns
+		target_name, target_hp, target_max_hp, _state.skill_cooldowns
+	)
+	_hud.set_downed_state(
+		_state.downed_remaining, _state.downed_penalty_preview(),
+		_state.ally_revive_remaining, _state.ally_reviver_id
 	)
 
 

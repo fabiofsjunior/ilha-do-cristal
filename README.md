@@ -12,6 +12,8 @@ A cena principal é `game/scenes/main.tscn`. O fluxo percorre início → uma da
 - **Android:** instale `build/android/ilha-do-cristal-debug.apk`. É o APK debug 0.1.7 para ARMv7/ARM64, Android 7 ou superior, em retrato. O launcher mostra o ícone pixel art do cristal e o nome **A Ilha do Cristal**; a assinatura debug não é de publicação.
 - **Controles:** WASD/setas ou joystick; clique/toque na criatura para selecionar; E interage/coleta; 1/2/3 usam skills; H usa curativo; B abre mochila; Esc/P pausa. Os botões da tela oferecem as ações touch. Zoom 50–125%.
 
+Ao cair, a tela mostra o prazo de 60 s para reanimação e a quantidade real de cada material que irá para uma mochila persistente se o jogador renascer no acampamento; XP e equipamentos permanecem. Um aliado reanima em 5 s pelo contrato local da sessão, mas esta build solo ainda não implementa LAN ou conexão de aliados.
+
 Com Godot 4.5.1 e os templates correspondentes instalados:
 
 ```sh
