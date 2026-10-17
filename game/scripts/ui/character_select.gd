@@ -61,6 +61,21 @@ func _build_screen() -> void:
 	intro.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	UI_STYLE.style_label(intro, 15, UI_STYLE.MUTED)
 	stack.add_child(intro)
+	var vocations := HBoxContainer.new()
+	vocations.name = "VocationChoices"
+	vocations.alignment = BoxContainer.ALIGNMENT_CENTER
+	stack.add_child(vocations)
+	for choice in [["warrior", "Guerreiro"], ["archer", "Arqueiro"], ["mage", "Mago"]]:
+		var button := Button.new()
+		button.text = choice[1]
+		button.icon = UI_STYLE.icon(choice[0])
+		button.expand_icon = true
+		button.add_theme_constant_override("icon_max_width", 28)
+		button.custom_minimum_size = Vector2(184, 52)
+		button.disabled = choice[0] != "warrior"
+		button.tooltip_text = "Disponível" if not button.disabled else "Vocação ainda indisponível nesta versão"
+		UI_STYLE.style_button(button, choice[0] == "warrior")
+		vocations.add_child(button)
 
 	var cards := GridContainer.new()
 	cards.columns = 2
@@ -72,7 +87,7 @@ func _build_screen() -> void:
 
 	var footer := PanelContainer.new()
 	footer.add_theme_stylebox_override(
-		"panel", UI_STYLE.panel_style(Color("241d31"), Color("75608c"))
+		"panel", UI_STYLE.classic_style()
 	)
 	stack.add_child(footer)
 	var footer_row := VBoxContainer.new()
@@ -98,7 +113,7 @@ func _make_card(profile: Dictionary) -> Control:
 	var id := str(profile.get("id", ""))
 	card.name = "Appearance_%s" % id
 	card.add_theme_stylebox_override(
-		"panel", UI_STYLE.panel_style(Color("211b2b"), Color("594b69"))
+		"panel", UI_STYLE.classic_style()
 	)
 	var body := VBoxContainer.new()
 	body.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -169,3 +184,5 @@ func _update_selection() -> void:
 		var id := str(button.get_meta("appearance_id", ""))
 		button.text = "Selecionado" if id == selected_character_id else "Selecionar"
 		UI_STYLE.style_button(button, id == selected_character_id)
+
+
