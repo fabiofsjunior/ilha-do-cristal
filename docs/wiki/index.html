@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#121b1c">
+  <meta name="description" content="Catálogo offline do projeto A Ilha do Cristal: conteúdo, sprites, dados e documentação.">
+  <title>Arquivo de Campo — A Ilha do Cristal</title>
+  <link rel="stylesheet" href="./wiki.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Pular para o conteúdo</a>
+  <header class="topbar">
+    <a class="brand" href="./index.html" aria-label="Arquivo de Campo, página inicial">
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span><strong>ARQUIVO DE CAMPO</strong><small>A ILHA DO CRISTAL</small></span>
+    </a>
+    <div class="topbar-meta"><span class="offline-dot"></span> catálogo local · sem serviços externos</div>
+  </header>
+
+  <div class="layout">
+    <aside class="rail" aria-label="Seções do catálogo">
+      <div class="rail-kicker">CONSULTA DO PROJETO</div>
+      <nav class="section-nav" id="section-nav" role="tablist" aria-label="Seções do catálogo">
+        <button class="nav-item active" type="button" role="tab" data-section="characters" aria-controls="section-content" aria-selected="true"><span>01</span>Personagens &amp; vocações</button>
+        <button class="nav-item" type="button" role="tab" data-section="sprites" aria-controls="section-content" aria-selected="false"><span>02</span>Sprites &amp; atlas</button>
+        <button class="nav-item" type="button" role="tab" data-section="attributes" aria-controls="section-content" aria-selected="false"><span>03</span>Atributos &amp; níveis</button>
+        <button class="nav-item" type="button" role="tab" data-section="items" aria-controls="section-content" aria-selected="false"><span>04</span>Itens &amp; equipamento</button>
+        <button class="nav-item" type="button" role="tab" data-section="combat" aria-controls="section-content" aria-selected="false"><span>05</span>Habilidades &amp; combate</button>
+        <button class="nav-item" type="button" role="tab" data-section="world" aria-controls="section-content" aria-selected="false"><span>06</span>Mundo &amp; criaturas</button>
+        <button class="nav-item" type="button" role="tab" data-section="docs" aria-controls="section-content" aria-selected="false"><span>07</span>Documentação</button>
+      </nav>
+      <div class="rail-note"><span class="note-icon">i</span><p>Dados de planejamento aparecem identificados. O recorte jogável atual não implementa todo o conteúdo do MVP.</p></div>
+      <a class="rail-source" href="../../README.md">Abrir README <span aria-hidden="true">↗</span></a>
+    </aside>
+
+    <main id="content" class="content" tabindex="-1">
+      <section class="intro-row" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">WIKI DO REPOSITÓRIO <span>•</span> CONSULTA OFFLINE</p>
+          <h1 id="page-title">Personagens &amp; vocações</h1>
+          <p class="intro-copy">Referência rápida para conteúdo, arquivos e estado real dos dados de <em>A Ilha do Cristal</em>.</p>
+        </div>
+        <label class="search-box" for="global-search">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="global-search" type="search" placeholder="Buscar conteúdo ou arquivo…" autocomplete="off" aria-label="Buscar em todo o catálogo">
+          <kbd>/</kbd>
+        </label>
+      </section>
+      <div id="search-results" class="search-results" role="status" aria-live="polite" hidden></div>
+      <section id="section-content" class="section-content" role="tabpanel" aria-live="polite" tabindex="-1"></section>
+      <footer class="page-foot"><span>Índice regenerável a partir do repositório</span><a href="../../tools/wiki/build_index.py">ver gerador</a></footer>
+    </main>
+  </div>
+
+  <dialog id="lightbox" class="lightbox" aria-label="Prévia ampliada do arquivo">
+    <div class="lightbox-head"><span id="lightbox-title"></span><button type="button" id="lightbox-close" aria-label="Fechar prévia">Fechar <kbd>Esc</kbd></button></div>
+    <div class="lightbox-image-wrap"><img id="lightbox-image" alt=""></div>
+    <div class="lightbox-foot"><span id="lightbox-path"></span><a id="lightbox-open" href="#" target="_blank" rel="noreferrer">Abrir PNG original ↗</a></div>
+  </dialog>
+</body>
+</html>

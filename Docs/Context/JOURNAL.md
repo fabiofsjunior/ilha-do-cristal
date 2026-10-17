@@ -1,5 +1,12 @@
 # Journal — Diário de bordo
 
+## 2026-10-17 — wiki local de catalogação
+
+- Branch `feature/s03-game-wiki`, baseada em `f64c207` (após PR #18). Criada wiki HTML responsiva, sem dependências externas, em `docs/wiki/`: seções de personagens/vocações, sprites/atlas, atributos, itens, habilidades/combate, mundo/criaturas e documentação; busca global; previews ampliáveis; índice de caminhos relativos.
+- `tools/wiki/build_index.py` deriva o JSON do catálogo do arquivo `data/catalogs/mvp.json`, do layout/aparências do recorte e dos PNGs/metadados versionados. A wiki identifica o catálogo como planejamento provisório e não anuncia candidatos de arte como aprovados.
+- README e roadmap apontam para a consulta local. Validação: `python3 tools/wiki/test_catalog.py` confere contagens e caminhos, sintaxe JS, breakpoints/markup e respostas HTTP de HTML/CSS/JS/JSON/PNGs por servidor local.
+- Escopo exclusivamente de catalogação; nenhum comportamento ou dado de runtime do jogo foi alterado. Aceites mobile e estado de arte permanecem pendentes conforme roadmap.
+
 ## 2026-10-14 — Organização de pré-produção
 
 - GDD do MVP, catálogo de conteúdo, arquitetura Godot/Android, contrato de sprites, roadmap e concept RPG Clássico criados na branch `docs/gdd-mvp-producao`, PR #1 em rascunho.
