@@ -65,6 +65,7 @@ var _inventory_overlay: Control
 var _inventory_panel: PanelContainer
 var _inventory_scroll: ScrollContainer
 var _camp_overlay: Control
+var _talents_overlay: Control
 var _attributes_window: Control
 var _downed_panel: PanelContainer
 var _downed_label: Label
@@ -100,6 +101,7 @@ func _ready() -> void:
 	_build_hud()
 	_build_inventory_overlay()
 	_build_camp_overlay()
+	_build_talents_overlay()
 	_build_downed_panel()
 	_build_attributes_window()
 	get_viewport().size_changed.connect(_layout_safe_area)
@@ -280,12 +282,15 @@ func _framed_portrait(id: String, point: Vector2, dimensions: Vector2, preset :=
 	frame.texture = ART.texture(id)
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	holder.add_child(frame)
+	holder.move_child(frame, 0)
 	return portrait
 
 
 func _apply_button_art(button: Button, id: String) -> void:
 	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
 		button.add_theme_stylebox_override(state, StyleBoxEmpty.new())
+	var focus := UI_STYLE.panel_style(Color.TRANSPARENT, UI_STYLE.BLUE)
+	button.add_theme_stylebox_override("focus", focus)
 	var icon := TextureRect.new()
 	icon.name = "PixelArtwork"
 	icon.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -398,7 +403,7 @@ func _build_inventory_overlay() -> void:
 	equipment_box.add_child(equipment_row)
 	var equipment_board := Control.new()
 	equipment_board.name = "EquipmentBoard"
-	equipment_board.custom_minimum_size = Vector2(260, 420)
+	equipment_board.custom_minimum_size = Vector2(260, 330)
 	equipment_board.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	equipment_row.add_child(equipment_board)
 	_character_preview = TextureRect.new()
@@ -410,8 +415,9 @@ func _build_inventory_overlay() -> void:
 	_character_preview.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	_character_preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	equipment_board.add_child(_character_preview)
+	_character_preview.hide()
 	var character_caption := Label.new()
-	character_caption.text = "PERSONAGEM"
+	character_caption.text = "EQUIPAMENTO"
 	character_caption.position = Vector2(64, 322)
 	character_caption.size = Vector2(124, 20)
 	character_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -419,15 +425,15 @@ func _build_inventory_overlay() -> void:
 	UI_STYLE.style_label(character_caption, 10, UI_STYLE.MUTED)
 	equipment_board.add_child(character_caption)
 	var equipment_layout := [
-		{"id": "amulet", "label": "AMULETO", "short": "AM", "position": Vector2(208, 20)},
-		{"id": "head", "label": "CABEÇA", "short": "ELM", "position": Vector2(104, 0)},
-		{"id": "main_hand", "label": "ARMA · MÃO PRINCIPAL", "short": "ARM", "position": Vector2(0, 112)},
-		{"id": "offhand", "label": "ARMA · MÃO SECUNDÁRIA", "short": "OFF", "position": Vector2(208, 112)},
-		{"id": "jewel_left", "label": "ACESSÓRIO I", "short": "J1", "position": Vector2(0, 284)},
-		{"id": "chest", "label": "PEITORAL", "short": "ARM", "position": Vector2(0, 200)},
-		{"id": "jewel_right", "label": "ACESSÓRIO II", "short": "J2", "position": Vector2(208, 284)},
-		{"id": "pants", "label": "CALÇAS", "short": "CAL", "position": Vector2(0, 368)},
-		{"id": "boots", "label": "BOTAS", "short": "BOT", "position": Vector2(208, 368)}
+		{"id": "amulet", "label": "AMULETO", "short": "AM", "position": Vector2(188, 22)},
+		{"id": "head", "label": "CABEÇA", "short": "ELM", "position": Vector2(100, 22)},
+		{"id": "main_hand", "label": "ARMA · MÃO PRINCIPAL", "short": "ARM", "position": Vector2(12, 104)},
+		{"id": "offhand", "label": "ARMA · MÃO SECUNDÁRIA", "short": "OFF", "position": Vector2(188, 104)},
+		{"id": "jewel_left", "label": "ACESSÓRIO I", "short": "J1", "position": Vector2(12, 186)},
+		{"id": "chest", "label": "PEITORAL", "short": "ARM", "position": Vector2(100, 104)},
+		{"id": "jewel_right", "label": "ACESSÓRIO II", "short": "J2", "position": Vector2(188, 186)},
+		{"id": "pants", "label": "CALÇAS", "short": "CAL", "position": Vector2(100, 186)},
+		{"id": "boots", "label": "BOTAS", "short": "BOT", "position": Vector2(100, 268)}
 	]
 	for slot_data in equipment_layout:
 		var slot := _make_equipment_slot(slot_data)
@@ -479,6 +485,9 @@ func _build_inventory_overlay() -> void:
 		slot.custom_minimum_size = Vector2(58, 58)
 		slot.autowrap_mode = TextServer.AUTOWRAP_OFF
 		UI_STYLE.style_button(slot)
+		for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+			var skin := "slot_selected" if state in ["hover", "pressed", "focus"] else "slot"
+			slot.add_theme_stylebox_override(state, UI_STYLE.KIT.style(skin, 4.0))
 		slot.add_theme_font_size_override("font_size", 10)
 		slot.pressed.connect(func() -> void: _select_bag_slot(index))
 		var art := UI_STYLE.picture(null, Vector2.ZERO)
@@ -543,6 +552,17 @@ func _build_inventory_overlay() -> void:
 	_gold_summary.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	UI_STYLE.style_label(_gold_summary, 12, UI_STYLE.GOLD)
 	footer.add_child(_gold_summary)
+	_gold_summary.hide()
+	var talents := Button.new()
+	talents.text = "Talentos e vocações"
+	talents.custom_minimum_size.y = 48
+	UI_STYLE.style_button(talents)
+	talents.pressed.connect(func() -> void:
+		_inventory_overlay.hide()
+		_talents_overlay.show()
+		_refresh_joystick_blocking()
+	)
+	footer.add_child(talents)
 	_bag_summary = Label.new()
 	_bag_summary.name = "BagSummaryLabel"
 	_bag_summary.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -588,7 +608,7 @@ func _build_camp_overlay() -> void:
 	_camp_overlay.add_child(center)
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = Vector2(668, 580)
-	panel.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color("241d31"), Color("a77ce8")))
+	panel.add_theme_stylebox_override("panel", UI_STYLE.classic_style())
 	center.add_child(panel)
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 26)
@@ -609,6 +629,22 @@ func _build_camp_overlay() -> void:
 	var close := _close_button()
 	close.pressed.connect(func() -> void: _camp_overlay.hide())
 	heading.add_child(close)
+	var stages := HBoxContainer.new()
+	stages.name = "CampStages"
+	stages.alignment = BoxContainer.ALIGNMENT_CENTER
+	stages.add_theme_constant_override("separation", 24)
+	stack.add_child(stages)
+	var stage_ids := ["tent", "workbench", "palisade"]
+	for index in stage_ids.size():
+		var stage := VBoxContainer.new()
+		stage.name = "CampStage%d" % (index + 1)
+		stages.add_child(stage)
+		var caption := Label.new()
+		caption.text = ["I · Abrigo", "II · Bancada", "III · Defesa"][index]
+		caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		UI_STYLE.style_label(caption, 16, UI_STYLE.GOLD)
+		stage.add_child(caption)
+		stage.add_child(UI_STYLE.picture(UI_STYLE.icon(stage_ids[index]), Vector2(112, 130)))
 	_camp_summary = Label.new()
 	_camp_summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_camp_summary.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -640,7 +676,7 @@ func _build_downed_panel() -> void:
 	_downed_shade.add_child(center)
 	_downed_panel = PanelContainer.new()
 	_downed_panel.custom_minimum_size = Vector2(520, 0)
-	_downed_panel.add_theme_stylebox_override("panel", UI_STYLE.panel_style(Color("241d31"), Color("a77ce8")))
+	_downed_panel.add_theme_stylebox_override("panel", UI_STYLE.classic_style())
 	center.add_child(_downed_panel)
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 12)
@@ -677,6 +713,19 @@ func _build_downed_panel() -> void:
 	note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	UI_STYLE.style_label(note, 12, UI_STYLE.MUTED)
 	box.add_child(note)
+
+func _build_talents_overlay() -> void:
+	_talents_overlay = _make_overlay()
+	_root.add_child(_talents_overlay)
+	var center := CenterContainer.new()
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_talents_overlay.add_child(center)
+	var panel := preload("res://game/scripts/ui/vocations_panel.gd").new()
+	center.add_child(panel)
+	panel.closed.connect(func() -> void:
+		_talents_overlay.hide()
+		_refresh_joystick_blocking()
+	)
 
 
 func _build_attributes_window() -> void:
@@ -769,7 +818,7 @@ func _on_attributes_closed() -> void:
 
 
 func _refresh_joystick_blocking() -> void:
-	_joystick.set_blocked(_inventory_overlay.visible or _camp_overlay.visible or _downed_shade.visible or _attributes_window.visible)
+	_joystick.set_blocked(_inventory_overlay.visible or _camp_overlay.visible or _talents_overlay.visible or _downed_shade.visible or _attributes_window.visible)
 
 
 func _toggle_auto_attack() -> void:
@@ -785,6 +834,9 @@ func _select_bag_slot(index: int) -> void:
 	else:
 		_selected_item = BAG_ITEM_IDS[index]
 	_update_item_detail()
+	for slot_index in _bag_slots.size():
+		var selected := slot_index == index and not _selected_item.is_empty()
+		_bag_slots[slot_index].add_theme_stylebox_override("normal", UI_STYLE.KIT.style("slot_selected" if selected else "slot", 4.0))
 
 
 func _refresh_inventory() -> void:
@@ -837,7 +889,7 @@ func _refresh_inventory_character_status() -> void:
 	if _name_label != null and not _name_label.text.is_empty():
 		character_title = _name_label.text
 		display_name = _name_label.text.split("·")[0].strip_edges()
-	if _character_preview != null and _inventory_preview_for_name != display_name:
+	if _character_preview != null and _character_preview.visible and _inventory_preview_for_name != display_name:
 		_inventory_preview_for_name = display_name
 		_character_preview.texture = _load_inventory_character_preview(display_name)
 	var weapon_data := COMBAT_RULES.weapon("sword_basic")
@@ -1195,8 +1247,19 @@ func _process(_delta: float) -> void:
 	for button in _art_buttons:
 		var icon := button.get_node("PixelArtwork") as TextureRect
 		icon.modulate = Color(0.42, 0.42, 0.42, 0.85) if button.disabled else (Color(0.75, 0.75, 0.75) if button.is_pressed() else Color.WHITE)
-	_joystick.set_blocked(_inventory_overlay.visible or _camp_overlay.visible or _downed_shade.visible or _attributes_window.visible)
+	_joystick.set_blocked(_inventory_overlay.visible or _camp_overlay.visible or _talents_overlay.visible or _downed_shade.visible or _attributes_window.visible)
 
 
 func release_movement() -> void:
 	_joystick.set_blocked(true)
+
+func set_simplified(enabled: bool) -> void:
+	_status.visible = not enabled
+	_name_label.visible = not enabled
+	for button in _art_buttons:
+		var caption := button.get_node_or_null("LiveCaption") as Label
+		if caption != null:
+			# Preserve resource counts and cooldown feedback in both modes.
+			caption.visible = not enabled or button in _skill_buttons.values() or button == _bandage_button
+
+
