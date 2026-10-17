@@ -1,8 +1,16 @@
 # Journal — Diário de bordo
 
-## 2026-10-17 — wiki local de catalogação
+## 2026-10-17 — handoff final e integração das PRs #15–#19
 
-- Branch `feature/s03-game-wiki`, baseada em `f64c207` (após PR #18). Criada wiki HTML responsiva, sem dependências externas, em `docs/wiki/`: seções de personagens/vocações, sprites/atlas, atributos, itens, habilidades/combate, mundo/criaturas e documentação; busca global; previews ampliáveis; índice de caminhos relativos.
+- Revisados README e Handoff para refletir o estado integrado de `main`: queda por 60 s, metade de cada pilha de materiais na mochila (arredondada para baixo), renascimento manual/automático no acampamento, reanimação de aliado apenas pelo contrato local sem LAN, contato por footprint visual, movimento relativo à câmera e regeneração fora de combate a 1,2×. A wiki offline permanece ligada ao catálogo e ao índice de arquivos.
+- Registro dos merges: PR #15 `2aab5f4` (código `b1d0768`), #16 `38728f0` (`e3ab242`), #17 `54275e1` (`030273f`), #18 `f64c207` (`89d60a4`) e #19 `6cfc9f1` (`c995dfa`). A documentação desta revisão parte da main após #19; para trabalho futuro, consultar `git fetch origin` e `git rev-parse --short origin/main` em vez de reusar hash local.
+- A build 0.1.7/versionCode 8 foi rotulada como histórica, anterior às mudanças das PRs #15–#19 e não recompilada com elas. A Web foi exportada a partir de `main`; a revisão gráfica no navegador continua pendente. APK atual bloqueado neste ambiente pela ausência do Android SDK Platform 35 e Build Tools 35.0.0; instalação e teste em aparelho físico permanecem pendentes.
+- Próxima ação registrada no Handoff: instalar/configurar os componentes Android, consultar o SHA atual de `origin/main`, exportar e validar APK, depois testar em aparelho queda/renascimento/mochila, movimento, contato, regeneração e touch; revisar Web no navegador.
+- Validação documental: `python3 tools/wiki/build_index.py` regenerou `docs/wiki/catalog-data.json` com 74 previews e 368 arquivos; `python3 tools/wiki/test_catalog.py` passou (contagens, caminhos/links, busca, filtros, paginação, JS e servidor HTTP local); `git diff --check` passou. A checagem local confirmou que `/opt/android-sdk/platforms/android-35` e `/opt/android-sdk/build-tools/35.0.0` estão ausentes, portanto não houve exportação Android.
+
+## 2026-10-17 — wiki local de catalogação (PR #19)
+
+- Branch de origem `feature/s03-game-wiki`, baseada em `f64c207` (main após PR #18); integrada pela PR #19 (`c995dfa`, merge `6cfc9f1`). Criada wiki HTML responsiva, sem dependências externas, em `docs/wiki/`: seções de personagens/vocações, sprites/atlas, atributos, itens, habilidades/combate, mundo/criaturas e documentação; busca global; previews ampliáveis; índice de caminhos relativos.
 - `tools/wiki/build_index.py` deriva o JSON do catálogo do arquivo `data/catalogs/mvp.json`, do layout/aparências do recorte e dos PNGs/metadados versionados. A wiki identifica o catálogo como planejamento provisório e não anuncia candidatos de arte como aprovados.
 - README e roadmap apontam para a consulta local. Validação: `python3 tools/wiki/test_catalog.py` confere contagens e caminhos, sintaxe JS, breakpoints/markup e respostas HTTP de HTML/CSS/JS/JSON/PNGs por servidor local.
 - Escopo exclusivamente de catalogação; nenhum comportamento ou dado de runtime do jogo foi alterado. Aceites mobile e estado de arte permanecem pendentes conforme roadmap.
