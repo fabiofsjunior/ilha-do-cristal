@@ -1,4 +1,34 @@
-# Builds de teste solo — 2026-10-16
+# Builds de teste solo — 2026-10-17
+
+## Android 0.1.6 — atualização do APK
+
+APK debug `build/android/ilha-do-cristal-debug.apk`, **0.1.6/versionCode 7**, 64.680.671 bytes, SHA-256 `94a3e75920b3608c870e42af0172aaef3d23e28b465243b1077dfb7cfe153517`. Exportado no Godot 4.5.1 a partir do worktree atual da branch `feature/s02-pixel-hud-assets` (HEAD base `8140343`; alterações de trabalho não commitadas). Manifesto/package ID, retrato, ícones, assinatura v2/v3, CRC (286 entradas), permissões e dados runtime passaram.
+
+Inclui a janela ATR e alocação de pontos, joystick ampliado, restauração de vida/mana ao evoluir, mundo de 192×132 células, câmera 3D ortogonal e correção para ataques básicos funcionarem na distância visual de contato e no contato dos hitboxes. Passaram: `test_melee_contact_spacing.gd`, `test_portrait_combat.gd`, `test_close_view.gd`, `smoke_playable_slice.gd`, `test_expanded_map_population.gd`, `test_mobile_controls_layout.gd`, `test_level_up_restores_resources.gd`, `test_respawn_radius.gd`, `test_mvp_solo_loop.gd`, `test_regeneration_rules.gd`, `test_attributes_window.gd`, `test_attributes_hud_integration.gd`, `test_inventory_overlay_layout.gd`, `validate_playable_slice.py` e `git diff --check`.
+
+O APK não foi instalado num aparelho físico nesta sessão. O pacote Web não foi reexportado nesta correção.
+
+## Android/Web 0.1.5 — marcador de alvo no chão
+
+A seleção de inimigo usa uma elipse pixel art dourada plana e compacta no chão, sob os pés do monstro. `test_close_view.gd`, `test_portrait_combat.gd` e `test_mobile_controls_layout.gd` passaram. APK debug 0.1.5/versionCode 6: 61.881.163 bytes, SHA-256 `323a7bcc9579537f19fd2a2f7d0e86c215b1817501a2ef18803afd3e7dd94ab8`. ZIP Web: 14.627.842 bytes, SHA-256 `b0754dcfdba4cd27235c76d3755b8b26567dc831842ad106725119e4a74bbc47`. CRC, manifesto e assinatura v2/v3 passaram.
+
+## Atualização Android 0.1.4 — validação da área segura
+
+A captura do usuário ainda mostrava joystick/spells ausentes e rótulos superiores sobrepostos. O novo APK debug `build/android/ilha-do-cristal-debug.apk` está na versão 0.1.4/versionCode 5, 61.881.163 bytes, SHA-256 `4d43316b2bd6229d78fdc44afe838aa2746575f688260c8046717b4629da06d4`. O cálculo do safe rect agora rejeita dimensões incompatíveis e cai no viewport completo; labels superiores foram encurtados.
+
+O teste `test_mobile_controls_layout.gd` passou em quatro cenários (três proporções e uma safe area com orientação incompatível simulada), incluindo posição dos controles e toque/soltura. Testes de close-view, combate retrato, smoke gameplay, catálogo, assinatura/manifesto/ícones/CRC APK e CRC Web passaram. Não foi possível testar fisicamente no Android.
+
+ZIP Web atualizado `build/ilha-do-cristal-web.zip`, 14.627.315 bytes, SHA-256 `06057289c6d511813e9e65ad7685120cebf2f51be8a8059b025c5a3b7d753cf5`.
+
+## Atualização Android 0.1.3 — layout dos controles 9:16
+
+APK debug `build/android/ilha-do-cristal-debug.apk`, 61.881.163 bytes, versão 0.1.3/versionCode 4. SHA-256: `672b885a864465d37c4972675dc93c7c1feebeb89d778b4d72ecaa7518d3d7af`. Mantém o ícone cristal e o rótulo **A Ilha do Cristal**. Manifesto retrato, ARMv7/ARM64, nenhuma permissão, assinatura v2/v3 e CRC passaram. O layout headless valida o joystick no canto inferior esquerdo e spells no inferior direito em três cenários de safe area, além de entrada/toque/soltura. Nenhum aparelho estava conectado para teste físico.
+
+Pacote Web atualizado `build/ilha-do-cristal-web.zip`, 14.627.289 bytes, SHA-256 `081a44301a9d8d199ca1f5ee44ff12cabaac93c5761137591e08dc78d425d5ed`. A integridade CRC do ZIP passou; teste gráfico em navegador continua pendente.
+
+## Histórico Android 0.1.2 — ícone e safe area
+
+APK debug `build/android/ilha-do-cristal-debug.apk`, 61.881.163 bytes, versão 0.1.2/versionCode 3. SHA-256: `1f13d728643acf6cac77a22c150b7de04d3630a246034756e5c0c5c5b19427f0`. Label **A Ilha do Cristal** e ícones clássico/adaptativo/monocromático foram encontrados no APK. Manifesto retrato, ARMv7/ARM64, nenhuma permissão e assinatura v2/v3 passaram. O teste de controles simulou recortes em três proporções e confirmou toque/soltura do joystick; instalação em aparelho ainda não foi possível.
 
 ## Escopo entregue
 

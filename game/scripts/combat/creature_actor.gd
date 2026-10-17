@@ -8,11 +8,13 @@ signal defeated(actor: CreatureActor, death_id: String)
 
 const HUD_ART = preload("res://game/scripts/ui/hud_art.gd")
 const ART_LOADER = preload("res://game/scripts/actors/creature_art_loader.gd")
+const COMBAT_GEOMETRY = preload("res://game/scripts/combat/combat_geometry.gd")
 
 const MOVE_SPEEDS := {"fox": 116.0, "wolf": 92.0, "bear": 39.0}
 const ATTACK_INTERVALS := {"fox": 2.0, "wolf": 1.8, "bear": 3.0}
 const AGGRO_RANGES := {"fox": 0.0, "wolf": 190.0, "bear": 170.0}
-const ATTACK_RANGES := {"fox": 44.0, "wolf": 48.0, "bear": 50.0}
+## Basic attacks connect at projected alpha contact plus a 4 px movement buffer.
+const ATTACK_VISUAL_GAP_TOLERANCE := 8.0
 const BEAR_WINDUP := 0.9
 
 var slot_id := ""
@@ -65,9 +67,12 @@ func configure(
 
 
 func _ready() -> void:
+	add_to_group("combat_creatures")
 	collision_layer = 2
 	collision_mask = 1
 	var collision := CollisionShape2D.new()
+	collision.name = "CollisionShape2D"
+	collision.name = "CollisionShape2D"
 	var shape := CapsuleShape2D.new()
 	shape.radius = 9.0 if species_id != "bear" else 17.0
 	shape.height = 22.0 if species_id != "bear" else 34.0
@@ -102,13 +107,18 @@ func _physics_process(delta: float) -> void:
 	if _inside_refuge(_player.global_position):
 		windup_remaining = 0.0
 		velocity = Vector2.ZERO
-		move_and_slide()
+		_move_with_visual_contact(delta)
 		_sync_state()
 		return
 	if windup_remaining > 0.0:
 		windup_remaining = maxf(0.0, windup_remaining - delta)
+		if windup_remaining > 0.0:
+			velocity = Vector2.ZERO
+			_move_with_visual_contact(delta)
+			_sync_state()
+			return
 		if windup_remaining == 0.0:
-			if global_position.distance_to(_player.global_position) <= float(ATTACK_RANGES.get(species_id, 44.0)) + 8.0:
+			if is_player_in_basic_attack_range():
 				player_damaged.emit(attack_damage, species_id)
 			feedback_requested.emit("O urso golpeia o chão.")
 			attack_remaining = float(ATTACK_INTERVALS.get(species_id, 2.0))
@@ -116,18 +126,20 @@ func _physics_process(delta: float) -> void:
 			return
 	if stunned_remaining > 0.0:
 		velocity = Vector2.ZERO
-		move_and_slide()
+		_move_with_visual_contact(delta)
 		_sync_state()
 		return
 	var to_player := _player.global_position - global_position
 	var distance := to_player.length()
-	var attack_range := float(ATTACK_RANGES.get(species_id, 44.0))
-	if distance <= attack_range and attack_remaining <= 0.0:
+	var visual_gap := COMBAT_GEOMETRY.projected_visual_surface_gap_px_between(self, _player)
+	if visual_gap <= ATTACK_VISUAL_GAP_TOLERANCE and attack_remaining <= 0.0:
 		if species_id == "fox" and not provoked:
 			velocity = -to_player.normalized() * float(MOVE_SPEEDS.get(species_id, 60.0))
-			move_and_slide()
+			_move_with_visual_contact(delta)
 			_sync_state()
 			return
+		velocity = Vector2.ZERO
+		_move_with_visual_contact(delta)
 		if species_id == "bear":
 			windup_remaining = BEAR_WINDUP
 			feedback_requested.emit("O urso prepara um golpe pesado!")
@@ -138,13 +150,28 @@ func _physics_process(delta: float) -> void:
 		return
 	var direction := Vector2.ZERO
 	if species_id == "fox":
-		if distance <= 150.0 and distance > attack_range:
+		if distance <= 150.0 and visual_gap > ATTACK_VISUAL_GAP_TOLERANCE:
 			direction = -to_player.normalized()
-	elif distance <= float(AGGRO_RANGES.get(species_id, 0.0)) and distance > attack_range - 5.0:
+	elif distance <= float(AGGRO_RANGES.get(species_id, 0.0)) and visual_gap > ATTACK_VISUAL_GAP_TOLERANCE:
 		direction = to_player.normalized()
 	velocity = direction * float(MOVE_SPEEDS.get(species_id, 60.0))
-	move_and_slide()
+	_move_with_visual_contact(delta)
 	_sync_state()
+
+
+func _move_with_visual_contact(delta: float) -> void:
+	velocity = COMBAT_GEOMETRY.constrain_velocity_to_visual_contact(self, [_player], velocity, delta)
+	move_and_slide()
+
+
+func melee_visual_alpha_extents_px() -> Vector4:
+	return COMBAT_GEOMETRY.creature_visual_alpha_extents(species_id)
+
+
+func is_player_in_basic_attack_range() -> bool:
+	if _player == null or not is_instance_valid(_player) or not is_alive:
+		return false
+	return COMBAT_GEOMETRY.projected_visual_surface_gap_px_between(self, _player) <= ATTACK_VISUAL_GAP_TOLERANCE
 
 
 func take_hit(amount: float) -> bool:

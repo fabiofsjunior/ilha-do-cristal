@@ -3,6 +3,7 @@ extends RefCounted
 ## Single-player world snapshot with checksummed temp, active and previous slots.
 
 const SCHEMA_VERSION := 1
+const MONSTER_RESPAWN_SECONDS := 15
 const DEFAULT_SAVE_ROOT := "user://worlds/solo"
 const APPEARANCE_IDS := ["melissa", "helena", "maira", "fabio"]
 
@@ -509,7 +510,7 @@ func defeat_actor(slot_id: String) -> void:
 		return
 	actors[slot_id]["hp"] = 0.0
 	actors[slot_id]["alive"] = false
-	actors[slot_id]["respawn_at"] = int(Time.get_unix_time_from_system()) + 90
+	actors[slot_id]["respawn_at"] = int(Time.get_unix_time_from_system()) + MONSTER_RESPAWN_SECONDS
 
 
 func respawn_actor(slot_id: String, hp_value: float, position: Vector2) -> Dictionary:
@@ -553,6 +554,19 @@ func tick_cooldowns(delta: float) -> void:
 		skill_cooldowns[key] = maxf(0.0, float(skill_cooldowns[key]) - delta)
 		if float(skill_cooldowns[key]) <= 0.0:
 			skill_cooldowns.erase(key)
+
+
+func tick_regeneration(delta: float, seconds_since_combat_activity: float) -> Dictionary:
+	if not is_ready() or hp <= 0.0 or downed_remaining >= 0.0 or delta <= 0.0:
+		return {"hp_gained": 0.0, "mp_gained": 0.0}
+	var maximum := max_hp_mp()
+	var result := CombatRules.regenerated_resources(
+		raw_attributes, vocation_id, seconds_since_combat_activity,
+		hp, mp, maximum.x, maximum.y, delta
+	)
+	hp = float(result.hp)
+	mp = float(result.mp)
+	return result
 
 
 func begin_downed_respawn(refuge_position: Vector2, bag_position: Vector2) -> Dictionary:
@@ -627,6 +641,9 @@ func add_xp(amount: int) -> void:
 			break
 		level += 1
 		available_attribute_points += int(CombatRules.catalog().get("attributes_and_levels", {}).get("attribute_points_per_level_up", 1))
+		var resource_max := max_hp_mp()
+		hp = resource_max.x
+		mp = resource_max.y
 		recent_activity = "Nível %d alcançado." % level
 
 

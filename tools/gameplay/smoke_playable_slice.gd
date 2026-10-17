@@ -48,7 +48,9 @@ func _run() -> void:
 
 	var base_layer := gameplay.get_node_or_null("BaseTiles") as TileMapLayer
 	var path_layer := gameplay.get_node_or_null("Paths") as TileMapLayer
-	if not _expect(base_layer != null and base_layer.get_used_cells().size() == 2816, "Island did not build all 64×44 base cells."):
+	var map_size: Array = gameplay.get("_layout").get("grid_size", [])
+	var expected_base_cells := int(map_size[0]) * int(map_size[1]) if map_size.size() >= 2 else 0
+	if not _expect(base_layer != null and map_size.size() >= 2 and int(map_size[0]) == 192 and int(map_size[1]) == 132 and base_layer.get_used_cells().size() == expected_base_cells, "Island did not build all cells of the expanded 192×132 map."):
 		return
 	if not _expect(path_layer != null and path_layer.get_used_cells().size() > 0, "Island path overlay was not composed."):
 		return
@@ -123,7 +125,7 @@ func _run() -> void:
 	if not _expect(not paused and _script_path(app.get("current_screen")) == MAIN_MENU_SCRIPT, "Pause return-to-start transition failed."):
 		return
 
-	print("Playable slice smoke test passed: menu → character → session → island, four player atlases, world harvesting, static SE creature candidates, target click, auto-attack, peaceful/retaliating fox, aggressive wolf, safe bear windup, 2,816 terrain cells, movement, water collision and pause transitions.")
+	print("Playable slice smoke test passed: menu → character → session → island, four player atlases, world harvesting, static SE creature candidates, target click, auto-attack, peaceful/retaliating fox, aggressive wolf, safe bear windup, 25,344 terrain cells, movement, water collision and pause transitions.")
 	quit(0)
 
 
@@ -153,7 +155,8 @@ func _test_creature_input_and_ai(gameplay: Node2D, player: CharacterBody2D) -> b
 	var hp_before: float = state.hp
 	fox.global_position = player.global_position + Vector2(120, 0)
 	await process_frame
-	var screen_point: Vector2 = gameplay.get_viewport().get_canvas_transform() * fox.global_position
+	var view = gameplay.get_node("Isometric3DView")
+	var screen_point: Vector2 = view.camera.unproject_position(view.world_point(fox.global_position, 1.0))
 	var click := InputEventMouseButton.new()
 	click.button_index = MOUSE_BUTTON_LEFT
 	click.position = screen_point

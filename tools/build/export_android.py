@@ -20,6 +20,7 @@ from xml.etree import ElementTree
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PRESET_NAME = "Android Debug"
 PACKAGE_NAME = "com.fabiofsjunior.ilhadocristal"
+APP_NAME = "A Ilha do Cristal"
 GODOT_VERSION_PREFIX = "4.5.1.stable."
 FORBIDDEN_EXPORTED_PATH_PREFIXES = (
     "/assets/tools/",
@@ -37,6 +38,13 @@ KNOWN_PROJECT_ICON_ERROR = (
 REQUIRED_RUNTIME_FILES = (
     "/assets/data/catalogs/mvp.json",
     "/assets/game/data/first_island_layout.json",
+)
+REQUIRED_LAUNCHER_ICONS = (
+    "res/mipmap-xxxhdpi-v4/icon.png",
+    "res/mipmap-xxxhdpi-v4/icon_background.png",
+    "res/mipmap-xxxhdpi-v4/icon_foreground.png",
+    "res/mipmap-xxxhdpi-v4/icon_monochrome.png",
+    "res/mipmap-anydpi-v26/icon.xml",
 )
 
 
@@ -243,6 +251,29 @@ def validate_apk(apk: Path, android_sdk: Path, env: dict[str, str]) -> None:
     manifest = ElementTree.fromstring(manifest_xml)
     if manifest.attrib.get("package") != PACKAGE_NAME:
         fail(f"Package ID inesperado no APK: {manifest.attrib.get('package')}")
+
+    app_label = subprocess.run(
+        [
+            str(apkanalyzer),
+            "resources",
+            "value",
+            "--type",
+            "string",
+            "--name",
+            "godot_project_name_string",
+            "--config",
+            "default",
+            str(apk),
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+        env=env,
+    ).stdout.strip()
+    if app_label != APP_NAME:
+        fail(f"Nome incorreto no launcher Android: {app_label!r}; esperado {APP_NAME!r}")
+    print(f"Android launcher label: {app_label}")
+
     uses_permissions = [
         node.tag.rsplit("}", 1)[-1]
         for node in manifest
@@ -268,6 +299,10 @@ def validate_apk(apk: Path, android_sdk: Path, env: dict[str, str]) -> None:
             fail(f"CRC inválido dentro do APK: {bad_member}")
         entries = archive.namelist()
     print(f"APK ZIP integrity: OK ({len(entries)} entries)")
+    missing_icons = [path for path in REQUIRED_LAUNCHER_ICONS if path not in entries]
+    if missing_icons:
+        fail("Ícones do launcher Android ausentes: " + ", ".join(missing_icons))
+    print("Android launcher icons: classic, adaptive background/foreground, monochrome")
 
     exported_files = subprocess.run(
         [str(apkanalyzer), "files", "list", str(apk)],

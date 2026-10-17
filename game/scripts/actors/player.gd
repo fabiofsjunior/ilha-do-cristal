@@ -3,6 +3,7 @@ extends CharacterBody2D
 const SPEED := 165.0
 const DIRECTIONS := ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
 const APPEARANCE_DATA = preload("res://game/scripts/actors/appearance_data.gd")
+const COMBAT_GEOMETRY = preload("res://game/scripts/combat/combat_geometry.gd")
 
 var selected_character_id := "melissa"
 var joystick_vector := Vector2.ZERO
@@ -13,6 +14,7 @@ var _sprite_frames: SpriteFrames
 
 
 func _ready() -> void:
+	add_to_group("combat_player")
 	_sprite = get_node("AnimatedSprite2D") as AnimatedSprite2D
 	_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	_build_animations()
@@ -30,7 +32,7 @@ func set_input_enabled(enabled: bool) -> void:
 		velocity = Vector2.ZERO
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not input_enabled:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -42,12 +44,19 @@ func _physics_process(_delta: float) -> void:
 	if direction.length_squared() > 1.0:
 		direction = direction.normalized()
 	velocity = direction * SPEED
+	velocity = COMBAT_GEOMETRY.constrain_velocity_to_visual_contact(
+		self, get_tree().get_nodes_in_group("combat_creatures"), velocity, delta
+	)
 	move_and_slide()
 	if direction.length_squared() > 0.001:
 		facing = _direction_name(direction)
 		_play("walk_" + facing)
 	else:
 		_play("idle_" + facing)
+
+
+func melee_visual_alpha_extents_px() -> Vector4:
+	return COMBAT_GEOMETRY.player_visual_alpha_extents()
 
 
 func _keyboard_vector() -> Vector2:

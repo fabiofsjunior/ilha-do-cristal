@@ -2,7 +2,7 @@
 
 ## Preset e limites do APK
 
-`export_presets.cfg` mantém o preset Web e acrescenta `Android Debug`. O Android exporta para `build/android/ilha-do-cristal-debug.apk`, usa o identificador estável `com.fabiofsjunior.ilhadocristal`, inclui ARMv7 e ARM64 e desativa x86. A configuração de projeto `display/window/handheld/orientation=0` fixa paisagem. O preset não habilita permissões Android: a fatia atual é local e não usa rede, localização, microfone ou armazenamento compartilhado. Só acrescente uma permissão quando uma função real precisar dela.
+`export_presets.cfg` mantém o preset Web e acrescenta `Android Debug`. O Android exporta para `build/android/ilha-do-cristal-debug.apk`, usa o identificador estável `com.fabiofsjunior.ilhadocristal`, inclui ARMv7 e ARM64 e desativa x86. A orientação é retrato (`display/window/handheld/orientation=1`). O nome no launcher é **A Ilha do Cristal**; ícones clássico, adaptativo e monocromático usam o cristal pixel art do projeto. A build atual é 0.1.6/versionCode 7, para que o Android reconheça o pacote como atualização da 0.1.5. O HUD usa o viewport inteiro e posiciona os controles de movimento e spells nos cantos inferiores; safe areas malformadas pelo sistema são descartadas para manter os controles visíveis. O preset não habilita permissões Android: a fatia atual é local e não usa rede, localização, microfone ou armazenamento compartilhado.
 
 Este é um APK de desenvolvimento assinado com uma chave debug local. Ele pode ser instalado por sideload para teste, mas não é uma chave de publicação nem um artefato pronto para a Play Store.
 
@@ -14,10 +14,10 @@ Versões fixadas para reprodutibilidade:
 
 | Componente | Versão/localização usada nesta sessão |
 |---|---|
-| Godot editor | `4.5.1.stable.official.f62fdbde1`; executável local `/workspace/scratch/700a9451cee9/ilha-do-cristal/Godot_v4.5.1-stable_linux.x86_64` |
+| Godot editor | `4.5.1.stable.official.f62fdbde1` |
 | Java | OpenJDK 17; `JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64` |
 | Android SDK | `/opt/android-sdk`; Platform 35, Build Tools 35.0.0, Platform Tools, Command-line Tools latest |
-| NDK / CMake | NDK `28.1.13356709`; CMake `3.10.2.4988404` |
+| NDK / CMake | Não usados pelo preset atual, que exporta com o APK template pré-compilado e `gradle_build/use_gradle_build=false` |
 | Templates Godot | `~/.local/share/godot/export_templates/4.5.1.stable/`; `android_debug.apk`, `web_nothreads_debug.zip`, `web_nothreads_release.zip` |
 | Keystore debug | `~/.local/share/godot/keystores/debug.keystore`, criado localmente se ausente; alias `androiddebugkey` |
 
@@ -40,9 +40,9 @@ No Linux, rode na raiz do projeto:
 python3 tools/build/export_android.py
 ```
 
-O script usa `Godot_v4.5.1-stable_linux.x86_64` na raiz quando presente; `--godot` ou `GODOT_BIN` apontam para outra localização. `--sdk` ou `ANDROID_SDK_ROOT` selecionam o Android SDK. Ele configura os caminhos de SDK/Java nas preferências locais do editor, cria a chave debug se necessário, cria `build/.gdignore`, importa recursos, exporta com `--export-debug` e valida package ID, orientação, permissões, CRC do APK, assinatura e ausência dos caminhos de ferramentas/documentação/referências no payload.
+O script usa `Godot_v4.5.1-stable_linux.x86_64` na raiz quando presente; `--godot` ou `GODOT_BIN` apontam para outra localização. `--sdk` ou `ANDROID_SDK_ROOT` selecionam o Android SDK. Ele configura os caminhos de SDK/Java nas preferências locais do editor, cria a chave debug se necessário, cria `build/.gdignore`, importa recursos, exporta com `--export-debug` e valida package ID, nome do app, orientação, ícones do launcher, permissões, CRC do APK, assinatura e ausência dos caminhos de ferramentas/documentação/referências no payload.
 
-Os logs são gravados em `build/logs/android-import.log` e `build/logs/android-export.log`. O script falha se o Godot emitir `SCRIPT ERROR:` ou `ERROR:`, ainda que retorne código zero. A única exceção é a mensagem completa de ícone ausente do Godot 4.5.1: `ERROR: No project icon specified. Please specify one in the Project Settings under Application -> Config -> Icon`. Ela é mostrada como aviso não fatal e acrescentada ao log, junto da linha original. Depois da validação, o script grava `build/android/BUILD_INFO.json` com engine, commit-fonte, data UTC, package ID, SHA-256 do APK, arquivos JSON runtime incluídos e os status de dados/arte candidata.
+Os logs são gravados em `build/logs/android-import.log` e `build/logs/android-export.log`. O script falha se o Godot emitir `SCRIPT ERROR:` ou `ERROR:`, ainda que retorne código zero. Depois da validação, grava `build/android/BUILD_INFO.json` com engine, commit-fonte, data UTC, package ID, SHA-256 do APK, arquivos JSON runtime incluídos e os status de dados/arte candidata.
 
 Exemplo com caminhos explícitos:
 
@@ -76,7 +76,7 @@ O export baseline deste worktree (commit `e7eb0e0`) produziu um APK de 59.450.68
 
 A integração S2 foi reexportada a partir de `bbba04f8d278f141cef7cb431dbecd22d1c02c49`, com os mesmos gates de pacote aprovados. O APK final tem 59.550.750 bytes; hashes e testes estão em [MVP_BUILD_VALIDATION.md](../gameplay/MVP_BUILD_VALIDATION.md). O preset Web sem threads precisa dos templates `web_nothreads_*.zip`; os templates `web_debug.zip`/`web_release.zip` servem para a variante com threads.
 
-Nesta sessão não havia `/dev/kvm`, emulador Android, system image nem aparelho USB conectado. Por isso não foi possível instalar/abrir o APK nem registrar teste de tela ou desempenho. S0 continua pendente até instalar e testar em aparelho real; não marcar a etapa como concluída com base somente no export.
+O teste headless de layout simula recortes e áreas seguras Android em três proporções, confirma que o HUD mantém o viewport completo, verifica o joystick no canto inferior esquerdo e as spells no direito, valida os limites de toque e envia toque virtual ao joystick. Isso não substitui instalação/abertura em aparelho real; S0/S1 permanecem pendentes até validar safe area do fabricante, legibilidade, multitouch e estabilidade no dispositivo.
 
 ## Referências oficiais
 

@@ -1,46 +1,18 @@
-# A Ilha do Cristal
+YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éíÛnvN‹Z–‹­¦ëeŠw¬ÔŒ%±¡„‘¼É¥ÍÑ…°()IA€É½½Á•É…Ñ¥Ù¼‘”Í½‰É•Ù¥Û©¹¥„•´Á¥á•°…ÉÐ¸5•±¥ÍÍ„°!•±•¹„°5‡µÉ„”…‰¥¼Í½‰É•Ù¥Ù•´…¼¹…Õ™Ë…¥¼‘”Õ´ÉÕé•¥É¼°‘•ÍÁ•ÉÑ…´Á½‘•É•Ì‘”Õ´É¥ÍÑ…°”½¹ÍÑÉ½•´Õ´É•›é¥¼¹Õµ„¥±¡„µÕÑ…¹Ñ”¸Y…•°ƒ¤„…µ•‡„¹…ÉÉ…Ñ¥Ù„‘…Ì•áÁ…¹ÏÕ•Ì¸((¨©ÍÑ…‘¼è¨¨É•½ÉÑ”Í½±¼Á…É„Ñ•ÍÑ”°•´½‘½Ð€Ð¸Ô¸Ä°½´•áÁ½ÉÑ…‘½É•Ì]•ˆ”A,¹‘É½¥‘•‰Õœ¸%µÁ½ÉÑ‡Ÿ¼°™±Õá¼”É•É…ÌÏ¼Ù•É¥™¥…‘½Ì•´µ½‘¼¡•…‘±•ÍÌìÉ•Ù¥Ï¼Ë…™¥„¹¼¹…Ù•…‘½È”¥¹ÍÑ…±‡Ÿ¼½Ñ•ÍÑ”•´¹‘É½¥½¹Ñ¥¹Õ…´Á•¹‘•¹Ñ•Ì¸€¨©ÉÑ”è¨¨Á•ÉÍ½¹…•¹Ì”É¥…ÑÕÉ…ÌÍ•Õ•´€¨©=II%%H¨¨°Ñ•ÉÉ•¹¼€¨©9%Q<¨¨¸mÁÉ…¹¡„½¹•¥ÑÕ…±t¡…ÍÍ•ÑÌ½É•™•É•¹•Ì½½¹•ÁÐµÉÁœµ±…ÍÍ¥¼¹Á¹œ¤ƒ¤É•™•Ë©¹¥„Ù¥ÍÕ…°¸()•¹„ÁÉ¥¹¥Á…°ƒ¤…µ”½Í•¹•Ì½µ…¥¸¹ÑÍ¹€¸<™±Õá¼Á•É½ÉÉ”¥»µ¥¼ƒŠHÕµ„‘…ÌÅÕ…ÑÉ¼…Á…Ë©¹¥…Ì]…ÉÉ¥½ÈƒŠHÍ•ÍÏ¼Í½±¼ƒŠH¥±¡„€ÄäË\ÄÌÈ°½´µ½Ù¥µ•¹Ñ¼°½±•Ñ„°É…Á½Í„½±½‰¼½ÕÉÍ¼°…Ñ…ÅÕ”…ÕÑ½·…Ñ¥¼…¼…±…¹”°ÑË©Ì¡…‰¥±¥‘…‘•Ì]…ÉÉ¥½È°ÕÉ…Ñ¥Ù¼°a@°¥¹Ù•¹Ó…É¥¼‘”µ…Ñ•É¥…¥Ì”µ•±¡½É¥…Ì‘”……µÁ…µ•¹Ñ¼¸<Í…Ù”±½…°Í•Á…É„…ÌÅÕ…ÑÉ¼…Á…Ë©¹¥…Ì”ÕÍ„Í±½ÑÌ½´¡•­ÍÕ´”É•ÕÁ•É‡Ÿ¼¸½¹ÍÕ±Ñ”mÕ¥„‘¼Ñ•ÍÑ”Í½±½t¡‘½Ì½…µ•Á±…ä½5YA}M=1=}QMP¹µ¤”mÙ…±¥‘‡Ÿ¼‘…Ì‰Õ¥±‘Ít¡‘½Ì½…µ•Á±…ä½5YA}	U%1}Y1%Q%=8¹µ¤¸½¹Ñ…Ì°18°É¡•È½5…”°ƒ…ÉÙ½É”½µÁ±•Ñ„”µÕ¹‘¼ÁÉ½•‘ÕÉ…°½¹Ñ¥¹Õ…´Á•¹‘•¹Ñ•Ìì•ÍÑ„•¹ÑÉ•„»¼™•¡„¼…•¥Ñ”¥¹Ñ•É…°‘¼¸((ŒŒQ•ÍÑ…È”•áÁ½ÉÑ…È((´€¨©]•ˆè¨¨•áÑÉ…¥„‰Õ¥±½¥±¡„µ‘¼µÉ¥ÍÑ…°µÝ•ˆ¹é¥Á€”•á•ÕÑ”Q•ÍÑ…É})½½}]•ˆ¹‰…Ñ€¹¼]¥¹‘½ÝÌ°½´AåÑ¡½¸€Ì¥¹ÍÑ…±…‘¼¸<i%@¥¹±Õ¤¼Í•ÉÙ¥‘½Ë]¹ÚÚ$z{-®éÜj×e verificaÃ§Ãµes: [validaÃ§Ã£o retrato](docs/gameplay/PORTRAIT_BUILD_VALIDATION.md).
 
-RPG 2D cooperativo de sobrevivÃªncia em pixel art. Melissa, Helena, MaÃ­ra e FÃ¡bio sobrevivem ao naufrÃ¡gio de um cruzeiro, despertam poderes de um cristal e constroem um refÃºgio numa ilha mutante. Vael Ã© a ameaÃ§a narrativa das expansÃµes.
+## APK Android 0.1.6
 
-**Estado:** recorte solo para teste, em Godot 4.5.1, com exportadores Web e APK Android debug. ImportaÃ§Ã£o, fluxo e regras sÃ£o verificados em modo headless; revisÃ£o grÃ¡fica no navegador e instalaÃ§Ã£o/teste em Android continuam pendentes. **Arte:** personagens e criaturas seguem **CORRIGIR**, terreno **CANDIDATO**. A [prancha conceitual](assets/references/concept-rpg-classico.png) Ã© referÃªncia visual.
-
-A cena principal Ã© `game/scenes/main.tscn`. O fluxo percorre inÃ­cio â†’ uma das quatro aparÃªncias Warrior â†’ sessÃ£o solo â†’ ilha 64Ã—44, com movimento, coleta, raposa/lobo/urso, ataque automÃ¡tico ao alcance, trÃªs habilidades Warrior, curativo, XP, inventÃ¡rio de materiais e melhorias de acampamento. O save local separa as quatro aparÃªncias e usa slots com checksum e recuperaÃ§Ã£o. Consulte [guia do teste solo](docs/gameplay/MVP_SOLO_TEST.md) e [validaÃ§Ã£o das builds](docs/gameplay/MVP_BUILD_VALIDATION.md). Contas, LAN, Archer/Mage, Ã¡rvore completa e mundo procedural continuam pendentes; esta entrega nÃ£o fecha o aceite integral do GDD.
-
-## Testar e exportar
-
-- **Web:** extraia `build/ilha-do-cristal-web.zip` e execute `Testar_Jogo_Web.bat` no Windows, com Python 3 instalado. O ZIP inclui o servidor; nÃ£o depende do checkout. Em outro sistema, rode `python3 -m http.server 8000` na pasta extraÃ­da e abra `http://localhost:8000/`.
-- **Android:** instale `build/android/ilha-do-cristal-debug.apk`. Ã‰ um APK de desenvolvimento para ARMv7/ARM64, Android 7 ou superior, em paisagem; a assinatura debug nÃ£o Ã© assinatura de publicaÃ§Ã£o.
-- **Controles:** WASD/setas ou joystick; clique/toque na criatura para selecionar; E interage/coleta; 1/2/3 usam skills; H usa curativo; B abre mochila; Esc/P pausa. Os botÃµes da tela oferecem as aÃ§Ãµes touch. Zoom 50â€“125%.
-
-Com Godot 4.5.1 e os templates correspondentes instalados:
-
-```sh
-python3 tools/build/export_web.py
-python3 tools/build/export_android.py
-```
-
-O guia [ANDROID_BUILD.md](docs/technical/ANDROID_BUILD.md) fixa SDK/JDK, configuraÃ§Ã£o e verificaÃ§Ãµes. BinÃ¡rio Godot local, SDK, chaves debug, saves e `build/` ficam fora do Git.
-
-## DocumentaÃ§Ã£o
-
-- [GDD do MVP](Docs/Main/GDD_MVP.md) â€” regras e critÃ©rios de aceite.
-- [ConteÃºdo e balanceamento](Docs/Main/CONTENT_DATA.md) â€” atributos, armas, XP, drops, bestiÃ¡rio e Ã¡rvore.
-- [Doze listas de produÃ§Ã£o](Docs/Main/CATALOGS_MVP.md) e [catÃ¡logo JSON](data/catalogs/mvp.json) â€” conteÃºdo inicial versionado.
-- [Roadmap](Docs/Main/ROADMAP.md) â€” sprints e validaÃ§Ãµes.
-- [Metodologia de prototipagem](Docs/Main/PROTOTYPING_METHODOLOGY.md) â€” protÃ³tipo e validaÃ§Ã£o antes de cada fase.
-- [Registro de protÃ³tipos](Docs/Context/PROTOTYPE_LOG.md) e [protÃ³tipo navegÃ¡vel v0.7](docs/prototypes/mvp_ui_v0_7.html). A v0.7 foi validada como interface simulada em 2026-10-15; isso nÃ£o valida gameplay, arte ou dispositivos. A referÃªncia conceitual da Ã¡rvore estÃ¡ em [passive_skill_tree_endgame_reference.png](docs/prototypes/assets/passive_skill_tree_endgame_reference.png).
-- [Handoff](Docs/Context/HANDOFF.md) e [Journal](Docs/Context/JOURNAL.md) â€” continuidade entre sessÃµes.
-- [Arquitetura](docs/technical/ARCHITECTURE.md) e [arte/sprites](docs/art/ART_DIRECTION_AND_SPRITES.md).
-- [AGENTS.md](AGENTS.md) â€” regras de implementaÃ§Ã£o e revisÃ£o.
-
-Estrutura: `game/` (cenas, scripts e dados), `data/` (catÃ¡logo versionado), `assets/` (arte candidata e referÃªncias), `Docs/Main/` (referÃªncia durÃ¡vel), `Docs/Context/` (journal/handoff), `docs/art/` e `docs/technical/`. O harness tÃ©cnico de sprites permanece em `tools/art/sprite_test/sprite_test.tscn`. RelatÃ³rios de criaturas e [prancha nativa/nearest](docs/art/evidence/creatures-contact-candidates.png) documentam uma pose SE estÃ¡tica por animal; direÃ§Ãµes, animaÃ§Ãµes e alpha final nÃ£o estÃ£o aprovados.
-
-NÃ£o publicar fotos originais das crianÃ§as, credenciais, keystores ou saves pessoais. A prancha conceitual nÃ£o substitui sprites de produÃ§Ã£o.
-
-## CorreÃ§Ã£o de teste: retrato 0.1.1
-
-A versÃ£o de teste mais recente usa **retrato 9:16**, mundo em tela inteira com expansÃ£o para outras proporÃ§Ãµes, HUD inspirado no protÃ³tipo enviado, alvo destacado/trocÃ¡vel e dano numÃ©rico flutuante. A seleÃ§Ã£o de aparÃªncia usa grade 2Ã—2 e os painÃ©is cabem no retrato.
-
-Builds: `python3 tools/build/export_android.py` e `python3 tools/build/export_web.py` com Godot 4.5.1. O Web solicita tela cheia ao entrar como visitante, conforme suporte do navegador; o canvas preenche o viewport mesmo sem permissÃ£o. APK debug 0.1.1/versionCode 2. InstalaÃ§Ã£o em aparelho ainda requer playtest. Detalhes e verificaÃ§Ãµes: [validaÃ§Ã£o retrato](docs/gameplay/PORTRAIT_BUILD_VALIDATION.md).
+O APK atual Ã© 0.1.6/versionCode 7 e inclui o joystick ampliado, janela de atributos, restauraÃ§Ã£o de HP/MP ao subir de nÃ­vel, mapa 192Ã—132 e correÃ§Ãµes de contato/ataque bÃ¡sico. Os testes e o hash estÃ£o em [validaÃ§Ã£o das builds](docs/gameplay/MVP_BUILD_VALIDATION.md). O ZIP Web ainda corresponde Ã  exportaÃ§Ã£o anterior.
 
 O HUD pixel usa a prancha escolhida pelo usuÃ¡rio em `assets/ui/pixel_hud_v1/`, com recortes por metadados e valores/captions dinÃ¢micos.
+
+## RevisÃ£o visual candidata â€” 2026-10-16
+
+CÃ¢mera prÃ³xima (150â€“300%, padrÃ£o200%), smoothing5 e HUD adaptativa: rosto ampliado, minimapa com posiÃ§Ã£o, alvo oculto sem seleÃ§Ã£o e habilidades compactas. ChÃ£o e elementos com profundidade oblÃ­qua, mantendo coordenadas e colisÃµes32px. NÃ£o Ã© conversÃ£o isomÃ©trica64Ã—32. Ver `Docs/Context/HANDOFF.md` para limites da base recuperada e validaÃ§Ã£o pendente.
+
+Renascimento:15segundos apÃ³s derrota, jogador a mais de5SQMs da origem, fora do refÃºgio. Visibilidade da cÃ¢mera nÃ£o bloqueia renascimento.
+
+
+### VisÃ£o 2.5D com Camera3D
+
+A cena apresenta a ilha numa Camera3D ortogonal, Xâˆ’30Â°/Y45Â°, size inicial16 e suavizaÃ§Ã£o speed5. O terreno usa o plano XZ e os atores recebem projeÃ§Ã£o Sprite3D; lÃ³gica, colisÃµes e saves ainda operam em SQMs 2D. Consulte game/scripts/world/isometric_3d_view.gd. Render real em navegador/dispositivo permanece pendente.

@@ -75,7 +75,28 @@
     "crit_cap_percent": 20,
     "dodge_cap_percent": 20,
     "hp_regen_cap_outside_combat_percent_per_sec": 2,
-    "hp_regen_cap_inside_combat_percent_per_sec": 0.5
+    "hp_regen_cap_inside_combat_percent_per_sec": 0.5,
+    "mp_regen_cap_outside_combat_percent_per_sec": 1.0,
+    "mp_regen_cap_inside_combat_percent_per_sec": 0.25,
+    "regeneration": {
+      "out_of_combat_delay_sec": 8,
+      "base_percent_per_sec": {
+        "hp": {
+          "warrior": { "combat": 0.20, "outside_combat": 0.60 },
+          "archer": { "combat": 0.15, "outside_combat": 0.50 },
+          "mage": { "combat": 0.10, "outside_combat": 0.35 }
+        },
+        "mp": {
+          "warrior": { "combat": 0.03, "outside_combat": 0.12 },
+          "archer": { "combat": 0.06, "outside_combat": 0.25 },
+          "mage": { "combat": 0.10, "outside_combat": 0.40 }
+        }
+      },
+      "effective_attribute_bonus_percentage_points_per_sec": {
+        "FOR": { "combat": 0.003, "outside_combat": 0.010 },
+        "INT": { "combat": 0.001, "outside_combat": 0.004 }
+      }
+    }
   },
   "weapons_and_tools": [
     {

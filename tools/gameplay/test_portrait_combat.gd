@@ -47,33 +47,38 @@ func _run() -> void:
 	player.global_position = Vector2(1000, 750)
 	fox.global_position = player.global_position + Vector2(120, 0)
 	wolf.global_position = player.global_position + Vector2(-120, 0)
-	game.get("_camera").reset_smoothing()
+	game.get("_iso_view").camera.global_position = game.get("_iso_view")._camera_position(game.get("_iso_view")._player_focus())
 	await _settle()
-	for zoom in [0.5, 0.75, 1.0, 1.25]:
-		game.get("_camera").zoom = Vector2.ONE * zoom
+	var damage_root: Node3D = game.get("_iso_view").damage_root
+	var preexisting_damage_count := damage_root.get_child_count()
+	for ortho_size in [24.0, 16.0, 12.0, 9.0]:
+		game.get("_iso_view").camera.size = ortho_size
 		await _settle()
 		game._set_target(null)
 		var event := InputEventScreenTouch.new()
 		event.index = 2
 		event.pressed = true
-		event.position = root.get_canvas_transform() * (fox.global_position + Vector2(20, -36))
+		event.position = game.get("_iso_view").camera.unproject_position(game.get("_iso_view").world_point(fox.global_position, 1.0))
 		root.push_input(event, true)
 		await _settle()
-		_check(game.get("_target") == fox and fox.selected, "Touch body selection failed at zoom %s" % zoom)
+		_check(game.get("_target") == fox and fox.selected, "Touch body selection failed at ortho size %s" % ortho_size)
 		event.pressed = false
 		root.push_input(event, true)
 		game._select_target_at(Vector2(-1000, -1000))
 		_check(game.get("_target") == fox, "Ground tap lost the selected target")
+	game.get("_iso_view").camera.size = 24.0
+	game.get("_iso_view").camera.global_position = game.get("_iso_view")._camera_position(game.get("_iso_view")._player_focus())
+	await _settle()
+	game.set("_auto_attack_enabled", false)
 	game._cycle_target()
 	_check(game.get("_target") == wolf and not fox.selected and wolf.selected, "Cycle failed or old ring remained")
 	fox.take_hit(5)
 	game._on_player_damaged(7, "wolf")
 	await _settle()
-	var numbers: Array = game.find_children("FloatingDamage*", "Label", false, false)
-	_check(numbers.size() == 2, "Expected outgoing and incoming floating damage")
+	_check(damage_root.get_child_count() == preexisting_damage_count + 2, "Expected outgoing and incoming floating damage")
 	fox.take_hit(fox.hp)
 	await _settle()
-	_check(game.find_children("FloatingDamage*", "Label", false, false).size() == 3, "Fatal hit number disappeared with monster")
+	_check(damage_root.get_child_count() == preexisting_damage_count + 3, "Fatal hit number disappeared with monster")
 	var hud = game.get_node("HUD")
 	for dimensions in [Vector2i(720, 1280), Vector2i(720, 1600), Vector2i(960, 1280)]:
 		root.size = dimensions
@@ -94,7 +99,8 @@ func _run() -> void:
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png("res://build/portrait-gameplay.png")
 	await create_timer(1.1).timeout
-	_check(game.find_children("FloatingDamage*", "Label", false, false).is_empty(), "Damage labels leaked after tween")
+	await process_frame
+	_check(damage_root.get_child_count() == 0, "Damage labels leaked after tween")
 	app.queue_free()
 	await process_frame
 	if failures == 0:

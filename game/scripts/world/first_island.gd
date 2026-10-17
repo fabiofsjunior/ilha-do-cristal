@@ -8,10 +8,12 @@ const TILE_MANIFEST := TILE_MANIFEST_DIR + "/terrain_mvp_candidate_v1.json"
 const LAYOUT_PATH := "res://game/data/first_island_layout.json"
 const PLAYER_SCENE := preload("res://game/scenes/player.tscn")
 const COMBAT_RULES = preload("res://game/scripts/combat/combat_rules.gd")
+const COMBAT_GEOMETRY = preload("res://game/scripts/combat/combat_geometry.gd")
 const CREATURE_ACTOR = preload("res://game/scripts/combat/creature_actor.gd")
 const EXPEDITION_STATE = preload("res://game/scripts/save/expedition_state.gd")
 const TILE_SIZE := 32
-const ZOOM_LEVELS := [0.5, 0.75, 1.0, 1.25]
+const RESPAWN_PLAYER_RADIUS_SQM := 5.0
+const ORTHOGONAL_SIZES := [24.0, 16.0, 12.0, 9.0]
 const SAFE_RADIUS := 142.0
 const RESOURCE_INTERACTION_RADIUS := 72.0
 const CREATURE_SELECT_RADIUS := 42.0
@@ -20,7 +22,7 @@ const BASE_ATTACK_INTERVAL := 1.0
 var selected_character_id := "melissa"
 var character_name := "Melissa"
 var _player
-var _camera: Camera2D
+var _iso_view: Node3D
 var _hud
 var _beacon_position := Vector2.ZERO
 var _current_zoom_index := 1
@@ -34,6 +36,7 @@ var _damage_serial := 0
 var _target: CreatureActor
 var _auto_attack_enabled := true
 var _attack_remaining := 0.0
+var _combat_idle_seconds := 8.0
 var _hud_remaining := 0.0
 var _save_remaining := 120.0
 var _bandage_tick_remaining := 0.0
@@ -54,6 +57,7 @@ func _ready() -> void:
 	_build_world_collision()
 	_build_beacon()
 	_connect_hud()
+	_hud._minimap.set_map(load("res://assets/environments/tropical_oblique_candidate/ground.png"))
 	if not _state.is_ready():
 		_fatal_save_error = true
 		_hud.set_status(_state.load_error)
@@ -63,6 +67,14 @@ func _ready() -> void:
 	_build_player()
 	_build_creatures()
 	_change_zoom(_state.zoom_index - _current_zoom_index)
+	_iso_view = get_node("Isometric3DView")
+	_iso_view.configure(self)
+	for layer_name in ["BaseTiles", "Transitions", "Paths", "Actors"]:
+		get_node(layer_name).visible = false
+	var old_ground := get_node_or_null("Ocean_Terrain_Cliffs")
+	if old_ground != null:
+		old_ground.hide()
+	_change_zoom(0)
 	if not _state.recovered_from.is_empty():
 		_hud.set_status("Snapshot recuperado da cópia de segurança. O progresso continua disponível.")
 	elif not _state.recent_activity.is_empty():
@@ -83,6 +95,10 @@ func _process(delta: float) -> void:
 		_hud.set_interaction_prompt("◇ · Descansar", true)
 	else:
 		_hud.set_interaction_prompt("E · Interagir", false)
+	_combat_idle_seconds = minf(
+		_combat_idle_seconds + delta,
+		COMBAT_RULES.regeneration_out_of_combat_delay_sec()
+	)
 	_attack_remaining = maxf(0.0, _attack_remaining - delta)
 	_state.tick_cooldowns(delta)
 	if _state.bandages_in_use:
@@ -92,9 +108,10 @@ func _process(delta: float) -> void:
 		if _state.downed_remaining <= 0.0:
 			_return_to_refuge(true)
 	if _target != null and is_instance_valid(_target) and _auto_attack_enabled and _target.is_alive:
-		if _player.global_position.distance_to(_target.global_position) <= 42.0 and _attack_remaining <= 0.0:
+		if player_basic_attack_can_reach(_target) and _attack_remaining <= 0.0:
 			_attack_remaining = BASE_ATTACK_INTERVAL
 			_perform_basic_attack()
+	_state.tick_regeneration(delta, _combat_idle_seconds)
 	_tick_bleeds(delta)
 	_tick_respawns()
 	_save_remaining -= delta
@@ -132,11 +149,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			_use_bandage()
 			get_viewport().set_input_as_handled()
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var mouse_world_position: Vector2 = get_viewport().get_canvas_transform().affine_inverse() * event.position
-		_select_target_at(mouse_world_position)
+		_select_target_on_screen(event.position)
 	if event is InputEventScreenTouch and event.pressed:
-		var world_position: Vector2 = get_viewport().get_canvas_transform().affine_inverse() * event.position
-		_select_target_at(world_position)
+		_select_target_on_screen(event.position)
 
 
 func interact_with_beacon() -> void:
@@ -149,6 +164,8 @@ func _connect_hud() -> void:
 	_hud.set_character_name(character_name)
 	_hud.cycle_target_pressed.connect(_cycle_target)
 	_hud.pause_pressed.connect(_on_pause_requested)
+	_hud.attributes_pressed.connect(_on_attributes_requested)
+	_hud.attributes_committed.connect(_on_attributes_committed)
 	_hud.interact_pressed.connect(interact_with_nearest)
 	_hud.joystick_moved.connect(_set_joystick_vector)
 	_hud.zoom_requested.connect(_change_zoom)
@@ -158,6 +175,16 @@ func _connect_hud() -> void:
 	_hud.craft_bandage_pressed.connect(_craft_bandage)
 	_hud.upgrade_camp_pressed.connect(_upgrade_camp)
 	_hud.respawn_pressed.connect(func() -> void: _return_to_refuge(true))
+
+
+func _on_attributes_requested() -> void:
+	if _state != null and _state.is_ready():
+		_hud.open_attributes_for_state(_state)
+
+
+func _on_attributes_committed(_committed_state: Object) -> void:
+	save_progress()
+	_update_hud()
 
 
 func _build_tile_set(manifest: Dictionary) -> bool:
@@ -245,6 +272,8 @@ func _paint_map(manifest: Dictionary) -> void:
 			str(path.get("id", ""))
 		)
 
+	_build_oblique_ground()
+
 
 func _paint_transition_patch(patch: Dictionary) -> void:
 	var prefix := str(patch.get("prefix", ""))
@@ -280,9 +309,14 @@ func _build_world_collision() -> void:
 	var size_data: Array = _layout.get("grid_size", [64, 44])
 	var map_width := float(size_data[0]) * TILE_SIZE
 	var map_height := float(size_data[1]) * TILE_SIZE
+	var water_end_cell := 0
+	for band in _layout.get("surface_bands", []):
+		if str(band.get("group", "")).begins_with("water_"):
+			water_end_cell = maxi(water_end_cell, int(band.get("to_x", 0)))
+	var blocked_water_width := float(water_end_cell) * TILE_SIZE
 	_add_rect_collider(
-		Vector2(TILE_SIZE * 4.0, map_height * 0.5),
-		Vector2(TILE_SIZE * 8.0, map_height),
+		Vector2(blocked_water_width * 0.5, map_height * 0.5),
+		Vector2(blocked_water_width, map_height),
 		"BlockedWater"
 	)
 	_add_rect_collider(Vector2(-20, map_height * 0.5), Vector2(40, map_height + 80), "WestBoundary")
@@ -293,13 +327,6 @@ func _build_world_collision() -> void:
 	_add_rect_collider(
 		Vector2(map_width * 0.5, map_height + 20), Vector2(map_width + 80, 40), "SouthBoundary"
 	)
-	var camera := get_node("Camera2D") as Camera2D
-	camera.limit_left = 0
-	camera.limit_top = 0
-	camera.limit_right = int(map_width)
-	camera.limit_bottom = int(map_height)
-	camera.limit_smoothed = false
-	camera.position_smoothing_enabled = false
 
 
 func _add_rect_collider(position: Vector2, dimensions: Vector2, label: String) -> void:
@@ -314,6 +341,30 @@ func _add_rect_collider(position: Vector2, dimensions: Vector2, label: String) -
 	shape_node.shape = shape
 	body.add_child(shape_node)
 	add_child(body)
+
+
+func _build_oblique_ground() -> void:
+	# The authored surface keeps gameplay in 32 px SQMs. Depth is in local
+	# cliff faces and upright props, never a nonuniform world/sprite scale.
+	var ground := Sprite2D.new()
+	ground.name = "Ocean_Terrain_Cliffs"
+	ground.texture = load("res://assets/environments/tropical_oblique_candidate/ground.png")
+	ground.centered = false
+	ground.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	ground.z_index = -1
+	add_child(ground)
+	for layer_name in ["BaseTiles", "Transitions", "Paths"]:
+		get_node(layer_name).visible = false
+
+
+func _add_terrain_sprite(parent: Node2D, asset: String, pivot: Vector2) -> void:
+	var sprite := Sprite2D.new()
+	sprite.name = "PixelArt"
+	sprite.texture = load("res://assets/environments/tropical_oblique_candidate/%s.png" % asset)
+	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	sprite.centered = false
+	sprite.position = -pivot
+	parent.add_child(sprite)
 
 
 func _build_props() -> void:
@@ -331,56 +382,12 @@ func _build_props() -> void:
 		prop.name = "%s_%d_%d_proxy" % [kind, int(cell[0]), int(cell[1])]
 		prop.position = center
 		if kind == "tree":
-			_add_polygon(
-				prop,
-				[Vector2(-7, 14), Vector2(7, 14), Vector2(7, 28), Vector2(-7, 28)],
-				Color("79503c")
-			)
-			_add_polygon(
-				prop,
-				[
-					Vector2(-21, 8),
-					Vector2(-17, -10),
-					Vector2(-6, -22),
-					Vector2(11, -18),
-					Vector2(22, -3),
-					Vector2(16, 12),
-					Vector2(0, 17)
-				],
-				Color("39694b")
-			)
-			_add_polygon(
-				prop,
-				[
-					Vector2(-11, -9),
-					Vector2(-4, -18),
-					Vector2(8, -15),
-					Vector2(13, -5),
-					Vector2(1, 2)
-				],
-				Color("57885a")
-			)
+			var coastal := int(cell[0]) < 35
+			_add_terrain_sprite(prop, "palm_generated" if coastal else "tree", Vector2(69, 118) if coastal else Vector2(52, 109))
 			_add_prop_collider(prop, Vector2(0, 8), Vector2(26, 28), prop.name + "Collision")
 			_register_resource_node(prop, node_id, "wood", 15, center)
 		else:
-			_add_polygon(
-				prop,
-				[
-					Vector2(-16, 10),
-					Vector2(-20, 0),
-					Vector2(-10, -13),
-					Vector2(8, -16),
-					Vector2(19, -4),
-					Vector2(14, 10),
-					Vector2(0, 15)
-				],
-				Color("7c8492")
-			)
-			_add_polygon(
-				prop,
-				[Vector2(-8, -7), Vector2(4, -12), Vector2(11, -5), Vector2(1, -2)],
-				Color("a4adba")
-			)
+			_add_terrain_sprite(prop, "boulder", Vector2(32, 40))
 			_add_prop_collider(prop, Vector2(0, 2), Vector2(32, 25), prop.name + "Collision")
 			_register_resource_node(prop, node_id, "stone", 15, center)
 		actors.add_child(prop)
@@ -519,22 +526,17 @@ func _tick_respawns() -> void:
 			continue
 		var spawn_data: Dictionary = _creature_spawn_specs[slot_id]
 		var spawn_position: Vector2 = spawn_data.position
-		if _is_safe_position(spawn_position) or _position_is_visible(spawn_position):
+		if _is_safe_position(spawn_position) or _player.global_position.distance_to(spawn_position) <= RESPAWN_PLAYER_RADIUS_SQM * TILE_SIZE:
 			continue
 		var creature_data := COMBAT_RULES.monster(str(spawn_data.species))
 		var refreshed := _state.respawn_actor(str(slot_id), float(creature_data.get("hp", 1)), spawn_position)
 		_spawn_creature(str(slot_id), creature_data, refreshed)
-		_hud.set_status("%s voltou à ilha, fora da área visível." % str(spawn_data.species).capitalize())
+		_hud.set_status("%s voltou à ilha, longe do jogador." % str(spawn_data.species).capitalize())
 		save_progress()
 
 
 func _position_is_visible(point: Vector2) -> bool:
-	if _camera == null:
-		return true
-	var center := _camera.get_screen_center_position()
-	var viewport_size := get_viewport_rect().size / _camera.zoom
-	var visible_rect := Rect2(center - viewport_size * 0.5, viewport_size)
-	return visible_rect.has_point(point)
+	return _iso_view == null or _iso_view.is_on_screen(point)
 
 
 func _nearest_resource(point: Vector2) -> Dictionary:
@@ -589,6 +591,24 @@ func interact_with_nearest() -> void:
 		_hud.set_status("Aproxime-se de um recurso ou do cristal para interagir.")
 
 
+func _select_target_on_screen(screen_point: Vector2) -> void:
+	if _state == null or not _state.is_ready() or _state.downed_remaining >= 0.0:
+		return
+	var nearest: CreatureActor
+	var nearest_pixels := 52.0
+	for value in _creature_actors.values():
+		var actor := value as CreatureActor
+		if not is_instance_valid(actor) or not actor.is_alive:
+			continue
+		var target_anchor: Vector3 = _iso_view.world_point(actor.global_position, 1.0)
+		var candidate_pixels := screen_point.distance_to(_iso_view.camera.unproject_position(target_anchor))
+		if candidate_pixels <= nearest_pixels:
+			nearest_pixels = candidate_pixels
+			nearest = actor
+	if nearest != null:
+		_set_target(nearest)
+
+
 func _select_target_at(point: Vector2) -> void:
 	if _state == null or not _state.is_ready() or _state.downed_remaining >= 0.0:
 		return
@@ -598,7 +618,7 @@ func _select_target_at(point: Vector2) -> void:
 		var actor := actor_value as CreatureActor
 		if not is_instance_valid(actor) or not actor.is_alive:
 			continue
-		var candidate := actor.selection_distance(point, _camera.zoom.x)
+		var candidate := actor.selection_distance(point, 32.0 / _iso_view.camera.size)
 		if candidate <= distance:
 			distance = candidate
 			nearest = actor
@@ -619,11 +639,9 @@ func _set_target(actor: CreatureActor) -> void:
 
 func _cycle_target() -> void:
 	var candidates: Array[CreatureActor] = []
-	var screen := get_viewport_rect().grow(-24)
-	var transform := get_viewport().get_canvas_transform()
 	for value in _creature_actors.values():
 		var actor := value as CreatureActor
-		if is_instance_valid(actor) and actor.is_alive and screen.has_point(transform * actor.global_position):
+		if is_instance_valid(actor) and actor.is_alive and _iso_view.is_on_screen(actor.global_position):
 			candidates.append(actor)
 	candidates.sort_custom(func(a: CreatureActor, b: CreatureActor) -> bool:
 		return _player.global_position.distance_squared_to(a.global_position) < _player.global_position.distance_squared_to(b.global_position))
@@ -637,27 +655,16 @@ func _cycle_target() -> void:
 func _show_damage(amount: float, point: Vector2, received: bool) -> void:
 	if amount <= 0.0:
 		return
-	var label := Label.new()
-	label.name = "FloatingDamage"
-	label.text = "−%d" % maxi(1, roundi(amount))
-	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.z_index = 100
-	label.add_theme_font_size_override("font_size", 28)
-	label.add_theme_color_override("font_color", Color("ff6868") if received else Color("ffe9a6"))
-	label.add_theme_color_override("font_outline_color", Color("15141a"))
-	label.add_theme_constant_override("outline_size", 6)
-	label.scale = Vector2.ONE / _camera.zoom.x
 	_damage_serial += 1
-	label.position = point + Vector2(float((_damage_serial % 3) - 1) * 22.0, -float(_damage_serial % 2) * 16.0)
-	add_child(label, true)
-	var tween := create_tween().set_parallel(true)
-	tween.tween_property(label, "position:y", label.position.y - 68.0 / _camera.zoom.x, 0.95).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_property(label, "modulate:a", 0.0, 0.45).set_delay(0.5)
-	tween.chain().tween_callback(label.queue_free)
+	var offset := Vector2(float((_damage_serial % 3) - 1) * 22.0, -float(_damage_serial % 2) * 16.0)
+	if _iso_view != null and is_instance_valid(_iso_view):
+		_iso_view.show_damage(amount, point + offset, received, _damage_serial)
 
 
 func _perform_basic_attack() -> void:
 	if _target == null or not is_instance_valid(_target) or not _target.is_alive or _state.downed_remaining >= 0.0:
+		return
+	if not player_basic_attack_can_reach(_target):
 		return
 	if _is_safe_position(_player.global_position):
 		_hud.set_status("O cristal protege o refúgio; ataque fora da área segura.")
@@ -665,9 +672,20 @@ func _perform_basic_attack() -> void:
 	_state.cancel_bandage()
 	var damage := _state.physical_attack()
 	var target := _target
+	_mark_combat_activity()
 	target.take_hit(damage)
 	_hud.set_status("Ataque básico · %d de dano." % roundi(damage))
 	_update_hud()
+
+
+func player_basic_attack_can_reach(actor: CreatureActor) -> bool:
+	if _player == null or not is_instance_valid(_player) or not is_instance_valid(actor) or not actor.is_alive:
+		return false
+	var sword := COMBAT_RULES.weapon("sword_basic")
+	var reach_tiles := maxf(0.0, float(sword.get("range_tiles", 1.0)))
+	# Preserve the catalogued one-SQM sword reach, measuring from the projected
+	# sprite surfaces so larger candidate art does not force visual overlap.
+	return COMBAT_GEOMETRY.visual_surface_gap_between(_player, actor) <= reach_tiles * TILE_SIZE
 
 
 func _use_skill(skill_id: String) -> void:
@@ -703,6 +721,7 @@ func _use_skill(skill_id: String) -> void:
 		return
 	_state.mp -= mana_cost
 	_state.skill_cooldowns[skill_id] = cooldown
+	_mark_combat_activity()
 	var physical := _state.physical_attack()
 	var magical := _state.magic_attack()
 	if target_kind == "single":
@@ -788,6 +807,7 @@ func _on_player_damaged(amount: float, species_id: String) -> void:
 	var actual := _state.take_damage(amount)
 	if actual <= 0.0:
 		return
+	_mark_combat_activity()
 	_show_damage(actual, _player.global_position + Vector2(0, -56), true)
 	_hud.set_status("%s atingiu você · %d de dano." % [species_id.capitalize(), roundi(actual)])
 	if _state.hp <= 0.0:
@@ -849,6 +869,10 @@ func _is_downed() -> bool:
 	return _state != null and _state.downed_remaining >= 0.0
 
 
+func _mark_combat_activity() -> void:
+	_combat_idle_seconds = 0.0
+
+
 func _is_safe_position(point: Vector2) -> bool:
 	return point.distance_to(_beacon_position) <= SAFE_RADIUS
 
@@ -894,7 +918,11 @@ func save_progress() -> bool:
 
 
 func _update_hud() -> void:
-	if _hud == null or _state == null or not _state.is_ready():
+	if _hud == null:
+		return
+	if _hud._minimap != null and _player != null:
+		_hud._minimap.update_position(_player.global_position, Vector2(2048.0, 1408.0))
+	if _state == null or not _state.is_ready():
 		return
 	var maximum := _state.max_hp_mp()
 	var xp_before_level := 0
@@ -920,20 +948,9 @@ func _build_beacon() -> void:
 	var cell: Array = _layout.get("beacon_cell", [21, 23])
 	_beacon_position = Vector2((int(cell[0]) + 0.5) * TILE_SIZE, (int(cell[1]) + 0.5) * TILE_SIZE)
 	var beacon := Node2D.new()
-	beacon.name = "CrystalInteractionPlaceholder"
+	beacon.name = "CrystalRefuge"
 	beacon.position = _beacon_position
-	_add_polygon(
-		beacon, [Vector2(0, -28), Vector2(14, 0), Vector2(0, 28), Vector2(-14, 0)], Color("a780e7")
-	)
-	_add_polygon(
-		beacon, [Vector2(0, -18), Vector2(7, 0), Vector2(0, 18), Vector2(-7, 0)], Color("bcecf5")
-	)
-	var ring := Polygon2D.new()
-	ring.polygon = PackedVector2Array(
-		[Vector2(-22, 31), Vector2(22, 31), Vector2(29, 38), Vector2(-29, 38)]
-	)
-	ring.color = Color(0.44, 0.77, 0.83, 0.62)
-	beacon.add_child(ring)
+	_add_terrain_sprite(beacon, "crystal", Vector2(42, 84))
 	get_node("Actors").add_child(beacon)
 
 
@@ -945,16 +962,13 @@ func _build_player() -> void:
 	_player.set_input_enabled(_state.downed_remaining < 0.0)
 	_player.name = "LocalPlayer"
 	get_node("Actors").add_child(_player)
-	_camera = get_node("Camera2D") as Camera2D
-	_camera.reparent(_player)
-	_camera.position = Vector2.ZERO
-	_camera.make_current()
+	get_viewport().size_changed.connect(func() -> void: _change_zoom(0))
 
 
 func _change_zoom(delta: int) -> void:
-	_current_zoom_index = clampi(_current_zoom_index + delta, 0, ZOOM_LEVELS.size() - 1)
-	if _camera != null:
-		_camera.zoom = Vector2.ONE * float(ZOOM_LEVELS[_current_zoom_index])
+	_current_zoom_index = clampi(_current_zoom_index + delta, 0, ORTHOGONAL_SIZES.size() - 1)
+	if _iso_view != null and _iso_view.camera != null:
+		_iso_view.camera.size = ORTHOGONAL_SIZES[_current_zoom_index]
 
 
 func _load_json(path: String) -> Dictionary:

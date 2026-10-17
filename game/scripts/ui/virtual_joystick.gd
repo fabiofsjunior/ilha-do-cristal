@@ -58,7 +58,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _update_from_screen(screen_position: Vector2) -> void:
-	var local := screen_position - global_position
+	# Input positions are in viewport coordinates. Convert through the full canvas
+	# transform so HUD scaling and safe-area offsets do not skew joystick direction.
+	var local := get_global_transform_with_canvas().affine_inverse() * screen_position
 	var center := size * 0.5
 	var delta := local - center
 	var vector := delta / radius

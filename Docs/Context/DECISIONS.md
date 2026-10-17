@@ -86,3 +86,31 @@ Seleção usa elipse no corpo visível, mínimo de 36 pixels lógicos por raio c
 ## 2026-10-16 — Prancha pixel HUD selecionada pelo usuário
 
 Solicitação explícita de colocar a prancha pixel art no repositório e substituir o HUD autoriza a integração dessa referência. Fonte `assets/ui/pixel_hud_v1/source_sheet.png` preservada byte a byte; regiões AtlasTexture em `regions.json` para barras, molduras, spells, joystick e navegação. Textos/HP/MP/EXP/cooldowns continuam valores reais do jogo, não números pintados na imagem. Barras recompõem o preenchimento para esconder os valores ilustrativos da fonte. Ícones em nearest com legendas compactas. Import, regressão de retrato e render Godot/Mesa passaram. Android físico segue pendente. Prancha é referência gerada com algumas junções entre peças, registradas no manifesto, sem aprovação implícita de todo o restante da arte.
+
+## Revisão visual 2026-10-16
+
+Pedido de visão próxima substitui faixa antiga50–125% por150–300%. Orientação mobile existente preservada, com layout responsivo para a referência horizontal. Profundidade oblíqua implementada sem mudar coordenadas de save/colisão; isometria64×32 continua pendente.
+
+## Câmera 3D ortogonal 2026-10-16
+
+O usuário reafirmou sua escolha por Camera3D na visão 2.5D isométrica. Implementado como ponte de apresentação: câmera ortogonal, terreno plano XZ e sprites verticais; modelo, colisões e saves seguem em SQM 2D. Na Godot, −30° em X olha para baixo; +30° apontaria para cima. Y = 45°. A lógica do jogo ainda não foi convertida para malhas tridimensionais.
+
+## 2026-10-16 — Renascimento corrigido
+
+Monstros renascem após15s quando o jogador está a mais de5SQMs (160px) do ponto de origem. Removido bloqueio por visibilidade da câmera; refúgio permanece protegido. Teste test_respawn_radius.gd passou: prazo, distâncias0/159/160/161px e ausência de renascimento duplicado.
+
+## 2026-10-16 — Ícone e área segura do Android
+
+O launcher Android usa o cristal pixel art existente, com ícone clássico, camadas adaptativas e variante monocromática; o rótulo é “A Ilha do Cristal”. O HUD preserva sua composição e calcula a área útil como retângulo positivo de posição/tamanho; offsets direito/inferior negativos colapsavam o layout em telas edge-to-edge. Atualização de teste 0.1.2/versionCode 3.
+
+## 2026-10-16 — Controles mobile relativos ao viewport
+
+O `CanvasLayer` deve ocupar o viewport inteiro para manter uma origem de coordenadas estável. A safe area do Android orienta somente margens internas dos controles; ela não redimensiona nem desloca a raiz do HUD. No retrato 9:16, joystick/curativo ficam embaixo à esquerda e skills/interação embaixo à direita. Esta implementação corresponde ao APK 0.1.3/versionCode 4.
+
+## 2026-10-16 — Fallback para safe area inconsistente
+
+O mapeamento Android da safe area só é aplicado quando o retângulo intersectado mantém ao menos 80% da largura e da altura do viewport. Se o sistema retorna dimensões incompatíveis com a orientação do jogo, usar o viewport inteiro evita posicionar joystick e skills fora da tela. APK 0.1.4/versionCode 5.
+
+## 2026-10-16 — Marcador de seleção 3D
+
+O alvo selecionado deve usar uma elipse pixel art pequena, sem billboard, plana no XZ do mundo e centralizada sob os pés da criatura. Reaproveitar o arco antigo do atlas em `Sprite3D` vertical aumentava demais o marcador no retrato. A seleção continua limitada ao alvo ativo.

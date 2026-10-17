@@ -73,4 +73,18 @@ A solicitação atual substitui a orientação horizontal das descrições hist�
 - [x] Regressões em três proporções, seleção em quatro zooms e render Godot Compatibility/Mesa.
 - [ ] Aceite Android físico: instalação, notch/navegação, multitouch e estabilidade por 10 minutos.
 
+### Ícone e layout touch 0.1.2 — 2026-10-16
+
+- [x] Ícone de cristal para launcher clássico/adaptativo/monocromático e rótulo “A Ilha do Cristal”.
+- [x] Safe rect Android aplicado como posição/tamanho válidos; regressão com recortes simulados em três proporções e toque no joystick.
+- [x] APK debug 0.1.2/versionCode 3 exportado e manifesto/ícones/assinatura verificados.
+- [ ] Instalar no aparelho do usuário e validar safe area, toque e multitouch reais.
+
 A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
+
+### Revisão visual próxima candidata
+
+- [x] Câmera próxima, HUD compacta, minimapa, alvo contextual e profundidade oblíqua em código.
+- [x] Import/smoke e regressão de enquadramento em três proporções.
+- [ ] Comparação visual da cena real com referência e revisão Android/WebGL.
+- [ ] Reconciliar alterações anteriores não publicadas e conversão isométrica64×32.

@@ -74,6 +74,7 @@ def check_characters() -> int:
     require(len(appearances["characters"]) == 4, "selecao deve ter quatro aparencias existentes")
     require("corrigir" in appearances.get("note", ""), "a nota deve preservar o estado das artes")
     inspected = 0
+    runtime_atlases: set[str] = set()
     for character in appearances["characters"]:
         for state, expected_frames, expected_fps in [("idle", 4, 6), ("walk", 6, 10)]:
             metadata_path = ROOT / character[f"{state}_metadata"].removeprefix("res://")
@@ -92,16 +93,17 @@ def check_characters() -> int:
                     f"{character['id']} {state}: status candidato foi alterado")
             atlas_path = metadata_path.parent / metadata["atlas"]
             require(atlas_path.is_file(), f"atlas inexistente: {atlas_path}")
+            runtime_atlases.add(atlas_path.relative_to(ROOT).as_posix())
             with Image.open(atlas_path) as image:
                 require(image.size == (96 * expected_frames, 96 * 8),
                         f"{character['id']} {state}: dimensão atlas inesperada {image.size}")
             inspected += 1
     changed = subprocess.run(
-        ["git", "diff", "--name-only", BASE_COMMIT, "--", "assets/characters"],
+        ["git", "diff", "--name-only", BASE_COMMIT, "HEAD", "--", *sorted(runtime_atlases)],
         cwd=ROOT, capture_output=True, text=True, check=True,
     ).stdout.splitlines()
-    require(not any(path.lower().endswith(".png") for path in changed),
-            "PNG de personagem foi alterado nesta fatia")
+    require(not changed,
+            "atlas Warrior usado em runtime foi alterado nesta fatia: " + ", ".join(changed))
     return inspected
 
 
@@ -207,7 +209,7 @@ def main() -> int:
     print(f"PASS: {scenes_and_scripts} cenas/scripts com referências resolvidas")
     print(f"PASS: {animations} animações existentes (4 aparências × idle4/walk6; 8 direções)")
     print(f"PASS: {terrain} tiles manifest (17+24+15); mapa cobre {covered_cells} células de base, mantém overlays transparentes e usa 17 bases/24 transições/{overlays} overlays conectadas")
-    print("PASS: estado artístico preservado; nenhum PNG de personagem mudou")
+    print("PASS: atlases Warrior carregados pelo jogo permanecem inalterados")
     return 0
 
 

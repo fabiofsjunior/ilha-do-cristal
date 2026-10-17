@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://game/scripts/world/first_island.gd" id="1"]
 [ext_resource type="Script" path="res://game/scripts/world/first_island_hud.gd" id="2"]
+[ext_resource type="Script" path="res://game/scripts/world/isometric_3d_view.gd" id="3"]
 
 [node name="FirstIsland" type="Node2D"]
 script = ExtResource("1")
@@ -16,10 +17,13 @@ z_index = 2
 
 [node name="Actors" type="Node2D" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position_smoothing_enabled = false
-position_smoothing_speed = 5.0
-zoom = Vector2(0.75, 0.75)
+[node name="Isometric3DView" type="Node3D" parent="."]
+script = ExtResource("3")
+
+[node name="Camera3D" type="Camera3D" parent="Isometric3DView"]
+projection = 1
+size = 16.0
+current = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("2")

@@ -194,3 +194,73 @@ Entrega técnica concluída: builds 0.1.1 do commit `b02cf9c`, APK assinado/mani
 ## 2026-10-16 — Prancha pixel HUD selecionada pelo usuário
 
 Solicitação explícita de colocar a prancha pixel art no repositório e substituir o HUD autoriza a integração dessa referência. Fonte `assets/ui/pixel_hud_v1/source_sheet.png` preservada byte a byte; regiões AtlasTexture em `regions.json` para barras, molduras, spells, joystick e navegação. Textos/HP/MP/EXP/cooldowns continuam valores reais do jogo, não números pintados na imagem. Barras recompõem o preenchimento para esconder os valores ilustrativos da fonte. Ícones em nearest com legendas compactas. Import, regressão de retrato e render Godot/Mesa passaram. Android físico segue pendente. Prancha é referência gerada com algumas junções entre peças, registradas no manifesto, sem aprovação implícita de todo o restante da arte.
+
+## 2026-10-16 — Visão próxima oblíqua e HUD compacta (candidata)
+
+Referência: anexos image(20261016-162830).png (estado anterior) e image(20261016-162915).png (objetivo). Pedido explícito autoriza implementar essa direção.
+
+Mudanças: zoom lógico 150–300%, padrão200%, normalizado pelo lado curto do viewport; smoothing5; HUD de rosto, alvo somente selecionado, sem botão Auto ON; minimapa com posição real; controles reancorados e modais escalados em paisagem/retrato. Chão contínuo com bordas orgânicas, faces de relevo decorativas, props com pivô e Y-sort. Sprites de personagens e regras de combate/save preservadas.
+
+Limites: top-down oblíquo com profundidade visual, não transformação isométrica64x32, nem reprodução integral do lago/ruínas. Arte candidata. Checkout recuperado do GitHub (branch feature/s02-pixel-hud-assets); alterações não publicadas de sessões anteriores não estavam disponíveis. Não afirmar que esta build contém regeneração/XP10x/inventário novos de outro checkout.
+
+Verificações: Godot4.5.1 import e smoke de fluxo/coleta/combate/movimento; test_close_view em1280x720,720x1280,1920x1080; catálogo54 IDs; diff-check. Render gráfico bloqueado pelo ambiente (Xvfb não consegue criar sockets); Android físico e WebGL pendentes. Preview terrain é composição offline, não screenshot do jogo.
+
+## 2026-10-16 — Renascimento corrigido
+
+Monstros renascem após15s quando o jogador está a mais de5SQMs (160px) do ponto de origem. Removido bloqueio por visibilidade da câmera; refúgio permanece protegido. Teste test_respawn_radius.gd passou: prazo, distâncias0/159/160/161px e ausência de renascimento duplicado.
+
+## 2026-10-16 — Migração da apresentação para Camera3D
+
+O usuário reafirmou que quer manter Camera3D ortogonal. Cena Isometric3DView: terreno renderizado como superfície no plano XZ, câmera X−30°/Y45°, size inicial16, zoom por Camera3D.size, seguimento com lerp exponencial speed5. Props, cristais, jogador, criaturas, recursos, alvo e dano têm proxies 3D; seleção usa projeção de tela; HUD/minimapa seguem no CanvasLayer. A lógica 2D, colisões e save preservam SQMs.
+
+Verificação Godot4.5.1: import e smoke jogável, test_close_view (três proporções), test_portrait_combat (toque/ciclo/dano em quatro tamanhos ortogonais) e test_respawn_radius passaram. Render em dispositivo e inspeção WebGL seguem pendentes; sprites permanecem candidatas. Ângulo X negativo é necessário para apontar para baixo na Godot.
+
+## 2026-10-16 — Ícone e controles mobile 0.1.2
+
+- Gerados ícones launcher clássicos/adaptativos/monocromáticos, derivados do cristal pixel art do projeto; rótulo Android confirmado como “A Ilha do Cristal”. Preset incrementado para versionCode 3 / 0.1.2.
+- Corrigido o cálculo da área segura no `CanvasLayer`: o HUD agora usa origem e tamanho positivos mapeados do safe rect físico para o viewport. Antes os offsets direito/inferior negativos podiam encolher o retângulo e deslocar controles para fora da tela.
+
+## 2026-10-16 — Reposicionamento touch 0.1.3
+
+- Corrigido o layout mobile após confirmação de que o joystick ainda ficava fora da tela: a raiz do HUD cobre o viewport completo e os insets do safe area são aplicados como margens dos controles.
+- Joystick/curativo agora ficam no canto inferior esquerdo; skills/interação no direito, com alinhamento inferior e adaptação à safe area 9:16. O layout também reposiciona HUD superior e minimapa dentro dos recortes seguros.
+- APK Android debug exportado como 0.1.3/versionCode 4; ZIP Web também reexportado para incluir o novo layout touch. Os testes simulam três proporções, verificam todos os controles visíveis e validam toque/soltura; aparelho físico não disponível.
+- SHA-256: APK `672b885a864465d37c4972675dc93c7c1feebeb89d778b4d72ecaa7518d3d7af`; Web `081a44301a9d8d199ca1f5ee44ff12cabaac93c5761137591e08dc78d425d5ed`.
+- Adicionado teste com recortes sintéticos em três proporções; joystick, skills, botão de interação, minimapa e retrato permanecem no safe rect/viewport. Toque de arrasto no joystick move o player e o toque de soltura interrompe o movimento.
+- Verificações: import Godot 4.5.1; `test_mobile_controls_layout.gd`, `test_close_view.gd`, `test_portrait_combat.gd`, `smoke_playable_slice.gd`, catálogos e export/validação APK passaram. O aparelho físico não está conectado; notch real, multitouch e usabilidade ainda precisam de playtest.
+
+## 2026-10-16 — Safe area Android validada 0.1.4
+
+- Captura enviada pelo usuário mostrou joystick/spells ausentes e textos dos botões do topo sobrepostos. O mapeamento da safe area agora é limitado ao viewport e rejeitado quando largura/altura ficam abaixo de 80% da tela; nesses casos usa o viewport inteiro.
+- Labels superiores encurtados para “Bolsa” e “Base”. Teste mobile expandido para quatro cenários, incluindo dimensões de safe area em orientação incompatível; todos os controles e toque/soltura do joystick passaram.
+- APK 0.1.4/versionCode 5 e ZIP Web reexportados. O Android físico ainda precisa confirmar a exibição real.
+- Hashes: APK `4d43316b2bd6229d78fdc44afe838aa2746575f688260c8046717b4629da06d4`; Web `06057289c6d511813e9e65ad7685120cebf2f51be8a8059b025c5a3b7d753cf5`.
+
+## 2026-10-16 — Marcador de alvo compacto 0.1.5
+
+- O anel de seleção que aparecia como arco grande no mobile foi trocado por uma elipse pixel art dourada, gerada em 48×48 px, desenhada horizontalmente no chão e alinhada ao ponto de apoio do sprite 3D. Continua invisível sem alvo selecionado; HUD e nome/vida do inimigo não mudaram.
+- `test_close_view.gd` verifica orientação horizontal voltada para cima, tamanho e alinhamento; `test_portrait_combat.gd` garante seleção/troca em quatro zooms. Também passaram `test_mobile_controls_layout.gd`, integridade do ZIP e validação da assinatura/manifesto Android.
+- APK debug 0.1.5/versionCode 6: `323a7bcc9579537f19fd2a2f7d0e86c215b1817501a2ef18803afd3e7dd94ab8`. ZIP Web: `b0754dcfdba4cd27235c76d3755b8b26567dc831842ad106725119e4a74bbc47`. WebGL no navegador e aparelho Android físico ainda precisam de playtest.
+
+## 2026-10-16 — Joystick, atributos e regeneração no level-up
+
+- Joystick mobile dobrado para 288×288 px lógicos e raio de movimento/touch 128; continua no canto inferior esquerdo dentro da safe area. Entrada agora converte coordenadas com a transformação completa do HUD.
+- Botão `ATR` abre modal em 9:16. A janela mostra vocação/nível, FOR/AGI/INT e prévia do máximo de vida/mana; alocação é temporária até confirmar. Confirmar salva e atualiza a HUD; Resetar/Fechar descartam alterações pendentes.
+- Cada level-up restaura vida e mana aos máximos atuais do personagem e concede os pontos catalogados por nível, inclusive quando um ganho de XP cruza mais de um limite.
+- Testes headless passaram: joystick/layout, painel e integração de atributos, close-view, level-up/save e smoke do loop solo. Alterações ainda não foram exportadas; APK/Web 0.1.5 não as contêm, conforme fluxo acordado com o usuário.
+
+## 2026-10-17 — APK Android atualizado para 0.1.6
+
+- O usuário avisou que o APK entregue não tinha as últimas mudanças. A inspeção do binário confirmou manifesto 0.1.5/versionCode 6, embora o preset da branch já estivesse em 0.1.6/versionCode 7.
+- QA delegada identificou expectativas de testes anteriores à expansão do mapa/câmera e uma regra de ataque básico que não permitia contato físico. Corrigidos o range projetado, nomes estáveis de colisores, sincronização de dano `Label3D` e fixtures/assertivas obsoletas sem ampliar os hitboxes.
+- Passaram no Godot 4.5.1: `test_melee_contact_spacing.gd`, `test_portrait_combat.gd`, `test_close_view.gd`, `smoke_playable_slice.gd`, `test_expanded_map_population.gd`, `test_mobile_controls_layout.gd`, `test_level_up_restores_resources.gd`, `test_respawn_radius.gd`, `test_mvp_solo_loop.gd`, `test_regeneration_rules.gd`, `test_attributes_window.gd`, `test_attributes_hud_integration.gd` e `test_inventory_overlay_layout.gd`. `tools/gameplay/validate_playable_slice.py` e `git diff --check` também passaram.
+- APK reexportado em `build/android/ilha-do-cristal-debug.apk`: 0.1.6/versionCode 7, 64.680.671 bytes, SHA-256 `94a3e75920b3608c870e42af0172aaef3d23e28b465243b1077dfb7cfe153517`. Manifesto portrait, ARMv7/ARM64, package ID, ícones, sem permissões, assinatura v2/v3, CRC e arquivos runtime passaram. O ZIP Web não foi reconstruído e não havia Android físico conectado.
+- Build feita do worktree atual em `feature/s02-pixel-hud-assets`, HEAD/base `8140343`; alterações continuam sem stage/commit. Próximo gate: instalar o APK e validar controles, legibilidade e estabilidade no aparelho.
+
+## 2026-10-16 — Validação do APK 0.1.6 e integração pendente
+
+- Cópia local consolidada em `b0b7b7f188e157642fd50de0dd26e19751c29bfe`, 33 commits à frente da `origin/main`; o GitHub ainda apontava `main` para `b3d3f9a`, com PRs #10/#11 empilhadas.
+- APK 0.1.6/versionCode 7: 64.680.671 bytes; SHA-256 `94a3e75920b3608c870e42af0172aaef3d23e28b465243b1077dfb7cfe153517`. Conferidos manifesto, package, versão, orientação portrait, ABIs ARMv7/ARM64, CRC e presença dos blocos APK Signature Scheme v2/v3.
+- Revalidados catálogo, validação da fatia, espaçamento melee e composição estrutural do terreno. O validador da fatia inicialmente acusou PNGs candidatos de Mago fora do runtime; sua guarda foi corrigida para verificar os atlases Warrior efetivamente referenciados, e o teste passou.
+- Limite desta validação: este ambiente não tem Godot, Android SDK, adb ou dispositivo. Não houve nova exportação nem instalação física. O sidecar da APK aponta para a base `8140343`; o relatório da build registra que ela foi exportada do worktree sujo que depois virou o commit `b0b7b7f`.
+- Próxima ação: publicar a integração em `main` via PR, entregar a APK e solicitar playtest físico; a Web não foi reexportada e permanece 0.1.5.

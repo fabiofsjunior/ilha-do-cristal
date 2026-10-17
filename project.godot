@@ -3,6 +3,7 @@ config_version=5
 
 [application]
 config/name="A Ilha do Cristal — Demo jogável"
+config/icon="res://assets/ui/app_icon.png"
 run/main_scene="res://game/scenes/main.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 

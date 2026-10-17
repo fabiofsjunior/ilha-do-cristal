@@ -38,6 +38,8 @@ def package_web(output: Path, archive: Path, version: str) -> None:
     info = {
         "engine": version,
         "source_commit": commit,
+        "source_dirty": bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT, text=True).strip()),
+        "visual_revision": "close-view-ground-target-marker-20261016",
         "built_at": datetime.now(timezone.utc).isoformat(),
         "target": "Web",
         "art_approval": "candidate; visual review pending",
