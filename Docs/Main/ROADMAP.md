@@ -108,3 +108,10 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [x] Wiki HTML responsiva e sem dependências externas em `docs/wiki/`, com índice gerado a partir dos dados do projeto, previews clicáveis de PNGs, busca e links relativos aos arquivos.
 - [x] Gerador e verificador local: `python3 tools/wiki/build_index.py` e `python3 tools/wiki/test_catalog.py`.
 - [x] README aponta para a wiki e documenta execução por servidor HTTP local. Esta entrega é documentação/ferramenta de consulta; não altera o status de aceite das fases de jogo.
+
+
+### Kit UI Crystal v2 — 2026-10-17
+
+- [x] Incorporar o spritesheet de UI e aplicar molduras/controles nos fluxos de HUD, inventário/equipamento, refúgio/crafting, vocações/talentos, seleção e pausa.
+- [x] Testes Godot 4.5.1 para recortes do atlas e fluxo integrado; exportar e validar pacote Web e APK debug.
+- [ ] Revisão Web gráfica em navegador e teste Android físico (safe area, toque, save e estabilidade por 10 min). Esta entrega não conclui S0–S3 nem habilita vocações/talentos ausentes.
