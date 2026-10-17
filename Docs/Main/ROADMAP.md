@@ -113,5 +113,5 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 ### Kit UI Crystal v2 — 2026-10-17
 
 - [x] Incorporar o spritesheet de UI e aplicar molduras/controles nos fluxos de HUD, inventário/equipamento, refúgio/crafting, vocações/talentos, seleção e pausa.
-- [x] Testes Godot 4.5.1 para recortes do atlas e fluxo integrado; ZIP Web validado e APK debug ARM64 armazenado em `artifacts/preview/` na branch. [Download do APK](https://github.com/fabiofsjunior/ilha-do-cristal/raw/refs/heads/feature/s03-crystal-ui-kit-v2/artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk); somente `arm64-v8a`.
+- [x] Testes Godot 4.5.1 para recortes do atlas e fluxo integrado; ZIP Web validado e APK debug ARM64 armazenado em `artifacts/preview/` na branch. [Download do APK](https://raw.githubusercontent.com/fabiofsjunior/ilha-do-cristal/feature/s03-crystal-ui-kit-v2/artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk); somente `arm64-v8a`.
 - [ ] Revisão Web gráfica em navegador e teste Android físico (safe area, toque, save e estabilidade por 10 min). Esta entrega não conclui S0–S3 nem habilita vocações/talentos ausentes.
