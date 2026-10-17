@@ -48,7 +48,7 @@ func _run() -> void:
 	_check(window._effective_labels["FOR"].text.contains("Efetivo 0  →  2"), "FOR effective value did not use the vocation multiplier.")
 	_check(window._resource_label.text.contains("206"), "FOR preview did not use the vocation's HP coefficient.")
 	_check(window._resource_label.text.contains("101.5"), "INT preview did not use the vocation's MP coefficient.")
-	_check(window._benefit_labels["FOR"].text.contains("+6 HP máximo") and window._benefit_labels["FOR"].text.contains("+1.2 de dano melee") and window._benefit_labels["FOR"].text.contains("+0,006 p.p./s em combate") and window._benefit_labels["FOR"].text.contains("+0,02 p.p./s fora"), "FOR next-point benefit is not based on the Warrior multiplier, regeneration coefficients and caps.")
+	_check(window._benefit_labels["FOR"].text.contains("+6 HP máximo") and window._benefit_labels["FOR"].text.contains("+1.2 de dano melee") and window._benefit_labels["FOR"].text.contains("+0,006 p.p./s em combate") and window._benefit_labels["FOR"].text.contains("+0,024 p.p./s fora"), "FOR next-point benefit is not based on the Warrior multiplier, regeneration coefficients and caps.")
 	_check(window._derived_labels["melee"].text == "12 → 13.2", "Melee attack preview did not follow the catalog formula.")
 	_check(window._regen_label.text.contains("HP máximo/s · combate: 0,2% → 0,206%") and window._regen_label.text.contains("Tetos HP: 0,5%/s em combate, 2%/s fora"), "Current/projected HP rates and their caps are not shown accurately.")
 	_check(window._regen_label.text.contains("MP máximo/s · combate:") and window._regen_label.text.contains("MP: 0,25%/s em combate, 1%/s fora"), "Current MP rates and their caps are not shown accurately.")
@@ -84,7 +84,7 @@ func _run() -> void:
 	_check(window.open_for_state(state), "Mage attributes view could not be reopened.")
 	_check(window.allocate_point("INT"), "Mage could not stage INT.")
 	_check(window._effective_labels["INT"].text.ends_with("2"), "Mage INT did not use its 2x vocation multiplier.")
-	_check(window._benefit_labels["INT"].text.contains("+6 MP máximo") and window._benefit_labels["INT"].text.contains("+1.2 de ataque mágico") and window._benefit_labels["INT"].text.contains("+0,002 p.p./s em combate") and window._benefit_labels["INT"].text.contains("+0,008 p.p./s fora"), "Mage INT benefit does not include effective MP regeneration and the vocation multiplier.")
+	_check(window._benefit_labels["INT"].text.contains("+6 MP máximo") and window._benefit_labels["INT"].text.contains("+1.2 de ataque mágico") and window._benefit_labels["INT"].text.contains("+0,002 p.p./s em combate") and window._benefit_labels["INT"].text.contains("+0,01 p.p./s fora"), "Mage INT benefit does not include effective MP regeneration and the vocation multiplier.")
 	window.close_window()
 
 	window.queue_free()

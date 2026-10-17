@@ -284,3 +284,10 @@ Verificação Godot4.5.1: import e smoke jogável, test_close_view (três propor
 - `player.gd` agora aplica a inversa da projeção da câmera no plano XZ ao input, e usa a direção da tela para selecionar facing/animação. `first_island.gd` fornece a base da câmera na inicialização.
 - O smoke do fluxo agora valida oito direções pelo deslocamento real e sua projeção no viewport, velocidades iguais em cardinais/diagonais e teclado ↑/↓. Godot 4.5.1 headless: import e fluxo jogável passaram. O teste imprime a projeção antiga de N/S para evidenciar o desvio.
 - Não houve mudança em colisão, regeneração, morte, HUD ou dados de jogo; teste físico Android não foi executado nesta microtarefa.
+
+## 2026-10-17 — Regeneração fora de combate +20%
+
+- Causa: `CombatRules.regeneration_rates_percent_per_sec` combinava base e bônus efetivo de FOR/INT, mas não aplicava o aumento solicitado ao sair de combate. O estado após 8 s e os caps já existiam.
+- Incluído `out_of_combat_rate_multiplier: 1.2` no catálogo. O runtime multiplica a soma de base e bônus de atributo somente fora de combate, antes dos caps. Combate, delay, caps, clamp no máximo, pausa em personagem caído/morto e restauração ao subir de nível permanecem iguais.
+- Documentados os valores efetivos no GDD, catálogo, dados de balanceamento, README e roadmap. O teste de regras verifica as seis taxas base pós-fator, as taxas com atributos nas três vocações, taxas de combate, caps, clamp e tick integrado; o teste do painel valida os bônus exibidos.
+- Godot 4.5.1 headless: import (exit 0), `test_regeneration_rules.gd`, `test_attributes_window.gd` e `smoke_playable_slice.gd` passaram. O import emitiu o aviso `Unable to open Android 'build-tools' directory`; não houve exportação APK nem teste em aparelho.

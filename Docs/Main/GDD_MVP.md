@@ -26,15 +26,15 @@ HP/MP iniciais: Warrior 200/100; Archer 150/150; Mage 100/200. Força → dano f
 
 ### Regeneração de recursos
 
-As taxas são percentuais do máximo atual por segundo, antes do clamp no máximo. A taxa base depende da vocação; FOR/INT efetiva adiciona pontos percentuais por segundo. O estado passa a fora de combate após **8 s sem atacar nem receber dano**. Limites: HP até 0,5%/s em combate e 2%/s fora; MP até 0,25%/s em combate e 1%/s fora. FOR e INT muito altos não ultrapassam esses tetos. Ao subir de nível, HP e MP continuam sendo restaurados integralmente.
+As taxas são percentuais do máximo atual por segundo, antes do clamp no máximo. A taxa base depende da vocação; FOR/INT efetiva adiciona pontos percentuais por segundo. O estado passa a fora de combate após **8 s sem atacar nem receber dano**. Fora de combate, a taxa base e o bônus de FOR/INT são multiplicados por **1,2** antes dos tetos; em combate, as taxas atuais permanecem iguais. Limites: HP até 0,5%/s em combate e 2%/s fora; MP até 0,25%/s em combate e 1%/s fora. FOR e INT muito altos não ultrapassam esses tetos. Ao subir de nível, HP e MP continuam sendo restaurados integralmente.
 
 | Vocação | HP combate / fora | MP combate / fora |
 |---|---:|---:|
-| Guerreiro | 0,20% / 0,60% | 0,03% / 0,12% |
-| Arqueiro | 0,15% / 0,50% | 0,06% / 0,25% |
-| Mago | 0,10% / 0,35% | 0,10% / 0,40% |
+| Guerreiro | 0,20% / 0,72% | 0,03% / 0,144% |
+| Arqueiro | 0,15% / 0,60% | 0,06% / 0,30% |
+| Mago | 0,10% / 0,42% | 0,10% / 0,48% |
 
-Cada ponto de **FOR efetiva** acrescenta +0,003 ponto percentual de HP/s em combate e +0,010 p.p./s fora. Cada ponto de **INT efetiva** acrescenta +0,001 p.p. de MP/s em combate e +0,004 p.p./s fora. O valor bruto alocado passa primeiro pelo multiplicador da vocação. As taxas completas e caps também estão em [`data/catalogs/mvp.json`](../../data/catalogs/mvp.json).
+Cada ponto de **FOR efetiva** acrescenta +0,003 ponto percentual de HP/s em combate e +0,012 p.p./s fora. Cada ponto de **INT efetiva** acrescenta +0,001 p.p. de MP/s em combate e +0,0048 p.p./s fora. O valor bruto alocado passa primeiro pelo multiplicador da vocação. As taxas completas, fator e caps também estão em [`data/catalogs/mvp.json`](../../data/catalogs/mvp.json).
 
 Cada subida dá 1 ponto bruto de atributo. Árvore: 3 pontos na criação e 3 por subida até nível 50, 150 pontos no total; após 50 continua 1 ponto bruto/subida. Por vocação, plano de 60 nós pequenos (1 ponto), 25 grandes (2) e 15 especiais (5): 185 pontos para comprar tudo. Conexões desde o centro e escolhas exclusivas dão identidade às builds. No nível 10: 30 pontos de árvore; implementar primeiro ~18 nós acessíveis por vocação, conforme `CONTENT_DATA.md`.
 

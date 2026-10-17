@@ -17,13 +17,13 @@ Qualquer conta pode usar qualquer aparência, inclusive repetida na LAN. O equip
 
 FOR: melee, vida e regeneração. AGI: físico à distância, crítico e esquiva. INT: mana, regeneração de mana e mágico. Conversões provisórias por ponto efetivo: FOR +0,6 melee e +3 HP; AGI +0,6 distância, +0,05 ponto percentual de crítico e de esquiva; INT +0,6 mágico e +3 MP. Crítico base 5%, esquiva base 3%; tetos de 20% cada.
 
-Regeneração usa o máximo atual de HP/MP como base e as taxas abaixo por segundo. O estado de combate termina após 8 s sem atacar nem receber dano. FOR/INT efetiva (após o multiplicador da vocação) acrescenta, respectivamente, +0,003/+0,010 p.p. de HP/s (combate/fora) e +0,001/+0,004 p.p. de MP/s. Caps: HP 0,5%/s em combate e 2%/s fora; MP 0,25%/s em combate e 1%/s fora. Os caps também limitam personagens de atributos altos.
+Regeneração usa o máximo atual de HP/MP como base e as taxas abaixo por segundo. O estado de combate termina após 8 s sem atacar nem receber dano. Fora de combate, tanto a base quanto o bônus de atributo recebem fator **1,2** antes do cap. FOR/INT efetiva (após o multiplicador da vocação) acrescenta, respectivamente, +0,003/+0,012 p.p. de HP/s (combate/fora) e +0,001/+0,0048 p.p. de MP/s. Caps: HP 0,5%/s em combate e 2%/s fora; MP 0,25%/s em combate e 1%/s fora. Os caps também limitam personagens de atributos altos.
 
 | Vocação | HP combate / fora | MP combate / fora |
 |---|---:|---:|
-| Guerreiro | 0,20% / 0,60% | 0,03% / 0,12% |
-| Arqueiro | 0,15% / 0,50% | 0,06% / 0,25% |
-| Mago | 0,10% / 0,35% | 0,10% / 0,40% |
+| Guerreiro | 0,20% / 0,72% | 0,03% / 0,144% |
+| Arqueiro | 0,15% / 0,60% | 0,06% / 0,30% |
+| Mago | 0,10% / 0,42% | 0,10% / 0,48% |
 
 | Nível alcançado | XP necessário desde o anterior | XP total | Pontos de atributo acumulados de subidas | Pontos de árvore disponíveis |
 |---:|---:|---:|---:|---:|

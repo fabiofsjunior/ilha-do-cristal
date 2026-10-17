@@ -1,9 +1,9 @@
-# Handoff — movimento alinhado à câmera 2.5D
+# Handoff — regeneração fora de combate +20%
 
-Branch: `feature/s03-north-south-direction`; baseline `38728f0` (main após PR #16). O commit local desta correção fica no HEAD da branch e seu hash foi informado ao responsável pela revisão.
+Branch: `feature/s03-out-of-combat-regen`; baseline `54275e1` (main após PR #17); commit local `de80ecb`.
 
-O teclado e o joystick agora convertem a intenção da tela para o plano XZ pela inversa da projeção da câmera. O facing usa a direção da tela. `tools/gameplay/smoke_playable_slice.gd` cobre oito direções, teclado ↑/↓, alinhamento projetado e normalização da velocidade. Importação e fluxo jogável headless passaram no Godot 4.5.1.
+O catálogo define `out_of_combat_rate_multiplier: 1.2`. `CombatRules.regeneration_rates_percent_per_sec` aplica o fator à soma das bases e bônus de FOR/INT fora de combate, antes dos caps. Em combate, após 8 s de inatividade, os caps existentes, clamp e pausa quando caído/morto mantêm o comportamento anterior. GDD, catálogo de produção, dados de balanceamento, README, roadmap e journal registram as taxas efetivas.
 
-Escopo desta microtarefa: movimento. Colisão, regeneração, morte/renascimento, HUD e arte permaneceram inalterados. Nenhum APK ou teste físico Android foi feito.
+Godot 4.5.1 headless: importação (exit 0), `test_regeneration_rules.gd`, `test_attributes_window.gd` e `smoke_playable_slice.gd` passaram. O import emitiu `Unable to open Android 'build-tools' directory`; nenhum APK foi exportado e não houve teste Android físico.
 
-Próxima ação: revisar e integrar o commit local no fluxo de trabalho autorizado; manter aberto o aceite S1 em aparelho Android e a verificação visual do controle. Bloqueador: falta playtest físico.
+Próxima ação: revisar e integrar este commit local no fluxo autorizado; validar o ritmo da regeneração em Android físico antes de fechar S3. Bloqueador: falta playtest físico.

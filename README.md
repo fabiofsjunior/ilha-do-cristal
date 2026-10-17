@@ -14,6 +14,8 @@ A cena principal é `game/scenes/main.tscn`. O fluxo percorre início → uma da
 
 Ao cair, a tela mostra o prazo de 60 s para reanimação e a quantidade real de cada material que irá para uma mochila persistente se o jogador renascer no acampamento; XP e equipamentos permanecem. Um aliado reanima em 5 s pelo contrato local da sessão, mas esta build solo ainda não implementa LAN ou conexão de aliados.
 
+Após 8 s sem atacar nem receber dano, HP e MP regeneram fora de combate a 1,2× das taxas base e dos bônus de FOR/INT. As taxas em combate não mudam; os caps existentes e o clamp ao máximo continuam valendo.
+
 Com Godot 4.5.1 e os templates correspondentes instalados:
 
 ```sh
