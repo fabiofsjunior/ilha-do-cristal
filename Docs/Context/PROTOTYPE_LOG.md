@@ -125,3 +125,8 @@ O usuário identificou os anexos 3/4 como “como deveria ser” e instruiu apli
 - Artefato consultado: `docs/prototypes/mvp_ui_v0_3.html`, estado navegável “Aliado caído”. A solicitação atual autorizou implementar esta tela como referência de fluxo; a página protótipo continua uma simulação e não passa a validar multiplayer, UI de produção ou Android.
 - Implementação comparada: janela Godot mostra prazo de 60 s, regra de reanimação em 5 s com indisponibilidade de co-op declarada no solo, conteúdo exato que irá para a mochila persistente e botão “Renascer no acampamento”. A perda é aplicada somente no respawn; XP e equipamentos são mantidos.
 - Reanimação é exposta por `FirstIsland.request_ally_revive(reviver_id)` e sinais de início/conclusão/cancelamento para um host futuro. Não há segundo jogador ou transporte LAN nesta versão. Revisão em aparelho Android e comparação gráfica seguem pendentes.
+
+
+## Kit UI Crystal v2 — referência enviada em 2026-10-17
+
+O usuário pediu a implementação completa do kit mostrado nos anexos (mockup de interface e folha de sprites) no projeto e solicitou novas builds Web/APK. A solicitação autoriza essa composição como referência visual desta implementação. A produção aplica sprites do kit aos fluxos reais já existentes e preserva indisponíveis os sistemas que ainda não existem. Os três conceitos separados de personagens não são usados como sprites de runtime. Essa referência não valida a execução gráfica em navegador nem o teste físico Android.
