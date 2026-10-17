@@ -88,3 +88,10 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [x] Import/smoke e regressão de enquadramento em três proporções.
 - [ ] Comparação visual da cena real com referência e revisão Android/WebGL.
 - [ ] Reconciliar alterações anteriores não publicadas e conversão isométrica64×32.
+
+### Correção visual 0.1.7
+
+- [x] Inventário lado a lado, ícones originais, atributos em cartões e personagem ampliado conforme referências 3/4.
+- [x] Pivô/profundidade corrigidos e câmera sem vazio nas bordas; minimapa completo com pontos vermelhos para monstros vivos.
+- [x] Capturas reais Godot Compatibility/Mesa e testes de layout/fluxo/combate aprovados.
+- [ ] Aceite no Android: instalar variante de teste, conferir HUD, notch, toque, save e 10 minutos de estabilidade.

@@ -45,7 +45,7 @@ func run() -> void:
 		check(marker.billboard == BaseMaterial3D.BILLBOARD_DISABLED, "Target marker is still a vertical billboard")
 		check(is_equal_approx(marker.rotation_degrees.x, -90.0), "Target marker is not flat and facing upward on the ground")
 		check(marker.texture.get_size() == Vector2(48, 48), "Target marker texture is oversized")
-		check(marker.position.distance_to(Vector3(target.global_position.x / 32.0, 0.035, target.global_position.y / 32.0 + 0.5)) < 0.001, "Target marker is not aligned with enemy feet")
+		check(marker.position.distance_to(Vector3(target.global_position.x / 32.0, 0.035, target.global_position.y / 32.0)) < 0.001, "Target marker is not aligned with enemy feet")
 	check(game.get_node("Actors").y_sort_enabled, "Depth sorting disabled")
 	print("Close view regression: %d failures" % failures)
 	quit(failures)

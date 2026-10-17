@@ -270,3 +270,10 @@ Verificação Godot4.5.1: import e smoke jogável, test_close_view (três propor
 - PR #12 mesclada na main em 84a68f891ef63f7d6949832f0a8065dc3d75e600; árvore fd8dc0ada0301d5efe62e6b1b959ba91ae3f020a conferida contra o snapshot local, incluindo todos os 211 blobs alterados desde a base HUD.
 - APK 0.1.6/versionCode 7 disponibilizado para download; mesmo SHA-256 registrado na validação anterior. Comparação adicional: 89 arquivos fonte diretamente comparáveis do APK coincidem byte a byte, sem divergências. GDScript está em bytecode.
 - Nenhuma nova exportação, mudança de gameplay ou validação física foi feita nesta etapa. Próximo gate continua sendo o playtest Android; Web permanece 0.1.5.
+
+## 2026-10-17 — UI, profundidade e minimapa 0.1.7
+
+- Referências 3/4 do usuário aplicadas à composição de inventário e atributos: metal/pergaminho, ícones, papel do personagem ampliado, duas colunas e fontes mais legíveis. 31 assets nativos gerados de fonte Pillow versionada, sem alterar personagens ou inventar economia.
+- Corrigidos offset Y do Sprite3D, pivôs de props e clamp projetado da câmera; minimapa integral com monstros vivos em vermelho.
+- Import, testes de UI/atributos/mobile/câmera/combate/fluxo passaram. Captura real em Xvfb TCP + Mesa 720×1280 comparada visualmente. Evidências e limitações em MOBILE_UI_017_VALIDATION.md.
+- Versão 0.1.7/code 8. Exportador oferece instalação paralela .preview porque a chave debug da 0.1.6 não está presente; preserva instalação/saves anteriores e usa progresso separado. Playtest físico continua aberto.

@@ -68,11 +68,21 @@ func _camera_position(focus: Vector3) -> Vector3:
 	return focus + camera.global_basis.z * follow_distance
 
 func _bounded_focus(focus: Vector3) -> Vector3:
-	var aspect := get_viewport().get_visible_rect().size.x / maxf(1.0, get_viewport().get_visible_rect().size.y)
-	var x_margin := minf(_ground_size.x * 0.5, camera.size * aspect * 0.5 + 1.0)
-	var z_margin := minf(_ground_size.y * 0.5, camera.size * 0.5 + 1.0)
-	focus.x = clampf(focus.x, x_margin, _ground_size.x - x_margin)
-	focus.z = clampf(focus.z, z_margin, _ground_size.y - z_margin)
+	var viewport_size := get_viewport().get_visible_rect().size
+	var aspect := viewport_size.x / maxf(1.0, viewport_size.y)
+	var half_height := camera.size * 0.5
+	# Orthographic frustum projected onto XZ, including inclination and yaw.
+	var minimum := Vector2(INF, INF)
+	var maximum := Vector2(-INF, -INF)
+	var ray_direction := -camera.global_basis.z
+	for x in [-1.0, 1.0]:
+		for y in [-1.0, 1.0]:
+			var origin: Vector3 = Vector3(0, target_height, 0) + camera.global_basis.x * x * half_height * aspect + camera.global_basis.y * y * half_height
+			var ground: Vector3 = origin - ray_direction * (origin.y / ray_direction.y)
+			minimum = minimum.min(Vector2(ground.x, ground.z))
+			maximum = maximum.max(Vector2(ground.x, ground.z))
+	focus.x = clampf(focus.x, -minimum.x, _ground_size.x - maximum.x)
+	focus.z = clampf(focus.z, -minimum.y, _ground_size.y - maximum.y)
 	return focus
 
 func world_point(point: Vector2, height := 0.0) -> Vector3:
@@ -257,8 +267,8 @@ func _make_sprite(texture: Texture2D, key: String) -> Sprite3D:
 
 func _place_sprite(sprite: Sprite3D, foot: Vector2, pivot_y: int) -> void:
 	var height := float(sprite.texture.get_height()) / 32.0
-	var baseline_offset := (float(sprite.texture.get_height()) * 0.5 - float(pivot_y)) / 32.0
-	sprite.position = Vector3(foot.x / 32.0, height * 0.5, foot.y / 32.0 + baseline_offset)
+	sprite.offset = Vector2(0.0, float(pivot_y) - float(sprite.texture.get_height()) * 0.5)
+	sprite.position = Vector3(foot.x / 32.0, 0.04, foot.y / 32.0)
 
 func _sync_actors() -> void:
 	if game == null:
@@ -298,8 +308,8 @@ func _sync_actors() -> void:
 				source_offset = static_pose.offset
 		# The simulation position is the feet/pivot. Mirror the 2D sprite offset
 		# so its metadata pivot lands on the same ground point in the 3D view.
-		sprite.offset = source_offset
-		sprite.position = Vector3(actor.global_position.x / 32.0, 0.0, actor.global_position.y / 32.0)
+		sprite.offset = Vector2(source_offset.x, -source_offset.y)
+		sprite.position = Vector3(actor.global_position.x / 32.0, 0.04, actor.global_position.y / 32.0)
 		sprite.visible = true
 		if key != "player":
 			sprite.modulate = Color.WHITE if not actor.selected else Color("fff0b5")
@@ -385,7 +395,7 @@ func _update_target_feedback(key: String, actor: Node2D) -> void:
 func _target_ground_position(actor: Node2D) -> Vector3:
 	# The actor billboard is centered half a world unit ahead of its simulation point.
 	# Matching that offset keeps the flat selection ellipse directly under its feet.
-	return Vector3(actor.global_position.x / 32.0, 0.035, actor.global_position.y / 32.0 + 0.5)
+	return Vector3(actor.global_position.x / 32.0, 0.035, actor.global_position.y / 32.0)
 
 func _get_target_ring_texture() -> Texture2D:
 	if _target_ring_texture != null:

@@ -2,10 +2,10 @@ class_name UIStyle
 extends RefCounted
 
 const CREAM := Color("f4e8cb")
-const MUTED := Color("bfb5c7")
+const MUTED := Color("c1bca9")
 const GOLD := Color("f4c875")
 const BLUE := Color("83d9e8")
-const PANEL := Color("241d31")
+const PANEL := Color("232c2c")
 
 
 static func style_label(label: Label, font_size: int, color: Color) -> void:
@@ -26,15 +26,42 @@ static func panel_style(background: Color, border: Color = Color("5f4d72")) -> S
 	return style
 
 
+static func classic_style(kind := "panel") -> StyleBoxTexture:
+	var style := StyleBoxTexture.new()
+	style.texture = load("res://assets/ui/classic_v2/%s.png" % kind)
+	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
+		style.set_texture_margin(side, 10.0)
+		style.set_content_margin(side, 6.0 if kind == "slot" else 14.0)
+	return style
+
+static func icon(id: String) -> Texture2D:
+	var path := "res://assets/ui/classic_v2/%s.png" % id
+	return load(path) as Texture2D if ResourceLoader.exists(path) else null
+
+static func picture(texture: Texture2D, dimensions: Vector2) -> TextureRect:
+	var rect := TextureRect.new()
+	rect.texture = texture
+	rect.custom_minimum_size = dimensions
+	rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	rect.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return rect
+
 static func style_button(button: Button, primary := false) -> void:
 	button.add_theme_font_size_override("font_size", 18)
 	button.add_theme_color_override("font_color", CREAM)
+	button.add_theme_color_override("font_disabled_color", Color("938e7e"))
 	button.add_theme_color_override("font_hover_color", GOLD)
 	button.add_theme_color_override("font_pressed_color", BLUE)
-	var fill := Color("55406d") if primary else Color("32283f")
-	button.add_theme_stylebox_override(
-		"normal", panel_style(fill, Color("a77ce8") if primary else Color("77648b"))
-	)
-	button.add_theme_stylebox_override("hover", panel_style(Color("65517d"), GOLD))
-	button.add_theme_stylebox_override("pressed", panel_style(Color("302744"), BLUE))
-	button.add_theme_stylebox_override("focus", panel_style(fill, BLUE))
+	for state in ["normal", "hover", "pressed", "disabled"]:
+		var box := classic_style("confirm" if primary else "button")
+		if state == "hover": box.modulate_color = Color("fff0bd")
+		if state == "pressed": box.modulate_color = Color("adbfa6")
+		if state == "disabled": box.modulate_color = Color("92958d")
+		button.add_theme_stylebox_override(state, box)
+	var focus := StyleBoxFlat.new()
+	focus.bg_color = Color.TRANSPARENT
+	focus.border_color = BLUE
+	focus.set_border_width_all(2)
+	button.add_theme_stylebox_override("focus", focus)
