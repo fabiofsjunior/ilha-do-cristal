@@ -130,3 +130,8 @@ O usuário identificou os anexos 3/4 como “como deveria ser” e instruiu apli
 ## Kit UI Crystal v2 — referência enviada em 2026-10-17
 
 O usuário pediu a implementação completa do kit mostrado nos anexos (mockup de interface e folha de sprites) no projeto e solicitou novas builds Web/APK. A solicitação autoriza essa composição como referência visual desta implementação. A produção aplica sprites do kit aos fluxos reais já existentes e preserva indisponíveis os sistemas que ainda não existem. Os três conceitos separados de personagens não são usados como sprites de runtime. Essa referência não valida a execução gráfica em navegador nem o teste físico Android.
+
+
+### APK de preview publicado na branch — 2026-10-17
+
+O usuário pediu armazenar o APK no repositório. A branch do kit contém `artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk` e link direto pelo GitHub. É um artefato debug ARM64-only, derivado da exportação de preview dual-arch; 32 bits e instalação física não foram validados. O link de branch não representa merge em `main`.
