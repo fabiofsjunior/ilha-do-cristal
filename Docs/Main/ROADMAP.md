@@ -102,3 +102,9 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [x] Pivô/profundidade corrigidos e câmera sem vazio nas bordas; minimapa completo com pontos vermelhos para monstros vivos.
 - [x] Capturas reais Godot Compatibility/Mesa e testes de layout/fluxo/combate aprovados.
 - [ ] Aceite no Android: instalar variante de teste, conferir HUD, notch, toque, save e 10 minutos de estabilidade.
+
+### Wiki local de catalogação — 2026-10-17
+
+- [x] Wiki HTML responsiva e sem dependências externas em `docs/wiki/`, com índice gerado a partir dos dados do projeto, previews clicáveis de PNGs, busca e links relativos aos arquivos.
+- [x] Gerador e verificador local: `python3 tools/wiki/build_index.py` e `python3 tools/wiki/test_catalog.py`.
+- [x] README aponta para a wiki e documenta execução por servidor HTTP local. Esta entrega é documentação/ferramenta de consulta; não altera o status de aceite das fases de jogo.

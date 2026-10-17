@@ -1,9 +1,9 @@
-# Handoff — regeneração fora de combate +20%
+# Handoff — catálogo wiki offline
 
-Branch: `feature/s03-out-of-combat-regen`; baseline `54275e1` (main após PR #17); commit local `de80ecb`.
+Branch: `feature/s03-game-wiki`; baseline `f64c207` (main após PR #18). O commit local desta entrega está no `HEAD` da branch; confira `git rev-parse --short HEAD` no checkout desta branch.
 
-O catálogo define `out_of_combat_rate_multiplier: 1.2`. `CombatRules.regeneration_rates_percent_per_sec` aplica o fator à soma das bases e bônus de FOR/INT fora de combate, antes dos caps. Em combate, após 8 s de inatividade, os caps existentes, clamp e pausa quando caído/morto mantêm o comportamento anterior. GDD, catálogo de produção, dados de balanceamento, README, roadmap e journal registram as taxas efetivas.
+Wiki em `docs/wiki/`: `index.html`, `wiki.css`, `app.js` e `catalog-data.json`. O gerador `tools/wiki/build_index.py` deriva dados do catálogo de planejamento, layout/aparências do recorte e previews/metadados dos PNGs. Para atualizar: `python3 tools/wiki/build_index.py`. Para validar: `python3 tools/wiki/test_catalog.py`. Execução offline: servidor simples na raiz (`python3 -m http.server 8000`) e `http://localhost:8000/docs/wiki/`.
 
-Godot 4.5.1 headless: importação (exit 0), `test_regeneration_rules.gd`, `test_attributes_window.gd` e `smoke_playable_slice.gd` passaram. O import emitiu `Unable to open Android 'build-tools' directory`; nenhum APK foi exportado e não houve teste Android físico.
+Escopo exclusivamente de catalogação; nenhum comportamento do jogo foi alterado. O catálogo de `data/catalogs/mvp.json` continua identificado como planejamento/provisório; arte sem aprovação é marcada como candidata ou sem status declarado. O teste automatizado confirmou 4 aparências, 3 vocações, 9 habilidades, 74 previews, 368 arquivos, renderização de busca/filtros/paginação, links, sintaxe JS e respostas locais HTTP.
 
-Próxima ação: revisar e integrar este commit local no fluxo autorizado; validar o ritmo da regeneração em Android físico antes de fechar S3. Bloqueador: falta playtest físico.
+Próxima ação: revisar a wiki no fluxo integrado e depois continuar as validações pendentes do recorte S3 em Android físico antes de fechar a fase. Bloqueadores desta wiki: nenhum. Questões em aberto: nenhuma.

@@ -27,6 +27,7 @@ O guia [ANDROID_BUILD.md](docs/technical/ANDROID_BUILD.md) fixa SDK/JDK, configu
 
 ## Documentação
 
+- [Wiki offline do projeto](docs/wiki/index.html) — consulta navegável de personagens, vocações, sprites/atlas, atributos, itens, habilidades, mundo e índice de arquivos. Para abrir sem rede externa, gere/atualize com `python3 tools/wiki/build_index.py`, execute `python3 -m http.server 8000` na raiz e acesse `http://localhost:8000/docs/wiki/`. Validação: `python3 tools/wiki/test_catalog.py`.
 - [GDD do MVP](Docs/Main/GDD_MVP.md) — regras e critérios de aceite.
 - [Conteúdo e balanceamento](Docs/Main/CONTENT_DATA.md) — atributos, armas, XP, drops, bestiário e árvore.
 - [Doze listas de produção](Docs/Main/CATALOGS_MVP.md) e [catálogo JSON](data/catalogs/mvp.json) — conteúdo inicial versionado.

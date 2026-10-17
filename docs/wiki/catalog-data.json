@@ -1,0 +1,6354 @@
+{
+  "generated_from": [
+    "data/catalogs/mvp.json",
+    "game/data/first_island_layout.json",
+    "game/data/player_appearances.json",
+    "assets/**/*.png and adjacent metadata JSON"
+  ],
+  "catalog": {
+    "schema_version": 1,
+    "status": "planning_provisional",
+    "note": "Catálogo de planejamento; não consumir como balanceamento de produção antes do sprint de validação.",
+    "characters": [
+      {
+        "id": "melissa",
+        "visual": "levemente mais alta; cabelo predominantemente castanho-escuro com uma única mecha roxa frontal; acentos lilases",
+        "description": "Meiga e doce, é esperta e muito observadora; diante de imprevistos, costuma manter a calma e pensar com clareza."
+      },
+      {
+        "id": "helena",
+        "visual": "cabelo castanho ondulado, tiara clara, acentos creme e rosa",
+        "description": "Carismática e inteligente, tem pavio curto e reage com intensidade; seu jeito espontâneo também a torna uma companheira cheia de iniciativa."
+      },
+      {
+        "id": "maira",
+        "visual": "cabelos longos castanho-escuros; traje amarelo e dourado",
+        "description": "Irmã de Helena, é bonita, carismática e muito falante. Atenciosa com os outros, anima o grupo e observa o ambiente antes de agir."
+      },
+      {
+        "id": "fabio",
+        "visual": "pele morena; cabelo curto escuro com fios grisalhos nas têmporas; barba aparada; trajes vermelho/dourado, verde ou azul conforme o concept das vocações",
+        "description": "Pai de Melissa, é alto e forte, tem presença serena e olhar atento. Inteligente e reservado, observa, analisa riscos e planeja a estratégia antes de agir. Melissa parece ter herdado dele a calma e a atenção aos detalhes."
+      }
+    ],
+    "vocations": [
+      {
+        "id": "warrior",
+        "hp": 200,
+        "mp": 100,
+        "stat_multiplier": {
+          "str": 2,
+          "agi": 0.75,
+          "int": 0.5
+        }
+      },
+      {
+        "id": "archer",
+        "hp": 150,
+        "mp": 150,
+        "stat_multiplier": {
+          "str": 1,
+          "agi": 2,
+          "int": 0.75
+        }
+      },
+      {
+        "id": "mage",
+        "hp": 100,
+        "mp": 200,
+        "stat_multiplier": {
+          "str": 0.5,
+          "agi": 0.75,
+          "int": 2
+        }
+      }
+    ],
+    "attributes_and_levels": {
+      "level_cap_mvp": 10,
+      "xp_to_next_level_from_1_to_9": [
+        100,
+        130,
+        169,
+        220,
+        286,
+        371,
+        483,
+        627,
+        816
+      ],
+      "attribute_points_per_level_up": 1,
+      "talent_points_at_creation": 3,
+      "talent_points_per_level_up_until_50": 3,
+      "crit_cap_percent": 20,
+      "dodge_cap_percent": 20,
+      "hp_regen_cap_outside_combat_percent_per_sec": 2,
+      "hp_regen_cap_inside_combat_percent_per_sec": 0.5,
+      "mp_regen_cap_outside_combat_percent_per_sec": 1.0,
+      "mp_regen_cap_inside_combat_percent_per_sec": 0.25,
+      "regeneration": {
+        "out_of_combat_delay_sec": 8,
+        "out_of_combat_rate_multiplier": 1.2,
+        "base_percent_per_sec": {
+          "hp": {
+            "warrior": {
+              "combat": 0.2,
+              "outside_combat": 0.6
+            },
+            "archer": {
+              "combat": 0.15,
+              "outside_combat": 0.5
+            },
+            "mage": {
+              "combat": 0.1,
+              "outside_combat": 0.35
+            }
+          },
+          "mp": {
+            "warrior": {
+              "combat": 0.03,
+              "outside_combat": 0.12
+            },
+            "archer": {
+              "combat": 0.06,
+              "outside_combat": 0.25
+            },
+            "mage": {
+              "combat": 0.1,
+              "outside_combat": 0.4
+            }
+          }
+        },
+        "effective_attribute_bonus_percentage_points_per_sec": {
+          "FOR": {
+            "combat": 0.003,
+            "outside_combat": 0.01
+          },
+          "INT": {
+            "combat": 0.001,
+            "outside_combat": 0.004
+          }
+        }
+      }
+    },
+    "weapons_and_tools": [
+      {
+        "id": "sword_basic",
+        "vocation": "warrior",
+        "damage_type": "physical",
+        "damage": 12,
+        "range_tiles": 1
+      },
+      {
+        "id": "sword_reinforced",
+        "vocation": "warrior",
+        "damage_type": "physical",
+        "damage": 18,
+        "range_tiles": 1
+      },
+      {
+        "id": "bow_basic",
+        "vocation": "archer",
+        "damage_type": "physical",
+        "damage": 10,
+        "range_tiles": 5
+      },
+      {
+        "id": "bow_reinforced",
+        "vocation": "archer",
+        "damage_type": "physical",
+        "damage": 15,
+        "range_tiles": 5
+      },
+      {
+        "id": "staff_basic",
+        "vocation": "mage",
+        "damage_type": "magic",
+        "damage": 10,
+        "range_tiles": 5
+      },
+      {
+        "id": "staff_crystal",
+        "vocation": "mage",
+        "damage_type": "magic",
+        "damage": 16,
+        "range_tiles": 5
+      },
+      {
+        "id": "axe_basic",
+        "role": "wood_harvest"
+      },
+      {
+        "id": "pickaxe_basic",
+        "role": "stone_harvest"
+      }
+    ],
+    "skills": [
+      {
+        "id": "war_combo",
+        "vocation": "warrior",
+        "target": "single",
+        "physical_percent_each_hit": 120,
+        "hits": 3,
+        "cooldown_sec": 10,
+        "mp": 10
+      },
+      {
+        "id": "war_circle",
+        "vocation": "warrior",
+        "target": "adjacent_aoe",
+        "physical_percent": 100,
+        "status": "bleed",
+        "cooldown_sec": 15,
+        "mp": 15
+      },
+      {
+        "id": "war_quake",
+        "vocation": "warrior",
+        "target": "aoe",
+        "physical_percent": 150,
+        "magic_percent": 50,
+        "status": "stun",
+        "status_duration_sec": 3,
+        "cooldown_sec": 90,
+        "mp": 35
+      },
+      {
+        "id": "arc_precise",
+        "vocation": "archer",
+        "target": "single",
+        "physical_percent": 100,
+        "magic_percent": 50,
+        "status": "invisible",
+        "status_duration_sec": 3,
+        "cooldown_sec": 10,
+        "mp": 10
+      },
+      {
+        "id": "arc_bounce",
+        "vocation": "archer",
+        "target": "chain",
+        "physical_percent_each_target": [
+          100,
+          90,
+          80,
+          70,
+          60
+        ],
+        "cooldown_sec": 14,
+        "mp": 15
+      },
+      {
+        "id": "arc_pierce",
+        "vocation": "archer",
+        "target": "line",
+        "physical_percent": 125,
+        "magic_percent": 100,
+        "status": "attack_speed_up",
+        "status_duration_sec": 6,
+        "cooldown_sec": 90,
+        "mp": 35
+      },
+      {
+        "id": "mag_bolt",
+        "vocation": "mage",
+        "target": "single",
+        "magic_percent": 150,
+        "cooldown_sec": 5,
+        "mp": 8
+      },
+      {
+        "id": "mag_fire",
+        "vocation": "mage",
+        "target": "aoe",
+        "magic_percent": 100,
+        "status": "burn",
+        "status_duration_sec": 6,
+        "cooldown_sec": 14,
+        "mp": 18
+      },
+      {
+        "id": "mag_ice",
+        "vocation": "mage",
+        "target": "radius",
+        "magic_percent": 300,
+        "cooldown_sec": 90,
+        "mp": 40
+      }
+    ],
+    "status_effects": [
+      "bleed",
+      "burn",
+      "stun",
+      "invisible",
+      "attack_speed_up",
+      "downed"
+    ],
+    "monsters": [
+      {
+        "id": "fox",
+        "region": "beach_spawn",
+        "hp": 35,
+        "attack": 5,
+        "xp": 10,
+        "drops": [
+          {
+            "item": "meat",
+            "quantity": 1,
+            "chance": 1
+          },
+          {
+            "item": "hide",
+            "quantity": 1,
+            "chance": 0.5
+          }
+        ]
+      },
+      {
+        "id": "wolf",
+        "region": "green_forest",
+        "hp": 90,
+        "attack": 12,
+        "xp": 20,
+        "drops": [
+          {
+            "item": "meat",
+            "quantity": 1,
+            "chance": 1
+          },
+          {
+            "item": "hide",
+            "quantity": 1,
+            "chance": 1
+          },
+          {
+            "item": "fang",
+            "quantity": 1,
+            "chance": 0.3
+          }
+        ]
+      },
+      {
+        "id": "bear",
+        "region": "bear_interior",
+        "hp": 240,
+        "attack": 22,
+        "xp": 50,
+        "drops": [
+          {
+            "item": "meat",
+            "quantity": 2,
+            "chance": 1
+          },
+          {
+            "item": "hide",
+            "quantity": 2,
+            "chance": 1
+          },
+          {
+            "item": "crystal_shard",
+            "quantity": 1,
+            "chance": 1
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "id": "wood",
+        "xp_per_extraction": 2
+      },
+      {
+        "id": "stone",
+        "xp_per_extraction": 2
+      },
+      {
+        "id": "fiber",
+        "xp_per_extraction": null
+      },
+      {
+        "id": "herb",
+        "xp_per_extraction": 1
+      },
+      {
+        "id": "meat"
+      },
+      {
+        "id": "hide"
+      },
+      {
+        "id": "fang"
+      },
+      {
+        "id": "crystal_shard"
+      }
+    ],
+    "consumables": [
+      {
+        "id": "bandage",
+        "healing_hp": 40,
+        "duration_sec": 4,
+        "interrupted_by_attack": true
+      }
+    ],
+    "recipes": [
+      {
+        "id": "recipe_bandage",
+        "output": "bandage",
+        "requires": {
+          "herb": 3,
+          "fiber": 1
+        }
+      },
+      {
+        "id": "recipe_axe",
+        "output": "axe_basic",
+        "requires": {
+          "wood": 5,
+          "stone": 3
+        }
+      },
+      {
+        "id": "recipe_pickaxe",
+        "output": "pickaxe_basic",
+        "requires": {
+          "wood": 4,
+          "stone": 4
+        }
+      },
+      {
+        "id": "recipe_sword_upgrade",
+        "output": "sword_reinforced",
+        "requires": {
+          "wood": 12,
+          "stone": 8,
+          "crystal_shard": 2
+        }
+      },
+      {
+        "id": "recipe_bow_upgrade",
+        "output": "bow_reinforced",
+        "requires": {
+          "wood": 12,
+          "stone": 8,
+          "crystal_shard": 2
+        }
+      },
+      {
+        "id": "recipe_staff_upgrade",
+        "output": "staff_crystal",
+        "requires": {
+          "wood": 12,
+          "stone": 8,
+          "crystal_shard": 2
+        }
+      }
+    ],
+    "buildings": [
+      {
+        "id": "pure_crystal",
+        "camp_level": 1
+      },
+      {
+        "id": "campfire",
+        "camp_level": 1
+      },
+      {
+        "id": "tent",
+        "camp_level": 1
+      },
+      {
+        "id": "workbench",
+        "camp_level": 2
+      },
+      {
+        "id": "shared_chest",
+        "camp_level": 2
+      },
+      {
+        "id": "well",
+        "camp_level": 2
+      },
+      {
+        "id": "palisade",
+        "camp_level": 3
+      },
+      {
+        "id": "watchtower",
+        "camp_level": 3,
+        "max_count": 2
+      }
+    ],
+    "camp_upgrades": [
+      {
+        "to_level": 2,
+        "requires": {
+          "wood": 30,
+          "stone": 20,
+          "fiber": 10
+        }
+      },
+      {
+        "to_level": 3,
+        "requires": {
+          "wood": 60,
+          "stone": 40,
+          "fiber": 20,
+          "crystal_shard": 5
+        }
+      }
+    ],
+    "talents": {
+      "planned_per_vocation": {
+        "small": 60,
+        "large": 25,
+        "special": 15
+      },
+      "mvp_candidates_per_vocation": 18,
+      "small_cost": 1,
+      "large_cost": 2,
+      "special_cost": 5,
+      "individual_node_ids": "pending_S3_design",
+      "prototype_graph_candidate": {
+        "status": "archived_in_v0_5",
+        "model": "shared_passive_constellation",
+        "coordinate_space": {
+          "view_box": [
+            1000,
+            620
+          ],
+          "origin": "top-left"
+        },
+        "counts": {
+          "small_circles": 25,
+          "large_squares": 6,
+          "actor_origin_diamonds": 3,
+          "total_nodes": 34,
+          "bidirectional_connections": 61
+        },
+        "costs": {
+          "small": 1,
+          "large": 2,
+          "origin": 0,
+          "all_passives_total": 37
+        },
+        "roadmap": [
+          {
+            "stage": 1,
+            "name": "Origens",
+            "nodes": [
+              "origin_warrior",
+              "origin_archer",
+              "origin_mage"
+            ]
+          },
+          {
+            "stage": 2,
+            "name": "Núcleo de combate e atributos",
+            "nodes": [
+              "s01-s12",
+              "l01-l04"
+            ]
+          },
+          {
+            "stage": 3,
+            "name": "Sobrevivência e coleta",
+            "nodes": [
+              "s13-s21",
+              "l05-l06"
+            ]
+          },
+          {
+            "stage": 4,
+            "name": "Especialização externa",
+            "nodes": [
+              "s22-s25"
+            ]
+          }
+        ],
+        "rules": {
+          "connections": "bidirectional",
+          "unlock": "node must be adjacent to an unlocked node",
+          "origin_cost": 0,
+          "starting_points_per_vocation": 3,
+          "points_are_separate_per_vocation": true,
+          "progress_persists": false,
+          "node_text_inside_shapes": false,
+          "actor_label_below_origin": "Actor"
+        },
+        "nodes": [
+          {
+            "id": "origin_warrior",
+            "kind": "origin",
+            "vocation": "warrior",
+            "name": "Origem da Warrior",
+            "effect": "+2 Força inicial; abre a rota superior da rede.",
+            "x": 500,
+            "y": 48,
+            "cost": 0,
+            "shape": "actor_diamond",
+            "textLabel": "Actor"
+          },
+          {
+            "id": "origin_archer",
+            "kind": "origin",
+            "vocation": "archer",
+            "name": "Origem da Archer",
+            "effect": "+2 Agilidade inicial; abre a rota esquerda da rede.",
+            "x": 64,
+            "y": 302,
+            "cost": 0,
+            "shape": "actor_diamond",
+            "textLabel": "Actor"
+          },
+          {
+            "id": "origin_mage",
+            "kind": "origin",
+            "vocation": "mage",
+            "name": "Origem da Mage",
+            "effect": "+2 Inteligência inicial; abre a rota direita da rede.",
+            "x": 936,
+            "y": 302,
+            "cost": 0,
+            "shape": "actor_diamond",
+            "textLabel": "Actor"
+          },
+          {
+            "id": "s01",
+            "kind": "small",
+            "name": "Força I",
+            "effect": "+2 Força. Aumenta o dano físico básico.",
+            "x": 500,
+            "y": 130,
+            "radius": 17,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s02",
+            "kind": "small",
+            "name": "Agilidade I",
+            "effect": "+2 Agilidade. Melhora precisão e esquiva.",
+            "x": 400,
+            "y": 160,
+            "radius": 15,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s03",
+            "kind": "small",
+            "name": "Inteligência I",
+            "effect": "+2 Inteligência. Aumenta o dano mágico.",
+            "x": 600,
+            "y": 160,
+            "radius": 19,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s04",
+            "kind": "small",
+            "name": "Fio Afiado",
+            "effect": "+2% de dano com espada.",
+            "x": 298,
+            "y": 212,
+            "radius": 16,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s05",
+            "kind": "small",
+            "name": "Mira Estável",
+            "effect": "+2% de precisão com arco.",
+            "x": 702,
+            "y": 212,
+            "radius": 16,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s06",
+            "kind": "small",
+            "name": "Passo Ágil",
+            "effect": "+2% de velocidade de movimento.",
+            "x": 170,
+            "y": 258,
+            "radius": 18,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s07",
+            "kind": "small",
+            "name": "Guarda Firme",
+            "effect": "+2 de defesa.",
+            "x": 292,
+            "y": 295,
+            "radius": 15,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s08",
+            "kind": "small",
+            "name": "Reserva de Mana",
+            "effect": "+3 de mana máxima.",
+            "x": 398,
+            "y": 258,
+            "radius": 17,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s09",
+            "kind": "small",
+            "name": "Ponto Crítico",
+            "effect": "+1% de chance crítica.",
+            "x": 500,
+            "y": 230,
+            "radius": 19,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s10",
+            "kind": "small",
+            "name": "Foco Arcano",
+            "effect": "+2% de dano mágico.",
+            "x": 602,
+            "y": 258,
+            "radius": 17,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s11",
+            "kind": "small",
+            "name": "Reflexos",
+            "effect": "+2% de esquiva.",
+            "x": 708,
+            "y": 295,
+            "radius": 15,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s12",
+            "kind": "small",
+            "name": "Tiro Longo",
+            "effect": "+1 tile de alcance com arco.",
+            "x": 830,
+            "y": 258,
+            "radius": 18,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s13",
+            "kind": "small",
+            "name": "Madeireiro",
+            "effect": "+4% de madeira por coleta.",
+            "x": 170,
+            "y": 390,
+            "radius": 17,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s14",
+            "kind": "small",
+            "name": "Vigor",
+            "effect": "+4 HP máximo.",
+            "x": 280,
+            "y": 390,
+            "radius": 18,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s15",
+            "kind": "small",
+            "name": "Recuperação",
+            "effect": "+0,2 HP/s fora de combate.",
+            "x": 392,
+            "y": 365,
+            "radius": 15,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s16",
+            "kind": "small",
+            "name": "Resistência",
+            "effect": "+2% de redução de dano físico.",
+            "x": 500,
+            "y": 354,
+            "radius": 18,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s17",
+            "kind": "small",
+            "name": "Meditação",
+            "effect": "+0,2 MP/s fora de combate.",
+            "x": 608,
+            "y": 365,
+            "radius": 15,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s18",
+            "kind": "small",
+            "name": "Minerador",
+            "effect": "+4% de pedra por coleta.",
+            "x": 720,
+            "y": 390,
+            "radius": 18,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s19",
+            "kind": "small",
+            "name": "Afinidade Cristalina",
+            "effect": "+3% de chance de encontrar fragmento de cristal.",
+            "x": 830,
+            "y": 390,
+            "radius": 17,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s20",
+            "kind": "small",
+            "name": "Herbologista",
+            "effect": "+4% de ervas por coleta.",
+            "x": 282,
+            "y": 488,
+            "radius": 17,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s21",
+            "kind": "small",
+            "name": "Tratamento",
+            "effect": "+3% de cura recebida.",
+            "x": 395,
+            "y": 488,
+            "radius": 15,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s22",
+            "kind": "small",
+            "name": "Sobrevivência",
+            "effect": "+3% de HP máximo.",
+            "x": 500,
+            "y": 486,
+            "radius": 19,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s23",
+            "kind": "small",
+            "name": "Eficiência de Mana",
+            "effect": "-2% no custo de habilidades.",
+            "x": 605,
+            "y": 488,
+            "radius": 15,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s24",
+            "kind": "small",
+            "name": "Cadência",
+            "effect": "+2% de velocidade de ataque.",
+            "x": 718,
+            "y": 488,
+            "radius": 17,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "s25",
+            "kind": "small",
+            "name": "Conhecedor do Terreno",
+            "effect": "+3% de chance de encontrar recursos raros.",
+            "x": 500,
+            "y": 566,
+            "radius": 18,
+            "cost": 1,
+            "shape": "circle"
+          },
+          {
+            "id": "l01",
+            "kind": "large",
+            "name": "Mestre das Lâminas",
+            "effect": "+12% de dano com espada.",
+            "x": 500,
+            "y": 184,
+            "width": 48,
+            "height": 48,
+            "cost": 2,
+            "shape": "square"
+          },
+          {
+            "id": "l02",
+            "kind": "large",
+            "name": "Sentinela",
+            "effect": "+12 de defesa e +5% de bloqueio.",
+            "x": 300,
+            "y": 338,
+            "width": 48,
+            "height": 48,
+            "cost": 2,
+            "shape": "square"
+          },
+          {
+            "id": "l03",
+            "kind": "large",
+            "name": "Condutor Arcano",
+            "effect": "+10% de dano mágico e +10 MP.",
+            "x": 500,
+            "y": 302,
+            "width": 48,
+            "height": 48,
+            "cost": 2,
+            "shape": "square"
+          },
+          {
+            "id": "l04",
+            "kind": "large",
+            "name": "Atirador de Elite",
+            "effect": "+10% de precisão e +1 tile de alcance com arco.",
+            "x": 700,
+            "y": 338,
+            "width": 48,
+            "height": 48,
+            "cost": 2,
+            "shape": "square"
+          },
+          {
+            "id": "l05",
+            "kind": "large",
+            "name": "Inquebrável",
+            "effect": "+12% de HP e +0,2 HP/s fora de combate.",
+            "x": 396,
+            "y": 438,
+            "width": 48,
+            "height": 48,
+            "cost": 2,
+            "shape": "square"
+          },
+          {
+            "id": "l06",
+            "kind": "large",
+            "name": "Explorador Experiente",
+            "effect": "+12% de rendimento nas coletas.",
+            "x": 604,
+            "y": 438,
+            "width": 48,
+            "height": 48,
+            "cost": 2,
+            "shape": "square"
+          }
+        ],
+        "connections": [
+          {
+            "from": "origin_warrior",
+            "to": "s01",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "origin_archer",
+            "to": "s06",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "origin_archer",
+            "to": "s13",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "origin_mage",
+            "to": "s12",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "origin_mage",
+            "to": "s19",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s01",
+            "to": "l01",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s01",
+            "to": "s02",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s01",
+            "to": "s03",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "s02",
+            "to": "s04",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "s02",
+            "to": "s08",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s03",
+            "to": "s05",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s03",
+            "to": "s10",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s04",
+            "to": "s06",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "s04",
+            "to": "s07",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "s05",
+            "to": "s11",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s05",
+            "to": "s12",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s06",
+            "to": "s07",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s06",
+            "to": "s13",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "s07",
+            "to": "l02",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "s07",
+            "to": "s08",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s08",
+            "to": "s09",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s08",
+            "to": "s15",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s09",
+            "to": "l01",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "s09",
+            "to": "l03",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "s09",
+            "to": "s10",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s09",
+            "to": "s16",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s10",
+            "to": "s11",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s10",
+            "to": "s17",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "s11",
+            "to": "l04",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "s11",
+            "to": "s12",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s12",
+            "to": "s19",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s13",
+            "to": "s14",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s13",
+            "to": "s20",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "s14",
+            "to": "l02",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "s14",
+            "to": "s15",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s14",
+            "to": "s20",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s15",
+            "to": "l02",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s15",
+            "to": "s16",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "s15",
+            "to": "l05",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "s15",
+            "to": "s21",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s16",
+            "to": "l03",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s16",
+            "to": "s17",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s16",
+            "to": "s22",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "s17",
+            "to": "l04",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "s17",
+            "to": "s18",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s17",
+            "to": "s23",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s18",
+            "to": "l04",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s18",
+            "to": "s19",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "s18",
+            "to": "s24",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "s19",
+            "to": "s12",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s20",
+            "to": "s21",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s20",
+            "to": "l05",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s21",
+            "to": "l05",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "s21",
+            "to": "s22",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "s22",
+            "to": "l05",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s22",
+            "to": "l06",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s22",
+            "to": "s25",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s23",
+            "to": "l06",
+            "direction": "bidirectional",
+            "bend": 10
+          },
+          {
+            "from": "s23",
+            "to": "s24",
+            "direction": "bidirectional",
+            "bend": -8
+          },
+          {
+            "from": "s24",
+            "to": "l06",
+            "direction": "bidirectional",
+            "bend": 0
+          },
+          {
+            "from": "s24",
+            "to": "s25",
+            "direction": "bidirectional",
+            "bend": 0
+          }
+        ],
+        "note": "Grafo candidato preservado para comparação; não é a referência visual atual nem uma topologia aprovada."
+      },
+      "prototype_visual_v0_6": {
+        "status": "user_selected_visual_reference",
+        "asset": "docs/prototypes/assets/passive_skill_tree_endgame_reference.png",
+        "sha256": "51b511eec2f98714bca7a9379f7bc4b84ad78b7475d30d1952c951f1ab8d2e0e",
+        "dimensions_px": [
+          1672,
+          941
+        ],
+        "format": "PNG RGBA",
+        "scope": "Conceptual endgame tree reference; the image is not an exact graph-data export.",
+        "unlock_rules": {
+          "vocation_origin": "unlocked_by_default",
+          "other_nodes": "automatic_by_character_level",
+          "prototype_level_range": [
+            1,
+            10
+          ],
+          "generation_level_preview": {
+            "generation_1": 2,
+            "generation_2": 4,
+            "generation_3": 6,
+            "generation_4": 8,
+            "generation_5": 10
+          },
+          "preview_status": "illustrative_pending_validation"
+        }
+      }
+    },
+    "regions": [
+      {
+        "id": "beach_spawn",
+        "playable_mvp": true
+      },
+      {
+        "id": "green_forest",
+        "playable_mvp": true
+      },
+      {
+        "id": "bear_interior",
+        "playable_mvp": true
+      },
+      {
+        "id": "corrupted_castle",
+        "playable_mvp": false
+      }
+    ],
+    "animations_and_vfx": {
+      "directions": [
+        "N",
+        "NE",
+        "E",
+        "SE",
+        "S",
+        "SO",
+        "O",
+        "NO"
+      ],
+      "character_states_frames": {
+        "idle": 4,
+        "walk": 6,
+        "attack": 6,
+        "hit": 3,
+        "death": 6,
+        "cast": 6
+      },
+      "candidate_cell_px": [
+        96,
+        96
+      ],
+      "candidate_pivot_px": [
+        48,
+        80
+      ],
+      "vfx_ids": [
+        "slash",
+        "bleed",
+        "quake",
+        "invisibility",
+        "ricochet",
+        "pierce",
+        "arcane_bolt",
+        "fire",
+        "ice",
+        "harvest",
+        "heal",
+        "crystal",
+        "build"
+      ]
+    },
+    "ui_and_audio": {
+      "screens": [
+        "boot",
+        "visitor_link_account",
+        "character_select",
+        "lobby",
+        "gameplay",
+        "inventory_craft",
+        "talent_tree",
+        "pause_save",
+        "expedition_result",
+        "recoverable_error"
+      ],
+      "hud": [
+        "portrait",
+        "hp",
+        "mp",
+        "objective",
+        "minimap",
+        "joystick",
+        "attack",
+        "skills",
+        "bandage",
+        "backpack",
+        "interact",
+        "zoom"
+      ],
+      "audio_groups": [
+        "music",
+        "ambience",
+        "combat",
+        "harvest",
+        "ui",
+        "alerts"
+      ],
+      "inventory_prototype_v0_7": {
+        "status": "interface_candidate_pending_user_review",
+        "prototype_only": true,
+        "character_level": 4,
+        "available_attribute_points": 3,
+        "raw_attributes_at_start": {
+          "FOR": 0,
+          "AGI": 0,
+          "INT": 0
+        },
+        "attribute_points_per_level_up": 1,
+        "base_hp_mp_by_vocation": {
+          "warrior": {
+            "hp": 200,
+            "mp": 100
+          },
+          "archer": {
+            "hp": 150,
+            "mp": 150
+          },
+          "mage": {
+            "hp": 100,
+            "mp": 200
+          }
+        },
+        "equipment_grid_4x3": [
+          [
+            "slot",
+            "helmet",
+            "amulet"
+          ],
+          [
+            "weapon_main",
+            "armor",
+            "offhand"
+          ],
+          [
+            "jewel_left",
+            "pants",
+            "jewel_right"
+          ],
+          [
+            "slot",
+            "boots",
+            "slot"
+          ]
+        ],
+        "bag_slots": 24,
+        "right_panel": {
+          "default": "attribute_allocation",
+          "selected_item": [
+            "description",
+            "location_status",
+            "attributes",
+            "context_action"
+          ]
+        },
+        "attribute_derived_effects": {
+          "FOR": {
+            "max_hp_per_effective_point": 3,
+            "melee_damage_per_effective_point": 0.6
+          },
+          "AGI": {
+            "ranged_damage_per_effective_point": 0.6,
+            "critical_chance_percentage_points_per_effective_point": 0.05,
+            "dodge_percentage_points_per_effective_point": 0.05
+          },
+          "INT": {
+            "max_mp_per_effective_point": 3,
+            "magic_damage_per_effective_point": 0.6
+          }
+        },
+        "multipliers_source": "vocations[].stat_multiplier",
+        "saves_progress": false
+      }
+    }
+  },
+  "layout": {
+    "schema_version": 1,
+    "id": "beach_spawn_playable_slice",
+    "grid_size": [
+      192,
+      132
+    ],
+    "tile_px_candidate": [
+      32,
+      32
+    ],
+    "seed": 20261015,
+    "surface_bands": [
+      {
+        "from_x": 0,
+        "to_x": 3,
+        "group": "water_deep"
+      },
+      {
+        "from_x": 3,
+        "to_x": 8,
+        "group": "water_shallow"
+      },
+      {
+        "from_x": 8,
+        "to_x": 20,
+        "group": "sand"
+      },
+      {
+        "from_x": 20,
+        "to_x": 50,
+        "group": "grass"
+      },
+      {
+        "from_x": 50,
+        "to_x": 192,
+        "group": "soil"
+      }
+    ],
+    "surface_areas": [
+      {
+        "from_x": 35,
+        "to_x": 47,
+        "from_y": 7,
+        "to_y": 37,
+        "group": "forest"
+      },
+      {
+        "from_x": 72,
+        "to_x": 96,
+        "from_y": 14,
+        "to_y": 50,
+        "group": "forest"
+      },
+      {
+        "from_x": 105,
+        "to_x": 129,
+        "from_y": 77,
+        "to_y": 116,
+        "group": "forest"
+      },
+      {
+        "from_x": 145,
+        "to_x": 169,
+        "from_y": 22,
+        "to_y": 52,
+        "group": "forest"
+      },
+      {
+        "from_x": 158,
+        "to_x": 183,
+        "from_y": 82,
+        "to_y": 119,
+        "group": "forest"
+      }
+    ],
+    "transition_bands": [
+      {
+        "prefix": "shore_sand_water",
+        "edge": "w",
+        "x": 7
+      },
+      {
+        "prefix": "beach_grass",
+        "edge": "w",
+        "x": 19
+      },
+      {
+        "prefix": "grass_soil",
+        "edge": "e",
+        "x": 49
+      }
+    ],
+    "transition_patches": [
+      {
+        "prefix": "shore_sand_water",
+        "center": [
+          5,
+          22
+        ],
+        "inner_base": "sand_01"
+      },
+      {
+        "prefix": "beach_grass",
+        "center": [
+          15,
+          25
+        ],
+        "inner_base": "grass_01"
+      },
+      {
+        "prefix": "grass_soil",
+        "center": [
+          56,
+          22
+        ],
+        "inner_base": "grass_01"
+      },
+      {
+        "prefix": "grass_soil",
+        "center": [
+          57,
+          67
+        ],
+        "inner_base": "grass_02"
+      },
+      {
+        "prefix": "grass_soil",
+        "center": [
+          56,
+          108
+        ],
+        "inner_base": "grass_03"
+      }
+    ],
+    "path_network": [
+      {
+        "id": "path_overlay_dead_s",
+        "cell": [
+          33,
+          14
+        ]
+      },
+      {
+        "id": "path_overlay_turn_es",
+        "cell": [
+          31,
+          15
+        ]
+      },
+      {
+        "id": "path_overlay_h",
+        "cell": [
+          32,
+          15
+        ]
+      },
+      {
+        "id": "path_overlay_cross",
+        "cell": [
+          33,
+          15
+        ]
+      },
+      {
+        "id": "path_overlay_tee_s",
+        "cell": [
+          34,
+          15
+        ]
+      },
+      {
+        "id": "path_overlay_turn_sw",
+        "cell": [
+          35,
+          15
+        ]
+      },
+      {
+        "id": "path_overlay_dead_e",
+        "cell": [
+          30,
+          16
+        ]
+      },
+      {
+        "id": "path_overlay_tee_w",
+        "cell": [
+          31,
+          16
+        ]
+      },
+      {
+        "id": "path_overlay_turn_ne",
+        "cell": [
+          33,
+          16
+        ]
+      },
+      {
+        "id": "path_overlay_tee_n",
+        "cell": [
+          34,
+          16
+        ]
+      },
+      {
+        "id": "path_overlay_turn_wn",
+        "cell": [
+          35,
+          16
+        ]
+      },
+      {
+        "id": "path_overlay_tee_e",
+        "cell": [
+          31,
+          17
+        ]
+      },
+      {
+        "id": "path_overlay_dead_w",
+        "cell": [
+          32,
+          17
+        ]
+      },
+      {
+        "id": "path_overlay_v",
+        "cell": [
+          31,
+          18
+        ]
+      },
+      {
+        "id": "path_overlay_dead_n",
+        "cell": [
+          31,
+          19
+        ]
+      }
+    ],
+    "spawn_cell": [
+      16,
+      23
+    ],
+    "beacon_cell": [
+      21,
+      23
+    ],
+    "creature_spawns": [
+      {
+        "id": "fox_1",
+        "species": "fox",
+        "cell": [
+          27,
+          24
+        ]
+      },
+      {
+        "id": "wolf_1",
+        "species": "wolf",
+        "cell": [
+          40,
+          22
+        ]
+      },
+      {
+        "id": "bear_1",
+        "species": "bear",
+        "cell": [
+          56,
+          22
+        ]
+      },
+      {
+        "id": "wolf_2",
+        "species": "wolf",
+        "cell": [
+          68,
+          19
+        ]
+      },
+      {
+        "id": "fox_2",
+        "species": "fox",
+        "cell": [
+          76,
+          44
+        ]
+      },
+      {
+        "id": "wolf_3",
+        "species": "wolf",
+        "cell": [
+          82,
+          66
+        ]
+      },
+      {
+        "id": "wolf_4",
+        "species": "wolf",
+        "cell": [
+          94,
+          34
+        ]
+      },
+      {
+        "id": "wolf_5",
+        "species": "wolf",
+        "cell": [
+          106,
+          103
+        ]
+      },
+      {
+        "id": "wolf_6",
+        "species": "wolf",
+        "cell": [
+          117,
+          17
+        ]
+      },
+      {
+        "id": "wolf_7",
+        "species": "wolf",
+        "cell": [
+          128,
+          59
+        ]
+      },
+      {
+        "id": "wolf_8",
+        "species": "wolf",
+        "cell": [
+          139,
+          90
+        ]
+      },
+      {
+        "id": "bear_2",
+        "species": "bear",
+        "cell": [
+          68,
+          115
+        ]
+      },
+      {
+        "id": "wolf_9",
+        "species": "wolf",
+        "cell": [
+          151,
+          121
+        ]
+      },
+      {
+        "id": "wolf_10",
+        "species": "wolf",
+        "cell": [
+          167,
+          33
+        ]
+      },
+      {
+        "id": "wolf_11",
+        "species": "wolf",
+        "cell": [
+          177,
+          75
+        ]
+      },
+      {
+        "id": "bear_3",
+        "species": "bear",
+        "cell": [
+          112,
+          71
+        ]
+      },
+      {
+        "id": "bear_4",
+        "species": "bear",
+        "cell": [
+          165,
+          95
+        ]
+      },
+      {
+        "id": "wolf_12",
+        "species": "wolf",
+        "cell": [
+          184,
+          112
+        ]
+      }
+    ],
+    "harvest_nodes": [
+      {
+        "id": "fiber_22_18",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          22,
+          18
+        ]
+      },
+      {
+        "id": "fiber_29_27",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          29,
+          27
+        ]
+      },
+      {
+        "id": "fiber_34_23",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          34,
+          23
+        ]
+      },
+      {
+        "id": "fiber_39_31",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          39,
+          31
+        ]
+      },
+      {
+        "id": "fiber_45_22",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          45,
+          22
+        ]
+      },
+      {
+        "id": "fiber_48_34",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          48,
+          34
+        ]
+      },
+      {
+        "id": "herb_20_20",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          20,
+          20
+        ]
+      },
+      {
+        "id": "herb_25_25",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          25,
+          25
+        ]
+      },
+      {
+        "id": "herb_35_21",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          35,
+          21
+        ]
+      },
+      {
+        "id": "herb_43_16",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          43,
+          16
+        ]
+      },
+      {
+        "id": "herb_49_30",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          49,
+          30
+        ]
+      },
+      {
+        "id": "herb_31_29",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          31,
+          29
+        ]
+      },
+      {
+        "id": "fiber_exp_01",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          63,
+          29
+        ]
+      },
+      {
+        "id": "fiber_exp_02",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          76,
+          81
+        ]
+      },
+      {
+        "id": "fiber_exp_03",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          85,
+          24
+        ]
+      },
+      {
+        "id": "fiber_exp_04",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          94,
+          58
+        ]
+      },
+      {
+        "id": "fiber_exp_05",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          101,
+          89
+        ]
+      },
+      {
+        "id": "fiber_exp_06",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          110,
+          36
+        ]
+      },
+      {
+        "id": "fiber_exp_07",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          116,
+          92
+        ]
+      },
+      {
+        "id": "fiber_exp_08",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          126,
+          18
+        ]
+      },
+      {
+        "id": "fiber_exp_09",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          135,
+          67
+        ]
+      },
+      {
+        "id": "fiber_exp_10",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          144,
+          105
+        ]
+      },
+      {
+        "id": "fiber_exp_11",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          152,
+          47
+        ]
+      },
+      {
+        "id": "fiber_exp_12",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          160,
+          24
+        ]
+      },
+      {
+        "id": "fiber_exp_13",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          170,
+          89
+        ]
+      },
+      {
+        "id": "fiber_exp_14",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          178,
+          47
+        ]
+      },
+      {
+        "id": "fiber_exp_15",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          183,
+          82
+        ]
+      },
+      {
+        "id": "fiber_exp_16",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          95,
+          119
+        ]
+      },
+      {
+        "id": "herb_exp_01",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          71,
+          61
+        ]
+      },
+      {
+        "id": "herb_exp_02",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          83,
+          101
+        ]
+      },
+      {
+        "id": "herb_exp_03",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          91,
+          47
+        ]
+      },
+      {
+        "id": "herb_exp_04",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          99,
+          29
+        ]
+      },
+      {
+        "id": "herb_exp_05",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          108,
+          81
+        ]
+      },
+      {
+        "id": "herb_exp_06",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          119,
+          48
+        ]
+      },
+      {
+        "id": "herb_exp_07",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          130,
+          101
+        ]
+      },
+      {
+        "id": "herb_exp_08",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          141,
+          40
+        ]
+      },
+      {
+        "id": "herb_exp_09",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          150,
+          111
+        ]
+      },
+      {
+        "id": "herb_exp_10",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          160,
+          69
+        ]
+      },
+      {
+        "id": "herb_exp_11",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          175,
+          17
+        ]
+      },
+      {
+        "id": "herb_exp_12",
+        "resource": "herb",
+        "quantity": 1,
+        "cell": [
+          181,
+          119
+        ]
+      }
+    ],
+    "obstacles": [
+      {
+        "kind": "tree",
+        "cell": [
+          24,
+          17
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          27,
+          21
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          32,
+          12
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          38,
+          19
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          42,
+          13
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          44,
+          27
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          46,
+          17
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          12,
+          13
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          25,
+          29
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          53,
+          17
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          59,
+          27
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          72,
+          22
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          82,
+          44
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          88,
+          79
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          96,
+          17
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          102,
+          116
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          111,
+          54
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          121,
+          86
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          131,
+          28
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          137,
+          113
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          147,
+          61
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          154,
+          101
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          166,
+          18
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          171,
+          49
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          179,
+          104
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          104,
+          74
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          78,
+          112
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          144,
+          20
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          117,
+          121
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          91,
+          91
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          160,
+          126
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          187,
+          42
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          68,
+          88
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          67,
+          47
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          91,
+          111
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          104,
+          43
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          123,
+          74
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          143,
+          33
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          151,
+          75
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          162,
+          57
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          174,
+          25
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          182,
+          61
+        ]
+      },
+      {
+        "kind": "boulder",
+        "cell": [
+          185,
+          125
+        ]
+      }
+    ],
+    "map_expansion": {
+      "interpretation": "3x largura e 3x altura da grade original; área total 9x",
+      "baseline_grid_size": [
+        64,
+        44
+      ],
+      "linear_multiplier": 3,
+      "area_multiplier": 9,
+      "legacy_region_preserved": {
+        "origin_cell": [
+          0,
+          0
+        ],
+        "grid_size": [
+          64,
+          44
+        ]
+      }
+    }
+  },
+  "appearances": {
+    "schema_version": 1,
+    "source": "data/catalogs/mvp.json",
+    "note": "Somente aparências Warrior com atlas idle/walk existentes; os JSONs originais são a fonte do pivô, grade, FPS e estado de arte; status corrigir/approved:false preservados.",
+    "characters": [
+      {
+        "id": "melissa",
+        "name": "Melissa",
+        "description": "Meiga e doce, é esperta e observadora; costuma manter a calma diante de imprevistos.",
+        "idle_metadata": "res://assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v2.json",
+        "walk_metadata": "res://assets/characters/melissa/warrior/melissa_warrior_walk_8dir_candidate_v1.json"
+      },
+      {
+        "id": "helena",
+        "name": "Helena",
+        "description": "Carismática e inteligente, reage com intensidade e tem muita iniciativa.",
+        "idle_metadata": "res://assets/characters/helena/warrior/helena_warrior_idle_candidate_v2.json",
+        "walk_metadata": "res://assets/characters/helena/warrior/helena_warrior_walk_candidate_v2.json"
+      },
+      {
+        "id": "maira",
+        "name": "Maíra",
+        "description": "Falante e atenciosa, anima o grupo e observa o ambiente antes de agir.",
+        "idle_metadata": "res://assets/characters/maira/warrior/maira_warrior_idle_candidate_v2.json",
+        "walk_metadata": "res://assets/characters/maira/warrior/maira_warrior_walk_candidate_v2.json"
+      },
+      {
+        "id": "fabio",
+        "name": "Fábio",
+        "description": "Sereno e atento, observa os riscos e planeja a estratégia antes de agir.",
+        "idle_metadata": "res://assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v3_8dir.json",
+        "walk_metadata": "res://assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v3_8dir.json"
+      }
+    ]
+  },
+  "assets": [
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v1.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v1.png",
+      "name": "fabio_warrior_idle_candidate_v1.png",
+      "group": "characters",
+      "subgroup": "Fabio",
+      "dimensions": [
+        384,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 4,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v2.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v2.png",
+      "name": "fabio_warrior_idle_candidate_v2.png",
+      "group": "characters",
+      "subgroup": "Fabio",
+      "dimensions": [
+        384,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 4,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v3_8dir.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v3_8dir.png",
+      "name": "fabio_warrior_idle_candidate_v3_8dir.png",
+      "group": "characters",
+      "subgroup": "Fabio",
+      "dimensions": [
+        384,
+        768
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 4,
+      "directions": 8
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v1.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v1.png",
+      "name": "fabio_warrior_walk_candidate_v1.png",
+      "group": "characters",
+      "subgroup": "Fabio",
+      "dimensions": [
+        576,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 6,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v2.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v2.png",
+      "name": "fabio_warrior_walk_candidate_v2.png",
+      "group": "characters",
+      "subgroup": "Fabio",
+      "dimensions": [
+        576,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 6,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v3_8dir.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v3_8dir.png",
+      "name": "fabio_warrior_walk_candidate_v3_8dir.png",
+      "group": "characters",
+      "subgroup": "Fabio",
+      "dimensions": [
+        576,
+        768
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 6,
+      "directions": 8
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v1.png",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_idle_candidate_v1.png",
+      "name": "helena_warrior_idle_candidate_v1.png",
+      "group": "characters",
+      "subgroup": "Helena",
+      "dimensions": [
+        384,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 4,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v2.png",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_idle_candidate_v2.png",
+      "name": "helena_warrior_idle_candidate_v2.png",
+      "group": "characters",
+      "subgroup": "Helena",
+      "dimensions": [
+        384,
+        768
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": null,
+      "directions": 8
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_walk_candidate_v1.png",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_walk_candidate_v1.png",
+      "name": "helena_warrior_walk_candidate_v1.png",
+      "group": "characters",
+      "subgroup": "Helena",
+      "dimensions": [
+        576,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 6,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_walk_candidate_v2.png",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_walk_candidate_v2.png",
+      "name": "helena_warrior_walk_candidate_v2.png",
+      "group": "characters",
+      "subgroup": "Helena",
+      "dimensions": [
+        576,
+        768
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": null,
+      "directions": 8
+    },
+    {
+      "path": "assets/characters/maira/mage/source_candidates/maira_mage_idle_source_candidate_v1.png",
+      "href": "../../assets/characters/maira/mage/source_candidates/maira_mage_idle_source_candidate_v1.png",
+      "name": "maira_mage_idle_source_candidate_v1.png",
+      "group": "characters",
+      "subgroup": "Maira",
+      "dimensions": [
+        887,
+        1774
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_idle_candidate_v1.png",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_idle_candidate_v1.png",
+      "name": "maira_warrior_idle_candidate_v1.png",
+      "group": "characters",
+      "subgroup": "Maira",
+      "dimensions": [
+        384,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 4,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_idle_candidate_v2.png",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_idle_candidate_v2.png",
+      "name": "maira_warrior_idle_candidate_v2.png",
+      "group": "characters",
+      "subgroup": "Maira",
+      "dimensions": [
+        384,
+        768
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 4,
+      "directions": 8
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_walk_candidate_v1.png",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_walk_candidate_v1.png",
+      "name": "maira_warrior_walk_candidate_v1.png",
+      "group": "characters",
+      "subgroup": "Maira",
+      "dimensions": [
+        576,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 6,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_walk_candidate_v2.png",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_walk_candidate_v2.png",
+      "name": "maira_warrior_walk_candidate_v2.png",
+      "group": "characters",
+      "subgroup": "Maira",
+      "dimensions": [
+        576,
+        768
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 6,
+      "directions": 8
+    },
+    {
+      "path": "assets/characters/melissa/mage/melissa_mage_idle_candidate_v1.png",
+      "href": "../../assets/characters/melissa/mage/melissa_mage_idle_candidate_v1.png",
+      "name": "melissa_mage_idle_candidate_v1.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        384,
+        192
+      ],
+      "status": "needs_correction",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 4,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
+      "href": "../../assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
+      "name": "melissa_mage_idle_candidate_v1_contact.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        1152,
+        576
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/characters/melissa/mage/melissa_mage_idle_source_candidate_v1.png",
+      "href": "../../assets/characters/melissa/mage/melissa_mage_idle_source_candidate_v1.png",
+      "name": "melissa_mage_idle_source_candidate_v1.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle.png",
+      "name": "melissa_warrior_idle.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        384,
+        192
+      ],
+      "status": "needs_correction",
+      "approved": null,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": null,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v1.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v1.png",
+      "name": "melissa_warrior_idle_8dir_candidate_v1.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        384,
+        768
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 4,
+      "directions": 8
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v2.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v2.png",
+      "name": "melissa_warrior_idle_8dir_candidate_v2.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        384,
+        768
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 4,
+      "directions": 8
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v2.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v2.png",
+      "name": "melissa_warrior_idle_candidate_v2.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        384,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 4,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v3.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v3.png",
+      "name": "melissa_warrior_idle_candidate_v3.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        384,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 4,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk.png",
+      "name": "melissa_warrior_walk.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        576,
+        192
+      ],
+      "status": "needs_correction",
+      "approved": null,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": null,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk_8dir_candidate_v1.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk_8dir_candidate_v1.png",
+      "name": "melissa_warrior_walk_8dir_candidate_v1.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        576,
+        768
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 6,
+      "directions": 8
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v2.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v2.png",
+      "name": "melissa_warrior_walk_candidate_v2.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        576,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 6,
+      "directions": 2
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+      "name": "melissa_warrior_walk_candidate_v3.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        576,
+        192
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": 6,
+      "directions": 2
+    },
+    {
+      "path": "assets/creatures/bear/bear_se_candidate_v1.png",
+      "href": "../../assets/creatures/bear/bear_se_candidate_v1.png",
+      "name": "bear_se_candidate_v1.png",
+      "group": "creatures",
+      "subgroup": "Bear",
+      "dimensions": [
+        128,
+        128
+      ],
+      "status": "candidate",
+      "approved": false,
+      "cell": [
+        128,
+        128
+      ],
+      "pivot": [
+        64,
+        108
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/fox/fox_se_candidate_v1.png",
+      "href": "../../assets/creatures/fox/fox_se_candidate_v1.png",
+      "name": "fox_se_candidate_v1.png",
+      "group": "creatures",
+      "subgroup": "Fox",
+      "dimensions": [
+        96,
+        96
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/wolf/wolf_se_candidate_v1.png",
+      "href": "../../assets/creatures/wolf/wolf_se_candidate_v1.png",
+      "name": "wolf_se_candidate_v1.png",
+      "group": "creatures",
+      "subgroup": "Wolf",
+      "dimensions": [
+        96,
+        96
+      ],
+      "status": "corrigir",
+      "approved": false,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.png",
+      "href": "../../assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.png",
+      "name": "terrain_mvp_candidate_v1.png",
+      "group": "environments",
+      "subgroup": "Terreno",
+      "dimensions": [
+        256,
+        224
+      ],
+      "status": "candidate_pending_visual_and_engine_review",
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/boulder.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/boulder.png",
+      "name": "boulder.png",
+      "group": "environments",
+      "subgroup": "Terreno",
+      "dimensions": [
+        64,
+        56
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/crystal.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/crystal.png",
+      "name": "crystal.png",
+      "group": "environments",
+      "subgroup": "Terreno",
+      "dimensions": [
+        84,
+        96
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/ground.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/ground.png",
+      "name": "ground.png",
+      "group": "environments",
+      "subgroup": "Terreno",
+      "dimensions": [
+        2048,
+        1408
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/palm.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/palm.png",
+      "name": "palm.png",
+      "group": "environments",
+      "subgroup": "Terreno",
+      "dimensions": [
+        112,
+        128
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/palm_generated.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/palm_generated.png",
+      "name": "palm_generated.png",
+      "group": "environments",
+      "subgroup": "Terreno",
+      "dimensions": [
+        96,
+        128
+      ],
+      "status": "candidate",
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/palm_generated_source.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/palm_generated_source.png",
+      "name": "palm_generated_source.png",
+      "group": "environments",
+      "subgroup": "Terreno",
+      "dimensions": [
+        1086,
+        1448
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/tree.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/tree.png",
+      "name": "tree.png",
+      "group": "environments",
+      "subgroup": "Terreno",
+      "dimensions": [
+        104,
+        128
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/app_icon.png",
+      "href": "../../assets/ui/app_icon.png",
+      "name": "app_icon.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        512,
+        512
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/app_icon_background.png",
+      "href": "../../assets/ui/app_icon_background.png",
+      "name": "app_icon_background.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        432,
+        432
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/app_icon_foreground.png",
+      "href": "../../assets/ui/app_icon_foreground.png",
+      "name": "app_icon_foreground.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        432,
+        432
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/app_icon_monochrome.png",
+      "href": "../../assets/ui/app_icon_monochrome.png",
+      "name": "app_icon_monochrome.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        432,
+        432
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/AGI.png",
+      "href": "../../assets/ui/classic_v2/AGI.png",
+      "name": "AGI.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/FOR.png",
+      "href": "../../assets/ui/classic_v2/FOR.png",
+      "name": "FOR.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/INT.png",
+      "href": "../../assets/ui/classic_v2/INT.png",
+      "name": "INT.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/amulet.png",
+      "href": "../../assets/ui/classic_v2/amulet.png",
+      "name": "amulet.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/axe_basic.png",
+      "href": "../../assets/ui/classic_v2/axe_basic.png",
+      "name": "axe_basic.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/bandage.png",
+      "href": "../../assets/ui/classic_v2/bandage.png",
+      "name": "bandage.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/boots.png",
+      "href": "../../assets/ui/classic_v2/boots.png",
+      "name": "boots.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/button.png",
+      "href": "../../assets/ui/classic_v2/button.png",
+      "name": "button.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        48,
+        48
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/chest.png",
+      "href": "../../assets/ui/classic_v2/chest.png",
+      "name": "chest.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/confirm.png",
+      "href": "../../assets/ui/classic_v2/confirm.png",
+      "name": "confirm.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        48,
+        48
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/crystal_shard.png",
+      "href": "../../assets/ui/classic_v2/crystal_shard.png",
+      "name": "crystal_shard.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/danger.png",
+      "href": "../../assets/ui/classic_v2/danger.png",
+      "name": "danger.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        48,
+        48
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/fang.png",
+      "href": "../../assets/ui/classic_v2/fang.png",
+      "name": "fang.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/fiber.png",
+      "href": "../../assets/ui/classic_v2/fiber.png",
+      "name": "fiber.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/head.png",
+      "href": "../../assets/ui/classic_v2/head.png",
+      "name": "head.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/herb.png",
+      "href": "../../assets/ui/classic_v2/herb.png",
+      "name": "herb.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/hide.png",
+      "href": "../../assets/ui/classic_v2/hide.png",
+      "name": "hide.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/jewel_left.png",
+      "href": "../../assets/ui/classic_v2/jewel_left.png",
+      "name": "jewel_left.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/jewel_right.png",
+      "href": "../../assets/ui/classic_v2/jewel_right.png",
+      "name": "jewel_right.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/main_hand.png",
+      "href": "../../assets/ui/classic_v2/main_hand.png",
+      "name": "main_hand.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/meat.png",
+      "href": "../../assets/ui/classic_v2/meat.png",
+      "name": "meat.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/offhand.png",
+      "href": "../../assets/ui/classic_v2/offhand.png",
+      "name": "offhand.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/panel.png",
+      "href": "../../assets/ui/classic_v2/panel.png",
+      "name": "panel.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        48,
+        48
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/pants.png",
+      "href": "../../assets/ui/classic_v2/pants.png",
+      "name": "pants.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/parchment.png",
+      "href": "../../assets/ui/classic_v2/parchment.png",
+      "name": "parchment.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        48,
+        48
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/pickaxe_basic.png",
+      "href": "../../assets/ui/classic_v2/pickaxe_basic.png",
+      "name": "pickaxe_basic.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/slot.png",
+      "href": "../../assets/ui/classic_v2/slot.png",
+      "name": "slot.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        48,
+        48
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/stone.png",
+      "href": "../../assets/ui/classic_v2/stone.png",
+      "name": "stone.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/sword_basic.png",
+      "href": "../../assets/ui/classic_v2/sword_basic.png",
+      "name": "sword_basic.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/sword_reinforced.png",
+      "href": "../../assets/ui/classic_v2/sword_reinforced.png",
+      "name": "sword_reinforced.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/wood.png",
+      "href": "../../assets/ui/classic_v2/wood.png",
+      "name": "wood.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/pixel_hud_v1/source_sheet.png",
+      "href": "../../assets/ui/pixel_hud_v1/source_sheet.png",
+      "name": "source_sheet.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    }
+  ],
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "href": "../../AGENTS.md",
+      "extension": "md",
+      "size": 3496
+    },
+    {
+      "path": "Docs/Context/DECISIONS.md",
+      "href": "../../Docs/Context/DECISIONS.md",
+      "extension": "md",
+      "size": 16587
+    },
+    {
+      "path": "Docs/Context/HANDOFF.md",
+      "href": "../../Docs/Context/HANDOFF.md",
+      "extension": "md",
+      "size": 1329
+    },
+    {
+      "path": "Docs/Context/JOURNAL.md",
+      "href": "../../Docs/Context/JOURNAL.md",
+      "extension": "md",
+      "size": 52233
+    },
+    {
+      "path": "Docs/Context/PROTOTYPE_LOG.md",
+      "href": "../../Docs/Context/PROTOTYPE_LOG.md",
+      "extension": "md",
+      "size": 13866
+    },
+    {
+      "path": "Docs/Main/CATALOGS_MVP.md",
+      "href": "../../Docs/Main/CATALOGS_MVP.md",
+      "extension": "md",
+      "size": 18920
+    },
+    {
+      "path": "Docs/Main/CONTENT_DATA.md",
+      "href": "../../Docs/Main/CONTENT_DATA.md",
+      "extension": "md",
+      "size": 6390
+    },
+    {
+      "path": "Docs/Main/GDD_MVP.md",
+      "href": "../../Docs/Main/GDD_MVP.md",
+      "extension": "md",
+      "size": 9674
+    },
+    {
+      "path": "Docs/Main/PROTOTYPING_METHODOLOGY.md",
+      "href": "../../Docs/Main/PROTOTYPING_METHODOLOGY.md",
+      "extension": "md",
+      "size": 7602
+    },
+    {
+      "path": "Docs/Main/ROADMAP.md",
+      "href": "../../Docs/Main/ROADMAP.md",
+      "extension": "md",
+      "size": 11555
+    },
+    {
+      "path": "README.md",
+      "href": "../../README.md",
+      "extension": "md",
+      "size": 8921
+    },
+    {
+      "path": "Testar_Jogo_Web.bat",
+      "href": "../../Testar_Jogo_Web.bat",
+      "extension": "bat",
+      "size": 746
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v1.json",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v1.json",
+      "extension": "json",
+      "size": 11847
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v1.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v1.png",
+      "extension": "png",
+      "size": 61144
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v2.json",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v2.json",
+      "extension": "json",
+      "size": 8372
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v2.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v2.png",
+      "extension": "png",
+      "size": 62608
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v3_8dir.json",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v3_8dir.json",
+      "extension": "json",
+      "size": 66602
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v3_8dir.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v3_8dir.png",
+      "extension": "png",
+      "size": 241711
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v1.json",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v1.json",
+      "extension": "json",
+      "size": 16388
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v1.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v1.png",
+      "extension": "png",
+      "size": 92311
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v2.json",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v2.json",
+      "extension": "json",
+      "size": 11167
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v2.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v2.png",
+      "extension": "png",
+      "size": 94257
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v3_8dir.json",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v3_8dir.json",
+      "extension": "json",
+      "size": 96621
+    },
+    {
+      "path": "assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v3_8dir.png",
+      "href": "../../assets/characters/fabio/warrior/fabio_warrior_walk_candidate_v3_8dir.png",
+      "extension": "png",
+      "size": 369089
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v1.json",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_idle_candidate_v1.json",
+      "extension": "json",
+      "size": 14107
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v1.png",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_idle_candidate_v1.png",
+      "extension": "png",
+      "size": 54203
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v2.json",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_idle_candidate_v2.json",
+      "extension": "json",
+      "size": 24500
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_idle_candidate_v2.png",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_idle_candidate_v2.png",
+      "extension": "png",
+      "size": 188903
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_walk_candidate_v1.json",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_walk_candidate_v1.json",
+      "extension": "json",
+      "size": 18446
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_walk_candidate_v1.png",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_walk_candidate_v1.png",
+      "extension": "png",
+      "size": 72288
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_walk_candidate_v2.json",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_walk_candidate_v2.json",
+      "extension": "json",
+      "size": 31554
+    },
+    {
+      "path": "assets/characters/helena/warrior/helena_warrior_walk_candidate_v2.png",
+      "href": "../../assets/characters/helena/warrior/helena_warrior_walk_candidate_v2.png",
+      "extension": "png",
+      "size": 430087
+    },
+    {
+      "path": "assets/characters/maira/mage/source_candidates/maira_mage_idle_source_candidate_v1.png",
+      "href": "../../assets/characters/maira/mage/source_candidates/maira_mage_idle_source_candidate_v1.png",
+      "extension": "png",
+      "size": 2077618
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_idle_candidate_v1.json",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_idle_candidate_v1.json",
+      "extension": "json",
+      "size": 5619
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_idle_candidate_v1.png",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_idle_candidate_v1.png",
+      "extension": "png",
+      "size": 13448
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_idle_candidate_v2.json",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_idle_candidate_v2.json",
+      "extension": "json",
+      "size": 21019
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_idle_candidate_v2.png",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_idle_candidate_v2.png",
+      "extension": "png",
+      "size": 167810
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_walk_candidate_v1.json",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_walk_candidate_v1.json",
+      "extension": "json",
+      "size": 7337
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_walk_candidate_v1.png",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_walk_candidate_v1.png",
+      "extension": "png",
+      "size": 24031
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_walk_candidate_v2.json",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_walk_candidate_v2.json",
+      "extension": "json",
+      "size": 28637
+    },
+    {
+      "path": "assets/characters/maira/warrior/maira_warrior_walk_candidate_v2.png",
+      "href": "../../assets/characters/maira/warrior/maira_warrior_walk_candidate_v2.png",
+      "extension": "png",
+      "size": 189598
+    },
+    {
+      "path": "assets/characters/melissa/mage/melissa_mage_idle_candidate_v1.json",
+      "href": "../../assets/characters/melissa/mage/melissa_mage_idle_candidate_v1.json",
+      "extension": "json",
+      "size": 3248
+    },
+    {
+      "path": "assets/characters/melissa/mage/melissa_mage_idle_candidate_v1.png",
+      "href": "../../assets/characters/melissa/mage/melissa_mage_idle_candidate_v1.png",
+      "extension": "png",
+      "size": 55336
+    },
+    {
+      "path": "assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
+      "href": "../../assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
+      "extension": "png",
+      "size": 81992
+    },
+    {
+      "path": "assets/characters/melissa/mage/melissa_mage_idle_source_candidate_v1.png",
+      "href": "../../assets/characters/melissa/mage/melissa_mage_idle_source_candidate_v1.png",
+      "extension": "png",
+      "size": 1183844
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle.json",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle.json",
+      "extension": "json",
+      "size": 369
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle.png",
+      "extension": "png",
+      "size": 57767
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v1.json",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v1.json",
+      "extension": "json",
+      "size": 16415
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v1.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v1.png",
+      "extension": "png",
+      "size": 206574
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v2.json",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v2.json",
+      "extension": "json",
+      "size": 17642
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v2.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v2.png",
+      "extension": "png",
+      "size": 206566
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v2.json",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v2.json",
+      "extension": "json",
+      "size": 1547
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v2.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v2.png",
+      "extension": "png",
+      "size": 53576
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v3.json",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v3.json",
+      "extension": "json",
+      "size": 1547
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v3.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle_candidate_v3.png",
+      "extension": "png",
+      "size": 53621
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk.json",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk.json",
+      "extension": "json",
+      "size": 369
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk.png",
+      "extension": "png",
+      "size": 78247
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk_8dir_candidate_v1.json",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk_8dir_candidate_v1.json",
+      "extension": "json",
+      "size": 24025
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk_8dir_candidate_v1.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk_8dir_candidate_v1.png",
+      "extension": "png",
+      "size": 312215
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v2.json",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v2.json",
+      "extension": "json",
+      "size": 1843
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v2.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v2.png",
+      "extension": "png",
+      "size": 78501
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.json",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.json",
+      "extension": "json",
+      "size": 1843
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk_candidate_v3.png",
+      "extension": "png",
+      "size": 79193
+    },
+    {
+      "path": "assets/creatures/bear/bear_se_candidate_v1.json",
+      "href": "../../assets/creatures/bear/bear_se_candidate_v1.json",
+      "extension": "json",
+      "size": 1942
+    },
+    {
+      "path": "assets/creatures/bear/bear_se_candidate_v1.png",
+      "href": "../../assets/creatures/bear/bear_se_candidate_v1.png",
+      "extension": "png",
+      "size": 12522
+    },
+    {
+      "path": "assets/creatures/fox/fox_se_candidate_v1.json",
+      "href": "../../assets/creatures/fox/fox_se_candidate_v1.json",
+      "extension": "json",
+      "size": 1520
+    },
+    {
+      "path": "assets/creatures/fox/fox_se_candidate_v1.png",
+      "href": "../../assets/creatures/fox/fox_se_candidate_v1.png",
+      "extension": "png",
+      "size": 4234
+    },
+    {
+      "path": "assets/creatures/wolf/wolf_se_candidate_v1.json",
+      "href": "../../assets/creatures/wolf/wolf_se_candidate_v1.json",
+      "extension": "json",
+      "size": 1898
+    },
+    {
+      "path": "assets/creatures/wolf/wolf_se_candidate_v1.png",
+      "href": "../../assets/creatures/wolf/wolf_se_candidate_v1.png",
+      "extension": "png",
+      "size": 5812
+    },
+    {
+      "path": "assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.json",
+      "href": "../../assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.json",
+      "extension": "json",
+      "size": 21649
+    },
+    {
+      "path": "assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.png",
+      "href": "../../assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.png",
+      "extension": "png",
+      "size": 6445
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/README.md",
+      "href": "../../assets/environments/tropical_oblique_candidate/README.md",
+      "extension": "md",
+      "size": 2317
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/boulder.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/boulder.png",
+      "extension": "png",
+      "size": 736
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/crystal.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/crystal.png",
+      "extension": "png",
+      "size": 1284
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/ground.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/ground.png",
+      "extension": "png",
+      "size": 207257
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/manifest.json",
+      "href": "../../assets/environments/tropical_oblique_candidate/manifest.json",
+      "extension": "json",
+      "size": 470
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/palm.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/palm.png",
+      "extension": "png",
+      "size": 2273
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/palm_generated.json",
+      "href": "../../assets/environments/tropical_oblique_candidate/palm_generated.json",
+      "extension": "json",
+      "size": 775
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/palm_generated.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/palm_generated.png",
+      "extension": "png",
+      "size": 18255
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/palm_generated_source.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/palm_generated_source.png",
+      "extension": "png",
+      "size": 1190847
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/tree.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/tree.png",
+      "extension": "png",
+      "size": 1994
+    },
+    {
+      "path": "assets/references/concept-rpg-classico.png",
+      "href": "../../assets/references/concept-rpg-classico.png",
+      "extension": "png",
+      "size": 3681139
+    },
+    {
+      "path": "assets/references/generated-candidates/MELISSA_8DIR_SOURCE_V1.md",
+      "href": "../../assets/references/generated-candidates/MELISSA_8DIR_SOURCE_V1.md",
+      "extension": "md",
+      "size": 2494
+    },
+    {
+      "path": "assets/references/generated-candidates/README.md",
+      "href": "../../assets/references/generated-candidates/README.md",
+      "extension": "md",
+      "size": 4884
+    },
+    {
+      "path": "assets/references/generated-candidates/V2_SOURCE.md",
+      "href": "../../assets/references/generated-candidates/V2_SOURCE.md",
+      "extension": "md",
+      "size": 2973
+    },
+    {
+      "path": "assets/references/generated-candidates/V3_SOURCE.md",
+      "href": "../../assets/references/generated-candidates/V3_SOURCE.md",
+      "extension": "md",
+      "size": 1313
+    },
+    {
+      "path": "assets/references/generated-candidates/bear/README.md",
+      "href": "../../assets/references/generated-candidates/bear/README.md",
+      "extension": "md",
+      "size": 950
+    },
+    {
+      "path": "assets/references/generated-candidates/bear/bear_se_source_v1.png",
+      "href": "../../assets/references/generated-candidates/bear/bear_se_source_v1.png",
+      "extension": "png",
+      "size": 752259
+    },
+    {
+      "path": "assets/references/generated-candidates/bear/bear_se_source_v2.png",
+      "href": "../../assets/references/generated-candidates/bear/bear_se_source_v2.png",
+      "extension": "png",
+      "size": 724663
+    },
+    {
+      "path": "assets/references/generated-candidates/fabio_vocations_concept.png",
+      "href": "../../assets/references/generated-candidates/fabio_vocations_concept.png",
+      "extension": "png",
+      "size": 1943505
+    },
+    {
+      "path": "assets/references/generated-candidates/fabio_warrior_8dir_NE_SE_cellfit_v1.png",
+      "href": "../../assets/references/generated-candidates/fabio_warrior_8dir_NE_SE_cellfit_v1.png",
+      "extension": "png",
+      "size": 2125415
+    },
+    {
+      "path": "assets/references/generated-candidates/fabio_warrior_8dir_NE_SE_source_v1.png",
+      "href": "../../assets/references/generated-candidates/fabio_warrior_8dir_NE_SE_source_v1.png",
+      "extension": "png",
+      "size": 2181279
+    },
+    {
+      "path": "assets/references/generated-candidates/fabio_warrior_8dir_SW_NW_cellfit_v1.png",
+      "href": "../../assets/references/generated-candidates/fabio_warrior_8dir_SW_NW_cellfit_v1.png",
+      "extension": "png",
+      "size": 2148262
+    },
+    {
+      "path": "assets/references/generated-candidates/fabio_warrior_8dir_SW_NW_source_v1.png",
+      "href": "../../assets/references/generated-candidates/fabio_warrior_8dir_SW_NW_source_v1.png",
+      "extension": "png",
+      "size": 2228945
+    },
+    {
+      "path": "assets/references/generated-candidates/fabio_warrior_8dir_cardinal_edited_v1.png",
+      "href": "../../assets/references/generated-candidates/fabio_warrior_8dir_cardinal_edited_v1.png",
+      "extension": "png",
+      "size": 2164778
+    },
+    {
+      "path": "assets/references/generated-candidates/fabio_warrior_8dir_cardinal_source_v1.png",
+      "href": "../../assets/references/generated-candidates/fabio_warrior_8dir_cardinal_source_v1.png",
+      "extension": "png",
+      "size": 2205427
+    },
+    {
+      "path": "assets/references/generated-candidates/fabio_warrior_stage1_source_v1.png",
+      "href": "../../assets/references/generated-candidates/fabio_warrior_stage1_source_v1.png",
+      "extension": "png",
+      "size": 2121184
+    },
+    {
+      "path": "assets/references/generated-candidates/fox/fox_se_source_imagegen_v1.png",
+      "href": "../../assets/references/generated-candidates/fox/fox_se_source_imagegen_v1.png",
+      "extension": "png",
+      "size": 314781
+    },
+    {
+      "path": "assets/references/generated-candidates/fox/fox_se_source_imagegen_v2.png",
+      "href": "../../assets/references/generated-candidates/fox/fox_se_source_imagegen_v2.png",
+      "extension": "png",
+      "size": 316289
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_e_idle_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_e_idle_source_v1.png",
+      "extension": "png",
+      "size": 829274
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_e_walk_source_attempt_alpha_fix.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_e_walk_source_attempt_alpha_fix.png",
+      "extension": "png",
+      "size": 1864744
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_e_walk_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_e_walk_source_v1.png",
+      "extension": "png",
+      "size": 1893240
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_idle_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_idle_source_v1.png",
+      "extension": "png",
+      "size": 1187825
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_ne_idle_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_ne_idle_source_v1.png",
+      "extension": "png",
+      "size": 1147290
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_ne_idle_source_v2.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_ne_idle_source_v2.png",
+      "extension": "png",
+      "size": 842128
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_ne_walk_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_ne_walk_source_v1.png",
+      "extension": "png",
+      "size": 1884906
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_ne_walk_source_v2.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_ne_walk_source_v2.png",
+      "extension": "png",
+      "size": 1748820
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_nw_idle_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_nw_idle_source_v1.png",
+      "extension": "png",
+      "size": 672410
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_nw_walk_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_nw_walk_source_v1.png",
+      "extension": "png",
+      "size": 1905392
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_se_idle_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_se_idle_source_v1.png",
+      "extension": "png",
+      "size": 1064003
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_se_walk_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_se_walk_source_v1.png",
+      "extension": "png",
+      "size": 1871669
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_sw_idle_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_sw_idle_source_v1.png",
+      "extension": "png",
+      "size": 1075329
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_sw_walk_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_sw_walk_source_v1.png",
+      "extension": "png",
+      "size": 1880238
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_w_idle_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_w_idle_source_v1.png",
+      "extension": "png",
+      "size": 863115
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_w_walk_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_w_walk_source_v1.png",
+      "extension": "png",
+      "size": 1814842
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_walk_n_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_walk_n_source_v1.png",
+      "extension": "png",
+      "size": 1618860
+    },
+    {
+      "path": "assets/references/generated-candidates/helena_warrior_walk_s_source_v1.png",
+      "href": "../../assets/references/generated-candidates/helena_warrior_walk_s_source_v1.png",
+      "extension": "png",
+      "size": 1736575
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_vocations_concept.png",
+      "href": "../../assets/references/generated-candidates/maira_vocations_concept.png",
+      "extension": "png",
+      "size": 1458205
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/idle_e_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/idle_e_source_oai_v1.png",
+      "extension": "png",
+      "size": 786444
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/idle_n.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/idle_n.png",
+      "extension": "png",
+      "size": 5881
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/idle_ne_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/idle_ne_source_oai_v1.png",
+      "extension": "png",
+      "size": 786444
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/idle_nw_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/idle_nw_source_oai_v1.png",
+      "extension": "png",
+      "size": 786443
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/idle_s.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/idle_s.png",
+      "extension": "png",
+      "size": 7692
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/idle_se_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/idle_se_source_oai_v1.png",
+      "extension": "png",
+      "size": 786444
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/idle_sw_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/idle_sw_source_oai_v1.png",
+      "extension": "png",
+      "size": 786444
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/idle_w_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/idle_w_source_oai_v1.png",
+      "extension": "png",
+      "size": 786444
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/still_n.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/still_n.png",
+      "extension": "png",
+      "size": 4160
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/still_s.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/still_s.png",
+      "extension": "png",
+      "size": 5357
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/walk_e_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/walk_e_source_oai_v1.png",
+      "extension": "png",
+      "size": 786444
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/walk_n.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/walk_n.png",
+      "extension": "png",
+      "size": 11080
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/walk_ne_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/walk_ne_source_oai_v1.png",
+      "extension": "png",
+      "size": 786443
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/walk_nw_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/walk_nw_source_oai_v1.png",
+      "extension": "png",
+      "size": 786444
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/walk_s.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/walk_s.png",
+      "extension": "png",
+      "size": 13001
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/walk_se_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/walk_se_source_oai_v1.png",
+      "extension": "png",
+      "size": 786443
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/walk_sw_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/walk_sw_source_oai_v1.png",
+      "extension": "png",
+      "size": 786444
+    },
+    {
+      "path": "assets/references/generated-candidates/maira_warrior/walk_w_source_oai_v1.png",
+      "href": "../../assets/references/generated-candidates/maira_warrior/walk_w_source_oai_v1.png",
+      "extension": "png",
+      "size": 786444
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_E_source_8dir_v1.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_E_source_8dir_v1.png",
+      "extension": "png",
+      "size": 1296812
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_NE_source_8dir_v1.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_NE_source_8dir_v1.png",
+      "extension": "png",
+      "size": 1009251
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_NW_source_8dir_v1.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_NW_source_8dir_v1.png",
+      "extension": "png",
+      "size": 892545
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_NW_source_8dir_v2.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_NW_source_8dir_v2.png",
+      "extension": "png",
+      "size": 869407
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_SE_source_8dir_v1.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_SE_source_8dir_v1.png",
+      "extension": "png",
+      "size": 998996
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_SW_source_8dir_v1.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_SW_source_8dir_v1.png",
+      "extension": "png",
+      "size": 1108493
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
+      "extension": "png",
+      "size": 1073647
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_idle_source.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_idle_source.png",
+      "extension": "png",
+      "size": 1160563
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_unified_v2_source.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_unified_v2_source.png",
+      "extension": "png",
+      "size": 1435913
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_unified_v3_source.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_unified_v3_source.png",
+      "extension": "png",
+      "size": 1414145
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_walk_source.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_walk_source.png",
+      "extension": "png",
+      "size": 1161884
+    },
+    {
+      "path": "assets/references/generated-candidates/wolf/GENERATION_NOTES.md",
+      "href": "../../assets/references/generated-candidates/wolf/GENERATION_NOTES.md",
+      "extension": "md",
+      "size": 2356
+    },
+    {
+      "path": "assets/references/generated-candidates/wolf/wolf_se_source_v1.png",
+      "href": "../../assets/references/generated-candidates/wolf/wolf_se_source_v1.png",
+      "extension": "png",
+      "size": 881730
+    },
+    {
+      "path": "assets/references/generated-candidates/wolf/wolf_se_source_v2.png",
+      "href": "../../assets/references/generated-candidates/wolf/wolf_se_source_v2.png",
+      "extension": "png",
+      "size": 690560
+    },
+    {
+      "path": "assets/references/generated-candidates/wolf/wolf_se_source_v3.png",
+      "href": "../../assets/references/generated-candidates/wolf/wolf_se_source_v3.png",
+      "extension": "png",
+      "size": 662919
+    },
+    {
+      "path": "assets/ui/app_icon.png",
+      "href": "../../assets/ui/app_icon.png",
+      "extension": "png",
+      "size": 6208
+    },
+    {
+      "path": "assets/ui/app_icon_background.png",
+      "href": "../../assets/ui/app_icon_background.png",
+      "extension": "png",
+      "size": 2997
+    },
+    {
+      "path": "assets/ui/app_icon_foreground.png",
+      "href": "../../assets/ui/app_icon_foreground.png",
+      "extension": "png",
+      "size": 4168
+    },
+    {
+      "path": "assets/ui/app_icon_monochrome.png",
+      "href": "../../assets/ui/app_icon_monochrome.png",
+      "extension": "png",
+      "size": 2990
+    },
+    {
+      "path": "assets/ui/classic_v2/AGI.png",
+      "href": "../../assets/ui/classic_v2/AGI.png",
+      "extension": "png",
+      "size": 273
+    },
+    {
+      "path": "assets/ui/classic_v2/FOR.png",
+      "href": "../../assets/ui/classic_v2/FOR.png",
+      "extension": "png",
+      "size": 350
+    },
+    {
+      "path": "assets/ui/classic_v2/INT.png",
+      "href": "../../assets/ui/classic_v2/INT.png",
+      "extension": "png",
+      "size": 305
+    },
+    {
+      "path": "assets/ui/classic_v2/amulet.png",
+      "href": "../../assets/ui/classic_v2/amulet.png",
+      "extension": "png",
+      "size": 297
+    },
+    {
+      "path": "assets/ui/classic_v2/axe_basic.png",
+      "href": "../../assets/ui/classic_v2/axe_basic.png",
+      "extension": "png",
+      "size": 341
+    },
+    {
+      "path": "assets/ui/classic_v2/bandage.png",
+      "href": "../../assets/ui/classic_v2/bandage.png",
+      "extension": "png",
+      "size": 334
+    },
+    {
+      "path": "assets/ui/classic_v2/boots.png",
+      "href": "../../assets/ui/classic_v2/boots.png",
+      "extension": "png",
+      "size": 273
+    },
+    {
+      "path": "assets/ui/classic_v2/button.png",
+      "href": "../../assets/ui/classic_v2/button.png",
+      "extension": "png",
+      "size": 406
+    },
+    {
+      "path": "assets/ui/classic_v2/chest.png",
+      "href": "../../assets/ui/classic_v2/chest.png",
+      "extension": "png",
+      "size": 206
+    },
+    {
+      "path": "assets/ui/classic_v2/confirm.png",
+      "href": "../../assets/ui/classic_v2/confirm.png",
+      "extension": "png",
+      "size": 402
+    },
+    {
+      "path": "assets/ui/classic_v2/crystal_shard.png",
+      "href": "../../assets/ui/classic_v2/crystal_shard.png",
+      "extension": "png",
+      "size": 322
+    },
+    {
+      "path": "assets/ui/classic_v2/danger.png",
+      "href": "../../assets/ui/classic_v2/danger.png",
+      "extension": "png",
+      "size": 404
+    },
+    {
+      "path": "assets/ui/classic_v2/fang.png",
+      "href": "../../assets/ui/classic_v2/fang.png",
+      "extension": "png",
+      "size": 286
+    },
+    {
+      "path": "assets/ui/classic_v2/fiber.png",
+      "href": "../../assets/ui/classic_v2/fiber.png",
+      "extension": "png",
+      "size": 299
+    },
+    {
+      "path": "assets/ui/classic_v2/head.png",
+      "href": "../../assets/ui/classic_v2/head.png",
+      "extension": "png",
+      "size": 225
+    },
+    {
+      "path": "assets/ui/classic_v2/herb.png",
+      "href": "../../assets/ui/classic_v2/herb.png",
+      "extension": "png",
+      "size": 351
+    },
+    {
+      "path": "assets/ui/classic_v2/hide.png",
+      "href": "../../assets/ui/classic_v2/hide.png",
+      "extension": "png",
+      "size": 275
+    },
+    {
+      "path": "assets/ui/classic_v2/jewel_left.png",
+      "href": "../../assets/ui/classic_v2/jewel_left.png",
+      "extension": "png",
+      "size": 297
+    },
+    {
+      "path": "assets/ui/classic_v2/jewel_right.png",
+      "href": "../../assets/ui/classic_v2/jewel_right.png",
+      "extension": "png",
+      "size": 297
+    },
+    {
+      "path": "assets/ui/classic_v2/main_hand.png",
+      "href": "../../assets/ui/classic_v2/main_hand.png",
+      "extension": "png",
+      "size": 385
+    },
+    {
+      "path": "assets/ui/classic_v2/meat.png",
+      "href": "../../assets/ui/classic_v2/meat.png",
+      "extension": "png",
+      "size": 350
+    },
+    {
+      "path": "assets/ui/classic_v2/offhand.png",
+      "href": "../../assets/ui/classic_v2/offhand.png",
+      "extension": "png",
+      "size": 283
+    },
+    {
+      "path": "assets/ui/classic_v2/panel.png",
+      "href": "../../assets/ui/classic_v2/panel.png",
+      "extension": "png",
+      "size": 403
+    },
+    {
+      "path": "assets/ui/classic_v2/pants.png",
+      "href": "../../assets/ui/classic_v2/pants.png",
+      "extension": "png",
+      "size": 183
+    },
+    {
+      "path": "assets/ui/classic_v2/parchment.png",
+      "href": "../../assets/ui/classic_v2/parchment.png",
+      "extension": "png",
+      "size": 404
+    },
+    {
+      "path": "assets/ui/classic_v2/pickaxe_basic.png",
+      "href": "../../assets/ui/classic_v2/pickaxe_basic.png",
+      "extension": "png",
+      "size": 345
+    },
+    {
+      "path": "assets/ui/classic_v2/slot.png",
+      "href": "../../assets/ui/classic_v2/slot.png",
+      "extension": "png",
+      "size": 380
+    },
+    {
+      "path": "assets/ui/classic_v2/stone.png",
+      "href": "../../assets/ui/classic_v2/stone.png",
+      "extension": "png",
+      "size": 304
+    },
+    {
+      "path": "assets/ui/classic_v2/sword_basic.png",
+      "href": "../../assets/ui/classic_v2/sword_basic.png",
+      "extension": "png",
+      "size": 385
+    },
+    {
+      "path": "assets/ui/classic_v2/sword_reinforced.png",
+      "href": "../../assets/ui/classic_v2/sword_reinforced.png",
+      "extension": "png",
+      "size": 385
+    },
+    {
+      "path": "assets/ui/classic_v2/wood.png",
+      "href": "../../assets/ui/classic_v2/wood.png",
+      "extension": "png",
+      "size": 413
+    },
+    {
+      "path": "assets/ui/pixel_hud_v1/regions.json",
+      "href": "../../assets/ui/pixel_hud_v1/regions.json",
+      "extension": "json",
+      "size": 1858
+    },
+    {
+      "path": "assets/ui/pixel_hud_v1/source_sheet.png",
+      "href": "../../assets/ui/pixel_hud_v1/source_sheet.png",
+      "extension": "png",
+      "size": 1372386
+    },
+    {
+      "path": "data/README.md",
+      "href": "../../data/README.md",
+      "extension": "md",
+      "size": 535
+    },
+    {
+      "path": "data/catalogs/mvp.json",
+      "href": "../../data/catalogs/mvp.json",
+      "extension": "json",
+      "size": 33866
+    },
+    {
+      "path": "docs/art/ART_DIRECTION_AND_SPRITES.md",
+      "href": "../../docs/art/ART_DIRECTION_AND_SPRITES.md",
+      "extension": "md",
+      "size": 5641
+    },
+    {
+      "path": "docs/art/MELISSA_TECHNICAL_QA.md",
+      "href": "../../docs/art/MELISSA_TECHNICAL_QA.md",
+      "extension": "md",
+      "size": 25273
+    },
+    {
+      "path": "docs/art/evidence/bear/BEAR_CANDIDATE_QA.md",
+      "href": "../../docs/art/evidence/bear/BEAR_CANDIDATE_QA.md",
+      "extension": "md",
+      "size": 2912
+    },
+    {
+      "path": "docs/art/evidence/bear/bear_se_candidate_v1_native.png",
+      "href": "../../docs/art/evidence/bear/bear_se_candidate_v1_native.png",
+      "extension": "png",
+      "size": 12522
+    },
+    {
+      "path": "docs/art/evidence/bear/bear_se_candidate_v1_nearest_4x.png",
+      "href": "../../docs/art/evidence/bear/bear_se_candidate_v1_nearest_4x.png",
+      "extension": "png",
+      "size": 20005
+    },
+    {
+      "path": "docs/art/evidence/creatures-contact-candidates.png",
+      "href": "../../docs/art/evidence/creatures-contact-candidates.png",
+      "extension": "png",
+      "size": 73636
+    },
+    {
+      "path": "docs/art/evidence/fabio/fabio_warrior_8dir_candidate_v3_contact.png",
+      "href": "../../docs/art/evidence/fabio/fabio_warrior_8dir_candidate_v3_contact.png",
+      "extension": "png",
+      "size": 698865
+    },
+    {
+      "path": "docs/art/evidence/fabio/fabio_warrior_8dir_prompt_log.md",
+      "href": "../../docs/art/evidence/fabio/fabio_warrior_8dir_prompt_log.md",
+      "extension": "md",
+      "size": 2602
+    },
+    {
+      "path": "docs/art/evidence/fabio/fabio_warrior_8dir_retouch_detail.png",
+      "href": "../../docs/art/evidence/fabio/fabio_warrior_8dir_retouch_detail.png",
+      "extension": "png",
+      "size": 376306
+    },
+    {
+      "path": "docs/art/evidence/fabio/fabio_warrior_8dir_review.md",
+      "href": "../../docs/art/evidence/fabio/fabio_warrior_8dir_review.md",
+      "extension": "md",
+      "size": 10358
+    },
+    {
+      "path": "docs/art/evidence/fabio/fabio_warrior_stage1_candidate_v2_contact.png",
+      "href": "../../docs/art/evidence/fabio/fabio_warrior_stage1_candidate_v2_contact.png",
+      "extension": "png",
+      "size": 220407
+    },
+    {
+      "path": "docs/art/evidence/fabio/fabio_warrior_stage1_contact.png",
+      "href": "../../docs/art/evidence/fabio/fabio_warrior_stage1_contact.png",
+      "extension": "png",
+      "size": 227395
+    },
+    {
+      "path": "docs/art/evidence/fabio/fabio_warrior_stage1_review.md",
+      "href": "../../docs/art/evidence/fabio/fabio_warrior_stage1_review.md",
+      "extension": "md",
+      "size": 7745
+    },
+    {
+      "path": "docs/art/evidence/fabio/fabio_warrior_walk_sw_before_after.png",
+      "href": "../../docs/art/evidence/fabio/fabio_warrior_walk_sw_before_after.png",
+      "extension": "png",
+      "size": 220826
+    },
+    {
+      "path": "docs/art/evidence/fox/fox_se_candidate_v1_nearest_8x.png",
+      "href": "../../docs/art/evidence/fox/fox_se_candidate_v1_nearest_8x.png",
+      "extension": "png",
+      "size": 9810
+    },
+    {
+      "path": "docs/art/evidence/fox/fox_se_candidate_v1_report.md",
+      "href": "../../docs/art/evidence/fox/fox_se_candidate_v1_report.md",
+      "extension": "md",
+      "size": 6584
+    },
+    {
+      "path": "docs/art/evidence/fox/fox_se_source_imagegen_v2_native.png",
+      "href": "../../docs/art/evidence/fox/fox_se_source_imagegen_v2_native.png",
+      "extension": "png",
+      "size": 316289
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/all_20_frames_3x.png",
+      "href": "../../docs/art/evidence/godot_v2/all_20_frames_3x.png",
+      "extension": "png",
+      "size": 203738
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/idle_N_zoom100.png",
+      "href": "../../docs/art/evidence/godot_v2/idle_N_zoom100.png",
+      "extension": "png",
+      "size": 54391
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/idle_N_zoom125.png",
+      "href": "../../docs/art/evidence/godot_v2/idle_N_zoom125.png",
+      "extension": "png",
+      "size": 55571
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/idle_N_zoom50.png",
+      "href": "../../docs/art/evidence/godot_v2/idle_N_zoom50.png",
+      "extension": "png",
+      "size": 49953
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/idle_N_zoom75.png",
+      "href": "../../docs/art/evidence/godot_v2/idle_N_zoom75.png",
+      "extension": "png",
+      "size": 51875
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/idle_S_zoom100.png",
+      "href": "../../docs/art/evidence/godot_v2/idle_S_zoom100.png",
+      "extension": "png",
+      "size": 54894
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/idle_S_zoom125.png",
+      "href": "../../docs/art/evidence/godot_v2/idle_S_zoom125.png",
+      "extension": "png",
+      "size": 55936
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/idle_S_zoom50.png",
+      "href": "../../docs/art/evidence/godot_v2/idle_S_zoom50.png",
+      "extension": "png",
+      "size": 50338
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/idle_S_zoom75.png",
+      "href": "../../docs/art/evidence/godot_v2/idle_S_zoom75.png",
+      "extension": "png",
+      "size": 52204
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/walk_N_zoom100.png",
+      "href": "../../docs/art/evidence/godot_v2/walk_N_zoom100.png",
+      "extension": "png",
+      "size": 54378
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/walk_N_zoom125.png",
+      "href": "../../docs/art/evidence/godot_v2/walk_N_zoom125.png",
+      "extension": "png",
+      "size": 55539
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/walk_N_zoom50.png",
+      "href": "../../docs/art/evidence/godot_v2/walk_N_zoom50.png",
+      "extension": "png",
+      "size": 50369
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/walk_N_zoom75.png",
+      "href": "../../docs/art/evidence/godot_v2/walk_N_zoom75.png",
+      "extension": "png",
+      "size": 52124
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/walk_S_zoom100.png",
+      "href": "../../docs/art/evidence/godot_v2/walk_S_zoom100.png",
+      "extension": "png",
+      "size": 55553
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/walk_S_zoom125.png",
+      "href": "../../docs/art/evidence/godot_v2/walk_S_zoom125.png",
+      "extension": "png",
+      "size": 56382
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/walk_S_zoom50.png",
+      "href": "../../docs/art/evidence/godot_v2/walk_S_zoom50.png",
+      "extension": "png",
+      "size": 50714
+    },
+    {
+      "path": "docs/art/evidence/godot_v2/walk_S_zoom75.png",
+      "href": "../../docs/art/evidence/godot_v2/walk_S_zoom75.png",
+      "extension": "png",
+      "size": 52867
+    },
+    {
+      "path": "docs/art/evidence/godot_v3/all_20_frames_3x.png",
+      "href": "../../docs/art/evidence/godot_v3/all_20_frames_3x.png",
+      "extension": "png",
+      "size": 209306
+    },
+    {
+      "path": "docs/art/evidence/godot_v3/idle_N_zoom100.png",
+      "href": "../../docs/art/evidence/godot_v3/idle_N_zoom100.png",
+      "extension": "png",
+      "size": 59772
+    },
+    {
+      "path": "docs/art/evidence/godot_v3/idle_S_zoom100.png",
+      "href": "../../docs/art/evidence/godot_v3/idle_S_zoom100.png",
+      "extension": "png",
+      "size": 60966
+    },
+    {
+      "path": "docs/art/evidence/godot_v3/walk_N_zoom100.png",
+      "href": "../../docs/art/evidence/godot_v3/walk_N_zoom100.png",
+      "extension": "png",
+      "size": 60313
+    },
+    {
+      "path": "docs/art/evidence/godot_v3/walk_S_zoom100.png",
+      "href": "../../docs/art/evidence/godot_v3/walk_S_zoom100.png",
+      "extension": "png",
+      "size": 61287
+    },
+    {
+      "path": "docs/art/evidence/helena/helena_warrior_8dir_contact.png",
+      "href": "../../docs/art/evidence/helena/helena_warrior_8dir_contact.png",
+      "extension": "png",
+      "size": 588361
+    },
+    {
+      "path": "docs/art/evidence/helena/helena_warrior_8dir_review.md",
+      "href": "../../docs/art/evidence/helena/helena_warrior_8dir_review.md",
+      "extension": "md",
+      "size": 6042
+    },
+    {
+      "path": "docs/art/evidence/helena/helena_warrior_8dir_structure.json",
+      "href": "../../docs/art/evidence/helena/helena_warrior_8dir_structure.json",
+      "extension": "json",
+      "size": 1104
+    },
+    {
+      "path": "docs/art/evidence/helena/helena_warrior_8dir_validation.json",
+      "href": "../../docs/art/evidence/helena/helena_warrior_8dir_validation.json",
+      "extension": "json",
+      "size": 55040
+    },
+    {
+      "path": "docs/art/evidence/helena/helena_warrior_stage1_contact.png",
+      "href": "../../docs/art/evidence/helena/helena_warrior_stage1_contact.png",
+      "extension": "png",
+      "size": 210173
+    },
+    {
+      "path": "docs/art/evidence/helena/helena_warrior_stage1_review.md",
+      "href": "../../docs/art/evidence/helena/helena_warrior_stage1_review.md",
+      "extension": "md",
+      "size": 6188
+    },
+    {
+      "path": "docs/art/evidence/helena/helena_warrior_stage1_structure.json",
+      "href": "../../docs/art/evidence/helena/helena_warrior_stage1_structure.json",
+      "extension": "json",
+      "size": 1224
+    },
+    {
+      "path": "docs/art/evidence/maira/maira_warrior_8dir_alpha_check.png",
+      "href": "../../docs/art/evidence/maira/maira_warrior_8dir_alpha_check.png",
+      "extension": "png",
+      "size": 173235
+    },
+    {
+      "path": "docs/art/evidence/maira/maira_warrior_8dir_contact.png",
+      "href": "../../docs/art/evidence/maira/maira_warrior_8dir_contact.png",
+      "extension": "png",
+      "size": 436052
+    },
+    {
+      "path": "docs/art/evidence/maira/maira_warrior_8dir_review.md",
+      "href": "../../docs/art/evidence/maira/maira_warrior_8dir_review.md",
+      "extension": "md",
+      "size": 14366
+    },
+    {
+      "path": "docs/art/evidence/maira/maira_warrior_stage1_contact.png",
+      "href": "../../docs/art/evidence/maira/maira_warrior_stage1_contact.png",
+      "extension": "png",
+      "size": 70526
+    },
+    {
+      "path": "docs/art/evidence/maira/maira_warrior_stage1_review.md",
+      "href": "../../docs/art/evidence/maira/maira_warrior_stage1_review.md",
+      "extension": "md",
+      "size": 3540
+    },
+    {
+      "path": "docs/art/evidence/melissa/melissa_idle_n_frame1_pixel_retouch_v2.png",
+      "href": "../../docs/art/evidence/melissa/melissa_idle_n_frame1_pixel_retouch_v2.png",
+      "extension": "png",
+      "size": 34300
+    },
+    {
+      "path": "docs/art/evidence/melissa/melissa_warrior_8dir_candidate_v1_contact.png",
+      "href": "../../docs/art/evidence/melissa/melissa_warrior_8dir_candidate_v1_contact.png",
+      "extension": "png",
+      "size": 581077
+    },
+    {
+      "path": "docs/art/evidence/melissa/melissa_warrior_8dir_candidate_v1_review.md",
+      "href": "../../docs/art/evidence/melissa/melissa_warrior_8dir_candidate_v1_review.md",
+      "extension": "md",
+      "size": 6431
+    },
+    {
+      "path": "docs/art/evidence/melissa/melissa_warrior_8dir_candidate_v1_structure.json",
+      "href": "../../docs/art/evidence/melissa/melissa_warrior_8dir_candidate_v1_structure.json",
+      "extension": "json",
+      "size": 11269
+    },
+    {
+      "path": "docs/art/evidence/mobile_017/mobile_attributes_017.png",
+      "href": "../../docs/art/evidence/mobile_017/mobile_attributes_017.png",
+      "extension": "png",
+      "size": 242878
+    },
+    {
+      "path": "docs/art/evidence/mobile_017/mobile_inventory_017.png",
+      "href": "../../docs/art/evidence/mobile_017/mobile_inventory_017.png",
+      "extension": "png",
+      "size": 215352
+    },
+    {
+      "path": "docs/art/evidence/mobile_017/mobile_world_017.png",
+      "href": "../../docs/art/evidence/mobile_017/mobile_world_017.png",
+      "extension": "png",
+      "size": 343910
+    },
+    {
+      "path": "docs/art/evidence/stage1_asset_validation.json",
+      "href": "../../docs/art/evidence/stage1_asset_validation.json",
+      "extension": "json",
+      "size": 80859
+    },
+    {
+      "path": "docs/art/evidence/terrain/terrain_mvp_candidate_v1_contact.png",
+      "href": "../../docs/art/evidence/terrain/terrain_mvp_candidate_v1_contact.png",
+      "extension": "png",
+      "size": 31532
+    },
+    {
+      "path": "docs/art/evidence/terrain/terrain_mvp_candidate_v1_context.png",
+      "href": "../../docs/art/evidence/terrain/terrain_mvp_candidate_v1_context.png",
+      "extension": "png",
+      "size": 25233
+    },
+    {
+      "path": "docs/art/evidence/terrain/terrain_mvp_candidate_v1_path_overlay_tee_e_before_after.png",
+      "href": "../../docs/art/evidence/terrain/terrain_mvp_candidate_v1_path_overlay_tee_e_before_after.png",
+      "extension": "png",
+      "size": 28990
+    },
+    {
+      "path": "docs/art/evidence/terrain/terrain_mvp_candidate_v1_review.md",
+      "href": "../../docs/art/evidence/terrain/terrain_mvp_candidate_v1_review.md",
+      "extension": "md",
+      "size": 8401
+    },
+    {
+      "path": "docs/art/evidence/terrain/terrain_mvp_candidate_v1_sample.png",
+      "href": "../../docs/art/evidence/terrain/terrain_mvp_candidate_v1_sample.png",
+      "extension": "png",
+      "size": 8153
+    },
+    {
+      "path": "docs/art/evidence/terrain/tropical_oblique_surface_preview.png",
+      "href": "../../docs/art/evidence/terrain/tropical_oblique_surface_preview.png",
+      "extension": "png",
+      "size": 80515
+    },
+    {
+      "path": "docs/art/evidence/wolf/wolf_se_nearest_preview_v1.png",
+      "href": "../../docs/art/evidence/wolf/wolf_se_nearest_preview_v1.png",
+      "extension": "png",
+      "size": 12478
+    },
+    {
+      "path": "docs/art/evidence/wolf/wolf_stage1_review.md",
+      "href": "../../docs/art/evidence/wolf/wolf_stage1_review.md",
+      "extension": "md",
+      "size": 3864
+    },
+    {
+      "path": "docs/gameplay/MOBILE_UI_017_VALIDATION.md",
+      "href": "../../docs/gameplay/MOBILE_UI_017_VALIDATION.md",
+      "extension": "md",
+      "size": 3275
+    },
+    {
+      "path": "docs/gameplay/MVP_BUILD_VALIDATION.md",
+      "href": "../../docs/gameplay/MVP_BUILD_VALIDATION.md",
+      "extension": "md",
+      "size": 14654
+    },
+    {
+      "path": "docs/gameplay/MVP_SOLO_TEST.md",
+      "href": "../../docs/gameplay/MVP_SOLO_TEST.md",
+      "extension": "md",
+      "size": 5623
+    },
+    {
+      "path": "docs/gameplay/PLAYABLE_SLICE.md",
+      "href": "../../docs/gameplay/PLAYABLE_SLICE.md",
+      "extension": "md",
+      "size": 7790
+    },
+    {
+      "path": "docs/gameplay/PORTRAIT_BUILD_VALIDATION.md",
+      "href": "../../docs/gameplay/PORTRAIT_BUILD_VALIDATION.md",
+      "extension": "md",
+      "size": 7683
+    },
+    {
+      "path": "docs/gameplay/evidence/melee_contact_spacing.md",
+      "href": "../../docs/gameplay/evidence/melee_contact_spacing.md",
+      "extension": "md",
+      "size": 7444
+    },
+    {
+      "path": "docs/prototypes/assets/passive_skill_tree_endgame_reference.png",
+      "href": "../../docs/prototypes/assets/passive_skill_tree_endgame_reference.png",
+      "extension": "png",
+      "size": 3748980
+    },
+    {
+      "path": "docs/prototypes/mvp_ui_v0_1.html",
+      "href": "../../docs/prototypes/mvp_ui_v0_1.html",
+      "extension": "html",
+      "size": 50709
+    },
+    {
+      "path": "docs/prototypes/mvp_ui_v0_2.html",
+      "href": "../../docs/prototypes/mvp_ui_v0_2.html",
+      "extension": "html",
+      "size": 57083
+    },
+    {
+      "path": "docs/prototypes/mvp_ui_v0_3.html",
+      "href": "../../docs/prototypes/mvp_ui_v0_3.html",
+      "extension": "html",
+      "size": 57750
+    },
+    {
+      "path": "docs/prototypes/mvp_ui_v0_4.html",
+      "href": "../../docs/prototypes/mvp_ui_v0_4.html",
+      "extension": "html",
+      "size": 58672
+    },
+    {
+      "path": "docs/prototypes/mvp_ui_v0_5.html",
+      "href": "../../docs/prototypes/mvp_ui_v0_5.html",
+      "extension": "html",
+      "size": 77010
+    },
+    {
+      "path": "docs/prototypes/mvp_ui_v0_6.html",
+      "href": "../../docs/prototypes/mvp_ui_v0_6.html",
+      "extension": "html",
+      "size": 71700
+    },
+    {
+      "path": "docs/prototypes/mvp_ui_v0_7.html",
+      "href": "../../docs/prototypes/mvp_ui_v0_7.html",
+      "extension": "html",
+      "size": 85066
+    },
+    {
+      "path": "docs/technical/ANDROID_BUILD.md",
+      "href": "../../docs/technical/ANDROID_BUILD.md",
+      "extension": "md",
+      "size": 8099
+    },
+    {
+      "path": "docs/technical/ARCHITECTURE.md",
+      "href": "../../docs/technical/ARCHITECTURE.md",
+      "extension": "md",
+      "size": 4905
+    },
+    {
+      "path": "docs/wiki/app.js",
+      "href": "../../docs/wiki/app.js",
+      "extension": "js",
+      "size": 35978
+    },
+    {
+      "path": "docs/wiki/index.html",
+      "href": "../../docs/wiki/index.html",
+      "extension": "html",
+      "size": 4450
+    },
+    {
+      "path": "docs/wiki/wiki.css",
+      "href": "../../docs/wiki/wiki.css",
+      "extension": "css",
+      "size": 17641
+    },
+    {
+      "path": "export_presets.cfg",
+      "href": "../../export_presets.cfg",
+      "extension": "cfg",
+      "size": 2140
+    },
+    {
+      "path": "game/README.md",
+      "href": "../../game/README.md",
+      "extension": "md",
+      "size": 1154
+    },
+    {
+      "path": "game/data/first_island_layout.json",
+      "href": "../../game/data/first_island_layout.json",
+      "extension": "json",
+      "size": 8415
+    },
+    {
+      "path": "game/data/melee_visual_footprints.json",
+      "href": "../../game/data/melee_visual_footprints.json",
+      "extension": "json",
+      "size": 3768
+    },
+    {
+      "path": "game/data/player_appearances.json",
+      "href": "../../game/data/player_appearances.json",
+      "extension": "json",
+      "size": 1747
+    },
+    {
+      "path": "game/scenes/character_select.tscn",
+      "href": "../../game/scenes/character_select.tscn",
+      "extension": "tscn",
+      "size": 304
+    },
+    {
+      "path": "game/scenes/first_island.tscn",
+      "href": "../../game/scenes/first_island.tscn",
+      "extension": "tscn",
+      "size": 863
+    },
+    {
+      "path": "game/scenes/main.tscn",
+      "href": "../../game/scenes/main.tscn",
+      "extension": "tscn",
+      "size": 283
+    },
+    {
+      "path": "game/scenes/main_menu.tscn",
+      "href": "../../game/scenes/main_menu.tscn",
+      "extension": "tscn",
+      "size": 290
+    },
+    {
+      "path": "game/scenes/pause_overlay.tscn",
+      "href": "../../game/scenes/pause_overlay.tscn",
+      "extension": "tscn",
+      "size": 298
+    },
+    {
+      "path": "game/scenes/player.tscn",
+      "href": "../../game/scenes/player.tscn",
+      "extension": "tscn",
+      "size": 556
+    },
+    {
+      "path": "game/scenes/session_select.tscn",
+      "href": "../../game/scenes/session_select.tscn",
+      "extension": "tscn",
+      "size": 300
+    },
+    {
+      "path": "game/scenes/ui/attributes_window.tscn",
+      "href": "../../game/scenes/ui/attributes_window.tscn",
+      "extension": "tscn",
+      "size": 340
+    },
+    {
+      "path": "game/scripts/actors/appearance_data.gd",
+      "href": "../../game/scripts/actors/appearance_data.gd",
+      "extension": "gd",
+      "size": 1223
+    },
+    {
+      "path": "game/scripts/actors/creature_art_loader.gd",
+      "href": "../../game/scripts/actors/creature_art_loader.gd",
+      "extension": "gd",
+      "size": 3080
+    },
+    {
+      "path": "game/scripts/actors/player.gd",
+      "href": "../../game/scripts/actors/player.gd",
+      "extension": "gd",
+      "size": 7126
+    },
+    {
+      "path": "game/scripts/combat/combat_geometry.gd",
+      "href": "../../game/scripts/combat/combat_geometry.gd",
+      "extension": "gd",
+      "size": 13156
+    },
+    {
+      "path": "game/scripts/combat/combat_rules.gd",
+      "href": "../../game/scripts/combat/combat_rules.gd",
+      "extension": "gd",
+      "size": 6443
+    },
+    {
+      "path": "game/scripts/combat/creature_actor.gd",
+      "href": "../../game/scripts/combat/creature_actor.gd",
+      "extension": "gd",
+      "size": 8387
+    },
+    {
+      "path": "game/scripts/core/main.gd",
+      "href": "../../game/scripts/core/main.gd",
+      "extension": "gd",
+      "size": 4986
+    },
+    {
+      "path": "game/scripts/save/expedition_state.gd",
+      "href": "../../game/scripts/save/expedition_state.gd",
+      "extension": "gd",
+      "size": 26735
+    },
+    {
+      "path": "game/scripts/ui/attributes_window.gd",
+      "href": "../../game/scripts/ui/attributes_window.gd",
+      "extension": "gd",
+      "size": 28150
+    },
+    {
+      "path": "game/scripts/ui/character_select.gd",
+      "href": "../../game/scripts/ui/character_select.gd",
+      "extension": "gd",
+      "size": 6517
+    },
+    {
+      "path": "game/scripts/ui/hud_art.gd",
+      "href": "../../game/scripts/ui/hud_art.gd",
+      "extension": "gd",
+      "size": 1082
+    },
+    {
+      "path": "game/scripts/ui/hud_resource_bar.gd",
+      "href": "../../game/scripts/ui/hud_resource_bar.gd",
+      "extension": "gd",
+      "size": 1406
+    },
+    {
+      "path": "game/scripts/ui/island_minimap.gd",
+      "href": "../../game/scripts/ui/island_minimap.gd",
+      "extension": "gd",
+      "size": 1418
+    },
+    {
+      "path": "game/scripts/ui/main_menu.gd",
+      "href": "../../game/scripts/ui/main_menu.gd",
+      "extension": "gd",
+      "size": 4047
+    },
+    {
+      "path": "game/scripts/ui/pause_overlay.gd",
+      "href": "../../game/scripts/ui/pause_overlay.gd",
+      "extension": "gd",
+      "size": 2295
+    },
+    {
+      "path": "game/scripts/ui/session_select.gd",
+      "href": "../../game/scripts/ui/session_select.gd",
+      "extension": "gd",
+      "size": 4524
+    },
+    {
+      "path": "game/scripts/ui/ui_style.gd",
+      "href": "../../game/scripts/ui/ui_style.gd",
+      "extension": "gd",
+      "size": 2604
+    },
+    {
+      "path": "game/scripts/ui/virtual_joystick.gd",
+      "href": "../../game/scripts/ui/virtual_joystick.gd",
+      "extension": "gd",
+      "size": 3083
+    },
+    {
+      "path": "game/scripts/world/first_island.gd",
+      "href": "../../game/scripts/world/first_island.gd",
+      "extension": "gd",
+      "size": 40079
+    },
+    {
+      "path": "game/scripts/world/first_island_hud.gd",
+      "href": "../../game/scripts/world/first_island_hud.gd",
+      "extension": "gd",
+      "size": 51336
+    },
+    {
+      "path": "game/scripts/world/isometric_3d_view.gd",
+      "href": "../../game/scripts/world/isometric_3d_view.gd",
+      "extension": "gd",
+      "size": 18250
+    },
+    {
+      "path": "project.godot",
+      "href": "../../project.godot",
+      "extension": "godot",
+      "size": 879
+    },
+    {
+      "path": "tools/art/README.md",
+      "href": "../../tools/art/README.md",
+      "extension": "md",
+      "size": 1373
+    },
+    {
+      "path": "tools/art/generate_app_icon.py",
+      "href": "../../tools/art/generate_app_icon.py",
+      "extension": "py",
+      "size": 2955
+    },
+    {
+      "path": "tools/art/generate_classic_ui.py",
+      "href": "../../tools/art/generate_classic_ui.py",
+      "extension": "py",
+      "size": 5473
+    },
+    {
+      "path": "tools/art/generate_mvp_terrain_tileset.py",
+      "href": "../../tools/art/generate_mvp_terrain_tileset.py",
+      "extension": "py",
+      "size": 29882
+    },
+    {
+      "path": "tools/art/generate_tropical_oblique.py",
+      "href": "../../tools/art/generate_tropical_oblique.py",
+      "extension": "py",
+      "size": 6007
+    },
+    {
+      "path": "tools/art/pack_bear_candidate.py",
+      "href": "../../tools/art/pack_bear_candidate.py",
+      "extension": "py",
+      "size": 2304
+    },
+    {
+      "path": "tools/art/pack_fabio_8dir.py",
+      "href": "../../tools/art/pack_fabio_8dir.py",
+      "extension": "py",
+      "size": 20271
+    },
+    {
+      "path": "tools/art/pack_fabio_stage1.py",
+      "href": "../../tools/art/pack_fabio_stage1.py",
+      "extension": "py",
+      "size": 11074
+    },
+    {
+      "path": "tools/art/pack_fox_candidate.py",
+      "href": "../../tools/art/pack_fox_candidate.py",
+      "extension": "py",
+      "size": 3940
+    },
+    {
+      "path": "tools/art/pack_helena_8dir.py",
+      "href": "../../tools/art/pack_helena_8dir.py",
+      "extension": "py",
+      "size": 15981
+    },
+    {
+      "path": "tools/art/pack_helena_stage1.py",
+      "href": "../../tools/art/pack_helena_stage1.py",
+      "extension": "py",
+      "size": 14047
+    },
+    {
+      "path": "tools/art/pack_maira_8dir_candidates.py",
+      "href": "../../tools/art/pack_maira_8dir_candidates.py",
+      "extension": "py",
+      "size": 14732
+    },
+    {
+      "path": "tools/art/pack_maira_stage1.py",
+      "href": "../../tools/art/pack_maira_stage1.py",
+      "extension": "py",
+      "size": 9897
+    },
+    {
+      "path": "tools/art/pack_melissa_8dir_candidate_v1.py",
+      "href": "../../tools/art/pack_melissa_8dir_candidate_v1.py",
+      "extension": "py",
+      "size": 8294
+    },
+    {
+      "path": "tools/art/pack_stage1_candidates.py",
+      "href": "../../tools/art/pack_stage1_candidates.py",
+      "extension": "py",
+      "size": 1680
+    },
+    {
+      "path": "tools/art/pack_stage1_v2.py",
+      "href": "../../tools/art/pack_stage1_v2.py",
+      "extension": "py",
+      "size": 2237
+    },
+    {
+      "path": "tools/art/pack_stage1_v3.py",
+      "href": "../../tools/art/pack_stage1_v3.py",
+      "extension": "py",
+      "size": 2237
+    },
+    {
+      "path": "tools/art/pack_wolf_candidate_v1.py",
+      "href": "../../tools/art/pack_wolf_candidate_v1.py",
+      "extension": "py",
+      "size": 5041
+    },
+    {
+      "path": "tools/art/retouch_melissa_isolated_alpha_artifacts_v2.py",
+      "href": "../../tools/art/retouch_melissa_isolated_alpha_artifacts_v2.py",
+      "extension": "py",
+      "size": 5371
+    },
+    {
+      "path": "tools/art/sprite_test/README.md",
+      "href": "../../tools/art/sprite_test/README.md",
+      "extension": "md",
+      "size": 3305
+    },
+    {
+      "path": "tools/art/sprite_test/capture_all_frames.gd",
+      "href": "../../tools/art/sprite_test/capture_all_frames.gd",
+      "extension": "gd",
+      "size": 3331
+    },
+    {
+      "path": "tools/art/sprite_test/capture_scene.gd",
+      "href": "../../tools/art/sprite_test/capture_scene.gd",
+      "extension": "gd",
+      "size": 2403
+    },
+    {
+      "path": "tools/art/sprite_test/check_scene.gd",
+      "href": "../../tools/art/sprite_test/check_scene.gd",
+      "extension": "gd",
+      "size": 2021
+    },
+    {
+      "path": "tools/art/sprite_test/fabio_stage1_test.gd",
+      "href": "../../tools/art/sprite_test/fabio_stage1_test.gd",
+      "extension": "gd",
+      "size": 6831
+    },
+    {
+      "path": "tools/art/sprite_test/fabio_stage1_test.tscn",
+      "href": "../../tools/art/sprite_test/fabio_stage1_test.tscn",
+      "extension": "tscn",
+      "size": 197
+    },
+    {
+      "path": "tools/art/sprite_test/maira_stage1_test.gd",
+      "href": "../../tools/art/sprite_test/maira_stage1_test.gd",
+      "extension": "gd",
+      "size": 6600
+    },
+    {
+      "path": "tools/art/sprite_test/maira_stage1_test.tscn",
+      "href": "../../tools/art/sprite_test/maira_stage1_test.tscn",
+      "extension": "tscn",
+      "size": 197
+    },
+    {
+      "path": "tools/art/sprite_test/sprite_test.gd",
+      "href": "../../tools/art/sprite_test/sprite_test.gd",
+      "extension": "gd",
+      "size": 6369
+    },
+    {
+      "path": "tools/art/sprite_test/sprite_test.tscn",
+      "href": "../../tools/art/sprite_test/sprite_test.tscn",
+      "extension": "tscn",
+      "size": 205
+    },
+    {
+      "path": "tools/art/validate_creature_candidates.py",
+      "href": "../../tools/art/validate_creature_candidates.py",
+      "extension": "py",
+      "size": 10466
+    },
+    {
+      "path": "tools/art/validate_fox_candidate.py",
+      "href": "../../tools/art/validate_fox_candidate.py",
+      "extension": "py",
+      "size": 2335
+    },
+    {
+      "path": "tools/art/validate_helena_8dir.py",
+      "href": "../../tools/art/validate_helena_8dir.py",
+      "extension": "py",
+      "size": 11243
+    },
+    {
+      "path": "tools/art/validate_helena_stage1.py",
+      "href": "../../tools/art/validate_helena_stage1.py",
+      "extension": "py",
+      "size": 5434
+    },
+    {
+      "path": "tools/art/validate_mvp_terrain_tileset.py",
+      "href": "../../tools/art/validate_mvp_terrain_tileset.py",
+      "extension": "py",
+      "size": 8386
+    },
+    {
+      "path": "tools/art/validate_sprite_atlases.py",
+      "href": "../../tools/art/validate_sprite_atlases.py",
+      "extension": "py",
+      "size": 3792
+    },
+    {
+      "path": "tools/gameplay/smoke_playable_slice.gd",
+      "href": "../../tools/gameplay/smoke_playable_slice.gd",
+      "extension": "gd",
+      "size": 17467
+    },
+    {
+      "path": "tools/gameplay/test_attributes_hud_integration.gd",
+      "href": "../../tools/gameplay/test_attributes_hud_integration.gd",
+      "extension": "gd",
+      "size": 2393
+    },
+    {
+      "path": "tools/gameplay/test_attributes_window.gd",
+      "href": "../../tools/gameplay/test_attributes_window.gd",
+      "extension": "gd",
+      "size": 6665
+    },
+    {
+      "path": "tools/gameplay/test_close_view.gd",
+      "href": "../../tools/gameplay/test_close_view.gd",
+      "extension": "gd",
+      "size": 3150
+    },
+    {
+      "path": "tools/gameplay/test_death_revive.gd",
+      "href": "../../tools/gameplay/test_death_revive.gd",
+      "extension": "gd",
+      "size": 9260
+    },
+    {
+      "path": "tools/gameplay/test_expanded_map_population.gd",
+      "href": "../../tools/gameplay/test_expanded_map_population.gd",
+      "extension": "gd",
+      "size": 8278
+    },
+    {
+      "path": "tools/gameplay/test_inventory_overlay_layout.gd",
+      "href": "../../tools/gameplay/test_inventory_overlay_layout.gd",
+      "extension": "gd",
+      "size": 5703
+    },
+    {
+      "path": "tools/gameplay/test_level_up_restores_resources.gd",
+      "href": "../../tools/gameplay/test_level_up_restores_resources.gd",
+      "extension": "gd",
+      "size": 2969
+    },
+    {
+      "path": "tools/gameplay/test_melee_contact_spacing.gd",
+      "href": "../../tools/gameplay/test_melee_contact_spacing.gd",
+      "extension": "gd",
+      "size": 12608
+    },
+    {
+      "path": "tools/gameplay/test_melee_visual_spacing.py",
+      "href": "../../tools/gameplay/test_melee_visual_spacing.py",
+      "extension": "py",
+      "size": 17403
+    },
+    {
+      "path": "tools/gameplay/test_mobile_controls_layout.gd",
+      "href": "../../tools/gameplay/test_mobile_controls_layout.gd",
+      "extension": "gd",
+      "size": 6714
+    },
+    {
+      "path": "tools/gameplay/test_mobile_visual_017.gd",
+      "href": "../../tools/gameplay/test_mobile_visual_017.gd",
+      "extension": "gd",
+      "size": 3902
+    },
+    {
+      "path": "tools/gameplay/test_mvp_solo_loop.gd",
+      "href": "../../tools/gameplay/test_mvp_solo_loop.gd",
+      "extension": "gd",
+      "size": 6117
+    },
+    {
+      "path": "tools/gameplay/test_portrait_combat.gd",
+      "href": "../../tools/gameplay/test_portrait_combat.gd",
+      "extension": "gd",
+      "size": 4499
+    },
+    {
+      "path": "tools/gameplay/test_regeneration_rules.gd",
+      "href": "../../tools/gameplay/test_regeneration_rules.gd",
+      "extension": "gd",
+      "size": 6608
+    },
+    {
+      "path": "tools/gameplay/test_respawn_radius.gd",
+      "href": "../../tools/gameplay/test_respawn_radius.gd",
+      "extension": "gd",
+      "size": 1596
+    },
+    {
+      "path": "tools/gameplay/validate_playable_slice.py",
+      "href": "../../tools/gameplay/validate_playable_slice.py",
+      "extension": "py",
+      "size": 11862
+    },
+    {
+      "path": "tools/validate_catalogs.py",
+      "href": "../../tools/validate_catalogs.py",
+      "extension": "py",
+      "size": 1883
+    },
+    {
+      "path": "tools/web/serve_web_build.py",
+      "href": "../../tools/web/serve_web_build.py",
+      "extension": "py",
+      "size": 3744
+    },
+    {
+      "path": "tools/wiki/build_index.py",
+      "href": "../../tools/wiki/build_index.py",
+      "extension": "py",
+      "size": 6136
+    },
+    {
+      "path": "tools/wiki/test_catalog.py",
+      "href": "../../tools/wiki/test_catalog.py",
+      "extension": "py",
+      "size": 6787
+    },
+    {
+      "path": "tools/wiki/test_runtime.js",
+      "href": "../../tools/wiki/test_runtime.js",
+      "extension": "js",
+      "size": 4898
+    }
+  ],
+  "documentation": [
+    {
+      "path": "README.md",
+      "href": "../../README.md",
+      "summary": "Visão geral do projeto, estado atual e como testar."
+    },
+    {
+      "path": "Docs/Main/GDD_MVP.md",
+      "href": "../../Docs/Main/GDD_MVP.md",
+      "summary": "Escopo, regras, progressão, combate e critérios de aceite."
+    },
+    {
+      "path": "Docs/Main/CONTENT_DATA.md",
+      "href": "../../Docs/Main/CONTENT_DATA.md",
+      "summary": "Conversões de atributos, itens, drops, XP e árvore planejada."
+    },
+    {
+      "path": "Docs/Main/CATALOGS_MVP.md",
+      "href": "../../Docs/Main/CATALOGS_MVP.md",
+      "summary": "As doze listas de produção e seus limites conhecidos."
+    },
+    {
+      "path": "Docs/Main/ROADMAP.md",
+      "href": "../../Docs/Main/ROADMAP.md",
+      "summary": "Sprints, gates e estado dos aceites."
+    },
+    {
+      "path": "docs/technical/ARCHITECTURE.md",
+      "href": "../../docs/technical/ARCHITECTURE.md",
+      "summary": "Arquitetura pretendida para mundo, saves e rede."
+    },
+    {
+      "path": "docs/art/ART_DIRECTION_AND_SPRITES.md",
+      "href": "../../docs/art/ART_DIRECTION_AND_SPRITES.md",
+      "summary": "Contrato candidato de sprites, pivôs, atlas e escala."
+    },
+    {
+      "path": "Docs/Context/HANDOFF.md",
+      "href": "../../Docs/Context/HANDOFF.md",
+      "summary": "Próxima ação e estado de continuidade."
+    },
+    {
+      "path": "Docs/Context/JOURNAL.md",
+      "href": "../../Docs/Context/JOURNAL.md",
+      "summary": "Histórico curto de mudanças e validações."
+    },
+    {
+      "path": "Docs/Context/DECISIONS.md",
+      "href": "../../Docs/Context/DECISIONS.md",
+      "summary": "Decisões que afetam o escopo e a implementação."
+    },
+    {
+      "path": "data/catalogs/mvp.json",
+      "href": "../../data/catalogs/mvp.json",
+      "summary": "Fonte numérica planejada; contém valores ainda provisórios."
+    },
+    {
+      "path": "game/data/first_island_layout.json",
+      "href": "../../game/data/first_island_layout.json",
+      "summary": "Layout estático do recorte jogável atual."
+    },
+    {
+      "path": "game/data/player_appearances.json",
+      "href": "../../game/data/player_appearances.json",
+      "summary": "Seleção de atlas de aparência usada pelo recorte solo."
+    },
+    {
+      "path": "assets/ui/pixel_hud_v1/regions.json",
+      "href": "../../assets/ui/pixel_hud_v1/regions.json",
+      "summary": "Regiões da prancha de HUD escolhida; aceite Android pendente."
+    }
+  ]
+}
