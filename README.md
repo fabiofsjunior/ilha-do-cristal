@@ -1,33 +1,28 @@
 # A Ilha do Cristal
 
-RPG 2D cooperativo de sobrevivência em pixel art. Melissa, Helena, Maíra e Fábio sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
+RPG de sobrevivência em pixel art. Melissa, Helena, Maíra e Fábio sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
 
-**Estado:** recorte solo para teste, em Godot 4.5.1, com exportadores Web e APK Android debug. Importação, fluxo e regras são verificados em modo headless; revisão gráfica no navegador e instalação/teste em Android continuam pendentes. **Arte:** personagens e criaturas seguem **CORRIGIR**, terreno **CANDIDATO**. A [prancha conceitual](assets/references/concept-rpg-classico.png) é referência visual.
+**Estado:** recorte solo de teste em Godot 4.5.1. O código atual inclui queda/reanimação solo, contato corpo a corpo calculado pela projeção dos footprints visuais, movimento relativo à câmera, regeneração fora de combate a 1,2× e uma wiki local. A exportação Web foi feita a partir de `main`; a revisão gráfica no navegador continua pendente. O APK 0.1.7 é histórico e não foi recompilado com as mudanças das PRs #15–#18. Uma nova exportação Android está bloqueada neste ambiente pela ausência do SDK Platform 35 e do Build Tools 35.0.0; a instalação e o teste em aparelho também continuam pendentes. **Arte:** personagens e criaturas seguem **CORRIGIR**, terreno **CANDIDATO**. A [prancha conceitual](assets/references/concept-rpg-classico.png) é referência visual.
 
-A cena principal é `game/scenes/main.tscn`. O fluxo percorre início → uma das quatro aparências Warrior → sessão solo → ilha 192×132, com movimento, coleta, raposa/lobo/urso, ataque automático ao alcance, três habilidades Warrior, curativo, XP, inventário de materiais e melhorias de acampamento. O save local separa as quatro aparências e usa slots com checksum e recuperação. Consulte [guia do teste solo](docs/gameplay/MVP_SOLO_TEST.md) e [validação das builds](docs/gameplay/MVP_BUILD_VALIDATION.md). Contas, LAN, Archer/Mage, árvore completa e mundo procedural continuam pendentes; esta entrega não fecha o aceite integral do GDD.
+A cena principal é `game/scenes/main.tscn`. O fluxo percorre início → uma das quatro aparências Warrior → sessão solo → ilha 192×132, com movimento, coleta, raposa/lobo/urso, ataque automático ao alcance, três habilidades Warrior, curativo, XP, inventário de materiais e melhorias de acampamento. O save local separa as quatro aparências e usa slots com checksum e recuperação. Contas, LAN, Archer/Mage, árvore completa e mundo procedural continuam pendentes; o recorte não fecha o aceite integral do GDD. Consulte o [guia do teste solo](docs/gameplay/MVP_SOLO_TEST.md) e a [validação das builds](docs/gameplay/MVP_BUILD_VALIDATION.md).
 
-## Testar e exportar
+## Jogar e exportar
 
-- **Web:** extraia `build/ilha-do-cristal-web.zip` e execute `Testar_Jogo_Web.bat` no Windows, com Python 3 instalado. O ZIP inclui o servidor; não depende do checkout. Em outro sistema, rode `python3 -m http.server 8000` na pasta extraída e abra `http://localhost:8000/`.
-- **Android:** instale `build/android/ilha-do-cristal-debug.apk`. É o APK debug 0.1.7 para ARMv7/ARM64, Android 7 ou superior, em retrato. O launcher mostra o ícone pixel art do cristal e o nome **A Ilha do Cristal**; a assinatura debug não é de publicação.
-- **Controles:** WASD/setas ou joystick; suas oito direções seguem os eixos da câmera 2.5D. Clique/toque na criatura para selecionar; E interage/coleta; 1/2/3 usam skills; H usa curativo; B abre mochila; Esc/P pausa. Os botões da tela oferecem as ações touch. Zoom 50–125%.
+- **Web:** a exportação registrada foi feita a partir de `main`. Para gerar novamente, use `python3 tools/build/export_web.py` com Godot 4.5.1 e os templates correspondentes. Extraia `build/ilha-do-cristal-web.zip` e execute `Testar_Jogo_Web.bat` no Windows com Python 3; em outro sistema, rode `python3 -m http.server 8000` na pasta extraída e abra `http://localhost:8000/`. A revisão gráfica no navegador ainda está pendente.
+- **Android:** o APK debug 0.1.7/versionCode 8 é uma build anterior, documentada abaixo. Ela não representa o código após as PRs #15–#18. A nova exportação depende do Android SDK Platform 35 e do Build Tools 35.0.0, ausentes neste ambiente; ainda não há APK atual para testar em aparelho. O launcher usa o ícone pixel art do cristal e o nome **A Ilha do Cristal**; builds debug não são para publicação.
+- **Controles:** WASD/setas ou joystick movem em oito direções relativas à câmera 2.5D. Clique/toque numa criatura para selecionar; E interage/coleta; 1/2/3 usam skills; H usa curativo; B abre mochila; Esc/P pausa. Os botões da tela oferecem ações touch. O zoom atual varia entre 150% e 300% (padrão 200%).
 
-Ao cair, a tela mostra o prazo de 60 s para reanimação e a quantidade real de cada material que irá para uma mochila persistente se o jogador renascer no acampamento; XP e equipamentos permanecem. Um aliado reanima em 5 s pelo contrato local da sessão, mas esta build solo ainda não implementa LAN ou conexão de aliados.
+Ao cair, o jogador fica nessa condição por até 60 s. Pode renascer manualmente no acampamento ou retorna automaticamente quando o prazo termina. No renascimento, metade de cada pilha de materiais coletados na expedição, arredondada para baixo, vai para uma mochila persistente recuperável; XP e equipamentos permanecem. A reanimação em 5 s está exposta somente pelo contrato/API local da sessão: a build solo não tem LAN nem conexão com aliados.
 
-Após 8 s sem atacar nem receber dano, HP e MP regeneram fora de combate a 1,2× das taxas base e dos bônus de FOR/INT. As taxas em combate não mudam; os caps existentes e o clamp ao máximo continuam valendo.
+Depois de 8 s sem atacar nem receber dano, HP e MP regeneram fora de combate a 1,2× das taxas base e dos bônus de FOR/INT. As taxas em combate não mudam; os tetos e o limite ao máximo continuam valendo.
 
-Com Godot 4.5.1 e os templates correspondentes instalados:
+O contato de combate corpo a corpo considera os footprints alpha projetados pela câmera, para manter a separação visual coerente com as colisões. Essa regra e o movimento relativo à câmera foram integrados após a build 0.1.7.
 
-```sh
-python3 tools/build/export_web.py
-python3 tools/build/export_android.py
-```
-
-O guia [ANDROID_BUILD.md](docs/technical/ANDROID_BUILD.md) fixa SDK/JDK, configuração e verificações. Binário Godot local, SDK, chaves debug, saves e `build/` ficam fora do Git.
+Para exportar Web e Android, instale Godot 4.5.1 e os templates correspondentes. A reprodução e os requisitos do Android estão em [ANDROID_BUILD.md](docs/technical/ANDROID_BUILD.md). Binário Godot local, SDK, chaves debug, saves e `build/` ficam fora do Git.
 
 ## Documentação
 
-- [Wiki offline do projeto](docs/wiki/index.html) — consulta navegável de personagens, vocações, sprites/atlas, atributos, itens, habilidades, mundo e índice de arquivos. Para abrir sem rede externa, gere/atualize com `python3 tools/wiki/build_index.py`, execute `python3 -m http.server 8000` na raiz e acesse `http://localhost:8000/docs/wiki/`. Validação: `python3 tools/wiki/test_catalog.py`.
+- [Wiki offline do projeto](docs/wiki/index.html) — consulta navegável de personagens, vocações, sprites/atlas, atributos, itens, habilidades, mundo e índice de arquivos. Para abrir sem rede externa, atualize com `python3 tools/wiki/build_index.py`, execute `python3 -m http.server 8000` na raiz e acesse `http://localhost:8000/docs/wiki/`. Valide com `python3 tools/wiki/test_catalog.py`.
 - [GDD do MVP](Docs/Main/GDD_MVP.md) — regras e critérios de aceite.
 - [Conteúdo e balanceamento](Docs/Main/CONTENT_DATA.md) — atributos, armas, XP, drops, bestiário e árvore.
 - [Doze listas de produção](Docs/Main/CATALOGS_MVP.md) e [catálogo JSON](data/catalogs/mvp.json) — conteúdo inicial versionado.
@@ -42,33 +37,8 @@ Estrutura: `game/` (cenas, scripts e dados), `data/` (catálogo versionado), `as
 
 Não publicar fotos originais das crianças, credenciais, keystores ou saves pessoais. A prancha conceitual não substitui sprites de produção.
 
-## Ajuste do alvo: retrato 0.1.6
+## Histórico visual e de build 0.1.7
 
-A versão de teste mais recente usa **retrato 9:16**, mundo em tela inteira com expansão para outras proporções, HUD inspirado no protótipo enviado, alvo destacado/trocável e dano numérico flutuante. A seleção agora aparece como uma pequena elipse pixel art dourada no chão, alinhada aos pés do inimigo; deixou de ser um arco vertical grande no celular.
+A build Android debug 0.1.7/versionCode 8 é anterior às PRs #15–#19 e **não foi recompilada com as mudanças posteriores**. Ela registra o joystick ampliado, janela de atributos, restauração de HP/MP ao subir de nível, mapa 192×132 e ajustes de interface/profundidade. As mudanças de gameplay posteriores — janela de queda e retorno, contato por footprint, movimento alinhado à câmera e regeneração de 1,2× — não estão confirmadas nesse APK. A PR #19 integrou a wiki à documentação; ela não faz parte do pacote Android.
 
-Builds: `python3 tools/build/export_android.py` e `python3 tools/build/export_web.py` com Godot 4.5.1. O Web solicita tela cheia ao entrar como visitante, conforme suporte do navegador; o canvas preenche o viewport mesmo sem permissão. APK debug 0.1.7/versionCode 8. O HUD ocupa o viewport completo; joystick e curativo ficam no canto inferior esquerdo, spells e interação no direito. Áreas seguras incompatíveis com o viewport são descartadas para impedir que controles sumam fora da tela. Teste em aparelho físico continua pendente. Detalhes e verificações: [validação retrato](docs/gameplay/PORTRAIT_BUILD_VALIDATION.md).
-
-## APK Android 0.1.7
-
-O APK atual é 0.1.7/versionCode 8 e inclui o joystick ampliado, janela de atributos, restauração de HP/MP ao subir de nível, mapa 192×132 e correções de contato/ataque básico. Os testes e o hash estão em [validação das builds](docs/gameplay/MVP_BUILD_VALIDATION.md). O ZIP Web ainda corresponde à exportação anterior.
-
-O HUD pixel usa a prancha escolhida pelo usuário em `assets/ui/pixel_hud_v1/`, com recortes por metadados e valores/captions dinâmicos.
-
-## Revisão visual candidata — 2026-10-16
-
-Câmera próxima (150–300%, padrão200%), smoothing5 e HUD adaptativa: rosto ampliado, minimapa com posição, alvo oculto sem seleção e habilidades compactas. Chão e elementos com profundidade oblíqua, mantendo coordenadas e colisões32px. Não é conversão isométrica64×32. Ver `Docs/Context/HANDOFF.md` para limites da base recuperada e validação pendente.
-
-Renascimento:15segundos após derrota, jogador a mais de5SQMs da origem, fora do refúgio. Visibilidade da câmera não bloqueia renascimento.
-
-
-### Visão 2.5D com Camera3D
-
-A cena apresenta a ilha numa Camera3D ortogonal, X−30°/Y45°, size inicial16 e suavização speed5. O terreno usa o plano XZ e os atores recebem projeção Sprite3D; lógica, colisões e saves ainda operam em SQMs 2D. Consulte game/scripts/world/isometric_3d_view.gd. Render real em navegador/dispositivo permanece pendente.
-
-## Correção visual 0.1.7
-
-Inventário em duas colunas (equipamento/personagem e mochila de 24 slots), ícones originais para materiais/equipamentos, molduras metálicas e cartões de pergaminho para FOR/AGI/INT. O personagem ocupa uma área maior nos painéis; nomes e quantidades permanecem dinâmicos. O botão de atributos usa um livro pixel art. O terreno continua tropical e a identidade das quatro aparências foi preservada.
-
-Corrigida a conversão do pivô 2D para Sprite3D, com inversão do eixo Y e pés acima da superfície; props mantêm profundidade. A câmera considera seu frustum projetado no chão para não revelar vazio nas bordas. O minimapa agora representa a ilha inteira 192×132 e mostra monstros vivos em pontos vermelhos.
-
-Capturas reais e testes: [validação 0.1.7](docs/gameplay/MOBILE_UI_017_VALIDATION.md). Para instalar ao lado de uma build assinada por outra chave debug, use `python3 tools/build/export_android.py --parallel-install --output build/android/ilha-do-cristal-0.1.7-teste.apk`. Essa variante usa `.preview`, mantém a instalação anterior e tem progresso separado. O preset normal continua usando o package original.
+O histórico da composição retrato, alvo e dano flutuante está em [validação retrato](docs/gameplay/PORTRAIT_BUILD_VALIDATION.md); a interface 0.1.7 está em [MOBILE_UI_017_VALIDATION.md](docs/gameplay/MOBILE_UI_017_VALIDATION.md). O APK anterior pode não estar presente num checkout, pois `build/` não é versionado. Não trate esse binário como build atual nem como evidência para os recursos integrados depois.
