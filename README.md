@@ -2,7 +2,7 @@
 
 RPG de sobrevivência em pixel art. Melissa, Helena, Maíra e Fábio sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
 
-**Estado atual:** reconstrução 0.1.9 em Godot 4.5.1, com HUD, minimapa, mapa fixo e prévia LAN de movimento. O boot Android prepara verificação de atualizações de conteúdo para o app 0.1.10/versionCode 11; a exportação desse APK ainda depende do Android SDK Platform 35 e Build Tools 35.0.0. Combate/itens/saves LAN e talentos passivos continuam pendentes. A arte de personagem ainda usa as aparências Warrior compartilhadas.
+**Estado atual:** reconstrução 0.1.9 em Godot 4.5.1, com HUD, minimapa, mapa fixo e prévia LAN de movimento. O ícone do APK, a splash e o cabeçalho do boot usam a logo aprovada em `tools/art/source/ilha-cristal-logo.jpg`. O boot Android prepara verificação de atualizações de conteúdo para o app 0.1.10/versionCode 11; a exportação desse APK ainda depende do Android SDK Platform 35 e Build Tools 35.0.0. Combate/itens/saves LAN e talentos passivos continuam pendentes. A arte de personagem ainda usa as aparências Warrior compartilhadas.
 
 [Relatório e capturas da reconstrução](docs/gameplay/HUD_RECONSTRUCTION_019.md) · [Metadados do APK0.1.9](artifacts/preview/HUD-0.1.9.json) · [Próxima ação](Docs/Context/HANDOFF.md).
 
@@ -16,7 +16,7 @@ Os protótipos de mapa global/ilha irregular e a proposta de dez monstros contin
 
 ## Editar o terreno no Godot
 
-Abra `game/scenes/first_island.tscn` e edite as camadas `BaseTiles`, `Transitions` e `Paths`. A cena salva as 50.000 células base, 645 transições e 15 overlays usando o TileSet compartilhado `assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.tres`. O jogo lê essas células para montar a apresentação 2.5D e não repinta o mapa ao iniciar.
+Abra `game/scenes/first_island.tscn`. Para o atlas original, edite `BaseTiles`, `Transitions` e `Paths`. Para pintar com o atlas tropical fornecido, selecione `ManualTerrain` (40 slices, IDs 00–39) ou `ManualProps` (24 slices, IDs 40–63) no painel TileMap. O atlas e os TileSets estão em `assets/environments/tropical_manual_v1/`; cada slice mede 128×128 px e ocupa uma célula de 4×4 SQMs. As camadas manuais começam vazias e o renderer 2.5D lê as edições salvas na cena.
 
 Essas edições alteram a aparência do terreno. Limites, faixa de água bloqueada, colisões, spawns, obstáculos e recursos continuam definidos por `game/data/first_island_layout.json` e pelos scripts do jogo.
 

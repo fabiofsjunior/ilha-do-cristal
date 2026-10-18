@@ -163,3 +163,10 @@ Na conversa o usuário confirmou “Prototipagem aprovada”, apontou divergênc
 - **Feedback:** o usuário aprovou explicitamente o protótipo (“prototipo aprovado.”) em 2026-10-18.
 - **Estado do gate:** aprovado para implementar o fluxo. Isso não valida APK, rede real ou aparelho Android.
 - **Comparação após implementação:** `game/scenes/update_boot.tscn` e `game/scripts/ui/update_boot.gd` preservam a ordem de estados; a UI lê release, tamanho, notas e progresso reais. Ao instalar, a Godot monta o PCK verificado e recarrega a cena de jogo. Testes Android e download real ainda pendentes.
+
+
+## Logo do jogo no ícone e na inicialização — 2026-10-18
+
+- Referência: anexo `icone Ilha do Cristal.jpg`, arte quadrada com cristal azul, moldura e wordmark. O usuário pediu explicitamente que fosse usada como ícone do APK e logo antes de iniciar o jogo; essa seleção aprova a referência para este incremento sem redesenho da marca.
+- Aplicação: ícone principal com a arte integral, ícone adaptativo com a logo contida na área segura, símbolo monocromático de cristal derivado do centro da marca, splash nativa e cabeçalho da tela de verificação. O fluxo e a gameplay não mudam.
+- A comparação de produção é feita no Godot após a importação. Exportação/instalação e revisão em Android físico continuam pendentes.

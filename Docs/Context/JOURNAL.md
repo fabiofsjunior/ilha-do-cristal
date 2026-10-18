@@ -354,9 +354,26 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - Godot 4.5.1 não está disponível neste ambiente, então importação/editor, execução dos testes headless e renderização não foram verificadas. Salvar/reabrir no editor e medir desempenho em Android permanecem pendentes. A composição continua plana; o conceito de ilha irregular não foi implementado nem aprovado por esta alteração.
 
 
+## 2026-10-18 — Atlas tropical para pintura manual
+
+- Importada a folha fornecida pelo usuário: recortados 64 slices de 128×128 em uma grade 8×8; removidos o fundo quadriculado e as linhas do contato, preservando o pixel art e alpha binário.
+- Criados TileSets separados para 40 superfícies e 24 objetos, além das camadas vazias `ManualTerrain` e `ManualProps` em `first_island.tscn`. A célula de 128 px corresponde a 4×4 SQMs da simulação de 32 px.
+- A apresentação 2.5D projeta as superfícies manuais no chão, os objetos como billboards e copia os tiles de superfície para o minimapa. As 50.000 células originais e as regras de colisão/spawn não foram alteradas.
+- Validação estrutural do atlas, slices, TileSets e referências da cena executada com o validador específico. Godot 4.5.1 não está disponível neste ambiente; importação real, edição/salvamento/reabertura no editor e teste Android permanecem pendentes.
+
+
+## 2026-10-18 — Logo no launcher e boot Android
+
+- Partida na branch `feature/s08-logo-app-icon-splash`, baseada em `Staging` `5a1d4a0`. A imagem enviada pelo usuário foi preservada em `tools/art/source/ilha-cristal-logo.jpg` e alimenta `tools/art/generate_app_icon.py`.
+- Geradas as quatro variantes de launcher: principal 512×512, adaptive background/foreground e monochrome 432×432. A Godot usa o ícone principal na splash nativa e a mesma marca no cabeçalho da tela de atualização. O foreground adaptativo mantém a wordmark dentro da área segura; o ícone monocromático usa o cristal central simplificado.
+- O preset Android já referencia esses quatro caminhos; agora eles contêm a arte aprovada. A build segue em 0.1.10/versionCode 11, sem incremento, pois esta APK ainda não foi exportada.
+- Godot 4.5.1: importação headless, `test_update_boot_ui.gd` e `test_content_updater.gd` passaram. A checagem de projeto confirmou os parâmetros de splash; PNGs têm 512×512 (principal) e 432×432 (variantes adaptativas/monocromática), alpha esperado, e o JPEG-fonte confere byte a byte com o anexo. `py_compile` e `git diff --check` passaram. O único aviso de import foi ADB sem daemon/dispositivo conectado.
+- Limite: Android SDK Platform 35/Build Tools 35.0.0 não disponíveis; sem APK ou teste em aparelho.
+
+
 ## 2026-10-18 — Servidor Node.js para wiki e exportação Web sob demanda
 
-- Adicionado `Acessar_Wiki.bat` na raiz e `tools/wiki/serve.js`, sem dependências npm. O servidor usa apenas loopback, abre `/docs/wiki/`, escolhe outra porta se 8000 estiver ocupada e atende os documentos/imagens usados pelos links da wiki. `.git`, `.godot`, `build`, segredos e arquivos de save/assinatura são bloqueados.
+- Adicionado `Acessar_Wiki.bat` na raiz e `tools/wiki/serve.js`, sem dependências npm. O servidor usa somente loopback, abre `/docs/wiki/`, escolhe outra porta se 8000 estiver ocupada e atende os documentos/imagens usados pelos links da wiki. `.git`, `.godot`, `build`, segredos e arquivos de save/assinatura são bloqueados.
 - `Testar_Jogo_Web.bat` agora tenta gerar `build/web/` com Godot 4.5.1 quando não encontra a exportação. O servidor Web explica o comando de exportação caso a build continue ausente. Este ambiente não tem Godot/exports Web, então não foi possível produzir a build do jogo aqui.
-- README e roadmap atualizados. `python3 tools/wiki/test_catalog.py` passou com Node.js 24.19.0, verificando catálogo, links locais, imagens PNG, redirecionamento da raiz, HEAD e bloqueio de diretórios privados. `node --check`, `py_compile` e `git diff --check` também passaram.
-- PR #25 aberto como rascunho contra `Staging`, baseado em `9f43dad`; próxima ação: revisar/integrar. Para jogar Web neste checkout, instalar Godot 4.5.1 e templates Web, executar `Testar_Jogo_Web.bat` e revisar a build no navegador.
+- README e roadmap atualizados. `python3 tools/wiki/test_catalog.py` passou com Node.js 24.19.0, verificando catálogo atualizado para 75 prévias e 413 arquivos, links locais, imagens PNG, redirecionamento da raiz, HEAD e bloqueio de diretórios privados. `node --check`, `py_compile` e `git diff --check` também passaram.
+- Conflitos com `Staging` `56bbc475556dd72270fccc1d4098e4eb197fedca` resolvidos preservando os registros anteriores de terreno e identidade visual. Índice da Wiki regenerado após a importação do atlas tropical. PR #25 preparado para integração em `Staging`.

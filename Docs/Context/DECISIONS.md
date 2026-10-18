@@ -136,3 +136,11 @@ O alvo selecionado deve usar uma elipse pixel art pequena, sem billboard, plana 
 - O mapa atual é preservado célula por célula: 50.000 tiles base, 645 transições e 15 overlays. O startup valida as camadas e a apresentação 2.5D lê os dados da cena sem repintura.
 - `first_island_layout.json` continua responsável pelas colisões, limites, faixa de água, spawns, obstáculos e recursos. Editar tiles na cena altera a aparência, sem alterar mecânicas.
 - A alteração implementa a persistência solicitada sem adotar a forma, as elevações ou os conceitos visuais da proposta de ilha irregular, que seguem pendentes de revisão.
+
+
+## Decisão — atlas tropical para pintura manual — 2026-10-18
+
+- O atlas fornecido pelo usuário foi importado como PNG RGBA limpo: 64 slices de 128×128, com o quadriculado e as linhas da folha removidos.
+- Os IDs 00–39 ficam no TileSet/camada `ManualTerrain`; IDs 40–63 ficam em `ManualProps`. Cada TileSet usa célula de 128×128 px, equivalente a 4×4 SQMs na grade atual de 32 px.
+- As camadas novas começam vazias e podem ser pintadas separadamente, mantendo terreno e decoração no mesmo ponto sem repintar o mapa original. O renderer projeta terreno no chão e objetos como sprites com billboard.
+- A mudança é visual. `first_island_layout.json` continua definindo limites, colisões, água bloqueada, spawns, obstáculos e recursos. O atlas fica disponível para pintura manual e não promove a arte a conteúdo final aprovado.

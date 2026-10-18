@@ -125,7 +125,8 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [x] Minimap circular projetado pela câmera e zoom compartilhado, com teste geométrico.
 - [x] Mapa fixo50mil tiles, três vocações locais/VFX e LAN de movimento reconstruídos e versionados.
 - [x] Mapa visual persistido em `game/scenes/first_island.tscn`: 50.000 bases, 645 transições e 15 overlays, com TileSet compartilhado e sem repintura no início.
-- [ ] Validar no Godot 4.5.1 edição, salvar/reabrir e renderização das camadas; medir a cena com 50.000 células no Android.
+- [x] Atlas tropical fornecido importado em 64 slices e camadas vazias para pintura manual (`ManualTerrain`/`ManualProps`); aprovação visual e teste no editor continuam pendentes.
+- [ ] Validar no Godot 4.5.1 edição, salvar/reabrir e renderização das camadas `BaseTiles`, `Transitions`, `Paths`, `ManualTerrain` e `ManualProps`; medir a cena com 50.000 células no Android.
 - [x] Import, testes locais, comparação gráfica Godot e export/assinatura/integridade APK0.1.9.
 - [ ] Sincronizar combate pelo host; depois itens/coleta e saves idempotentes do host.
 - [ ] Testar o mesmo APK em dois Androids reais; validar UI/toque/safe area, LAN e persistência.
@@ -143,3 +144,10 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [ ] Revisar os dez candidatos e a prancha concept em `docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md`.
 - [ ] Se a direção for aprovada, definir uma amostra de uma criatura, testar escala/pivô/alpha/legibilidade no Godot e pedir revisão antes de fazer sprites em lote.
 - [ ] Manter espécies/variantes novas fora do MVP e do catálogo de runtime até aprovação e escopo explícitos.
+
+
+### Identidade visual do aplicativo — 2026-10-18
+
+- [x] Aplicar a logo enviada pelo usuário ao ícone clássico do app, ao foreground do ícone adaptativo e à splash/tela de verificação de atualizações.
+- [x] Gerar variantes nos tamanhos Android exigidos e validar importação/teste de presença da logo no boot.
+- [ ] Exportar a APK 0.1.10/versionCode 11 e conferir ícone, splash, safe area e escala em Android físico.

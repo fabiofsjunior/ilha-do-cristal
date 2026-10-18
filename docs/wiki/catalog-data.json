@@ -3563,6 +3563,23 @@
       "directions": null
     },
     {
+      "path": "assets/environments/tropical_manual_v1/tropical_manual_v1.png",
+      "href": "../../assets/environments/tropical_manual_v1/tropical_manual_v1.png",
+      "name": "tropical_manual_v1.png",
+      "group": "environments",
+      "subgroup": "Terreno",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
       "path": "assets/environments/tropical_oblique_candidate/boulder.png",
       "href": "../../assets/environments/tropical_oblique_candidate/boulder.png",
       "name": "boulder.png",
@@ -4311,25 +4328,25 @@
       "path": "Docs/Context/DECISIONS.md",
       "href": "../../Docs/Context/DECISIONS.md",
       "extension": "md",
-      "size": 18426
+      "size": 19277
     },
     {
       "path": "Docs/Context/HANDOFF.md",
       "href": "../../Docs/Context/HANDOFF.md",
       "extension": "md",
-      "size": 1735
+      "size": 1462
     },
     {
       "path": "Docs/Context/JOURNAL.md",
       "href": "../../Docs/Context/JOURNAL.md",
       "extension": "md",
-      "size": 64238
+      "size": 66547
     },
     {
       "path": "Docs/Context/PROTOTYPE_LOG.md",
       "href": "../../Docs/Context/PROTOTYPE_LOG.md",
       "extension": "md",
-      "size": 18700
+      "size": 19452
     },
     {
       "path": "Docs/Main/CATALOGS_MVP.md",
@@ -4359,13 +4376,13 @@
       "path": "Docs/Main/ROADMAP.md",
       "href": "../../Docs/Main/ROADMAP.md",
       "extension": "md",
-      "size": 15433
+      "size": 16117
     },
     {
       "path": "README.md",
       "href": "../../README.md",
       "extension": "md",
-      "size": 10472
+      "size": 10705
     },
     {
       "path": "Testar_Jogo_Web.bat",
@@ -4744,6 +4761,30 @@
       "href": "../../assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.tres",
       "extension": "tres",
       "size": 3237
+    },
+    {
+      "path": "assets/environments/tropical_manual_v1/tropical_manual_manifest.json",
+      "href": "../../assets/environments/tropical_manual_v1/tropical_manual_manifest.json",
+      "extension": "json",
+      "size": 851
+    },
+    {
+      "path": "assets/environments/tropical_manual_v1/tropical_manual_props_v1.tres",
+      "href": "../../assets/environments/tropical_manual_v1/tropical_manual_props_v1.tres",
+      "extension": "tres",
+      "size": 1123
+    },
+    {
+      "path": "assets/environments/tropical_manual_v1/tropical_manual_terrain_v1.tres",
+      "href": "../../assets/environments/tropical_manual_v1/tropical_manual_terrain_v1.tres",
+      "extension": "tres",
+      "size": 1575
+    },
+    {
+      "path": "assets/environments/tropical_manual_v1/tropical_manual_v1.png",
+      "href": "../../assets/environments/tropical_manual_v1/tropical_manual_v1.png",
+      "extension": "png",
+      "size": 64166
     },
     {
       "path": "assets/environments/tropical_oblique_candidate/README.md",
@@ -5229,25 +5270,25 @@
       "path": "assets/ui/app_icon.png",
       "href": "../../assets/ui/app_icon.png",
       "extension": "png",
-      "size": 6208
+      "size": 469384
     },
     {
       "path": "assets/ui/app_icon_background.png",
       "href": "../../assets/ui/app_icon_background.png",
       "extension": "png",
-      "size": 2997
+      "size": 2662
     },
     {
       "path": "assets/ui/app_icon_foreground.png",
       "href": "../../assets/ui/app_icon_foreground.png",
       "extension": "png",
-      "size": 4168
+      "size": 115775
     },
     {
       "path": "assets/ui/app_icon_monochrome.png",
       "href": "../../assets/ui/app_icon_monochrome.png",
       "extension": "png",
-      "size": 2990
+      "size": 1815
     },
     {
       "path": "assets/ui/classic_v2/AGI.png",
@@ -6027,7 +6068,7 @@
       "path": "docs/technical/ARCHITECTURE.md",
       "href": "../../docs/technical/ARCHITECTURE.md",
       "extension": "md",
-      "size": 7240
+      "size": 7553
     },
     {
       "path": "docs/technical/GITHUB_CONTENT_UPDATES.md",
@@ -6105,7 +6146,7 @@
       "path": "game/scenes/first_island.tscn",
       "href": "../../game/scenes/first_island.tscn",
       "extension": "tscn",
-      "size": 811809
+      "size": 812261
     },
     {
       "path": "game/scenes/main.tscn",
@@ -6279,7 +6320,7 @@
       "path": "game/scripts/ui/update_boot.gd",
       "href": "../../game/scripts/ui/update_boot.gd",
       "extension": "gd",
-      "size": 9208
+      "size": 9309
     },
     {
       "path": "game/scripts/ui/virtual_joystick.gd",
@@ -6297,7 +6338,7 @@
       "path": "game/scripts/world/first_island.gd",
       "href": "../../game/scripts/world/first_island.gd",
       "extension": "gd",
-      "size": 38891
+      "size": 40623
     },
     {
       "path": "game/scripts/world/first_island_hud.gd",
@@ -6309,13 +6350,13 @@
       "path": "game/scripts/world/isometric_3d_view.gd",
       "href": "../../game/scripts/world/isometric_3d_view.gd",
       "extension": "gd",
-      "size": 17912
+      "size": 20073
     },
     {
       "path": "project.godot",
       "href": "../../project.godot",
       "extension": "godot",
-      "size": 1014
+      "size": 1178
     },
     {
       "path": "tools/art/README.md",
@@ -6327,7 +6368,7 @@
       "path": "tools/art/generate_app_icon.py",
       "href": "../../tools/art/generate_app_icon.py",
       "extension": "py",
-      "size": 2955
+      "size": 2487
     },
     {
       "path": "tools/art/generate_classic_ui.py",
@@ -6432,6 +6473,12 @@
       "size": 5371
     },
     {
+      "path": "tools/art/source/ilha-cristal-logo.jpg",
+      "href": "../../tools/art/source/ilha-cristal-logo.jpg",
+      "extension": "jpg",
+      "size": 804034
+    },
+    {
       "path": "tools/art/sprite_test/README.md",
       "href": "../../tools/art/sprite_test/README.md",
       "extension": "md",
@@ -6526,6 +6573,12 @@
       "href": "../../tools/art/validate_sprite_atlases.py",
       "extension": "py",
       "size": 3792
+    },
+    {
+      "path": "tools/art/validate_tropical_manual_tileset.py",
+      "href": "../../tools/art/validate_tropical_manual_tileset.py",
+      "extension": "py",
+      "size": 3975
     },
     {
       "path": "tools/gameplay/smoke_playable_slice.gd",
@@ -6693,7 +6746,7 @@
       "path": "tools/updater/test_update_boot_ui.gd",
       "href": "../../tools/updater/test_update_boot_ui.gd",
       "extension": "gd",
-      "size": 3212
+      "size": 3536
     },
     {
       "path": "tools/validate_catalogs.py",

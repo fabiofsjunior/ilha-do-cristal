@@ -1,26 +1,20 @@
-# Handoff — servidor Node.js da Wiki e launcher Web
+# Handoff — verificar Wiki e launcher Web no Windows
 
-**Branch:** `feature/s09-node-wiki-server`
-
-**Base:** `Staging` em `9f43dad7d0d1d931914401eb8a83ac590fb4ee90`.
-
-**Commit de implementação no PR:** `434054dd2b1970f341e79af454c5bd822e255d43`.
-
-**PR:** [#25](https://github.com/fabiofsjunior/ilha-do-cristal/pull/25), rascunho contra `Staging`.
+**Branch de destino:** `Staging`
+**PRs deste incremento:** #24 (logo/ícone Android) e #25 (servidor Node.js da Wiki e launcher Web).
+**Implementação Wiki/Web:** `434054dd2b1970f341e79af454c5bd822e255d43`.
 
 ## Implementado
 
-- `Acessar_Wiki.bat` na raiz inicia `tools/wiki/serve.js` com Node.js 18+, abre o navegador na wiki e mantém o terminal disponível para encerrar com Ctrl+C.
-- O servidor usa somente módulos nativos, fica acessível apenas em `127.0.0.1`, usa a porta 8000 ou escolhe outra livre, e redireciona `/` para `/docs/wiki/`.
-- Links da wiki continuam funcionando para documentação e previews. O servidor bloqueia diretórios ocultos/gerados, builds e arquivos privados de assinatura/save.
-- `Testar_Jogo_Web.bat` tenta exportar para `build/web/` antes de servir quando não encontra a build. A exportação requer Python 3, Godot 4.5.1 e templates Web.
+- `Acessar_Wiki.bat` inicia `tools/wiki/serve.js` com Node.js 18+, abre a Wiki e mantém o terminal disponível para Ctrl+C.
+- O servidor usa módulos nativos, escuta somente em `127.0.0.1`, atende links e imagens locais da Wiki, redireciona `/` para `/docs/wiki/` e bloqueia áreas privadas/geradas.
+- `Testar_Jogo_Web.bat` tenta exportar para `build/web/` quando a pasta não existe. A exportação requer Python 3, Godot 4.5.1 e templates Web.
+- A PR #24 adiciona a logo do jogo ao ícone Android, splash e cabeçalho do boot.
 
-## Verificação e limites
+## Próxima ação exata
 
-- `python3 tools/wiki/test_catalog.py` passou; verifica catálogo, links e imagens, abre a Wiki pelo servidor Node, segue o redirecionamento da raiz, testa GET/HEAD e confirma que `.git` e `build` ficam bloqueados.
-- `node --check`, `py_compile` e `git diff --check` passaram.
-- Não foi possível exportar o jogo Web neste ambiente: Godot 4.5.1 e os templates Web não estão instalados aqui. O launcher agora tenta exportar automaticamente no checkout Windows quando essas ferramentas existem.
+Em um checkout Windows com Node.js 18+, executar `Acessar_Wiki.bat`, navegar por uma página e imagem da Wiki; em seguida executar `Testar_Jogo_Web.bat` com Godot 4.5.1 e templates Web instalados e confirmar que o jogo abre em `build/web/`.
 
-## Próxima ação
+## Pendências e limites
 
-Revisar e integrar o PR #25. Depois, no checkout Windows, executar `Acessar_Wiki.bat` para consultar a documentação e `Testar_Jogo_Web.bat` para gerar/abrir a build Web.
+Este ambiente não tem Godot 4.5.1/templates Web, então não foi possível gerar nem abrir a build Web. A exportação da APK 0.1.10/versionCode 11 ainda requer Android SDK Platform 35/Build Tools 35.0.0 e teste em aparelho. As camadas manuais do atlas tropical também aguardam edição/salvamento/reabertura no editor Godot e medição em Android.
