@@ -55,11 +55,11 @@ Ainda são gates de S0/S1: testar o pacote Web em navegador com WebAssembly/WebG
 
 ### Exportação Web
 
-O preset `Web` está em `export_presets.cfg`. Com os templates de exportação do Godot 4.5.1 instalados, gere o pacote completo (HTML, JavaScript, WebAssembly e PCK) assim:
+O preset `Web` está em `export_presets.cfg`. Para exportar a build atual, instale o Godot 4.7.2 e seus templates Web; o teste histórico desta fatia foi executado com Godot 4.5.1. Gere o pacote completo (HTML, JavaScript, WebAssembly e PCK) assim:
 
 ```sh
 mkdir -p build/web
-./Godot_v4.5.1-stable_linux.x86_64 --headless --path . --export-release Web build/web/index.html
+./Godot_v4.7.2-stable_linux.x86_64 --headless --path . --export-release Web build/web/index.html
 ```
 
 Sirva a pasta por HTTP para executar no navegador; o arquivo `index.html` não deve ser aberto via `file://`:

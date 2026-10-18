@@ -3546,6 +3546,40 @@
       "directions": 1
     },
     {
+      "path": "assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_elementos_isometricos_v1.png",
+      "href": "../../assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_elementos_isometricos_v1.png",
+      "name": "ilha_cristal_elementos_isometricos_v1.png",
+      "group": "environments",
+      "subgroup": "Terreno",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_tileset_isometrico_v1.png",
+      "href": "../../assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_tileset_isometrico_v1.png",
+      "name": "ilha_cristal_tileset_isometrico_v1.png",
+      "group": "environments",
+      "subgroup": "Terreno",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
       "path": "assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.png",
       "href": "../../assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.png",
       "name": "terrain_mvp_candidate_v1.png",
@@ -4334,13 +4368,13 @@
       "path": "Docs/Context/HANDOFF.md",
       "href": "../../Docs/Context/HANDOFF.md",
       "extension": "md",
-      "size": 1211
+      "size": 1667
     },
     {
       "path": "Docs/Context/JOURNAL.md",
       "href": "../../Docs/Context/JOURNAL.md",
       "extension": "md",
-      "size": 70136
+      "size": 71862
     },
     {
       "path": "Docs/Context/PROTOTYPE_LOG.md",
@@ -4376,13 +4410,13 @@
       "path": "Docs/Main/ROADMAP.md",
       "href": "../../Docs/Main/ROADMAP.md",
       "extension": "md",
-      "size": 16949
+      "size": 16912
     },
     {
       "path": "README.md",
       "href": "../../README.md",
       "extension": "md",
-      "size": 11916
+      "size": 11979
     },
     {
       "path": "Testar_Jogo_Web.bat",
@@ -4743,6 +4777,36 @@
       "href": "../../assets/creatures/wolf/wolf_se_candidate_v1.png",
       "extension": "png",
       "size": 5812
+    },
+    {
+      "path": "assets/environments/ilha_cristal_isometric_candidate_v1/README.md",
+      "href": "../../assets/environments/ilha_cristal_isometric_candidate_v1/README.md",
+      "extension": "md",
+      "size": 842
+    },
+    {
+      "path": "assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_elementos_isometricos_v1.png",
+      "href": "../../assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_elementos_isometricos_v1.png",
+      "extension": "png",
+      "size": 2564770
+    },
+    {
+      "path": "assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_tileset_isometrico_v1.png",
+      "href": "../../assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_tileset_isometrico_v1.png",
+      "extension": "png",
+      "size": 2018284
+    },
+    {
+      "path": "assets/environments/ilha_cristal_isometric_candidate_v1/prompt-elementos.txt",
+      "href": "../../assets/environments/ilha_cristal_isometric_candidate_v1/prompt-elementos.txt",
+      "extension": "txt",
+      "size": 3218
+    },
+    {
+      "path": "assets/environments/ilha_cristal_isometric_candidate_v1/prompt-tileset.txt",
+      "href": "../../assets/environments/ilha_cristal_isometric_candidate_v1/prompt-tileset.txt",
+      "extension": "txt",
+      "size": 3212
     },
     {
       "path": "assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.json",
@@ -5948,7 +6012,7 @@
       "path": "docs/gameplay/PLAYABLE_SLICE.md",
       "href": "../../docs/gameplay/PLAYABLE_SLICE.md",
       "extension": "md",
-      "size": 7790
+      "size": 7865
     },
     {
       "path": "docs/gameplay/PORTRAIT_BUILD_VALIDATION.md",
@@ -6782,7 +6846,7 @@
       "path": "tools/web/serve_web_build.py",
       "href": "../../tools/web/serve_web_build.py",
       "extension": "py",
-      "size": 3945
+      "size": 3962
     },
     {
       "path": "tools/wiki/build_index.py",

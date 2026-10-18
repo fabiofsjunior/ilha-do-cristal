@@ -406,3 +406,11 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - Transparência real confirmada; há pixels semitransparentes residuais. Grade visual 8 x 8 exige recorte manual, pois 1254 não é divisível por 8.
 - Sem integração de cenas ou validação visual no Godot. Próxima ação: testar um terreno e uma árvore, ajustando recorte, origem, escala e halos.
 - Publicação direta em Staging solicitada pelo usuário, via plugin GitHub.
+
+
+## 2026-10-18 — Atualização do exportador Web para Godot 4.7.2
+
+- Após o usuário reportar `Esperado Godot 4.5.1, encontrado 4.7.2.stable.official.ed1daf0bf`, o launcher, o exportador e o servidor Web foram alinhados para 4.7.2. O `.bat` procura os nomes 4.7.2 na raiz e passa o executável explicitamente; o Python prioriza o binário compatível da raiz, valida a versão também em `--print-godot` e deixa o caminho salvo antigo por último.
+- README, roadmap, handoff e instrução de exportação Web atualizados. A exportação Android permanece validada e fixada em Godot 4.5.1, fora do escopo desta correção Web.
+- Teste de CLI aceitou `4.7.2.stable.official.ed1daf0bf` e recusou 4.5.1; teste isolado confirmou que o executável 4.7.2 da raiz prevalece sobre `GODOT_BIN` e `.godot-path` antigos. `py_compile`, `python3 tools/wiki/test_catalog.py` e `git diff --check` passaram antes da sincronização; suíte e índice serão verificados novamente após preservar as pranchas isométricas recém-integradas em Staging.
+- Exportação real e compatibilidade do preset dependem de Windows, Godot 4.7.2 e templates Web correspondentes.
