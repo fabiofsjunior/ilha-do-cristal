@@ -393,3 +393,9 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - Checagem estática do catálogo, cabeçalhos/subrecursos TSCN, referências do spawner e ausência de criação de colisores em runtime passou. O cálculo das poses/câmera registradas mostrou que o contato projetado máximo é 172,1 px (urso), dentro dos 220 px da AttackArea. `git diff --check` passou.
 - Godot 4.5.1 headless importou/reimportou o projeto; passaram `test_melee_contact_spacing.gd`, `smoke_playable_slice.gd`, `test_expanded_map_population.gd` (30 spawns) e `test_respawn_radius.gd`. A configuração do editor emitiu aviso de safe-save fora do projeto, sem impedir importação nem testes.
 - Revisão visual das formas e o ajuste/salvamento/reabertura manual no editor permanecem pendentes para o usuário.
+
+
+## 2026-10-18 — Godot da raiz no launcher Web
+
+- Na branch `feature/s13-web-root-godot`, `Testar_Jogo_Web.bat` agora procura primeiro o executável Godot 4.5.1 na raiz do projeto, priorizando a variante Windows 64-bit console, e passa o caminho absoluto ao exportador. Se não encontrar o binário na raiz, mantém a descoberta, o seletor e o fallback existentes.
+- README e roadmap descrevem essa prioridade. A checagem estática confirmou as variantes esperadas na raiz, caminho absoluto passado ao exportador e prioridade sobre `--print-godot`; `tools/wiki/test_catalog.py` e `git diff --check` passaram. Exportação e execução do `.bat` no Windows permanecem pendentes: este ambiente não tem Windows, Godot 4.5.1 ou templates Web.

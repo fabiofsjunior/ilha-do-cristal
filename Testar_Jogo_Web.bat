@@ -32,6 +32,17 @@ if not exist "%EXPORT_SCRIPT%" goto build_missing
 echo Build Web nao encontrada. Vou tentar exportar com Godot 4.5.1...
 set "GODOT_PATH_FILE=%TEMP%\ilha-do-cristal-godot-path.txt"
 set "GODOT_EXE="
+
+rem Prefere o Godot 4.5.1 baixado na raiz do projeto, sem depender do PATH.
+for %%G in ("%~dp0Godot_v4.5.1-stable_win64_console.exe") do if exist "%%~fG" set "GODOT_EXE=%%~fG"
+if not defined GODOT_EXE for %%G in ("%~dp0Godot_v4.5.1-stable*_console.exe") do if exist "%%~fG" set "GODOT_EXE=%%~fG"
+if not defined GODOT_EXE for %%G in ("%~dp0Godot_v4.5.1-stable_win64.exe") do if exist "%%~fG" set "GODOT_EXE=%%~fG"
+if not defined GODOT_EXE for %%G in ("%~dp0Godot_v4.5.1-stable*.exe") do if exist "%%~fG" set "GODOT_EXE=%%~fG"
+if defined GODOT_EXE (
+    echo Godot 4.5.1 encontrado na raiz: "%GODOT_EXE%"
+    goto export_web
+)
+
 %PYTHON_CMD% %PYTHON_ARGS% "%EXPORT_SCRIPT%" --print-godot > "%GODOT_PATH_FILE%"
 if errorlevel 1 goto select_godot
 set /p "GODOT_EXE="<"%GODOT_PATH_FILE%"
