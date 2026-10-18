@@ -5,6 +5,9 @@
 *.tmp
 __pycache__/
 *.pyc
+Godot_v*-stable*.exe
+Godot_v*-stable*.zip
+Godot.exe
 
 # Local builds and secrets
 /build/

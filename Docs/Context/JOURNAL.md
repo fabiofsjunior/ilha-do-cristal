@@ -414,3 +414,11 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - README, roadmap, handoff e instrução de exportação Web atualizados. A exportação Android permanece validada e fixada em Godot 4.5.1, fora do escopo desta correção Web.
 - Teste de CLI aceitou `4.7.2.stable.official.ed1daf0bf` e recusou 4.5.1; teste isolado confirmou que o executável 4.7.2 da raiz prevalece sobre `GODOT_BIN` e `.godot-path` antigos. `py_compile`, `python3 tools/wiki/test_catalog.py` e `git diff --check` passaram antes da sincronização; suíte e índice serão verificados novamente após preservar as pranchas isométricas recém-integradas em Staging.
 - Exportação real e compatibilidade do preset dependem de Windows, Godot 4.7.2 e templates Web correspondentes.
+
+## 2026-10-18 — Diagnóstico de executável Godot inválido no launcher Web
+
+- O usuário reportou que o launcher encontrou `Godot_v4.7.2-stable_win64_console.exe`, mas a consulta `--version` saiu com código Windows `4294967295` e gerou traceback. O arquivo presente no projeto tinha 198.152 bytes; não se comporta como o editor completo. O ZIP oficial para Windows x64 mede 86.013.866 bytes.
+- Removido o executável inválido do Git e acrescentadas regras para manter os binários locais do Godot fora do repositório. O `.bat` continua usando primeiro um Godot válido na raiz, independente do `PATH`.
+- `export_web.py` agora valida cada candidato antes de usá-lo, pula binários quebrados/versões diferentes quando faz descoberta e imprime diagnóstico direto para caminho explícito inválido, timeout ou erro ao iniciar; nenhum traceback cru de `CalledProcessError` nessa etapa.
+- O launcher usa a descoberta validada, procura outros locais/caminho salvo e abre o seletor quando necessário. README, roadmap e handoff explicam baixar e extrair a versão estável oficial e instalar templates Web 4.7.2.
+- Testes de CLI com executáveis simulados aceitaram Godot 4.7.2 e produziram diagnóstico curto sem traceback para um executável que falha; a descoberta também ignorou o wrapper inválido e usou outro caminho 4.7.2. A validação estática do `.bat`, `py_compile`, `python3 tools/wiki/test_catalog.py` e `git diff --check` passaram. A exportação real continua pendente em Windows com os templates 4.7.2.
