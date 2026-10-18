@@ -124,6 +124,8 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [x] HUD aprovada: equipamentos96×96, spells144×144, navegação exclusiva, engrenagem e inventário responsivo.
 - [x] Minimap circular projetado pela câmera e zoom compartilhado, com teste geométrico.
 - [x] Mapa fixo50mil tiles, três vocações locais/VFX e LAN de movimento reconstruídos e versionados.
+- [x] Mapa visual persistido em `game/scenes/first_island.tscn`: 50.000 bases, 645 transições e 15 overlays, com TileSet compartilhado e sem repintura no início.
+- [ ] Validar no Godot 4.5.1 edição, salvar/reabrir e renderização das camadas; medir a cena com 50.000 células no Android.
 - [x] Import, testes locais, comparação gráfica Godot e export/assinatura/integridade APK0.1.9.
 - [ ] Sincronizar combate pelo host; depois itens/coleta e saves idempotentes do host.
 - [ ] Testar o mesmo APK em dois Androids reais; validar UI/toque/safe area, LAN e persistência.

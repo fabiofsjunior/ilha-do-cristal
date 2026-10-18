@@ -2,7 +2,7 @@
 
 RPG de sobrevivência em pixel art. Melissa, Helena, Maíra e Fábio sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
 
-**Base desta branch:** reconstrução 0.1.9 em Godot 4.5.1, `main` em `e38821d` (HUD, minimapa, mapa fixo e prévia LAN de movimento). A branch `feature/s07-github-content-updater` acrescenta verificação de atualizações de conteúdo no boot Android e prepara o app 0.1.10/versionCode 11. O APK 0.1.10 ainda não foi exportado; Android SDK Platform 35 e Build Tools 35.0.0 não estão disponíveis neste ambiente. Combate/itens/saves LAN e talentos passivos continuam pendentes. A arte de personagem ainda usa as aparências Warrior compartilhadas.
+**Estado atual:** reconstrução 0.1.9 em Godot 4.5.1, com HUD, minimapa, mapa fixo e prévia LAN de movimento. O boot Android prepara verificação de atualizações de conteúdo para o app 0.1.10/versionCode 11; a exportação desse APK ainda depende do Android SDK Platform 35 e Build Tools 35.0.0. Combate/itens/saves LAN e talentos passivos continuam pendentes. A arte de personagem ainda usa as aparências Warrior compartilhadas.
 
 [Relatório e capturas da reconstrução](docs/gameplay/HUD_RECONSTRUCTION_019.md) · [Metadados do APK0.1.9](artifacts/preview/HUD-0.1.9.json) · [Próxima ação](Docs/Context/HANDOFF.md).
 
@@ -12,7 +12,13 @@ No Android, o boot consulta Releases `content-vX.Y.Z`, oferece o botão **Atuali
 
 ## Revisão visual em andamento — mapa global e bestiário
 
-Na branch `feature/s04-global-map-island-content`, os protótipos de mapa global/ilha irregular e a proposta de dez monstros estão aguardando revisão explícita. A grade atual já tem 50.000 tiles (250×200), mas ainda usa faixas retas e não tem alturas. Não há código de produção novo nesta branch até a validação dos protótipos. Consulte [`global_map_island_v0_1.html`](docs/prototypes/global_map_island_v0_1.html), [`BESTIARY_EXPANSION_CANDIDATES_V0_1.md`](docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md) e o [handoff](Docs/Context/HANDOFF.md).
+Os protótipos de mapa global/ilha irregular e a proposta de dez monstros continuam aguardando revisão explícita. A grade atual tem 50.000 tiles (250×200), faixas planas e nenhuma altura. A persistência em camadas editáveis mantém essa composição; ela não aprova nem implementa a proposta de ilha irregular. Consulte [`global_map_island_v0_1.html`](docs/prototypes/global_map_island_v0_1.html), [`BESTIARY_EXPANSION_CANDIDATES_V0_1.md`](docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md) e o [handoff](Docs/Context/HANDOFF.md).
+
+## Editar o terreno no Godot
+
+Abra `game/scenes/first_island.tscn` e edite as camadas `BaseTiles`, `Transitions` e `Paths`. A cena salva as 50.000 células base, 645 transições e 15 overlays usando o TileSet compartilhado `assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.tres`. O jogo lê essas células para montar a apresentação 2.5D e não repinta o mapa ao iniciar.
+
+Essas edições alteram a aparência do terreno. Limites, faixa de água bloqueada, colisões, spawns, obstáculos e recursos continuam definidos por `game/data/first_island_layout.json` e pelos scripts do jogo.
 
 ## Jogar e exportar
 

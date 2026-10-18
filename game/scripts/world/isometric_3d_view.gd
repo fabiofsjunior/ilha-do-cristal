@@ -4,7 +4,6 @@ extends Node3D
 
 const TERRAIN_ATLAS_PATH := "res://assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.png"
 const TILE_PIXELS := 32.0
-const LEGACY_GROUND_SIZE := Vector2i(64, 44)
 
 @export var orthogonal_size := 16.0
 @export var follow_distance := 24.0
@@ -141,7 +140,6 @@ func _build_ground() -> void:
 		return
 	for layer_name in ["BaseTiles", "Transitions", "Paths"]:
 		_build_expanded_tile_surface(layer_name, atlas_texture)
-	_build_legacy_ground_patch()
 
 
 func _build_expanded_tile_surface(layer_name: String, atlas_texture: Texture2D) -> void:
@@ -152,9 +150,6 @@ func _build_expanded_tile_surface(layer_name: String, atlas_texture: Texture2D) 
 	var uvs := PackedVector2Array()
 	var indices := PackedInt32Array()
 	for cell in layer.get_used_cells():
-		# Keep the authored beach/start area pixel-for-pixel and tile the expanded land.
-		if cell.x < LEGACY_GROUND_SIZE.x and cell.y < LEGACY_GROUND_SIZE.y:
-			continue
 		var atlas_cell := layer.get_cell_atlas_coords(cell)
 		_append_tile_quad(cell, atlas_cell, atlas_texture, vertices, uvs, indices)
 	if vertices.is_empty():
@@ -224,21 +219,6 @@ func _terrain_material(atlas_texture: Texture2D, has_transparency: bool) -> Stan
 		material.alpha_scissor_threshold = 0.1
 	return material
 
-
-func _build_legacy_ground_patch() -> void:
-	var legacy_size := Vector2(minf(_ground_size.x, LEGACY_GROUND_SIZE.x), minf(_ground_size.y, LEGACY_GROUND_SIZE.y))
-	var plane := MeshInstance3D.new()
-	plane.name = "OriginalBeachAndStartGround"
-	var quad := QuadMesh.new()
-	quad.size = legacy_size
-	plane.mesh = quad
-	plane.rotation_degrees.x = -90.0
-	plane.position = Vector3(legacy_size.x * 0.5, 0.012, legacy_size.y * 0.5)
-	var legacy_texture := load("res://assets/environments/tropical_oblique_candidate/ground.png") as Texture2D
-	var material := _terrain_material(legacy_texture, false)
-	material.uv1_scale = Vector3(1.0, -1.0, 1.0)
-	plane.material_override = material
-	add_child(plane)
 
 func _build_props() -> void:
 	for obstacle in game._layout.get("obstacles", []):

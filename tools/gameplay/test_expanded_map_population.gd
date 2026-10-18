@@ -143,8 +143,8 @@ func _test_runtime_world(game: Node) -> void:
 		if expanded_ground != null and expanded_ground.mesh is ArrayMesh:
 			var surface_arrays: Array = (expanded_ground.mesh as ArrayMesh).surface_get_arrays(0)
 			var terrain_vertices: PackedVector3Array = surface_arrays[Mesh.ARRAY_VERTEX]
-			var expected_tiles := EXPECTED_GRID.x * EXPECTED_GRID.y - 64 * 44
-			_check(terrain_vertices.size() == expected_tiles * 4, "Expanded terrain mesh must cover every new tile cell.")
+			var expected_tiles := EXPECTED_GRID.x * EXPECTED_GRID.y
+			_check(terrain_vertices.size() == expected_tiles * 4, "The 3D projection must cover every authored BaseTiles cell.")
 	for actor in game._creature_actors.values():
 		_check(actor.global_position.x >= 0.0 and actor.global_position.x < EXPECTED_GRID.x * TILE_SIZE, "Runtime monster x position lies outside world bounds.")
 		_check(actor.global_position.y >= 0.0 and actor.global_position.y < EXPECTED_GRID.y * TILE_SIZE, "Runtime monster y position lies outside world bounds.")

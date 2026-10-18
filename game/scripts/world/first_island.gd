@@ -6,8 +6,6 @@ signal ally_revive_started(reviver_id: String, duration_seconds: float)
 signal ally_revive_completed(reviver_id: String)
 signal ally_revive_cancelled(reviver_id: String)
 
-const TILE_MANIFEST_DIR := "res://assets/environments/terrain_mvp_candidate_v1"
-const TILE_MANIFEST := TILE_MANIFEST_DIR + "/terrain_mvp_candidate_v1.json"
 const LAYOUT_PATH := "res://game/data/first_island_layout.json"
 const PLAYER_SCENE := preload("res://game/scenes/player.tscn")
 const COMBAT_RULES = preload("res://game/scripts/combat/combat_rules.gd")
@@ -34,7 +32,6 @@ var _hud
 var _beacon_position := Vector2.ZERO
 var _current_zoom_index := 1
 var _layout: Dictionary
-var _tile_lookup: Dictionary = {}
 var _state: ExpeditionState
 var _resource_nodes: Array[Dictionary] = []
 var _creature_actors: Dictionary = {}
@@ -55,12 +52,7 @@ func _ready() -> void:
 	var save_root_override := OS.get_environment("GAMEPLAY_TEST_SAVE_DIR")
 	_state = EXPEDITION_STATE.open_for_character(selected_character_id, save_root_override, selected_vocation_id)
 	_layout = _load_json(LAYOUT_PATH)
-	var manifest := _load_json(TILE_MANIFEST)
-	if _layout.is_empty() or manifest.is_empty():
-		return
-	if not _build_tile_set(manifest):
-		return
-	if not _paint_map(manifest):
+	if _layout.is_empty() or not _validate_tile_layers():
 		return
 	_build_world_collision()
 	_build_beacon()
@@ -80,9 +72,6 @@ func _ready() -> void:
 	_player.set_camera_ground_basis(_iso_view.camera.global_basis)
 	for layer_name in ["BaseTiles", "Transitions", "Paths", "Actors"]:
 		get_node(layer_name).visible = false
-	var old_ground := get_node_or_null("Ocean_Terrain_Cliffs")
-	if old_ground != null:
-		old_ground.hide()
 	_change_zoom(0)
 	if not _state.recovered_from.is_empty():
 		_hud.set_status("Snapshot recuperado da cópia de segurança. O progresso continua disponível.")
@@ -210,120 +199,20 @@ func _on_attributes_committed(_committed_state: Object) -> void:
 	_update_hud()
 
 
-func _build_tile_set(manifest: Dictionary) -> bool:
-	var atlas_data: Dictionary = manifest.get("atlas", {})
-	var atlas_path := TILE_MANIFEST.get_base_dir().path_join(str(atlas_data.get("file", "")))
-	if not ResourceLoader.exists(atlas_path):
-		push_error("Atlas de terreno ausente: %s" % atlas_path)
-		return false
-	var atlas_texture := load(atlas_path) as Texture2D
-	if atlas_texture == null:
-		push_error("Falha ao importar terreno candidate: %s" % atlas_path)
-		return false
-	var tile_set := TileSet.new()
-	tile_set.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
-	var source := TileSetAtlasSource.new()
-	source.texture = atlas_texture
-	source.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
-	for tile in manifest.get("tiles", []):
-		var id := str(tile.get("id", ""))
-		var coordinate: Array = tile.get("atlas_xy_tiles", [0, 0])
-		if id.is_empty() or coordinate.size() < 2:
-			push_error("Tile de terreno com metadata incompleta: %s" % str(tile))
-			continue
-		var atlas_coordinate := Vector2i(int(coordinate[0]), int(coordinate[1]))
-		source.create_tile(atlas_coordinate)
-		_tile_lookup[id] = {
-			"atlas": atlas_coordinate,
-			"group": str(tile.get("group", "")),
-			"role": str(tile.get("role", ""))
-		}
-	tile_set.add_source(source, 0)
-	for node_name in ["BaseTiles", "Transitions", "Paths"]:
-		var layer := get_node(node_name) as TileMapLayer
-		layer.tile_set = tile_set
-		layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	return true
-
-
-func _paint_map(_manifest: Dictionary) -> bool:
-	# Authored tile choices are baked offline and versioned; startup only hydrates cells.
-	var fixed := _load_json("res://game/data/first_island_tiles.json")
-	var grid: Array = fixed.get("grid_size", [])
-	if int(fixed.get("schema_version", 0)) != 1 or grid != _layout.get("grid_size", []):
-		push_error("Mapa fixo incompatível com o layout; execute tools/world/bake_first_island.py.")
-		return false
-	var width := int(grid[0])
-	var palette: Array = fixed.get("palette", [])
-	var layers: Dictionary = fixed.get("layers", {})
-	var base: Array = layers.get("BaseTiles", [])
-	if base.size() != width * int(grid[1]) or base.size() != 50000:
-		push_error("Mapa fixo incompleto: esperados 50000 tiles base.")
-		return false
-	for tile_id in palette:
-		if not _tile_lookup.has(str(tile_id)):
-			push_error("Mapa fixo referencia tile desconhecido: %s" % str(tile_id))
-			return false
-	# Validate all entries before applying any cells, so corrupt data cannot partly load.
+func _validate_tile_layers() -> bool:
+	var expected_tile_size := Vector2i(TILE_SIZE, TILE_SIZE)
 	for layer_name in ["BaseTiles", "Transitions", "Paths"]:
-		if not layers.has(layer_name) or not layers[layer_name] is Array:
-			push_error("Camada inválida no mapa fixo: %s" % layer_name)
+		var layer := get_node_or_null(layer_name) as TileMapLayer
+		if layer == null:
+			push_error("Camada de terreno ausente na cena: %s" % layer_name)
 			return false
-		var entries: Array = layers[layer_name]
-		for index in range(entries.size()):
-			var cell_index := index
-			var palette_index := -1
-			if layer_name == "BaseTiles":
-				palette_index = int(entries[index])
-			else:
-				var entry: Variant = entries[index]
-				if not entry is Array or entry.size() != 2:
-					push_error("Entrada inválida no mapa fixo: %s" % layer_name)
-					return false
-				cell_index = int(entry[0])
-				palette_index = int(entry[1])
-			if cell_index < 0 or cell_index >= base.size() or palette_index < 0 or palette_index >= palette.size():
-				push_error("Índice fora dos limites no mapa fixo: %s" % layer_name)
-				return false
-	for layer_name in ["BaseTiles", "Transitions", "Paths"]:
-		var layer := get_node(layer_name) as TileMapLayer
-		var entries: Array = layers[layer_name]
-		for index in range(entries.size()):
-			var cell_index := index if layer_name == "BaseTiles" else int(entries[index][0])
-			var palette_index := int(entries[index]) if layer_name == "BaseTiles" else int(entries[index][1])
-			_set_tile(layer, Vector2i(cell_index % width, cell_index / width), str(palette[palette_index]))
-	_build_oblique_ground()
+		if layer.tile_set == null:
+			push_error("Camada de terreno sem TileSet: %s" % layer_name)
+			return false
+		if layer.tile_set.tile_size != expected_tile_size:
+			push_error("TileSet incompatível em %s: esperada célula %s." % [layer_name, str(expected_tile_size)])
+			return false
 	return true
-
-
-func _paint_transition_patch(patch: Dictionary) -> void:
-	var prefix := str(patch.get("prefix", ""))
-	var center: Array = patch.get("center", [0, 0])
-	var cx := int(center[0])
-	var cy := int(center[1])
-	var center_id := str(patch.get("inner_base", ""))
-	var layer := get_node("Transitions") as TileMapLayer
-	var cells := [
-		[Vector2i(cx - 1, cy - 1), "%s_corner_nw" % prefix],
-		[Vector2i(cx, cy - 1), "%s_edge_n" % prefix],
-		[Vector2i(cx + 1, cy - 1), "%s_corner_ne" % prefix],
-		[Vector2i(cx - 1, cy), "%s_edge_w" % prefix],
-		[Vector2i(cx, cy), center_id],
-		[Vector2i(cx + 1, cy), "%s_edge_e" % prefix],
-		[Vector2i(cx - 1, cy + 1), "%s_corner_sw" % prefix],
-		[Vector2i(cx, cy + 1), "%s_edge_s" % prefix],
-		[Vector2i(cx + 1, cy + 1), "%s_corner_se" % prefix]
-	]
-	for item in cells:
-		_set_tile(layer, item[0], str(item[1]))
-
-
-func _set_tile(layer: TileMapLayer, cell: Vector2i, tile_id: String) -> void:
-	if not _tile_lookup.has(tile_id):
-		push_error("ID de tile do layout não existe no atlas: %s" % tile_id)
-		return
-	var tile: Dictionary = _tile_lookup[tile_id]
-	layer.set_cell(cell, 0, tile.atlas)
 
 
 func _build_world_collision() -> void:
@@ -362,20 +251,6 @@ func _add_rect_collider(position: Vector2, dimensions: Vector2, label: String) -
 	shape_node.shape = shape
 	body.add_child(shape_node)
 	add_child(body)
-
-
-func _build_oblique_ground() -> void:
-	# The authored surface keeps gameplay in 32 px SQMs. Depth is in local
-	# cliff faces and upright props, never a nonuniform world/sprite scale.
-	var ground := Sprite2D.new()
-	ground.name = "Ocean_Terrain_Cliffs"
-	ground.texture = load("res://assets/environments/tropical_oblique_candidate/ground.png")
-	ground.centered = false
-	ground.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	ground.z_index = -1
-	add_child(ground)
-	for layer_name in ["BaseTiles", "Transitions", "Paths"]:
-		get_node(layer_name).visible = false
 
 
 func _add_terrain_sprite(parent: Node2D, asset: String, pivot: Vector2) -> void:
@@ -1066,15 +941,30 @@ func _load_json(path: String) -> Dictionary:
 
 
 func _build_minimap() -> void:
-	var grid: Array = _layout.get("grid_size", [192, 132])
-	var image := Image.create(int(grid[0]), int(grid[1]), false, Image.FORMAT_RGBA8)
-	var palette := {"water_deep": Color("28536c"), "water_shallow": Color("528c98"), "sand": Color("c7ad70"), "grass": Color("738955"), "forest": Color("3d6448"), "soil": Color("78634b")}
+	var grid: Array = _layout.get("grid_size", [250, 200])
+	var width := int(grid[0])
+	var height := int(grid[1])
+	var image := Image.create(width, height, false, Image.FORMAT_RGBA8)
 	var layer := get_node("BaseTiles") as TileMapLayer
-	var groups: Dictionary = {}
-	for tile in _tile_lookup.values():
-		groups[tile.atlas] = str(tile.group)
 	for cell in layer.get_used_cells():
-		image.set_pixelv(cell, palette.get(groups.get(layer.get_cell_atlas_coords(cell), "grass"), Color("738955")))
+		if cell.x < 0 or cell.y < 0 or cell.x >= width or cell.y >= height:
+			continue
+		var atlas_cell := layer.get_cell_atlas_coords(cell)
+		var palette_index := atlas_cell.y * 8 + atlas_cell.x
+		var color := Color("738955")
+		if palette_index <= 2:
+			color = Color("28536c")
+		elif palette_index <= 4:
+			color = Color("528c98")
+		elif palette_index <= 7:
+			color = Color("c7ad70")
+		elif palette_index <= 10:
+			color = Color("738955")
+		elif palette_index <= 13:
+			color = Color("3d6448")
+		elif palette_index <= 16:
+			color = Color("78634b")
+		image.set_pixelv(cell, color)
 	_hud._minimap.set_map(ImageTexture.create_from_image(image))
 
 

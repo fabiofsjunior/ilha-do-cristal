@@ -344,3 +344,11 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - Godot 4.5.1: importação headless, `test_content_updater.gd`, `test_update_boot_ui.gd`, `test_content_pack.gd` e `smoke_playable_slice.gd` passaram. Exportado localmente um PCK de aproximadamente 9,8 MB e testada a montagem/leitura de JSON e textura. `py_compile` e `git diff --check` passaram.
 - Limites: a API pública do projeto ainda não tem Releases; o PCK de teste não foi publicado. A consulta direta ao GitHub pelo runtime headless deste ambiente falha por restrição de rede. Android SDK Platform 35/Build Tools 35.0.0 não estão disponíveis, portanto o APK 0.1.10 não foi exportado e não houve teste físico.
 - Próxima ação: finalizar o PR desta branch; depois configurar SDK/templates Android, exportar e instalar o APK 0.1.10, testar conexão/offline e preservação de save em aparelho e publicar um Release de conteúdo somente quando houver conteúdo aprovado para atualizar.
+
+
+## 2026-10-18 — terreno fixo persistido em TileMapLayer na Staging
+
+- A alteração parte do HEAD `5a1d4a0a6fa6c9f451d95f0a9715a646b400aed9` da branch `Staging`. Os 50.000 tiles base, 645 transições e 15 overlays do JSON foram serializados diretamente em `game/scenes/first_island.tscn`; o TileSet de 56 tiles está em `assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.tres`.
+- `first_island.gd` valida as camadas e não carrega/repinta o mapa a partir do JSON no startup. `isometric_3d_view.gd` lê todas as células, inclusive a área inicial 64×44 que antes usava uma superfície legada. O minimapa também é derivado das células. Colisões, limites, água bloqueada, spawns, obstáculos e recursos continuam vindos do layout, preservando mecânicas.
+- Validação estática decodificou `tile_map_data` e comparou cada coordenada e atlas tile com o JSON de origem; as contagens e as 56 entradas do TileSet coincidem. Regressões para persistência/edição manual e população expandida foram atualizadas.
+- Godot 4.5.1 não está disponível neste ambiente, então importação/editor, execução dos testes headless e renderização não foram verificadas. Salvar/reabrir no editor e medir desempenho em Android permanecem pendentes. A composição continua plana; o conceito de ilha irregular não foi implementado nem aprovado por esta alteração.

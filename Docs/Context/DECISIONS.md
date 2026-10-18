@@ -128,3 +128,11 @@ O alvo selecionado deve usar uma elipse pixel art pequena, sem billboard, plana 
 - O preset Android Content Pack inclui dados JSON e imagens de runtime selecionadas, sem cenas nem scripts. Mudanças que dependam de código usam novo APK; `min_app_version` encaminha à página de Releases quando necessário.
 - Antes de montar o pacote, o cliente compara tamanho e SHA-256 com o digest da API pública do GitHub. Esse digest detecta corrupção de download, mas não prova autoria se conta/release forem comprometidos; assinatura assimétrica é pendência antes de distribuição ampla.
 - O usuário aprovou o protótipo navegável `docs/prototypes/content_update_v0_1.html` em 2026-10-18. A aprovação cobre o fluxo de inicialização/atualização, não um APK ou dispositivo.
+
+
+## Decisão — terreno editável persistido na cena — 2026-10-18
+
+- A fonte visual de `first_island` é `game/scenes/first_island.tscn`, com `BaseTiles`, `Transitions` e `Paths` persistidas e editáveis no Godot; as três usam o TileSet compartilhado `assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.tres`.
+- O mapa atual é preservado célula por célula: 50.000 tiles base, 645 transições e 15 overlays. O startup valida as camadas e a apresentação 2.5D lê os dados da cena sem repintura.
+- `first_island_layout.json` continua responsável pelas colisões, limites, faixa de água, spawns, obstáculos e recursos. Editar tiles na cena altera a aparência, sem alterar mecânicas.
+- A alteração implementa a persistência solicitada sem adotar a forma, as elevações ou os conceitos visuais da proposta de ilha irregular, que seguem pendentes de revisão.
