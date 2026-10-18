@@ -4,8 +4,13 @@ config_version=5
 [application]
 config/name="A Ilha do Cristal — Demo jogável"
 config/icon="res://assets/ui/app_icon.png"
-run/main_scene="res://game/scenes/main.tscn"
+config/version="0.1.10"
+config/content_version="1.0.0"
+run/main_scene="res://game/scenes/update_boot.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
+
+[autoload]
+ContentUpdater="*res://game/scripts/core/content_updater.gd"
 
 [display]
 window/size/viewport_width=720

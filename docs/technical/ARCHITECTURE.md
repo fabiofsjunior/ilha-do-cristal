@@ -20,6 +20,10 @@ Host executa simulação e guarda o mundo. Clientes enviam input/intenção com 
 
 Progresso pessoal na conta: ID de personagem, aparência, vocação permanente, nível, XP acumulado, atributo bruto, talentos, versão e revisão. Inventário/equipamento do mundo permanece no save do host para evitar transportar itens/duplicar entre mundos. Firebase Spark é decisão inicial; criar adaptador `CloudProgress` com implementação local de teste e prova de integração Auth/Firestore Godot Android antes de assumir SDK. Visitante offline pode jogar; ao vincular conta, associar uma única identidade e resolver divergência usando revisão monotônica do personagem, nunca soma ingênua de XP ou itens. Operações offline entram em fila idempotente; sincronizar em checkpoints e reconexão, jamais por frame. Regras de segurança restringem cada documento ao dono; nenhum segredo privilegiado embutido no APK.
 
+## Atualização de conteúdo
+
+O autoload `ContentUpdater` verifica Releases públicos do GitHub antes da cena de jogo. Releases `content-vX.Y.Z` entregam um PCK de dados e imagens permitidos pelo preset Android; cenas e scripts exigem APK novo. O cliente compara versão, compatibilidade do app, tamanho e digest SHA-256 do asset, baixa para `user://updates/`, monta com `ProjectSettings.load_resource_pack()` e recarrega a cena principal. O registro da versão ativa permite montar o mesmo PCK na inicialização seguinte; saves ficam em seus diretórios existentes. Ver detalhes do contrato em [GITHUB_CONTENT_UPDATES.md](GITHUB_CONTENT_UPDATES.md).
+
 ## Validação técnica
 
 Testes de geração determinística, integridade do save/corrupção, cálculo XP e dano, recompensas uma vez, disconnect/rejoin, tempo de load, FPS e memória em dois aparelhos Android. Não construir conta antes de provar loop local/saves; não considerar protótipo no editor evidência de Android. Desktop reaproveita lógica de input e UI adaptativa, sem virar plataforma prioritária.

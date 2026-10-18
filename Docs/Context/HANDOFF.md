@@ -1,21 +1,25 @@
-# Handoff — mapa global e conteúdo candidato
+# Handoff — atualizador de conteúdo Android
 
-**Branch de trabalho:** `feature/s04-global-map-island-content`, baseada no HEAD anterior `6133ee6`. O HEAD desta branch registra os protótipos e notas descritos abaixo; nenhum código de produção foi alterado. A implementação atual do jogo/APK continua a reconstrução 0.1.9, com código no commit `5f14e623f6787e97e1f6b4aa58778cd132f247f8`.
+**Branch:** `feature/s07-github-content-updater`
 
-## Estado do mapa
+**Base:** `main` em `e38821d` (reconstrução 0.1.9)
 
-O mapa existente é 250×200 = 50.000 tiles, na grade candidata 32×32. `first_island_layout.json` usa bandas retilíneas e áreas retangulares de floresta; o bake gera 50.000 bases, 645 transições e 15 overlays. Não há alturas por célula, costa recortada, rampas/penhascos com colisão poligonal ou Terrain Sets de autotiling. O baker determinístico passou.
+**Implementação:** `9d54f6a` — atualizador de conteúdo hospedado em GitHub Releases.
 
-Referência de revisão: `docs/prototypes/global_map_island_v0_1.html` e `docs/prototypes/assets/irregular-island-map-concept-v0.1.png`. O anexo `isometric_tilemap_layers_v0_1.html` demonstra 64×32 e quatro layers, mas não foi aprovação de migração. O protótipo de UI demonstra abrir pelo minimapa, fechar por X/Escape, não pausar, e manter zoom sincronizado.
+## Implementado
 
-## Estado do bestiário
+- No Android, o jogo consulta as Releases públicas no início e oferece atualizar quando encontra `content-vX.Y.Z`. Atualização obrigatória bloqueia a entrada até concluir; opcional permite continuar offline.
+- O cliente baixa o PCK, valida tamanho e SHA-256, monta o conteúdo, salva o ponteiro ativo e reinicia a cena. Ao abrir de novo, restaura o pacote ativo. Os saves continuam no armazenamento privado do jogo.
+- O atualizador aceita apenas assets com o nome esperado e URLs de GitHub, com limite de 512 MB. Atualização do próprio APK fica separada e abre a página de Releases para instalação confirmada pelo usuário.
+- Web segue direto para gameplay. O exportador do PCK e os testes estão em `tools/build/` e `tools/updater/`; o fluxo e o protótipo aprovado estão documentados em `docs/technical/GITHUB_CONTENT_UPDATES.md` e `docs/prototypes/content_update_v0_1.html`.
+- APK planejado: versão 0.1.10, `versionCode` 11. Pacote local de teste `content-v1.0.1`: 9.832.456 bytes, SHA-256 `5fb2a510e3110a68e78008f5e9c246e33919b6205a7184a457c4949346c00f8e`.
 
-GDD/Catalogs têm somente `fox`, `wolf`, `bear` no MVP. Os dez candidatos de expansão e os vínculos à lore estão em `docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md`, com a prancha `docs/art/candidates/bestiary-expansion-concepts-v0.1.png`. Nada foi adicionado ao catálogo runtime. Concept art não é atlas; a metodologia exige amostra de uma criatura e revisão antes de produzir lote.
+## Verificação e limites
 
-## Próxima ação exata
+- Godot 4.5.1: importação headless, `test_content_updater.gd`, `test_update_boot_ui.gd`, montagem/leitura do PCK em `test_content_pack.gd`, `smoke_playable_slice.gd`, `py_compile` e `git diff --check` passaram sobre a base atual.
+- A API do repositório não contém Releases públicas. O pacote de teste não foi publicado; então ainda não houve atualização remota real. A consulta do jogo a GitHub também não pôde ser validada neste runtime, cuja saída de rede é restrita.
+- Android SDK Platform 35 e Build Tools 35.0.0 não estão instalados aqui. Não foi exportado ou instalado APK 0.1.10 e não houve teste em dispositivo físico.
 
-Obter o retorno do usuário sobre: (1) o fluxo do mapa global sem pause e o zoom compartilhado; (2) a forma da ilha e suas elevações; (3) 32×32 atual versus amostra isolada 64×32; (4) aprovação/revisão dos dez monstros e da prancha. Depois implementar somente as decisões aprovadas, adicionar regressões de overlay/câmera, bake/altura/colisão e revisar captura Godot. Gerar a APK nova após implementação e validação.
+## Próxima ação
 
-## APK e pendências
-
-A APK entregue anteriormente é `Ilha-do-Cristal-0.1.9.apk` (source code commit acima). Ela não contém a nova janela de mapa nem o terreno proposto. Instalação/toque/performance Android físico e LAN em dois aparelhos continuam pendentes. Combate, coleta/itens e saves LAN do host continuam próximos passos independentes registrados no handoff anterior.
+Revisar o PR; depois configurar SDK/templates Android, exportar e instalar 0.1.10, validar fluxo online/offline e preservação de save em aparelho, e só publicar um Release de conteúdo quando houver conteúdo aprovado para atualizar. Não usar o PCK de teste como release de produção.

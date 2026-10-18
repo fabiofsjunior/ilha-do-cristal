@@ -121,3 +121,10 @@ O alvo selecionado deve usar uma elipse pixel art pequena, sem billboard, plana 
 - Como o GDD não especifica HP após reanimação, a regra provisória é voltar com 30% do HP máximo e manter o MP atual; a reanimação não cria mochila nem remove itens, XP ou equipamento.
 - `FirstIsland.request_ally_revive(reviver_id)` e `cancel_ally_revive(reviver_id)` são entradas locais para integração futura no host, com sinais de início, conclusão e cancelamento. O chamador da futura sessão deve validar identidade/alcance do peer. A build solo não tem LAN, descoberta ou autenticação e não simula um aliado.
 - Pedidos de reanimação em andamento são descartados ao reabrir um save; o prazo restante de queda e as mochilas continuam persistidos. Ao renascer, cada pilha de material perde `floor(quantidade_atual × 0.5)` e a tela mostra os valores exatos.
+
+## 2026-10-18 — Atualizações de conteúdo via GitHub Releases
+
+- O app verifica releases `content-vX.Y.Z` ao abrir e oferece download opcional/obrigatório. Pacotes `.pck` são separados da versão do APK e do diretório `user://` dos saves.
+- O preset Android Content Pack inclui dados JSON e imagens de runtime selecionadas, sem cenas nem scripts. Mudanças que dependam de código usam novo APK; `min_app_version` encaminha à página de Releases quando necessário.
+- Antes de montar o pacote, o cliente compara tamanho e SHA-256 com o digest da API pública do GitHub. Esse digest detecta corrupção de download, mas não prova autoria se conta/release forem comprometidos; assinatura assimétrica é pendência antes de distribuição ampla.
+- O usuário aprovou o protótipo navegável `docs/prototypes/content_update_v0_1.html` em 2026-10-18. A aprovação cobre o fluxo de inicialização/atualização, não um APK ou dispositivo.

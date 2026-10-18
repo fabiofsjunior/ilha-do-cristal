@@ -153,3 +153,13 @@ Na conversa o usuário confirmou “Prototipagem aprovada”, apontou divergênc
 - Fonte consultada: GDD, catálogos e conteúdo de balanceamento. Bestiário MVP tem `fox`, `wolf`, `bear`; candidatos e derivações estão em `docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md`.
 - Prancha `docs/art/candidates/bestiary-expansion-concepts-v0.1.png` gerada como concept de dez candidatos, não sprite sheet nem entrada de catálogo. Espécies/variantes de expansão permanecem fora do MVP até aprovação.
 - Gate em validação: aprovar ou corrigir lista e concept; após aprovação, produzir apenas uma amostra de sprite para revisar antes de qualquer lote.
+
+## Atualização de conteúdo — protótipo v0.1 — 2026-10-18
+
+- **Objetivo:** verificar conteúdo ao iniciar, oferecer atualização, indicar progresso/verificação, recarregar o jogo e permitir continuar ou tentar novamente quando a atualização falhar.
+- **Artefato:** [`docs/prototypes/content_update_v0_1.html`](../../docs/prototypes/content_update_v0_1.html).
+- **Viewport:** retrato, responsivo para a tela inicial mobile.
+- **Simulado:** consulta, release `1.0.1`, notas, download, integridade, recarregamento e erro; o protótipo não acessa GitHub nem grava progresso.
+- **Feedback:** o usuário aprovou explicitamente o protótipo (“prototipo aprovado.”) em 2026-10-18.
+- **Estado do gate:** aprovado para implementar o fluxo. Isso não valida APK, rede real ou aparelho Android.
+- **Comparação após implementação:** `game/scenes/update_boot.tscn` e `game/scripts/ui/update_boot.gd` preservam a ordem de estados; a UI lê release, tamanho, notas e progresso reais. Ao instalar, a Godot monta o PCK verificado e recarrega a cena de jogo. Testes Android e download real ainda pendentes.
