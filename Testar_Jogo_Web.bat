@@ -42,10 +42,35 @@ if not defined GODOT_EXE goto select_godot
 echo Godot 4.7.2 valido: "%GODOT_EXE%"
 
 :export_web
+%PYTHON_CMD% %PYTHON_ARGS% "%EXPORT_SCRIPT%" --godot "%GODOT_EXE%" --check-web-templates
+if errorlevel 1 goto web_templates_missing
 %PYTHON_CMD% %PYTHON_ARGS% "%EXPORT_SCRIPT%" --godot "%GODOT_EXE%"
 if errorlevel 1 goto export_failed
 if not exist "%WEB_DIR%\index.html" goto build_missing
 goto start_server
+
+:web_templates_missing
+echo.
+echo O launcher precisa dos templates Web do Godot 4.7.2.
+echo Na janela do editor: Editor ^> Gerenciar modelos de exportacao ^(Manage Export Templates...^), marque somente Web.
+echo Clique em Instalar modelos selecionados ^(Install Selected Templates^).
+echo O Godot baixara apenas os templates dessa plataforma.
+choice /C SN /N /M "Abrir o Godot 4.7.2 para instalar agora? [S/N] "
+if errorlevel 2 goto web_templates_manual
+echo.
+echo Instale os templates Web na janela que sera aberta e feche o editor para continuar.
+start "" /wait "%GODOT_EXE%" --editor --path "%~dp0"
+%PYTHON_CMD% %PYTHON_ARGS% "%EXPORT_SCRIPT%" --godot "%GODOT_EXE%" --check-web-templates
+if errorlevel 1 goto web_templates_manual
+goto export_web
+
+:web_templates_manual
+echo.
+echo Templates ainda ausentes. Instale-os pelo menu Editor ^> Gerenciar modelos de exportacao do Godot 4.7.2.
+echo Selecione somente Web; nao baixe o arquivo TPZ completo de todas as plataformas.
+echo Depois execute Testar_Jogo_Web.bat novamente.
+pause
+exit /b 1
 
 :select_godot
 del "%GODOT_PATH_FILE%" >nul 2>&1

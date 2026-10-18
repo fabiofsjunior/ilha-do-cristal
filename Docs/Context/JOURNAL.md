@@ -430,3 +430,10 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - O cabeçalho da wiki agora permite alternar entre o tema escuro existente e uma paleta clara. A preferência é guardada em `localStorage`, reaplicada antes da primeira pintura e indicada pelo rótulo e estado acessível do botão.
 - README, roadmap, registro do protótipo e handoff foram atualizados junto com o HTML, CSS e JavaScript da wiki.
 - Testes automatizados não foram executados nesta atualização. O navegador integrado bloqueou a abertura do protótipo por ser um caminho local; não foi usado um contorno para renderizá-lo.
+
+## 2026-10-18 — Instalação orientada dos templates Web 4.7.2
+
+- O usuário reportou que Godot 4.7.2 inicia, mas o preset Web falha porque `web_nothreads_debug.zip` e `web_nothreads_release.zip` não estão em `%APPDATA%/Godot/export_templates/4.7.2.stable/`.
+- `export_web.py` agora verifica esses dois arquivos antes da exportação e imprime os caminhos e a ação necessária. A opção `--check-web-templates` permite ao launcher verificar a instalação sem iniciar um export incompleto.
+- Quando faltam templates, `Testar_Jogo_Web.bat` oferece abrir o Godot 4.7.2, explica como instalar somente Web no gerenciador de templates, aguarda o fechamento do editor e verifica novamente antes de continuar automaticamente. O README e o roadmap descrevem esse fluxo.
+- Validação feita nesta sessão: `py_compile`, testes isolados do detector com os dois arquivos ausentes/presentes, `python3 tools/wiki/test_catalog.py` e `git diff --check`. A janela do editor, download dos templates, exportação Web e navegador precisam de validação real no Windows.
