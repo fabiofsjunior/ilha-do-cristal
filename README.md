@@ -16,7 +16,7 @@ Os protótipos de mapa global/ilha irregular e a proposta de dez monstros contin
 
 ## Editar o terreno no Godot
 
-Abra `game/scenes/first_island.tscn` e edite as camadas `BaseTiles`, `Transitions` e `Paths`. A cena salva as 50.000 células base, 645 transições e 15 overlays usando o TileSet compartilhado `assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.tres`. O jogo lê essas células para montar a apresentação 2.5D e não repinta o mapa ao iniciar.
+Abra `game/scenes/first_island.tscn`. Para o atlas original, edite `BaseTiles`, `Transitions` e `Paths`. Para pintar com o atlas tropical fornecido, selecione `ManualTerrain` (40 slices, IDs 00–39) ou `ManualProps` (24 slices, IDs 40–63) no painel TileMap. O atlas e os TileSets estão em `assets/environments/tropical_manual_v1/`; cada slice mede 128×128 px e ocupa uma célula de 4×4 SQMs. As camadas manuais começam vazias e o renderer 2.5D lê as edições salvas na cena.
 
 Essas edições alteram a aparência do terreno. Limites, faixa de água bloqueada, colisões, spawns, obstáculos e recursos continuam definidos por `game/data/first_island_layout.json` e pelos scripts do jogo.
 

@@ -70,7 +70,7 @@ func _ready() -> void:
 	_iso_view = get_node("Isometric3DView")
 	_iso_view.configure(self)
 	_player.set_camera_ground_basis(_iso_view.camera.global_basis)
-	for layer_name in ["BaseTiles", "Transitions", "Paths", "Actors"]:
+	for layer_name in ["BaseTiles", "Transitions", "Paths", "ManualTerrain", "ManualProps", "Actors"]:
 		get_node(layer_name).visible = false
 	_change_zoom(0)
 	if not _state.recovered_from.is_empty():
@@ -200,8 +200,14 @@ func _on_attributes_committed(_committed_state: Object) -> void:
 
 
 func _validate_tile_layers() -> bool:
-	var expected_tile_size := Vector2i(TILE_SIZE, TILE_SIZE)
-	for layer_name in ["BaseTiles", "Transitions", "Paths"]:
+	var expected_tile_sizes := {
+		"BaseTiles": Vector2i(TILE_SIZE, TILE_SIZE),
+		"Transitions": Vector2i(TILE_SIZE, TILE_SIZE),
+		"Paths": Vector2i(TILE_SIZE, TILE_SIZE),
+		"ManualTerrain": Vector2i(128, 128),
+		"ManualProps": Vector2i(128, 128)
+	}
+	for layer_name in expected_tile_sizes:
 		var layer := get_node_or_null(layer_name) as TileMapLayer
 		if layer == null:
 			push_error("Camada de terreno ausente na cena: %s" % layer_name)
@@ -209,8 +215,15 @@ func _validate_tile_layers() -> bool:
 		if layer.tile_set == null:
 			push_error("Camada de terreno sem TileSet: %s" % layer_name)
 			return false
+		var expected_tile_size: Vector2i = expected_tile_sizes[layer_name]
 		if layer.tile_set.tile_size != expected_tile_size:
 			push_error("TileSet incompatível em %s: esperada célula %s." % [layer_name, str(expected_tile_size)])
+			return false
+	for layer_name in ["ManualTerrain", "ManualProps"]:
+		var manual_layer := get_node(layer_name) as TileMapLayer
+		var atlas_source := manual_layer.tile_set.get_source(0) as TileSetAtlasSource
+		if atlas_source == null or atlas_source.texture == null or atlas_source.texture_region_size != Vector2i(128, 128):
+			push_error("Atlas tropical inválido em %s: esperado slice 128×128." % layer_name)
 			return false
 	return true
 
@@ -965,6 +978,19 @@ func _build_minimap() -> void:
 		elif palette_index <= 16:
 			color = Color("78634b")
 		image.set_pixelv(cell, color)
+	var manual_layer := get_node_or_null("ManualTerrain") as TileMapLayer
+	if manual_layer != null and manual_layer.tile_set != null:
+		var cells_per_manual_tile := maxi(1, int(manual_layer.tile_set.tile_size.x / TILE_SIZE))
+		for cell in manual_layer.get_used_cells():
+			var color := _manual_minimap_color(manual_layer.get_cell_atlas_coords(cell))
+			if color.a <= 0.0:
+				continue
+			var origin := cell * cells_per_manual_tile
+			for offset_y in range(cells_per_manual_tile):
+				for offset_x in range(cells_per_manual_tile):
+					var minimap_cell := origin + Vector2i(offset_x, offset_y)
+					if minimap_cell.x >= 0 and minimap_cell.y >= 0 and minimap_cell.x < width and minimap_cell.y < height:
+						image.set_pixelv(minimap_cell, color)
 	_hud._minimap.set_map(ImageTexture.create_from_image(image))
 
 
@@ -1015,3 +1041,19 @@ func _fire_precise_shot() -> void:
 	_mark_combat_activity()
 	_attack_remaining = BASE_ATTACK_INTERVAL
 	_update_hud()
+
+
+
+func _manual_minimap_color(atlas_cell: Vector2i) -> Color:
+	match atlas_cell.y:
+		0:
+			return Color("28536c")
+		1:
+			return Color("528c98")
+		2:
+			return Color("c7ad70")
+		3:
+			return Color("738955") if atlas_cell.x <= 4 else Color("78634b")
+		4:
+			return Color("6e9c83")
+	return Color.TRANSPARENT

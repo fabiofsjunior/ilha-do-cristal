@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://game/scripts/world/first_island.gd" id="1"]
 [ext_resource type="Script" path="res://game/scripts/world/first_island_hud.gd" id="2"]
 [ext_resource type="Script" path="res://game/scripts/world/isometric_3d_view.gd" id="3"]
 [ext_resource type="TileSet" path="res://assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.tres" id="4"]
+[ext_resource type="TileSet" path="res://assets/environments/tropical_manual_v1/tropical_manual_terrain_v1.tres" id="5"]
+[ext_resource type="TileSet" path="res://assets/environments/tropical_manual_v1/tropical_manual_props_v1.tres" id="6"]
 
 [node name="FirstIsland" type="Node2D"]
 script = ExtResource("1")
@@ -24,6 +26,14 @@ z_index = 2
 tile_set = ExtResource("4")
 texture_filter = 1
 tile_map_data = PackedByteArray("AAAhAA4AAAAFAAYAAAAfAA8AAAAEAAUAAAAgAA8AAAABAAUAAAAhAA8AAAAHAAYAAAAiAA8AAAABAAYAAAAjAA8AAAAFAAUAAAAeABAAAAAEAAYAAAAfABAAAAACAAYAAAAhABAAAAADAAUAAAAiABAAAAAHAAUAAAAjABAAAAAGAAUAAAAfABEAAAAAAAYAAAAgABEAAAAGAAYAAAAfABIAAAACAAUAAAAfABMAAAADAAYAAAA=")
+
+[node name="ManualTerrain" type="TileMapLayer" parent="."]
+tile_set = ExtResource("5")
+texture_filter = 1
+
+[node name="ManualProps" type="TileMapLayer" parent="."]
+tile_set = ExtResource("6")
+texture_filter = 1
 
 [node name="Actors" type="Node2D" parent="."]
 
