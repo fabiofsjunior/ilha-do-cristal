@@ -1,3 +1,16 @@
+# Handoff — pranchas isométricas candidatas
+
+Branch de destino: Staging. Base remota: 8dbb01aa516b6cc41dcccb4e70436a1f9130b426.
+
+## 2026-10-18 — pranchas isométricas candidatas
+
+- Adicionadas duas pranchas PNG RGBA 1254 x 1254 em `assets/environments/ilha_cristal_isometric_candidate_v1/`, com prompts e instruções.
+- Transparência real confirmada; há pixels semitransparentes residuais. Grade visual 8 x 8 exige recorte manual, pois 1254 não é divisível por 8.
+- Sem integração de cenas ou validação visual no Godot. Próxima ação: testar um terreno e uma árvore, ajustando recorte, origem, escala e halos.
+- Publicação direta em Staging solicitada pelo usuário, via plugin GitHub.
+
+## Contexto anterior preservado
+
 # Handoff — export Web usando Godot da raiz
 
 **Branch de trabalho:** `feature/s13-web-root-godot`
