@@ -369,3 +369,11 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - O preset Android já referencia esses quatro caminhos; agora eles contêm a arte aprovada. A build segue em 0.1.10/versionCode 11, sem incremento, pois esta APK ainda não foi exportada.
 - Godot 4.5.1: importação headless, `test_update_boot_ui.gd` e `test_content_updater.gd` passaram. A checagem de projeto confirmou os parâmetros de splash; PNGs têm 512×512 (principal) e 432×432 (variantes adaptativas/monocromática), alpha esperado, e o JPEG-fonte confere byte a byte com o anexo. `py_compile` e `git diff --check` passaram. O único aviso de import foi ADB sem daemon/dispositivo conectado.
 - Limite: Android SDK Platform 35/Build Tools 35.0.0 não disponíveis; sem APK ou teste em aparelho.
+
+
+## 2026-10-18 — Servidor Node.js para wiki e exportação Web sob demanda
+
+- Adicionado `Acessar_Wiki.bat` na raiz e `tools/wiki/serve.js`, sem dependências npm. O servidor usa somente loopback, abre `/docs/wiki/`, escolhe outra porta se 8000 estiver ocupada e atende os documentos/imagens usados pelos links da wiki. `.git`, `.godot`, `build`, segredos e arquivos de save/assinatura são bloqueados.
+- `Testar_Jogo_Web.bat` agora tenta gerar `build/web/` com Godot 4.5.1 quando não encontra a exportação. O servidor Web explica o comando de exportação caso a build continue ausente. Este ambiente não tem Godot/exports Web, então não foi possível produzir a build do jogo aqui.
+- README e roadmap atualizados. `python3 tools/wiki/test_catalog.py` passou com Node.js 24.19.0, verificando catálogo atualizado para 75 prévias e 413 arquivos, links locais, imagens PNG, redirecionamento da raiz, HEAD e bloqueio de diretórios privados. `node --check`, `py_compile` e `git diff --check` também passaram.
+- Conflitos com `Staging` `56bbc475556dd72270fccc1d4098e4eb197fedca` resolvidos preservando os registros anteriores de terreno e identidade visual. Índice da Wiki regenerado após a importação do atlas tropical. PR #25 preparado para integração em `Staging`.

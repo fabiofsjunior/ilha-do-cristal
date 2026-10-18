@@ -1,16 +1,20 @@
-# Handoff — atlas tropical para pintura manual
+# Handoff — verificar Wiki e launcher Web no Windows
 
-**Branch:** `Staging`  
-**Base desta alteração:** `9f43dad7d0d1d931914401eb8a83ac590fb4ee90`
+**Branch de destino:** `Staging`
+**PRs deste incremento:** #24 (logo/ícone Android) e #25 (servidor Node.js da Wiki e launcher Web).
+**Implementação Wiki/Web:** `434054dd2b1970f341e79af454c5bd822e255d43`.
 
 ## Implementado
 
-A folha enviada foi limpa e cortada em 64 slices RGBA de 128×128. `assets/environments/tropical_manual_v1/` contém o atlas, os TileSets e o manifesto. `ManualTerrain` expõe os IDs 00–39; `ManualProps`, 40–63. Cada tile ocupa 4×4 SQMs da grade de jogo. As camadas começam vazias e a apresentação 2.5D lê as alterações salvas na cena; o mapa original de 50.000 células, colisões e spawns seguem intactos.
+- `Acessar_Wiki.bat` inicia `tools/wiki/serve.js` com Node.js 18+, abre a Wiki e mantém o terminal disponível para Ctrl+C.
+- O servidor usa módulos nativos, escuta somente em `127.0.0.1`, atende links e imagens locais da Wiki, redireciona `/` para `/docs/wiki/` e bloqueia áreas privadas/geradas.
+- `Testar_Jogo_Web.bat` tenta exportar para `build/web/` quando a pasta não existe. A exportação requer Python 3, Godot 4.5.1 e templates Web.
+- A PR #24 adiciona a logo do jogo ao ícone Android, splash e cabeçalho do boot.
 
 ## Próxima ação exata
 
-No Godot 4.5.1, abra `game/scenes/first_island.tscn`. Selecione `ManualTerrain` na árvore da cena, abra o painel TileMap e pinte o terreno; use `ManualProps` para vegetação, rochas e objetos. Salve a cena, feche e reabra para confirmar a persistência. As células manuais são 128×128 px (4×4 SQMs). O layout de colisões, limites, spawns, obstáculos e recursos continua em `game/data/first_island_layout.json`.
+Em um checkout Windows com Node.js 18+, executar `Acessar_Wiki.bat`, navegar por uma página e imagem da Wiki; em seguida executar `Testar_Jogo_Web.bat` com Godot 4.5.1 e templates Web instalados e confirmar que o jogo abre em `build/web/`.
 
-## Validação
+## Pendências e limites
 
-O validador estrutural da folha, dos 64 slices, dos TileSets e das referências da cena passou. A importação real, a pintura/salvamento/reabertura no editor e o teste em Android ainda precisam ser feitos no Godot instalado no computador de desenvolvimento.
+Este ambiente não tem Godot 4.5.1/templates Web, então não foi possível gerar nem abrir a build Web. A exportação da APK 0.1.10/versionCode 11 ainda requer Android SDK Platform 35/Build Tools 35.0.0 e teste em aparelho. As camadas manuais do atlas tropical também aguardam edição/salvamento/reabertura no editor Godot e medição em Android.
