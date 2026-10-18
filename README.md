@@ -2,7 +2,7 @@
 
 RPG de sobrevivência em pixel art. Melissa, Helena, Maíra e Fábio sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
 
-**Estado atual:** reconstrução 0.1.9 em Godot 4.5.1, com HUD, minimapa, mapa fixo e prévia LAN de movimento. O boot Android prepara verificação de atualizações de conteúdo para o app 0.1.10/versionCode 11; a exportação desse APK ainda depende do Android SDK Platform 35 e Build Tools 35.0.0. Combate/itens/saves LAN e talentos passivos continuam pendentes. A arte de personagem ainda usa as aparências Warrior compartilhadas.
+**Estado atual:** reconstrução 0.1.9 em Godot 4.5.1, com HUD, minimapa, mapa fixo e prévia LAN de movimento. O ícone do APK, a splash e o cabeçalho do boot usam a logo aprovada em `tools/art/source/ilha-cristal-logo.jpg`. O boot Android prepara verificação de atualizações de conteúdo para o app 0.1.10/versionCode 11; a exportação desse APK ainda depende do Android SDK Platform 35 e Build Tools 35.0.0. Combate/itens/saves LAN e talentos passivos continuam pendentes. A arte de personagem ainda usa as aparências Warrior compartilhadas.
 
 [Relatório e capturas da reconstrução](docs/gameplay/HUD_RECONSTRUCTION_019.md) · [Metadados do APK0.1.9](artifacts/preview/HUD-0.1.9.json) · [Próxima ação](Docs/Context/HANDOFF.md).
 

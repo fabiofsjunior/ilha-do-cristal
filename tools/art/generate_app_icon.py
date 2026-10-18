@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build crisp Android launcher icons from the game's crystal pixel sprite."""
+"""Build launcher icon variants from the approved game logo artwork."""
 
 from pathlib import Path
 
@@ -7,68 +7,69 @@ from PIL import Image, ImageDraw
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = ROOT / "assets/environments/tropical_oblique_candidate/crystal.png"
+SOURCE = ROOT / "tools/art/source/ilha-cristal-logo.jpg"
 OUTPUT = ROOT / "assets/ui"
+MAIN_SIZE = 512
+ADAPTIVE_SIZE = 432
 
 
-def nearest(sprite: Image.Image, size: tuple[int, int]) -> Image.Image:
-    return sprite.resize(size, Image.Resampling.NEAREST)
+def load_logo(size: int) -> Image.Image:
+    logo = Image.open(SOURCE).convert("RGBA")
+    if logo.width != logo.height:
+        raise ValueError(f"The game logo must be square, got {logo.size}")
+    return logo.resize((size, size), Image.Resampling.NEAREST)
 
 
-def main_icon(sprite: Image.Image) -> Image.Image:
-    canvas = Image.new("RGBA", (512, 512), "#101a27")
-    draw = ImageDraw.Draw(canvas)
-    draw.polygon([(256, 30), (470, 256), (256, 482), (42, 256)], fill="#173849", outline="#3f737d", width=8)
-    draw.line([(256, 54), (446, 256), (256, 458), (66, 256), (256, 54)], fill="#a8874c", width=4, joint="curve")
-    draw.rectangle((18, 18, 493, 493), outline="#9b7c46", width=8)
-    draw.rectangle((34, 34, 477, 477), outline="#244957", width=4)
-    crystal = nearest(sprite, (336, 384))
-    canvas.alpha_composite(crystal, ((512 - crystal.width) // 2, 56))
-    return canvas
+def main_icon() -> Image.Image:
+    return load_logo(MAIN_SIZE)
 
 
 def adaptive_background() -> Image.Image:
-    canvas = Image.new("RGBA", (432, 432), "#101a27")
+    canvas = Image.new("RGBA", (ADAPTIVE_SIZE, ADAPTIVE_SIZE), "#101b26")
     draw = ImageDraw.Draw(canvas)
-    draw.polygon([(216, 24), (408, 216), (216, 408), (24, 216)], fill="#173849", outline="#315b68", width=8)
-    draw.line([(216, 58), (374, 216), (216, 374), (58, 216), (216, 58)], fill="#263f4c", width=5, joint="curve")
+    draw.ellipse((56, 56, 376, 376), fill="#15384a")
+    draw.ellipse((108, 108, 324, 324), fill="#17455b")
     return canvas
 
 
-def adaptive_foreground(sprite: Image.Image, monochrome: bool = False) -> Image.Image:
-    canvas = Image.new("RGBA", (432, 432), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(canvas)
-    draw.polygon(
-        [(216, 78), (340, 216), (216, 354), (92, 216)],
-        fill=(29, 125, 146, 62),
-        outline=(103, 220, 224, 155),
-        width=6,
+def adaptive_foreground() -> Image.Image:
+    canvas = Image.new("RGBA", (ADAPTIVE_SIZE, ADAPTIVE_SIZE), (0, 0, 0, 0))
+    # Keep the wordmark inside Android's centered adaptive-icon safe area.
+    logo = load_logo(224)
+    mask = Image.new("L", logo.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle(
+        (0, 0, logo.width - 1, logo.height - 1), radius=18, fill=255
     )
-    crystal = nearest(sprite, (202, 230))
-    if monochrome:
-        mask = crystal.getchannel("A")
-        crystal = Image.new("RGBA", crystal.size, (255, 255, 255, 0))
-        crystal.putalpha(mask)
-        # Keep the monochrome mark clear on both light and dark launcher themes.
-        draw = ImageDraw.Draw(canvas)
-        draw.polygon(
-            [(216, 78), (340, 216), (216, 354), (92, 216)],
-            fill=(0, 0, 0, 0),
-            outline=(255, 255, 255, 220),
-            width=6,
-        )
-    canvas.alpha_composite(crystal, ((432 - crystal.width) // 2, 79))
+    logo.putalpha(mask)
+    canvas.alpha_composite(logo, ((ADAPTIVE_SIZE - logo.width) // 2,) * 2)
     return canvas
+
+
+def adaptive_monochrome() -> Image.Image:
+    # Themed Android launchers require a single-color mark. Use the logo's
+    # central crystal as its compact monochrome symbol.
+    mask = Image.new("L", (ADAPTIVE_SIZE, ADAPTIVE_SIZE), 0)
+    draw = ImageDraw.Draw(mask)
+    draw.polygon(
+        [(216, 84), (286, 157), (275, 285), (216, 348), (157, 285), (146, 157)],
+        fill=255,
+    )
+    return _with_alpha(mask)
+
+
+def _with_alpha(mask: Image.Image) -> Image.Image:
+    icon = Image.new("RGBA", mask.size, (255, 255, 255, 255))
+    icon.putalpha(mask)
+    return icon
 
 
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
-    sprite = Image.open(SOURCE).convert("RGBA")
     assets = {
-        "app_icon.png": main_icon(sprite),
+        "app_icon.png": main_icon(),
         "app_icon_background.png": adaptive_background(),
-        "app_icon_foreground.png": adaptive_foreground(sprite),
-        "app_icon_monochrome.png": adaptive_foreground(sprite, monochrome=True),
+        "app_icon_foreground.png": adaptive_foreground(),
+        "app_icon_monochrome.png": adaptive_monochrome(),
     }
     for name, image in assets.items():
         image.save(OUTPUT / name, optimize=True)
