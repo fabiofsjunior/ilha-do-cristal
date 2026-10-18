@@ -6234,7 +6234,7 @@
       "path": "game/scenes/first_island.tscn",
       "href": "../../game/scenes/first_island.tscn",
       "extension": "tscn",
-      "size": 812351
+      "size": 61563
     },
     {
       "path": "game/scenes/main.tscn",
@@ -6426,7 +6426,7 @@
       "path": "game/scripts/world/first_island.gd",
       "href": "../../game/scripts/world/first_island.gd",
       "extension": "gd",
-      "size": 41142
+      "size": 41484
     },
     {
       "path": "game/scripts/world/first_island_hud.gd",
@@ -6438,7 +6438,7 @@
       "path": "game/scripts/world/isometric_3d_view.gd",
       "href": "../../game/scripts/world/isometric_3d_view.gd",
       "extension": "gd",
-      "size": 20073
+      "size": 20697
     },
     {
       "path": "project.godot",

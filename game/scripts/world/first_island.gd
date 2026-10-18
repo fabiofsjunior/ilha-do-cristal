@@ -205,11 +205,11 @@ func _on_attributes_committed(_committed_state: Object) -> void:
 
 func _validate_tile_layers() -> bool:
 	var expected_tile_sizes := {
-		"BaseTiles": Vector2i(TILE_SIZE, TILE_SIZE),
+		"BaseTiles": Vector2i(128, 64),
 		"Transitions": Vector2i(TILE_SIZE, TILE_SIZE),
 		"Paths": Vector2i(TILE_SIZE, TILE_SIZE),
-		"ManualTerrain": Vector2i(128, 128),
-		"ManualProps": Vector2i(128, 128)
+		"ManualTerrain": Vector2i(128, 64),
+		"ManualProps": Vector2i(128, 64)
 	}
 	for layer_name in expected_tile_sizes:
 		var layer := get_node_or_null(layer_name) as TileMapLayer
@@ -223,15 +223,13 @@ func _validate_tile_layers() -> bool:
 		if layer.tile_set.tile_size != expected_tile_size:
 			push_error("TileSet incompatível em %s: esperada célula %s." % [layer_name, str(expected_tile_size)])
 			return false
-	for layer_name in ["ManualTerrain", "ManualProps"]:
-		var manual_layer := get_node(layer_name) as TileMapLayer
-		var atlas_source := manual_layer.tile_set.get_source(0) as TileSetAtlasSource
+	for layer_name in ["BaseTiles", "ManualTerrain", "ManualProps"]:
+		var layer := get_node(layer_name) as TileMapLayer
+		var atlas_source := layer.tile_set.get_source(0) as TileSetAtlasSource
 		if atlas_source == null or atlas_source.texture == null or atlas_source.texture_region_size != Vector2i(128, 128):
 			push_error("Atlas tropical inválido em %s: esperado slice 128×128." % layer_name)
 			return false
 	return true
-
-
 func _build_world_collision() -> void:
 	var size_data: Array = _layout.get("grid_size", [64, 44])
 	var map_width := float(size_data[0]) * TILE_SIZE
@@ -970,26 +968,16 @@ func _build_minimap() -> void:
 	var width := int(grid[0])
 	var height := int(grid[1])
 	var image := Image.create(width, height, false, Image.FORMAT_RGBA8)
-	var layer := get_node("BaseTiles") as TileMapLayer
-	for cell in layer.get_used_cells():
-		if cell.x < 0 or cell.y < 0 or cell.x >= width or cell.y >= height:
-			continue
-		var atlas_cell := layer.get_cell_atlas_coords(cell)
-		var palette_index := atlas_cell.y * 8 + atlas_cell.x
-		var color := Color("738955")
-		if palette_index <= 2:
-			color = Color("28536c")
-		elif palette_index <= 4:
-			color = Color("528c98")
-		elif palette_index <= 7:
-			color = Color("c7ad70")
-		elif palette_index <= 10:
-			color = Color("738955")
-		elif palette_index <= 13:
-			color = Color("3d6448")
-		elif palette_index <= 16:
-			color = Color("78634b")
-		image.set_pixelv(cell, color)
+	var base_layer := get_node("BaseTiles") as TileMapLayer
+	var base_cells_per_tile := maxi(1, int(base_layer.tile_set.tile_size.x / TILE_SIZE))
+	for cell in base_layer.get_used_cells():
+		var color := _base_minimap_color(base_layer.get_cell_atlas_coords(cell))
+		var origin := cell * base_cells_per_tile
+		for offset_y in range(base_cells_per_tile):
+			for offset_x in range(base_cells_per_tile):
+				var minimap_cell := origin + Vector2i(offset_x, offset_y)
+				if minimap_cell.x < width and minimap_cell.y < height:
+					image.set_pixelv(minimap_cell, color)
 	var manual_layer := get_node_or_null("ManualTerrain") as TileMapLayer
 	if manual_layer != null and manual_layer.tile_set != null:
 		var cells_per_manual_tile := maxi(1, int(manual_layer.tile_set.tile_size.x / TILE_SIZE))
@@ -1005,7 +993,19 @@ func _build_minimap() -> void:
 						image.set_pixelv(minimap_cell, color)
 	_hud._minimap.set_map(ImageTexture.create_from_image(image))
 
-
+func _base_minimap_color(atlas_cell: Vector2i) -> Color:
+	var tile_index := atlas_cell.y * 8 + atlas_cell.x
+	if tile_index <= 7:
+		return Color("28536c")
+	if tile_index <= 15:
+		return Color("528c98")
+	if tile_index <= 23 or tile_index == 32 or tile_index == 33 or tile_index == 34:
+		return Color("c7ad70")
+	if tile_index <= 28:
+		return Color("738955")
+	if tile_index <= 31 or (tile_index >= 35 and tile_index <= 37):
+		return Color("78634b")
+	return Color("52483e")
 func _show_spell_vfx(skill_id: String, destination: Vector2) -> void:
 	if not is_instance_valid(_iso_view):
 		return
