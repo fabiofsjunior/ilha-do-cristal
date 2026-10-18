@@ -38,6 +38,15 @@ func _run() -> void:
 	window.close_window()
 	_check(not window.visible and not paused, "Closing attributes did not hide the modal and resume gameplay.")
 	_check(not hud._joystick.blocked, "Closing attributes left joystick blocked.")
+	var peer := ENetMultiplayerPeer.new()
+	_check(peer.create_server(27990, 1) == OK, "Could not open LAN pause regression peer.")
+	game.multiplayer.multiplayer_peer = peer
+	attributes_button.emit_signal("pressed")
+	_check(window.visible and not paused, "LAN attributes must not pause the shared simulation.")
+	window.close_window()
+	_check(not paused, "Closing LAN attributes changed the shared pause state.")
+	peer.close()
+	game.multiplayer.multiplayer_peer = null
 	if failures == 0:
 		print("Attributes HUD integration passed: nav button, modal pause/input block, point commit/save, HUD refresh and resume.")
 	quit(failures)

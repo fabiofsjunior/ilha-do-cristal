@@ -115,3 +115,13 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [x] Incorporar o spritesheet de UI e aplicar molduras/controles nos fluxos de HUD, inventário/equipamento, refúgio/crafting, vocações/talentos, seleção e pausa.
 - [x] Testes Godot 4.5.1 para recortes do atlas e fluxo integrado; ZIP Web validado e APK debug ARM64 armazenado em `artifacts/preview/` na branch. [Download do APK](https://raw.githubusercontent.com/fabiofsjunior/ilha-do-cristal/feature/s03-crystal-ui-kit-v2/artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk); somente `arm64-v8a`.
 - [ ] Revisão Web gráfica em navegador e teste Android físico (safe area, toque, save e estabilidade por 10 min). Esta entrega não conclui S0–S3 nem habilita vocações/talentos ausentes.
+
+## Reconstrução persistida — 2026-10-18
+
+- [x] HUD aprovada: equipamentos96×96, spells144×144, navegação exclusiva, engrenagem e inventário responsivo.
+- [x] Minimap circular projetado pela câmera e zoom compartilhado, com teste geométrico.
+- [x] Mapa fixo50mil tiles, três vocações locais/VFX e LAN de movimento reconstruídos e versionados.
+- [x] Import, testes locais, comparação gráfica Godot e export/assinatura/integridade APK0.1.9.
+- [ ] Sincronizar combate pelo host; depois itens/coleta e saves idempotentes do host.
+- [ ] Testar o mesmo APK em dois Androids reais; validar UI/toque/safe area, LAN e persistência.
+- [ ] Terrain Sets64×32/elevações e novas amostras de arte/atlas. Nenhum gate Android foi encerrado por testes headless.

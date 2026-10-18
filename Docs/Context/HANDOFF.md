@@ -1,17 +1,21 @@
-# Handoff — Kit UI Crystal v2
+# Handoff — Reconstrução 0.1.9
 
-**Branch:** `feature/s03-crystal-ui-kit-v2`. **PR:** [#21](https://github.com/fabiofsjunior/ilha-do-cristal/pull/21), ainda em revisão. **Commit do APK:** `28dee2d3df72dd3ba225eefd624c2859f476c2e0`; código do jogo exportado em `c66936c2a16a2693550ae6be0652ded6aa77ebef`.
+**Branch:** `feature/s03-crystal-ui-kit-v2`. **Commit de código/APK:** `5f14e623f6787e97e1f6b4aa58778cd132f247f8`. A atualização documental subsequente fica no HEAD da mesma branch. Baseline remoto recuperado: `2a1784d`. Não fazer merge em main sem os aceites pendentes.
 
-## Entrega
+## Entrega persistida
 
-Kit visual integrado aos fluxos principais: HUD, mochila/equipamento, fabricação/refúgio, talentos/vocações, seleção de personagem, pausa, minimapa e alertas. O spritesheet de runtime está em `assets/ui/crystal_v2/sheet.b64`; testes de UI em `tools/gameplay/test_crystal_kit.gd` e `test_crystal_ui_flow.gd`. Guerreiro segue como única vocação jogável; Arqueiro/Mago são prévias e talentos passivos continuam indisponíveis. Os conceitos de personagem enviados não foram adicionados como sprites jogáveis.
+HUD spells144×144/equipamentos96×96, inventário com scroll, painéis exclusivos, engrenagem e minimapa circular orientado pelo frustum/zoom. Mapa fixo250×200 prebaked e50mil tiles;24lobos/2raposas/4ursos. Três vocações com mecânicas locais/VFX e saves separados por vocação; sprites de aparência Warrior continuam compartilhados. LAN ENet para2jogadores, descoberta/código/IP e movimento com validação do host. Combate/monstros/coleta/itens/saves continuam locais.
 
-## APK e validação
+**APK:** `build/android/ilha-do-cristal-hud-rebuilt.apk`, debug preview, versionCode10/0.1.9, ARMv7+ARM64, Godot4.5.1. Metadados/SHA em `artifacts/preview/HUD-0.1.9.json`; APK/ZIP entregues como anexos persistentes da conversa. O APK ARM64 versionado anteriormente é histórico e não deve ser anunciado como atual.
 
-O APK está versionado em `artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk` nesta branch. [Baixar diretamente](https://raw.githubusercontent.com/fabiofsjunior/ilha-do-cristal/feature/s03-crystal-ui-kit-v2/artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk). É uma variante debug de 39.337.295 bytes, ID `com.fabiofsjunior.ilhadocristal.preview`, somente `arm64-v8a`; aparelhos apenas 32 bits não são compatíveis. A variante foi derivada do APK de preview Godot dual-arch, removendo a biblioteca ARMv7, reempacotada e assinada novamente. SHA-256: `9d723315cae0bfe5f4f68c88527484e618e61897ddcef0be0de8489c25b9e88a`.
+## Testes e limites
 
-Godot 4.5.1: importação, checagem do script principal e os dois testes de UI passaram. Manifesto, ID/label, ícones, permissões, dados de runtime, integridade ZIP e assinatura v2/v3 do APK passaram. APK ainda não foi instalado nem testado em aparelho. Web foi exportado e o ZIP verificado; falta inspeção gráfica em navegador. ZIP Web e capturas seguem na pasta de entregas local.
+Import e catálogo/bake Python; HUD/mínimap/inventário/safe area/atributos/visão/fluxo; mapa/população; vocações/combate/cooldown/save; morte/loop/regen/smoke passaram. LAN dois processos: movimento, NaN/teleport, incompatibilidade de mapa e queda do host. Comparação gráfica Godot sob Xvfb feita, capturas no relatório `docs/gameplay/HUD_RECONSTRUCTION_019.md`. APK manifesto/recursos/CRC/assinatura/permissões passou. Não instalado nem testado em Android físico. Nova reconstrução, não APK idêntico ao binário perdido.
 
-## Próxima ação
+## Próxima ação exata
 
-Revisar a PR, instalar a variante ARM64 num Android compatível e conferir safe areas, toque/multitouch, save e estabilidade por 10 minutos; revisar também o Web em navegador. Manter os gates S0–S3 abertos até os aceites completos; vocações Arqueiro/Mago, talentos e os critérios físicos continuam pendentes.
+Implementar uma intenção de ataque enviada pelo cliente ao host, com sequência/ownership, validação de alvo/distância/mana/cooldown e evento autoritativo único de dano/estado/XP; testar em2processos antes de ampliar. Depois coleta/drop idempotentes e saves de mundo/inventário somente no host. Instalar o mesmo APK em dois Androids na mesma rede e validar lobby/código/IP/movimento/pausa/atributos/desconexão/UI/toque/save.
+
+## Pendências abertas
+
+Teste físico Android, combate/itens/saves LAN e talentos passivos. Terrain Sets64×32/elevações e atlas mais polidos precisam de assets/amostra apropriados e validação, sem trocar a perspectiva ou expandir arte silenciosamente. Protótipos de lobby/vocação/HUD já foram aprovados nesta conversa; não pedir novamente para a mesma reconstrução. Godot/SDK/chave debug/saves e build ficam fora do Git.

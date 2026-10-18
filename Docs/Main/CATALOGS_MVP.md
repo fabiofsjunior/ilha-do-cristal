@@ -208,3 +208,7 @@ No protótipo, o painel direito abre em Atributos, com FOR, AGI e INT, descriç�
 ## Próximo fechamento de produção
 
 Antes de criar sprites em lote, testar uma personagem e uma raposa em Godot Android; antes da árvore S3, especificar 18 IDs/efeitos/conexões por vocação; antes de LAN, definir IDs de eventos/drops e transações de baú. Os catálogos são completos como **listas de planejamento**, com campos ainda marcados para validação nos sprints.
+
+## Reconstrução 0.1.9 — 2026-10-18
+
+Valores de alcance runtime: Warrior65/82/135px, conforme `skills[].range_px` no JSON; custos/cooldowns preservados. Archer/Mage usam arco/cajado e AGI/INT respectivos. Mapa fixo50mil tiles com24lobos/2raposas/4ursos. HUD: spells144×144, equipamentos96×96 e24slots de mochila. Os valores ilustrativos de `inventory_prototype_v0_7` continuam pertencendo ao protótipo e não substituem os testes de runtime. LAN: somente movimento; não atribuir autoridade de itens/saves ainda.

@@ -67,3 +67,7 @@ Host Android controla mundo, dano, drops, inventário e construções; cliente e
 ## Aceite do MVP
 
 Em dois Androids, criar personagens com as quatro aparências e vocações independentes; ajustar câmera; coletar, fabricar, lutar com três animais e nove skills; compartilhar XP e reanimar; concluir acampamento III e alcançar o urso. Fechar/reabrir preserva dados; desconectar cliente/host não duplica itens. Testar solo, pausa do app, save interrompido e reconexão. A prancha é referência visual, não comprovação de sprites ou da interface final.
+
+## Incremento reconstruído — 2026-10-18
+
+O recorte atual usa mapa fixo250×200 (50mil tiles) prebaked, preservando o objetivo futuro de chunks/ilha máxima. HUD retrato: spells144×144, nove equipamentos96×96 e minimapa circular da área projetada pela câmera, com zoom compartilhado. Warrior alcance65/82/135px para combo/corte/terremoto. As três vocações têm mecânicas locais; arte Warrior é compartilhada temporariamente. LAN atual sincroniza apenas movimento de dois jogadores. Combate, itens, coleta e saves autoritativos e teste em dois Androids permanecem próximos incrementos. Relatório: `docs/gameplay/HUD_RECONSTRUCTION_019.md`.
