@@ -1,7 +1,9 @@
 # Handoff — validar launcher Web no Windows
 
 **Branch do ajuste:** `feature/s12-web-godot-discovery`
-**Branch de destino:** `Staging` (base remota atual `0d87452ceebf51271b121daaaec8cd0fc953a43d`)
+**Commit:** `0c38bff95f7c7b4ef110f6401c92bbb94e796b92`
+**PR:** [#27](https://github.com/fabiofsjunior/ilha-do-cristal/pull/27), destino `Staging`
+**Base da PR:** `0d87452ceebf51271b121daaaec8cd0fc953a43d`
 
 ## Implementado
 
