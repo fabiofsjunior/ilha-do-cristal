@@ -4,7 +4,9 @@
 
 **Base:** `Staging` em `9f43dad7d0d1d931914401eb8a83ac590fb4ee90`.
 
-**Commit de implementação:** `fc3734b`.
+**Commit de implementação no PR:** `434054dd2b1970f341e79af454c5bd822e255d43`.
+
+**PR:** [#25](https://github.com/fabiofsjunior/ilha-do-cristal/pull/25), rascunho contra `Staging`.
 
 ## Implementado
 
@@ -21,4 +23,4 @@
 
 ## Próxima ação
 
-Abrir PR de `feature/s09-node-wiki-server` contra `Staging` e integrá-lo. Depois, no checkout Windows, executar `Acessar_Wiki.bat` para consultar a documentação e `Testar_Jogo_Web.bat` para gerar/abrir a build Web.
+Revisar e integrar o PR #25. Depois, no checkout Windows, executar `Acessar_Wiki.bat` para consultar a documentação e `Testar_Jogo_Web.bat` para gerar/abrir a build Web.
