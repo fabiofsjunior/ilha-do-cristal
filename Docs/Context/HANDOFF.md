@@ -1,7 +1,8 @@
 # Handoff — mapa irregular v0.3 aguardando validação
 
 **Branch:** `Staging`  
-**Commit base antes deste registro:** `195a3d3445ab33ab456f9c2b612844d337265060`
+**Commit do protótipo em Staging:** `f07a0b7b2e185c2110200c808aee033fbc00aa64`  
+**Base anterior:** `195a3d3445ab33ab456f9c2b612844d337265060`
 
 ## Próxima ação exata
 
