@@ -177,5 +177,7 @@ Na conversa o usuário confirmou “Prototipagem aprovada”, apontou divergênc
 - **Objetivo:** revisar a paleta clara, o controle de ativar/desativar modo escuro e a legibilidade da wiki em ambas as aparências.
 - **Artefato:** [`docs/prototypes/wiki_theme_v0_1.html`](../../docs/prototypes/wiki_theme_v0_1.html).
 - **Simulado:** a wiki mantém o modo escuro atual como padrão; o botão alterna entre as paletas escura e clara, atualiza o rótulo acessível e grava a preferência localmente. O conteúdo é representativo, sem conexão ao catálogo.
-- **Estado do gate:** em validação; aguarda revisão explícita da aparência e do comportamento do controle.
-- **Próximo passo:** após aprovação, implementar no catálogo real e atualizar a documentação da wiki.
+- **Feedback:** o usuário aprovou explicitamente o protótipo e solicitou a publicação na branch `Staging` em 2026-10-18.
+- **Estado do gate:** aprovado para implementar a alternância de tema; a validação foi limitada à aparência e ao comportamento demonstrados no protótipo.
+- **Implementação:** `docs/wiki/index.html` aplica a preferência antes da primeira pintura; `wiki.css` define paletas completas; `app.js` alterna o tema, atualiza o estado acessível e salva a preferência. README e roadmap também documentam a opção.
+- **Verificação:** testes automatizados e revisão visual em navegador não foram executados nesta atualização.

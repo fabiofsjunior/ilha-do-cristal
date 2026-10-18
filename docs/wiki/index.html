@@ -1,11 +1,23 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#121b1c">
-  <meta name="description" content="Catálogo offline do projeto A Ilha do Cristal: conteúdo, sprites, dados e documentação.">
+  <meta name="theme-color" content="#101819">
+  <meta name="description" content="Catálogo offline do projeto A Ilha do Cristal, com temas claro e escuro para consulta de conteúdo, sprites, dados e documentação.">
   <title>Arquivo de Campo — A Ilha do Cristal</title>
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("ilha-cristal-wiki-theme");
+      if (savedTheme === "light" || savedTheme === "dark") {
+        document.documentElement.dataset.theme = savedTheme;
+        document.querySelector('meta[name="theme-color"]').content =
+          savedTheme === "light" ? "#f4f2e9" : "#101819";
+      }
+    } catch (error) {
+      console.warn("Não foi possível carregar a preferência de tema da wiki.", error);
+    }
+  </script>
   <link rel="stylesheet" href="./wiki.css">
   <script src="./app.js" defer></script>
 </head>
@@ -16,7 +28,13 @@
       <span class="brand-mark" aria-hidden="true">✦</span>
       <span><strong>ARQUIVO DE CAMPO</strong><small>A ILHA DO CRISTAL</small></span>
     </a>
-    <div class="topbar-meta"><span class="offline-dot"></span> catálogo local · sem serviços externos</div>
+    <div class="topbar-actions">
+      <div class="topbar-meta"><span class="offline-dot"></span> catálogo local · sem serviços externos</div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Desativar modo escuro" aria-pressed="true">
+        <span class="theme-toggle-icon" id="theme-toggle-icon" aria-hidden="true">☼</span>
+        <span class="theme-toggle-label" id="theme-toggle-label">Desativar modo escuro</span>
+      </button>
+    </div>
   </header>
 
   <div class="layout">

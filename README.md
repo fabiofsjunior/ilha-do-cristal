@@ -44,7 +44,7 @@ Para exportar Web, instale Godot 4.7.2 e seus templates. O exportador Android pe
 
 ## Documentação
 
-- [Wiki offline do projeto](docs/wiki/index.html) — consulta navegável de personagens, vocações, sprites/atlas, atributos, itens, habilidades, mundo e índice de arquivos. No Windows, execute `Acessar_Wiki.bat` na raiz (requer Node.js 18+); o servidor abre a wiki no navegador e também serve os arquivos locais ligados nela. Em qualquer sistema, use `node tools/wiki/serve.js`; sem Node.js, ainda é possível rodar `python3 -m http.server 8000` na raiz e acessar `http://localhost:8000/docs/wiki/`. Regere o índice com `python3 tools/wiki/build_index.py` e valide servidor, links e catálogo com `python3 tools/wiki/test_catalog.py`.
+- [Wiki offline do projeto](docs/wiki/index.html) — consulta navegável de personagens, vocações, sprites/atlas, atributos, itens, habilidades, mundo e índice de arquivos, com alternância entre temas escuro e claro no cabeçalho e preferência lembrada neste navegador. No Windows, execute `Acessar_Wiki.bat` na raiz (requer Node.js 18+); o servidor abre a wiki no navegador e também serve os arquivos locais ligados nela. Em qualquer sistema, use `node tools/wiki/serve.js`; sem Node.js, ainda é possível rodar `python3 -m http.server 8000` na raiz e acessar `http://localhost:8000/docs/wiki/`. Regere o índice com `python3 tools/wiki/build_index.py` e valide servidor, links e catálogo com `python3 tools/wiki/test_catalog.py`.
 - [GDD do MVP](Docs/Main/GDD_MVP.md) — regras e critérios de aceite.
 - [Conteúdo e balanceamento](Docs/Main/CONTENT_DATA.md) — atributos, armas, XP, drops, bestiário e árvore.
 - [Doze listas de produção](Docs/Main/CATALOGS_MVP.md) e [catálogo JSON](data/catalogs/mvp.json) — conteúdo inicial versionado.

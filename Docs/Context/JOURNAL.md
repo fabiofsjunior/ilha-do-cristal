@@ -422,3 +422,11 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - `export_web.py` agora valida cada candidato antes de usá-lo, pula binários quebrados/versões diferentes quando faz descoberta e imprime diagnóstico direto para caminho explícito inválido, timeout ou erro ao iniciar; nenhum traceback cru de `CalledProcessError` nessa etapa.
 - O launcher usa a descoberta validada, procura outros locais/caminho salvo e abre o seletor quando necessário. README, roadmap e handoff explicam baixar e extrair a versão estável oficial e instalar templates Web 4.7.2.
 - Testes de CLI com executáveis simulados aceitaram Godot 4.7.2 e produziram diagnóstico curto sem traceback para um executável que falha; a descoberta também ignorou o wrapper inválido e usou outro caminho 4.7.2. A validação estática do `.bat`, `py_compile`, `python3 tools/wiki/test_catalog.py` e `git diff --check` passaram. A exportação real continua pendente em Windows com os templates 4.7.2.
+
+
+## 2026-10-18 — Alternância de tema na wiki
+
+- O usuário aprovou o protótipo de tema claro/escuro e solicitou sua publicação na branch `Staging`. A página canônica é `docs/wiki/index.html`; `docs/wiki.html` e um `index.html` na raiz não existem nesta branch.
+- O cabeçalho da wiki agora permite alternar entre o tema escuro existente e uma paleta clara. A preferência é guardada em `localStorage`, reaplicada antes da primeira pintura e indicada pelo rótulo e estado acessível do botão.
+- README, roadmap, registro do protótipo e handoff foram atualizados junto com o HTML, CSS e JavaScript da wiki.
+- Testes automatizados não foram executados nesta atualização. O navegador integrado bloqueou a abertura do protótipo por ser um caminho local; não foi usado um contorno para renderizá-lo.

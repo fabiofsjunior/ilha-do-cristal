@@ -7,6 +7,39 @@
   const searchResults = $("#search-results");
   const titleNode = $("#page-title");
   const nav = $("#section-nav");
+  const themeToggle = $("#theme-toggle");
+  const themeToggleLabel = $("#theme-toggle-label");
+  const themeToggleIcon = $("#theme-toggle-icon");
+  const themeMeta = $('meta[name="theme-color"]');
+  const THEME_STORAGE_KEY = "ilha-cristal-wiki-theme";
+
+  function applyTheme(theme) {
+    const nextTheme = theme === "light" ? "light" : "dark";
+    const isDark = nextTheme === "dark";
+    const actionLabel = isDark ? "Desativar modo escuro" : "Ativar modo escuro";
+    document.documentElement.dataset.theme = nextTheme;
+    document.documentElement.style.colorScheme = nextTheme;
+    themeToggle.setAttribute("aria-label", actionLabel);
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+    themeToggleLabel.textContent = actionLabel;
+    themeToggleIcon.textContent = isDark ? "☼" : "☾";
+    themeMeta.content = isDark ? "#101819" : "#f4f2e9";
+  }
+
+  function persistTheme(theme) {
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch (error) {
+      console.warn("Não foi possível salvar a preferência de tema; a alteração vale apenas nesta sessão.", error);
+    }
+  }
+
+  applyTheme(document.documentElement.dataset.theme);
+  themeToggle.addEventListener("click", () => {
+    const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(nextTheme);
+    persistTheme(nextTheme);
+  });
   const names = {
     sections: {
       characters: "Personagens & vocações", sprites: "Sprites & atlas", attributes: "Atributos & níveis",

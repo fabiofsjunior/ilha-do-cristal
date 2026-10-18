@@ -111,6 +111,7 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [x] Wiki HTML responsiva e sem dependências externas em `docs/wiki/`, com índice gerado a partir dos dados do projeto, previews clicáveis de PNGs, busca e links relativos aos arquivos.
 - [x] Gerador, verificador e servidor Node.js local: `python3 tools/wiki/build_index.py`, `python3 tools/wiki/test_catalog.py` e `node tools/wiki/serve.js`; no Windows, `Acessar_Wiki.bat` abre a wiki sem dependências npm.
 - [x] README aponta para a wiki e documenta a execução local; o servidor atende os links relativos e previews e bloqueia áreas geradas/privadas. Esta entrega é documentação/ferramenta de consulta; não altera o status de aceite das fases de jogo.
+- [x] Wiki permite alternar entre os temas escuro e claro pelo cabeçalho; a preferência fica salva localmente no navegador.
 
 
 ### Kit UI Crystal v2 — 2026-10-17
