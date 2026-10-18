@@ -134,13 +134,14 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [ ] Testar o mesmo APK em dois Androids reais; validar UI/toque/safe area, LAN e persistência.
 - [ ] Terrain Sets64×32/elevações e novas amostras de arte/atlas. Nenhum gate Android foi encerrado por testes headless.
 
-### Proposta de mapa global/ilha irregular — aguardando validação
+### Mapa global/ilha irregular — composição v0.3 aprovada; amostra de arte em validação
 
 - [ ] Revisar o fluxo navegável em `docs/prototypes/global_map_island_v0_1.html`: toque no minimapa, mapa global, retorno sem pausar e zoom compartilhado.
-- [ ] Revisar a composição da ilha, a escala proposta de 400×250 = 100.000 células e os 30 pontos por habitat na `docs/prototypes/global_map_island_v0_3.html`. A produção segue em 250×200 = 50.000 células.
-- [ ] Confirmar ou ajustar a divisão visual de pontos: 4 litoral/enseadas, 12 floresta, 8 platôs/interior e 6 faixa corrompida futura. Associar espécies apenas após a lista atualizada de 30 tipos.
-- [ ] Decidir, após a revisão visual, a amostra técnica isolada e o tratamento de grade/câmera; validar colisão, rampas, culling e desempenho antes de qualquer expansão de runtime para 100.000 células.
-- [ ] Após validação explícita, produzir e revisar uma amostra representativa na cena alvo. A aprovação da prancha não aprova produção em lote.
+- [x] O usuário aprovou a composição, a escala de 400×250 = 100.000 células e a divisão 4/12/8/6 da prancha v0.3. A aprovação cobre o protótipo visual, não o mapa de runtime, as espécies ou a arte final.
+- [x] Preparar amostra técnica isolada 16×10 com tilesets reais e a câmera/render 2.5D do jogo; corrigir a face do atlas para o losango de 128×64 px e capturar no Godot 4.5.1. Cena: `tools/world/ilha_cristal_tilemap_review_v0_2.tscn`.
+- [ ] Obter aprovação explícita da amostra técnica v0.2 após a correção de encaixe. Só então ampliar a produção de arte e alterar cenas/dados de runtime.
+- [ ] Antes de expandir o runtime para 100.000 células, validar colisão, rampas, culling e desempenho; produção atual segue em 250×200 = 50.000 células.
+- [ ] Revisar o fluxo global navegável v0.1. A divisão de habitats continua sem ID de espécie e sem coordenadas finais de spawn.
 
 ### Bestiário estático de 30 espécies — 2026-10-18
 

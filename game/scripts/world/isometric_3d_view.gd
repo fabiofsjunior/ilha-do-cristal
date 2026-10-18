@@ -10,6 +10,7 @@ const ISOMETRIC_TILE_COVER_SCALE := 1.10
 @export var follow_distance := 24.0
 @export var follow_speed := 5.0
 @export var target_height := 0.8
+@export var isometric_tile_cover_scale := ISOMETRIC_TILE_COVER_SCALE
 
 var game: Node
 var player_2d: Node2D
@@ -246,7 +247,7 @@ func _append_tile_quad(
 	var base_index := vertices.size()
 	# Transparent pixels near the atlas diamond edges leave visible seams.
 	# A centered 10% overscan covers them without moving the logical cell.
-	var cover_scale := ISOMETRIC_TILE_COVER_SCALE if is_isometric_art else 1.0
+	var cover_scale := isometric_tile_cover_scale if is_isometric_art else 1.0
 	var covered_tile_size := world_tile_size * cover_scale
 	var center_x := (float(cell.x) + 0.5) * world_tile_size
 	var center_z := (float(cell.y) + 0.5) * world_tile_size

@@ -1,9 +1,11 @@
 # Pranchas isométricas candidatas
 
-Duas imagens PNG RGBA de 1254 x 1254, com organização visual de 8 x 8 elementos, geradas a partir do conceito Ilha do Cristal.
+As pranchas-fonte são PNGs RGBA de 1254 × 1254 px, com organização visual de 8 × 8 elementos. O fundo tem transparência real, além de resíduos semitransparentes próximos a algumas peças. A divisão não é uniforme; usar limites de recorte medidos manualmente, sem partir a imagem em oito células iguais.
 
-O fundo contém transparência real (alpha zero). Também existem pixels semitransparentes, inclusive resíduos de alpha muito baixo próximos às peças. A transparência foi medida; ausência de halos e encaixe não foram validados no Godot.
+## Amostra técnica v0.2
 
-Não dividir automaticamente em células inteiras iguais: 1254 não é divisível por 8 e o espaçamento visual não é perfeitamente uniforme. Recortar as regiões manualmente; ajustar pivôs na base dos objetos e conferir escala, sobreposição e bordas sobre fundos claros e escuros. Não há TileSet .tres nem colisões configuradas.
+Abra `tools/world/ilha_cristal_tilemap_review_v0_2.tscn`. Ao iniciar, a cena recorta as imagens originais em memória e monta TileSets Godot temporários; não depende de cópias processadas das pranchas. As superfícies planas são reencaixadas no losango 128 × 64 px esperado pelo renderer 2.5D. O atlas de objetos seleciona 15 props representativos de praia, floresta, planalto e corrupção, com pivô visual na base.
 
-Arquivos candidatos para montagem e revisão manual. Não substituem os assets existentes.
+A amostra cobre uma grade 16 × 10 e mostra 30 marcadores de habitat sem IDs de espécie. O parâmetro de cobertura fica em 1.0 apenas nessa cena; as outras cenas mantêm o valor padrão de 1.10. A cena não altera o mapa real, spawns, colisões, saves ou os assets usados no jogo.
+
+**Estado:** correção de encaixe preparada e aguardando revisão visual explícita antes de expandir o lote de arte ou substituir assets existentes.

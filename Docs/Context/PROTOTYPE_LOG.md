@@ -154,7 +154,7 @@ Na conversa o usuário confirmou “Prototipagem aprovada”, apontou divergênc
 - A pedido do usuário, a escala lógica do protótipo visual foi ampliada para 400×250 = 100.000 células. O jogo permanece em 250×200 = 50.000; nenhum dado/runtime foi alterado.
 - Acrescentados 30 pontos de alocação candidatos: 4 litoral/enseadas, 12 floresta ocidental, 8 platôs/interior e 6 faixa corrompida futura. O usuário informou que o bestiário está sendo atualizado para 30 tipos; os pontos indicam habitats propostos e ainda não se ligam a nomes de criaturas nem coordenadas finais.
 - A prancha usa SVG ilustrativo, links para os três tilesets candidatos e controle para ocultar/mostrar os marcadores. Não há tilemap, spawns, colisões ou cena Godot implementados.
-- **Estado do gate:** em validação explícita. Rever composição, 400×250 e divisão 4/12/8/6. Não iniciar produção até aprovação; depois testar uma amostra representativa no destino antes de ampliar o lote.
+- **Estado do gate:** composição, escala e divisão 4/12/8/6 aprovadas explicitamente pelo usuário em 2026-10-18. Esta aprovação é do protótipo e não libera mapa de runtime ou produção em lote; a amostra técnica de arte tem gate próprio.
 
 ## Bestiário de expansão — concept v0.1 — 2026-10-18
 
@@ -198,3 +198,12 @@ Na conversa o usuário confirmou “Prototipagem aprovada”, apontou divergênc
 - **Origem/licença:** imagem conceitual original gerada para esta revisão; não contém sprites dos pacotes CC0 pesquisados.
 - **Estado da integração:** 30 fichas no catálogo, com uma região recomendada por espécie; a cena base é reaproveitada nas espécies sem prefab próprio. O layout e seus spawns não foram alterados nesta atualização. Os concepts continuam estáticos, não são atlas nem arte de produção.
 - **Próximo passo:** importar no Godot e revisar tamanho, pivô, alpha e contato em espécies pequenas, médias e grandes. Valores e loot das fichas novas exigem playtest.
+
+
+## Ilha do Cristal — amostra técnica de tiles v0.2 — 2026-10-18
+
+- **Artefatos:** cena isolada `tools/world/ilha_cristal_tilemap_review_v0_2.tscn`, que recorta as pranchas originais `assets/environments/ilha_cristal_isometric_candidate_v1/` e compõe TileSets temporários em memória. Nenhum atlas processado duplicado foi adicionado ao repositório.
+- **Conteúdo:** patch de 16×10 células com areia, floresta, água, planalto, corrupção, props e 30 pontos candidatos por habitat sem espécie atribuída. Usa o renderer 2.5D existente; não carrega saves nem modifica a cena principal, layout ou spawns.
+- **Feedback e correção:** após a primeira amostra o usuário informou que os tiles estavam mal encaixados. Ao abrir a cena, os recortes de superfícies planas alinham a caixa alpha ao losango UV 128×64, com bleed de 1 px; a cena candidata usa cobertura 1.0. O valor padrão 1.10 do renderer continua preservado para os atlases existentes.
+- **Verificação:** cena executada e capturada graficamente com Godot 4.5.1; execução isolada terminou sem erro de script/cena. A importação completa do checkout esparso ainda acusa o ícone ausente `assets/ui/app_icon.png` em uma tela não relacionada; Android e desempenho em mapa completo não foram validados.
+- **Estado do gate:** em validação visual após a correção. Ainda é necessária aprovação explícita desta amostra antes de expandir a arte em lote. A produção segue em 250×200 = 50.000 células e sem alteração de spawns.

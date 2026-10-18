@@ -475,3 +475,12 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - Runtime usa fallback de `creature_base.tscn` para os 27 novos IDs, aplica escala/pivô/footprint do metadata e comportamento comum do catálogo; Corça de Musgo foge sem atacar. Atualizados o protótipo navegável, tabelas de conteúdo, GDD, roadmap e gerador/wiki offline.
 - DENZI, Tiny Creatures e Crab CC0 continuam registrados como referências gratuitas pesquisadas; nenhum arquivo desses packs foi integrado.
 - Nenhum teste de jogo foi executado. Godot 4.5.1/importação e revisão gráfica de alpha, escala, pivôs, colisões e combate continuam pendentes; sprites têm somente pose estática SE e não são arte aprovada.
+
+
+## 2026-10-18 — Correção de encaixe da amostra de tiles Ilha do Cristal
+
+- Após a primeira cena de revisão, o usuário informou que os tiles estavam mal encaixados.
+- A cena agora recorta as pranchas PNG já versionadas e compõe TileSets temporários em memória. As superfícies planas são reamostradas para preencher o losango UV 128×64 px do renderer, com uma borda de 1 px; a amostra usa `isometric_tile_cover_scale = 1.0`. O padrão 1.10 permanece para os atlases existentes.
+- Criada a cena isolada 16×10 `tools/world/ilha_cristal_tilemap_review_v0_2.tscn`, com regiões de litoral, floresta, planalto e corrupção, props e 30 marcadores sem espécies. Nenhuma cena principal, mapa de 50.000 células ou dado de spawn foi alterado.
+- Execução gráfica da cena isolada em Godot 4.5.1 passou e a captura atual está em `outputs/ilha-cristal-tilemap-review-v0.2.png`. Android, desempenho do mapa completo e aprovação visual final continuam pendentes.
+- Próxima ação: apresentar a amostra corrigida ao usuário e esperar aceitação/novos ajustes antes de produzir o lote de arte.
