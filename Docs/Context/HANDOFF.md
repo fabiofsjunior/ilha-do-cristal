@@ -6,7 +6,9 @@
 
 **Base original da correção:** `186ef56000402936a7fd8e247eb35dc8cbdcf80c`
 
-**Última Staging incorporada:** `b019a28da04450a036c75aa4951295ea33d4652c`
+**Staging incorporada antes do merge:** `b019a28da04450a036c75aa4951295ea33d4652c`
+
+**PR #31 mesclada em Staging:** `b9c0cee12fd380a2fe38a6b2c1d2f99d9e784fd3`
 
 ## Próxima ação exata
 
