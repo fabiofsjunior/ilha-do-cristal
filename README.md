@@ -20,6 +20,13 @@ Abra `game/scenes/first_island.tscn`. Para o atlas original, edite `BaseTiles`, 
 
 Essas edições alteram a aparência do terreno. Limites, faixa de água bloqueada, colisões, spawns, obstáculos e recursos continuam definidos por `game/data/first_island_layout.json` e pelos scripts do jogo.
 
+## Ajustar colisões dos monstros no Godot
+
+
+Abra `game/scenes/creatures/creature_base.tscn` para editar o prefab base. Cada espécie tem uma cena herdada independente: `game/scenes/creatures/fox.tscn`, `wolf.tscn` e `bear.tscn`. No painel da cena, ajuste `CollisionShape2D` para o corpo, `DetectionArea/CollisionShape2D` para detecção e `AttackArea/CollisionShape2D` para o alcance de ataque. As cenas guardam recursos de forma próprios por espécie.
+
+`game/scripts/world/first_island.gd` instancia a cena da espécie em cada spawn e respawn. `game/scripts/combat/creature_actor.gd` lê as formas editadas; não recria o corpo nem substitui os valores das áreas em runtime. O corpo usa cápsula para manter o cálculo atual de colisão e contato visual. Os raios padrão das áreas preservam o comportamento vigente: raposa 150 px, lobo 190 px, urso 170 px de detecção e 220 px para a área que contém o contato visual de ataque.
+
 ## Jogar e exportar
 
 - **Web:** `Testar_Jogo_Web.bat` serve a exportação em `build/web/` e tenta gerá-la automaticamente se faltar; precisa de Python 3, Godot 4.5.1 e templates Web instalados. Também é possível exportar com `python3 tools/build/export_web.py` ou extrair o ZIP de teste em `build/web/`. Em outro sistema, rode `python3 -m http.server 8000` na pasta exportada e abra `http://localhost:8000/`. A revisão gráfica no navegador ainda está pendente.

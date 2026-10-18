@@ -12,14 +12,13 @@ const COMBAT_GEOMETRY = preload("res://game/scripts/combat/combat_geometry.gd")
 
 const MOVE_SPEEDS := {"fox": 116.0, "wolf": 92.0, "bear": 39.0}
 const ATTACK_INTERVALS := {"fox": 2.0, "wolf": 1.8, "bear": 3.0}
-const AGGRO_RANGES := {"fox": 0.0, "wolf": 190.0, "bear": 170.0}
 ## Basic attacks connect only within 2 logical pixels of projected alpha contact.
 const ATTACK_VISUAL_GAP_TOLERANCE := 2.0
 const BEAR_WINDUP := 0.9
 
 var slot_id := ""
 var runtime_id := ""
-var species_id := "fox"
+@export_enum("fox", "wolf", "bear") var species_id := "fox"
 var display_name := "Raposa"
 var max_hp := 1.0
 var hp := 1.0
@@ -68,17 +67,7 @@ func configure(
 
 func _ready() -> void:
 	add_to_group("combat_creatures")
-	collision_layer = 2
-	collision_mask = 1
-	var collision := CollisionShape2D.new()
-	collision.name = "CollisionShape2D"
-	collision.name = "CollisionShape2D"
-	var shape := CapsuleShape2D.new()
-	shape.radius = 9.0 if species_id != "bear" else 17.0
-	shape.height = 22.0 if species_id != "bear" else 34.0
-	collision.shape = shape
-	collision.position.y = -1.0
-	add_child(collision)
+	_validate_authored_collision_setup()
 	_pose = Sprite2D.new()
 	_pose.name = "StaticCandidatePoseSE"
 	add_child(_pose)
@@ -135,9 +124,8 @@ func _physics_process(delta: float) -> void:
 		_sync_state()
 		return
 	var to_player := _player.global_position - global_position
-	var distance := to_player.length()
 	var visual_gap := COMBAT_GEOMETRY.projected_visual_surface_gap_px_between(self, _player)
-	if visual_gap <= ATTACK_VISUAL_GAP_TOLERANCE and attack_remaining <= 0.0:
+	if is_player_in_basic_attack_range() and attack_remaining <= 0.0:
 		if species_id == "fox" and not provoked:
 			velocity = -to_player.normalized() * float(MOVE_SPEEDS.get(species_id, 60.0))
 			_move_with_visual_contact(delta)
@@ -155,9 +143,9 @@ func _physics_process(delta: float) -> void:
 		return
 	var direction := Vector2.ZERO
 	if species_id == "fox":
-		if distance <= 150.0 and visual_gap > ATTACK_VISUAL_GAP_TOLERANCE:
+		if _player_inside_area("DetectionArea") and visual_gap > ATTACK_VISUAL_GAP_TOLERANCE:
 			direction = -to_player.normalized()
-	elif distance <= float(AGGRO_RANGES.get(species_id, 0.0)) and visual_gap > ATTACK_VISUAL_GAP_TOLERANCE:
+	elif _player_inside_area("DetectionArea") and visual_gap > ATTACK_VISUAL_GAP_TOLERANCE:
 		direction = to_player.normalized()
 	velocity = direction * float(MOVE_SPEEDS.get(species_id, 60.0))
 	_move_with_visual_contact(delta)
@@ -176,7 +164,35 @@ func melee_visual_alpha_extents_px() -> Vector4:
 func is_player_in_basic_attack_range() -> bool:
 	if _player == null or not is_instance_valid(_player) or not is_alive:
 		return false
-	return COMBAT_GEOMETRY.projected_visual_surface_gap_px_between(self, _player) <= ATTACK_VISUAL_GAP_TOLERANCE
+	return (
+		_player_inside_area("AttackArea")
+		and COMBAT_GEOMETRY.projected_visual_surface_gap_px_between(self, _player)
+			<= ATTACK_VISUAL_GAP_TOLERANCE
+	)
+
+
+func _validate_authored_collision_setup() -> void:
+	var body_shape := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if body_shape == null or body_shape.shape == null or not (body_shape.shape is CapsuleShape2D):
+		push_error("A cena de criatura %s precisa de CollisionShape2D com CapsuleShape2D." % name)
+	for area_name in ["DetectionArea", "AttackArea"]:
+		var area := get_node_or_null(area_name) as Area2D
+		var area_shape := area.get_node_or_null("CollisionShape2D") as CollisionShape2D if area != null else null
+		if area == null or area_shape == null or area_shape.shape == null or not (area_shape.shape is CircleShape2D):
+			push_error("A cena de criatura %s precisa de %s com CollisionShape2D circular." % [name, area_name])
+
+
+func _player_inside_area(area_name: String) -> bool:
+	if _player == null or not is_instance_valid(_player):
+		return false
+	var area := get_node_or_null(area_name) as Area2D
+	if area == null or not area.monitoring:
+		return false
+	var shape_node := area.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if shape_node == null or shape_node.disabled or not (shape_node.shape is CircleShape2D):
+		return false
+	var circle := shape_node.shape as CircleShape2D
+	return shape_node.to_local(_player.global_position).length_squared() <= circle.radius * circle.radius
 
 
 func take_hit(amount: float) -> bool:

@@ -5,6 +5,11 @@ extends SceneTree
 const MAIN = preload("res://game/scenes/main.tscn")
 const PLAYER_SCENE = preload("res://game/scenes/player.tscn")
 const CREATURE_ACTOR = preload("res://game/scripts/combat/creature_actor.gd")
+const CREATURE_SCENES := {
+	"fox": preload("res://game/scenes/creatures/fox.tscn"),
+	"wolf": preload("res://game/scenes/creatures/wolf.tscn"),
+	"bear": preload("res://game/scenes/creatures/bear.tscn")
+}
 const COMBAT_GEOMETRY = preload("res://game/scripts/combat/combat_geometry.gd")
 const FOOTPRINTS_PATH := "res://game/data/melee_visual_footprints.json"
 
@@ -29,6 +34,7 @@ func _settle_physics(frames: int) -> void:
 
 
 func _run() -> void:
+	await _test_authored_shapes_are_preserved()
 	await _test_player_approach_for_each_species()
 	await _test_profile_direction_contact_window()
 	await _test_monster_approach_to_player()
@@ -45,10 +51,39 @@ func _new_player(at: Vector2) -> CharacterBody2D:
 	return player
 
 
-func _new_creature(player: CharacterBody2D, species: String, at: Vector2) -> CreatureActor:
-	var creature := CREATURE_ACTOR.new() as CreatureActor
+func _new_creature(
+	player: CharacterBody2D,
+	species: String,
+	at: Vector2,
+	authored_overrides: Dictionary = {}
+) -> CreatureActor:
+	var creature_scene := CREATURE_SCENES.get(species) as PackedScene
+	if creature_scene == null:
+		push_error("Missing creature scene fixture for %s." % species)
+		return null
+	var creature := creature_scene.instantiate() as CreatureActor
 	var hp := 240 if species == "bear" else (35 if species == "fox" else 90)
 	var attack := 22 if species == "bear" else (5 if species == "fox" else 12)
+	if authored_overrides.has("body_radius"):
+		var body_collision := creature.get_node("CollisionShape2D") as CollisionShape2D
+		var body_shape := (body_collision.shape as CapsuleShape2D).duplicate() as CapsuleShape2D
+		body_shape.radius = float(authored_overrides.body_radius)
+		body_shape.height = 22.0
+		body_collision.shape = body_shape
+	if authored_overrides.has("detection_radius"):
+		var detection_collision := creature.get_node("DetectionArea/CollisionShape2D") as CollisionShape2D
+		var detection_shape := (detection_collision.shape as CircleShape2D).duplicate() as CircleShape2D
+		detection_shape.radius = float(authored_overrides.detection_radius)
+		detection_collision.shape = detection_shape
+	if authored_overrides.has("attack_radius"):
+		var attack_collision := creature.get_node("AttackArea/CollisionShape2D") as CollisionShape2D
+		var attack_shape := (attack_collision.shape as CircleShape2D).duplicate() as CircleShape2D
+		attack_shape.radius = float(authored_overrides.attack_radius)
+		attack_collision.shape = attack_shape
+	if authored_overrides.has("collision_layer"):
+		creature.collision_layer = int(authored_overrides.collision_layer)
+	if authored_overrides.has("collision_mask"):
+		creature.collision_mask = int(authored_overrides.collision_mask)
 	creature.configure(
 		"test_%s" % species,
 		{"id": species, "hp": hp, "attack": attack},
@@ -60,6 +95,44 @@ func _new_creature(player: CharacterBody2D, species: String, at: Vector2) -> Cre
 	)
 	root.add_child(creature)
 	return creature
+
+
+func _test_authored_shapes_are_preserved() -> void:
+	var player := _new_player(Vector2(100, 100))
+	var index := 0
+	for species in ["fox", "wolf", "bear"]:
+		var creature := _new_creature(
+			player,
+			species,
+			Vector2(400 + 200 * index, 100),
+			{"body_radius": 10.0, "detection_radius": 27.0, "attack_radius": 42.0, "collision_layer": 8, "collision_mask": 4}
+		)
+		index += 1
+		if creature == null:
+			continue
+		creature.set_physics_process(false)
+		await _settle_physics(2)
+		var body_collision := creature.get_node("CollisionShape2D") as CollisionShape2D
+		var body_shape := body_collision.shape as CapsuleShape2D
+		var detection_collision := creature.get_node("DetectionArea/CollisionShape2D") as CollisionShape2D
+		var attack_collision := creature.get_node("AttackArea/CollisionShape2D") as CollisionShape2D
+		var detection_shape := detection_collision.shape as CircleShape2D
+		var attack_shape := attack_collision.shape as CircleShape2D
+		_check(is_equal_approx(body_shape.radius, 10.0), "%s authored body radius was replaced during ready." % species)
+		_check(is_equal_approx(detection_shape.radius, 27.0), "%s authored detection radius was replaced during ready." % species)
+		_check(is_equal_approx(attack_shape.radius, 42.0), "%s authored attack radius was replaced during ready." % species)
+		_check(creature.collision_layer == 8 and creature.collision_mask == 4, "%s authored body layers were replaced during ready." % species)
+		player.global_position = creature.global_position + Vector2(20, 0)
+		_check(bool(creature.call("_player_inside_area", "DetectionArea")), "%s detection area ignored its authored radius." % species)
+		_check(bool(creature.call("_player_inside_area", "AttackArea")), "%s attack area ignored its authored radius." % species)
+		player.global_position = creature.global_position + Vector2(30, 0)
+		_check(not bool(creature.call("_player_inside_area", "DetectionArea")), "%s detection area exceeded its authored radius." % species)
+		_check(bool(creature.call("_player_inside_area", "AttackArea")), "%s attack area ignored its authored radius." % species)
+		player.global_position = creature.global_position + Vector2(43, 0)
+		_check(not bool(creature.call("_player_inside_area", "AttackArea")), "%s attack area exceeded its authored radius." % species)
+		creature.queue_free()
+	player.queue_free()
+	await process_frame
 
 
 func _set_capsule_contact(player: CharacterBody2D, creature: CreatureActor) -> void:

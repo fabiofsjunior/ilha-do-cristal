@@ -10,7 +10,11 @@ const LAYOUT_PATH := "res://game/data/first_island_layout.json"
 const PLAYER_SCENE := preload("res://game/scenes/player.tscn")
 const COMBAT_RULES = preload("res://game/scripts/combat/combat_rules.gd")
 const COMBAT_GEOMETRY = preload("res://game/scripts/combat/combat_geometry.gd")
-const CREATURE_ACTOR = preload("res://game/scripts/combat/creature_actor.gd")
+const CREATURE_SCENES := {
+	"fox": preload("res://game/scenes/creatures/fox.tscn"),
+	"wolf": preload("res://game/scenes/creatures/wolf.tscn"),
+	"bear": preload("res://game/scenes/creatures/bear.tscn")
+}
 const EXPEDITION_STATE = preload("res://game/scripts/save/expedition_state.gd")
 const TILE_SIZE := 32
 const RESPAWN_PLAYER_RADIUS_SQM := 5.0
@@ -414,7 +418,15 @@ func _build_creatures() -> void:
 
 
 func _spawn_creature(slot_id: String, creature_data: Dictionary, stored: Dictionary) -> void:
-	var actor := CREATURE_ACTOR.new() as CreatureActor
+	var species_id := str(creature_data.get("id", ""))
+	var creature_scene := CREATURE_SCENES.get(species_id) as PackedScene
+	if creature_scene == null:
+		push_error("Cena de criatura ausente para a espécie %s (slot %s)." % [species_id, slot_id])
+		return
+	var actor := creature_scene.instantiate() as CreatureActor
+	if actor == null:
+		push_error("A cena da espécie %s não tem CreatureActor na raiz (slot %s)." % [species_id, slot_id])
+		return
 	actor.name = "Creature_%s" % slot_id
 	actor.configure(slot_id, creature_data, _state, _player, _beacon_position, stored, _state.actor_instance_id(slot_id))
 	actor.defeated.connect(_on_creature_defeated)

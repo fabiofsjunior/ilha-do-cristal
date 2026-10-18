@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://game/scenes/creatures/creature_base.tscn" id="1_base"]
+
+[sub_resource type="CapsuleShape2D" id="BearBody"]
+radius = 17.0
+height = 34.0
+
+[sub_resource type="CircleShape2D" id="BearDetection"]
+radius = 170.0
+
+[sub_resource type="CircleShape2D" id="BearAttack"]
+radius = 220.0
+
+[node name="Bear" instance=ExtResource("1_base")]
+species_id = "bear"
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("BearBody")
+
+[node name="CollisionShape2D" parent="DetectionArea" index="0"]
+shape = SubResource("BearDetection")
+
+[node name="CollisionShape2D" parent="AttackArea" index="0"]
+shape = SubResource("BearAttack")

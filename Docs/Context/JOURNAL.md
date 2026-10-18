@@ -377,3 +377,12 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - `Testar_Jogo_Web.bat` agora tenta gerar `build/web/` com Godot 4.5.1 quando não encontra a exportação. O servidor Web explica o comando de exportação caso a build continue ausente. Este ambiente não tem Godot/exports Web, então não foi possível produzir a build do jogo aqui.
 - README e roadmap atualizados. `python3 tools/wiki/test_catalog.py` passou com Node.js 24.19.0, verificando catálogo atualizado para 75 prévias e 413 arquivos, links locais, imagens PNG, redirecionamento da raiz, HEAD e bloqueio de diretórios privados. `node --check`, `py_compile` e `git diff --check` também passaram.
 - Conflitos com `Staging` `56bbc475556dd72270fccc1d4098e4eb197fedca` resolvidos preservando os registros anteriores de terreno e identidade visual. Índice da Wiki regenerado após a importação do atlas tropical. PR #25 preparado para integração em `Staging`.
+
+## 2026-10-18 — Prefab e colisões editáveis de criaturas
+
+- Criada a cena base `game/scenes/creatures/creature_base.tscn` com `CharacterBody2D`, cápsula corporal, `DetectionArea` e `AttackArea`. As cenas herdadas `fox.tscn`, `wolf.tscn` e `bear.tscn` têm recursos próprios, com dimensões iniciais equivalentes aos colisores atuais e raios de detecção raposa 150, lobo 190 e urso 170.
+- `first_island.gd` passou a instanciar as cenas de espécie em spawns e respawns. `creature_actor.gd` deixou de criar/sobrescrever colisores e usa as formas das cenas para detecção e limite exterior de ataque; o filtro de contato visual melee existente permanece ativo.
+- `test_melee_contact_spacing.gd` passou a instanciar as cenas herdadas e ganhou verificações para formas e camadas personalizadas após `_ready()`. README, arquitetura e roadmap documentam os caminhos e o fluxo de edição.
+- Checagem estática do catálogo, cabeçalhos/subrecursos TSCN, referências do spawner e ausência de criação de colisores em runtime passou. O cálculo das poses/câmera registradas mostrou que o contato projetado máximo é 172,1 px (urso), dentro dos 220 px da AttackArea. `git diff --check` passou.
+- Godot 4.5.1 headless importou/reimportou o projeto; passaram `test_melee_contact_spacing.gd`, `smoke_playable_slice.gd`, `test_expanded_map_population.gd` (30 spawns) e `test_respawn_radius.gd`. A configuração do editor emitiu aviso de safe-save fora do projeto, sem impedir importação nem testes.
+- Revisão visual das formas e o ajuste/salvamento/reabertura manual no editor permanecem pendentes para o usuário.

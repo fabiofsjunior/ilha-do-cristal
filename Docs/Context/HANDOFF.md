@@ -1,20 +1,25 @@
-# Handoff — verificar Wiki e launcher Web no Windows
+# Handoff — cenas editáveis de criaturas
 
-**Branch de destino:** `Staging`
-**PRs deste incremento:** #24 (logo/ícone Android) e #25 (servidor Node.js da Wiki e launcher Web).
-**Implementação Wiki/Web:** `434054dd2b1970f341e79af454c5bd822e255d43`.
+**Branch:** `Staging`  
+**Base desta integração:** `31952366dc06bc60b49b94c761a0a1fea78fa5ad`
 
 ## Implementado
 
-- `Acessar_Wiki.bat` inicia `tools/wiki/serve.js` com Node.js 18+, abre a Wiki e mantém o terminal disponível para Ctrl+C.
-- O servidor usa módulos nativos, escuta somente em `127.0.0.1`, atende links e imagens locais da Wiki, redireciona `/` para `/docs/wiki/` e bloqueia áreas privadas/geradas.
-- `Testar_Jogo_Web.bat` tenta exportar para `build/web/` quando a pasta não existe. A exportação requer Python 3, Godot 4.5.1 e templates Web.
-- A PR #24 adiciona a logo do jogo ao ícone Android, splash e cabeçalho do boot.
+- `game/scenes/creatures/creature_base.tscn` define o prefab Godot 4 com `CharacterBody2D`, cápsula corporal, `DetectionArea` e `AttackArea`.
+- `fox.tscn`, `wolf.tscn` e `bear.tscn` herdam do prefab e têm recursos de forma locais, editáveis por espécie.
+- `creature_actor.gd` lê a cápsula e os círculos da cena; `first_island.gd` usa a cena correta em cada spawn e respawn.
+- O teste de espaçamento instancia as cenas reais e verifica dimensões, camadas e áreas personalizadas após `_ready()`.
 
 ## Próxima ação exata
 
-Em um checkout Windows com Node.js 18+, executar `Acessar_Wiki.bat`, navegar por uma página e imagem da Wiki; em seguida executar `Testar_Jogo_Web.bat` com Godot 4.5.1 e templates Web instalados e confirmar que o jogo abre em `build/web/`.
+No Godot 4.5.1, abrir cada cena herdada em `game/scenes/creatures/`, ajustar `CollisionShape2D` e as formas filhas de `DetectionArea` e `AttackArea` para o encaixe de cada sprite, salvar e reabrir para confirmar a persistência. Depois rodar `tools/gameplay/test_melee_contact_spacing.gd` em modo headless e revisar visualmente o combate.
 
-## Pendências e limites
+## Validação desta sessão
 
-Este ambiente não tem Godot 4.5.1/templates Web, então não foi possível gerar nem abrir a build Web. A exportação da APK 0.1.10/versionCode 11 ainda requer Android SDK Platform 35/Build Tools 35.0.0 e teste em aparelho. As camadas manuais do atlas tropical também aguardam edição/salvamento/reabertura no editor Godot e medição em Android.
+Godot 4.5.1 importou/reimportou o projeto. Passaram `test_melee_contact_spacing.gd`, `smoke_playable_slice.gd`, `test_expanded_map_population.gd` (30 spawns), `test_respawn_radius.gd`, `git diff --check` e as checagens estáticas de catálogo/referências. O editor emitiu aviso ao salvar configurações fora do projeto, sem impedir importação ou testes. O ajuste visual manual das formas permanece pendente.
+
+## Pendências anteriores
+
+- Validar `Acessar_Wiki.bat` e `Testar_Jogo_Web.bat` num Windows com Node.js 18+, Godot 4.5.1 e templates Web.
+- Exportar/testar o APK 0.1.10/versionCode 11 com Android SDK Platform 35 e Build Tools 35.0.0 em aparelho.
+- Editar, salvar e reabrir manualmente no Godot as camadas do atlas tropical e medir o resultado em Android.

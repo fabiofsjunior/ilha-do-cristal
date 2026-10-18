@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://game/scenes/creatures/creature_base.tscn" id="1_base"]
+
+[sub_resource type="CapsuleShape2D" id="WolfBody"]
+radius = 9.0
+height = 22.0
+
+[sub_resource type="CircleShape2D" id="WolfDetection"]
+radius = 190.0
+
+[sub_resource type="CircleShape2D" id="WolfAttack"]
+radius = 220.0
+
+[node name="Wolf" instance=ExtResource("1_base")]
+species_id = "wolf"
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("WolfBody")
+
+[node name="CollisionShape2D" parent="DetectionArea" index="0"]
+shape = SubResource("WolfDetection")
+
+[node name="CollisionShape2D" parent="AttackArea" index="0"]
+shape = SubResource("WolfAttack")
