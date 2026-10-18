@@ -1,14 +1,24 @@
-# Handoff — terreno editável da primeira ilha
+# Handoff — servidor Node.js da Wiki e launcher Web
 
-**Branch:** `Staging`  
-**Base:** `5a1d4a0a6fa6c9f451d95f0a9715a646b400aed9`
+**Branch:** `feature/s09-node-wiki-server`
+
+**Base:** `Staging` em `9f43dad7d0d1d931914401eb8a83ac590fb4ee90`.
+
+**Commit de implementação:** `fc3734b`.
 
 ## Implementado
 
-`game/scenes/first_island.tscn` contém as camadas editáveis `BaseTiles` (50.000 células), `Transitions` (645) e `Paths` (15). Elas usam o TileSet `assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.tres`. O startup valida as camadas sem repintar do JSON; `isometric_3d_view.gd` constrói a superfície a partir de todas as células salvas. `first_island_layout.json` continua governando colisões, faixa bloqueada de água, limites, spawns, obstáculos e recursos.
+- `Acessar_Wiki.bat` na raiz inicia `tools/wiki/serve.js` com Node.js 18+, abre o navegador na wiki e mantém o terminal disponível para encerrar com Ctrl+C.
+- O servidor usa somente módulos nativos, fica acessível apenas em `127.0.0.1`, usa a porta 8000 ou escolhe outra livre, e redireciona `/` para `/docs/wiki/`.
+- Links da wiki continuam funcionando para documentação e previews. O servidor bloqueia diretórios ocultos/gerados, builds e arquivos privados de assinatura/save.
+- `Testar_Jogo_Web.bat` tenta exportar para `build/web/` antes de servir quando não encontra a build. A exportação requer Python 3, Godot 4.5.1 e templates Web.
 
-## Próxima ação exata
+## Verificação e limites
 
-No Godot 4.5.1, abrir `game/scenes/first_island.tscn`, editar uma célula em cada uma das camadas `BaseTiles`, `Transitions` e `Paths`, salvar, fechar e reabrir a cena e executar o jogo para conferir a apresentação/minimapa. Em seguida executar `tools/gameplay/test_fixed_map.gd`, `tools/gameplay/test_expanded_map_population.gd` e `tools/gameplay/smoke_playable_slice.gd`; medir a abertura/renderização em Android com 50.000 células. Godot não estava disponível neste ambiente, então essas verificações permanecem pendentes.
+- `python3 tools/wiki/test_catalog.py` passou; verifica catálogo, links e imagens, abre a Wiki pelo servidor Node, segue o redirecionamento da raiz, testa GET/HEAD e confirma que `.git` e `build` ficam bloqueados.
+- `node --check`, `py_compile` e `git diff --check` passaram.
+- Não foi possível exportar o jogo Web neste ambiente: Godot 4.5.1 e os templates Web não estão instalados aqui. O launcher agora tenta exportar automaticamente no checkout Windows quando essas ferramentas existem.
 
-Ajustes de tiles pela cena são visuais. Se uma mudança também precisar alterar colisões, spawns, obstáculos ou recursos, atualizar `game/data/first_island_layout.json` e as regras correspondentes. A proposta de ilha irregular/elevações e o bestiário de expansão continuam aguardando revisão separada.
+## Próxima ação
+
+Abrir PR de `feature/s09-node-wiki-server` contra `Staging` e integrá-lo. Depois, no checkout Windows, executar `Acessar_Wiki.bat` para consultar a documentação e `Testar_Jogo_Web.bat` para gerar/abrir a build Web.

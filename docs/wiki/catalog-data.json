@@ -190,7 +190,8 @@
         "physical_percent_each_hit": 120,
         "hits": 3,
         "cooldown_sec": 10,
-        "mp": 10
+        "mp": 10,
+        "range_px": 65
       },
       {
         "id": "war_circle",
@@ -199,7 +200,8 @@
         "physical_percent": 100,
         "status": "bleed",
         "cooldown_sec": 15,
-        "mp": 15
+        "mp": 15,
+        "range_px": 82
       },
       {
         "id": "war_quake",
@@ -210,7 +212,8 @@
         "status": "stun",
         "status_duration_sec": 3,
         "cooldown_sec": 90,
-        "mp": 35
+        "mp": 35,
+        "range_px": 135
       },
       {
         "id": "arc_precise",
@@ -221,7 +224,8 @@
         "status": "invisible",
         "status_duration_sec": 3,
         "cooldown_sec": 10,
-        "mp": 10
+        "mp": 10,
+        "range_px": 180
       },
       {
         "id": "arc_bounce",
@@ -235,7 +239,8 @@
           60
         ],
         "cooldown_sec": 14,
-        "mp": 15
+        "mp": 15,
+        "range_px": 180
       },
       {
         "id": "arc_pierce",
@@ -246,7 +251,8 @@
         "status": "attack_speed_up",
         "status_duration_sec": 6,
         "cooldown_sec": 90,
-        "mp": 35
+        "mp": 35,
+        "range_px": 220
       },
       {
         "id": "mag_bolt",
@@ -254,7 +260,8 @@
         "target": "single",
         "magic_percent": 150,
         "cooldown_sec": 5,
-        "mp": 8
+        "mp": 8,
+        "range_px": 180
       },
       {
         "id": "mag_fire",
@@ -264,7 +271,8 @@
         "status": "burn",
         "status_duration_sec": 6,
         "cooldown_sec": 14,
-        "mp": 18
+        "mp": 18,
+        "range_px": 112
       },
       {
         "id": "mag_ice",
@@ -272,7 +280,8 @@
         "target": "radius",
         "magic_percent": 300,
         "cooldown_sec": 90,
-        "mp": 40
+        "mp": 40,
+        "range_px": 135
       }
     ],
     "status_effects": [
@@ -1535,8 +1544,8 @@
     "schema_version": 1,
     "id": "beach_spawn_playable_slice",
     "grid_size": [
-      192,
-      132
+      250,
+      200
     ],
     "tile_px_candidate": [
       32,
@@ -1566,7 +1575,7 @@
       },
       {
         "from_x": 50,
-        "to_x": 192,
+        "to_x": 250,
         "group": "soil"
       }
     ],
@@ -1604,6 +1613,27 @@
         "to_x": 183,
         "from_y": 82,
         "to_y": 119,
+        "group": "forest"
+      },
+      {
+        "from_x": 195,
+        "to_x": 224,
+        "from_y": 36,
+        "to_y": 74,
+        "group": "forest"
+      },
+      {
+        "from_x": 148,
+        "to_x": 190,
+        "from_y": 143,
+        "to_y": 181,
+        "group": "forest"
+      },
+      {
+        "from_x": 74,
+        "to_x": 110,
+        "from_y": 157,
+        "to_y": 192,
         "group": "forest"
       }
     ],
@@ -1924,6 +1954,102 @@
         "cell": [
           184,
           112
+        ]
+      },
+      {
+        "id": "wolf_13",
+        "species": "wolf",
+        "cell": [
+          204,
+          22
+        ]
+      },
+      {
+        "id": "wolf_14",
+        "species": "wolf",
+        "cell": [
+          235,
+          53
+        ]
+      },
+      {
+        "id": "wolf_15",
+        "species": "wolf",
+        "cell": [
+          211,
+          88
+        ]
+      },
+      {
+        "id": "wolf_16",
+        "species": "wolf",
+        "cell": [
+          239,
+          116
+        ]
+      },
+      {
+        "id": "wolf_17",
+        "species": "wolf",
+        "cell": [
+          205,
+          146
+        ]
+      },
+      {
+        "id": "wolf_18",
+        "species": "wolf",
+        "cell": [
+          237,
+          180
+        ]
+      },
+      {
+        "id": "wolf_19",
+        "species": "wolf",
+        "cell": [
+          172,
+          153
+        ]
+      },
+      {
+        "id": "wolf_20",
+        "species": "wolf",
+        "cell": [
+          143,
+          181
+        ]
+      },
+      {
+        "id": "wolf_21",
+        "species": "wolf",
+        "cell": [
+          112,
+          150
+        ]
+      },
+      {
+        "id": "wolf_22",
+        "species": "wolf",
+        "cell": [
+          81,
+          180
+        ]
+      },
+      {
+        "id": "wolf_23",
+        "species": "wolf",
+        "cell": [
+          49,
+          152
+        ]
+      },
+      {
+        "id": "wolf_24",
+        "species": "wolf",
+        "cell": [
+          25,
+          185
         ]
       }
     ],
@@ -2287,6 +2413,60 @@
           181,
           119
         ]
+      },
+      {
+        "id": "fiber_fixed_199_42",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          199,
+          42
+        ]
+      },
+      {
+        "id": "fiber_fixed_222_106",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          222,
+          106
+        ]
+      },
+      {
+        "id": "fiber_fixed_190_168",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          190,
+          168
+        ]
+      },
+      {
+        "id": "fiber_fixed_122_172",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          122,
+          172
+        ]
+      },
+      {
+        "id": "fiber_fixed_65_158",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          65,
+          158
+        ]
+      },
+      {
+        "id": "fiber_fixed_34_175",
+        "resource": "fiber",
+        "quantity": 5,
+        "cell": [
+          34,
+          175
+        ]
       }
     ],
     "obstacles": [
@@ -2590,16 +2770,56 @@
           185,
           125
         ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          202,
+          44
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          225,
+          108
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          193,
+          170
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          125,
+          174
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          68,
+          160
+        ]
+      },
+      {
+        "kind": "tree",
+        "cell": [
+          37,
+          177
+        ]
       }
     ],
     "map_expansion": {
-      "interpretation": "3x largura e 3x altura da grade original; área total 9x",
+      "interpretation": "Mapa fixo 250x200, 50000 tiles base; região anterior preservada",
       "baseline_grid_size": [
         64,
         44
       ],
-      "linear_multiplier": 3,
-      "area_multiplier": 9,
       "legacy_region_preserved": {
         "origin_cell": [
           0,
@@ -2609,7 +2829,12 @@
           64,
           44
         ]
-      }
+      },
+      "previous_grid_size": [
+        192,
+        132
+      ],
+      "total_base_tiles": 50000
     }
   },
   "appearances": {
@@ -4077,34 +4302,40 @@
       "size": 3496
     },
     {
+      "path": "Acessar_Wiki.bat",
+      "href": "../../Acessar_Wiki.bat",
+      "extension": "bat",
+      "size": 500
+    },
+    {
       "path": "Docs/Context/DECISIONS.md",
       "href": "../../Docs/Context/DECISIONS.md",
       "extension": "md",
-      "size": 16587
+      "size": 18426
     },
     {
       "path": "Docs/Context/HANDOFF.md",
       "href": "../../Docs/Context/HANDOFF.md",
       "extension": "md",
-      "size": 3633
+      "size": 1641
     },
     {
       "path": "Docs/Context/JOURNAL.md",
       "href": "../../Docs/Context/JOURNAL.md",
       "extension": "md",
-      "size": 54275
+      "size": 64209
     },
     {
       "path": "Docs/Context/PROTOTYPE_LOG.md",
       "href": "../../Docs/Context/PROTOTYPE_LOG.md",
       "extension": "md",
-      "size": 13866
+      "size": 18700
     },
     {
       "path": "Docs/Main/CATALOGS_MVP.md",
       "href": "../../Docs/Main/CATALOGS_MVP.md",
       "extension": "md",
-      "size": 18920
+      "size": 19440
     },
     {
       "path": "Docs/Main/CONTENT_DATA.md",
@@ -4116,7 +4347,7 @@
       "path": "Docs/Main/GDD_MVP.md",
       "href": "../../Docs/Main/GDD_MVP.md",
       "extension": "md",
-      "size": 9674
+      "size": 10327
     },
     {
       "path": "Docs/Main/PROTOTYPING_METHODOLOGY.md",
@@ -4128,19 +4359,31 @@
       "path": "Docs/Main/ROADMAP.md",
       "href": "../../Docs/Main/ROADMAP.md",
       "extension": "md",
-      "size": 11555
+      "size": 15433
     },
     {
       "path": "README.md",
       "href": "../../README.md",
       "extension": "md",
-      "size": 7319
+      "size": 10472
     },
     {
       "path": "Testar_Jogo_Web.bat",
       "href": "../../Testar_Jogo_Web.bat",
       "extension": "bat",
-      "size": 746
+      "size": 1531
+    },
+    {
+      "path": "artifacts/preview/HUD-0.1.9.json",
+      "href": "../../artifacts/preview/HUD-0.1.9.json",
+      "extension": "json",
+      "size": 872
+    },
+    {
+      "path": "artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk",
+      "href": "../../artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk",
+      "extension": "apk",
+      "size": 39337295
     },
     {
       "path": "assets/characters/fabio/warrior/fabio_warrior_idle_candidate_v1.json",
@@ -4495,6 +4738,12 @@
       "href": "../../assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.png",
       "extension": "png",
       "size": 6445
+    },
+    {
+      "path": "assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.tres",
+      "href": "../../assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.tres",
+      "extension": "tres",
+      "size": 3237
     },
     {
       "path": "assets/environments/tropical_oblique_candidate/README.md",
@@ -5187,6 +5436,12 @@
       "size": 413
     },
     {
+      "path": "assets/ui/crystal_v2/sheet.b64",
+      "href": "../../assets/ui/crystal_v2/sheet.b64",
+      "extension": "b64",
+      "size": 3007244
+    },
+    {
       "path": "assets/ui/pixel_hud_v1/regions.json",
       "href": "../../assets/ui/pixel_hud_v1/regions.json",
       "extension": "json",
@@ -5208,7 +5463,7 @@
       "path": "data/catalogs/mvp.json",
       "href": "../../data/catalogs/mvp.json",
       "extension": "json",
-      "size": 33866
+      "size": 34324
     },
     {
       "path": "docs/art/ART_DIRECTION_AND_SPRITES.md",
@@ -5221,6 +5476,18 @@
       "href": "../../docs/art/MELISSA_TECHNICAL_QA.md",
       "extension": "md",
       "size": 25273
+    },
+    {
+      "path": "docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md",
+      "href": "../../docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md",
+      "extension": "md",
+      "size": 3656
+    },
+    {
+      "path": "docs/art/candidates/bestiary-expansion-concepts-v0.1.png",
+      "href": "../../docs/art/candidates/bestiary-expansion-concepts-v0.1.png",
+      "extension": "png",
+      "size": 3052536
     },
     {
       "path": "docs/art/evidence/bear/BEAR_CANDIDATE_QA.md",
@@ -5613,6 +5880,12 @@
       "size": 3864
     },
     {
+      "path": "docs/gameplay/HUD_RECONSTRUCTION_019.md",
+      "href": "../../docs/gameplay/HUD_RECONSTRUCTION_019.md",
+      "extension": "md",
+      "size": 5935
+    },
+    {
       "path": "docs/gameplay/MOBILE_UI_017_VALIDATION.md",
       "href": "../../docs/gameplay/MOBILE_UI_017_VALIDATION.md",
       "extension": "md",
@@ -5643,16 +5916,64 @@
       "size": 7683
     },
     {
+      "path": "docs/gameplay/evidence/hud-019/character.png",
+      "href": "../../docs/gameplay/evidence/hud-019/character.png",
+      "extension": "png",
+      "size": 369839
+    },
+    {
+      "path": "docs/gameplay/evidence/hud-019/hud.png",
+      "href": "../../docs/gameplay/evidence/hud-019/hud.png",
+      "extension": "png",
+      "size": 307431
+    },
+    {
+      "path": "docs/gameplay/evidence/hud-019/inventory.png",
+      "href": "../../docs/gameplay/evidence/hud-019/inventory.png",
+      "extension": "png",
+      "size": 415870
+    },
+    {
+      "path": "docs/gameplay/evidence/hud-019/lobby.png",
+      "href": "../../docs/gameplay/evidence/hud-019/lobby.png",
+      "extension": "png",
+      "size": 355533
+    },
+    {
       "path": "docs/gameplay/evidence/melee_contact_spacing.md",
       "href": "../../docs/gameplay/evidence/melee_contact_spacing.md",
       "extension": "md",
       "size": 7444
     },
     {
+      "path": "docs/prototypes/assets/irregular-island-map-concept-v0.1.png",
+      "href": "../../docs/prototypes/assets/irregular-island-map-concept-v0.1.png",
+      "extension": "png",
+      "size": 2913891
+    },
+    {
       "path": "docs/prototypes/assets/passive_skill_tree_endgame_reference.png",
       "href": "../../docs/prototypes/assets/passive_skill_tree_endgame_reference.png",
       "extension": "png",
       "size": 3748980
+    },
+    {
+      "path": "docs/prototypes/content_update_v0_1.html",
+      "href": "../../docs/prototypes/content_update_v0_1.html",
+      "extension": "html",
+      "size": 5599
+    },
+    {
+      "path": "docs/prototypes/global_map_island_v0_1.html",
+      "href": "../../docs/prototypes/global_map_island_v0_1.html",
+      "extension": "html",
+      "size": 10284
+    },
+    {
+      "path": "docs/prototypes/global_map_island_v0_1.md",
+      "href": "../../docs/prototypes/global_map_island_v0_1.md",
+      "extension": "md",
+      "size": 2384
     },
     {
       "path": "docs/prototypes/mvp_ui_v0_1.html",
@@ -5706,7 +6027,19 @@
       "path": "docs/technical/ARCHITECTURE.md",
       "href": "../../docs/technical/ARCHITECTURE.md",
       "extension": "md",
-      "size": 4905
+      "size": 7240
+    },
+    {
+      "path": "docs/technical/GITHUB_CONTENT_UPDATES.md",
+      "href": "../../docs/technical/GITHUB_CONTENT_UPDATES.md",
+      "extension": "md",
+      "size": 3171
+    },
+    {
+      "path": "docs/technical/LAN_MOVEMENT_PREVIEW.md",
+      "href": "../../docs/technical/LAN_MOVEMENT_PREVIEW.md",
+      "extension": "md",
+      "size": 2424
     },
     {
       "path": "docs/wiki/app.js",
@@ -5730,7 +6063,7 @@
       "path": "export_presets.cfg",
       "href": "../../export_presets.cfg",
       "extension": "cfg",
-      "size": 2140
+      "size": 3522
     },
     {
       "path": "game/README.md",
@@ -5742,7 +6075,13 @@
       "path": "game/data/first_island_layout.json",
       "href": "../../game/data/first_island_layout.json",
       "extension": "json",
-      "size": 8415
+      "size": 10101
+    },
+    {
+      "path": "game/data/first_island_tiles.json",
+      "href": "../../game/data/first_island_tiles.json",
+      "extension": "json",
+      "size": 150554
     },
     {
       "path": "game/data/melee_visual_footprints.json",
@@ -5766,7 +6105,7 @@
       "path": "game/scenes/first_island.tscn",
       "href": "../../game/scenes/first_island.tscn",
       "extension": "tscn",
-      "size": 863
+      "size": 811809
     },
     {
       "path": "game/scenes/main.tscn",
@@ -5805,6 +6144,12 @@
       "size": 340
     },
     {
+      "path": "game/scenes/update_boot.tscn",
+      "href": "../../game/scenes/update_boot.tscn",
+      "extension": "tscn",
+      "size": 294
+    },
+    {
       "path": "game/scripts/actors/appearance_data.gd",
       "href": "../../game/scripts/actors/appearance_data.gd",
       "extension": "gd",
@@ -5832,43 +6177,67 @@
       "path": "game/scripts/combat/combat_rules.gd",
       "href": "../../game/scripts/combat/combat_rules.gd",
       "extension": "gd",
-      "size": 6443
+      "size": 7751
     },
     {
       "path": "game/scripts/combat/creature_actor.gd",
       "href": "../../game/scripts/combat/creature_actor.gd",
       "extension": "gd",
-      "size": 8387
+      "size": 8518
+    },
+    {
+      "path": "game/scripts/combat/spell_vfx.gd",
+      "href": "../../game/scripts/combat/spell_vfx.gd",
+      "extension": "gd",
+      "size": 1426
+    },
+    {
+      "path": "game/scripts/core/content_updater.gd",
+      "href": "../../game/scripts/core/content_updater.gd",
+      "extension": "gd",
+      "size": 17622
     },
     {
       "path": "game/scripts/core/main.gd",
       "href": "../../game/scripts/core/main.gd",
       "extension": "gd",
-      "size": 4986
+      "size": 7335
+    },
+    {
+      "path": "game/scripts/network/lan_session.gd",
+      "href": "../../game/scripts/network/lan_session.gd",
+      "extension": "gd",
+      "size": 7851
     },
     {
       "path": "game/scripts/save/expedition_state.gd",
       "href": "../../game/scripts/save/expedition_state.gd",
       "extension": "gd",
-      "size": 26735
+      "size": 27165
     },
     {
       "path": "game/scripts/ui/attributes_window.gd",
       "href": "../../game/scripts/ui/attributes_window.gd",
       "extension": "gd",
-      "size": 28150
+      "size": 28212
     },
     {
       "path": "game/scripts/ui/character_select.gd",
       "href": "../../game/scripts/ui/character_select.gd",
       "extension": "gd",
-      "size": 6517
+      "size": 7637
+    },
+    {
+      "path": "game/scripts/ui/crystal_kit.gd",
+      "href": "../../game/scripts/ui/crystal_kit.gd",
+      "extension": "gd",
+      "size": 6262
     },
     {
       "path": "game/scripts/ui/hud_art.gd",
       "href": "../../game/scripts/ui/hud_art.gd",
       "extension": "gd",
-      "size": 1082
+      "size": 1430
     },
     {
       "path": "game/scripts/ui/hud_resource_bar.gd",
@@ -5880,31 +6249,37 @@
       "path": "game/scripts/ui/island_minimap.gd",
       "href": "../../game/scripts/ui/island_minimap.gd",
       "extension": "gd",
-      "size": 1418
+      "size": 2821
     },
     {
       "path": "game/scripts/ui/main_menu.gd",
       "href": "../../game/scripts/ui/main_menu.gd",
       "extension": "gd",
-      "size": 4047
+      "size": 4019
     },
     {
       "path": "game/scripts/ui/pause_overlay.gd",
       "href": "../../game/scripts/ui/pause_overlay.gd",
       "extension": "gd",
-      "size": 2295
+      "size": 5381
     },
     {
       "path": "game/scripts/ui/session_select.gd",
       "href": "../../game/scripts/ui/session_select.gd",
       "extension": "gd",
-      "size": 4524
+      "size": 5243
     },
     {
       "path": "game/scripts/ui/ui_style.gd",
       "href": "../../game/scripts/ui/ui_style.gd",
       "extension": "gd",
-      "size": 2604
+      "size": 2466
+    },
+    {
+      "path": "game/scripts/ui/update_boot.gd",
+      "href": "../../game/scripts/ui/update_boot.gd",
+      "extension": "gd",
+      "size": 9208
     },
     {
       "path": "game/scripts/ui/virtual_joystick.gd",
@@ -5913,28 +6288,34 @@
       "size": 3083
     },
     {
+      "path": "game/scripts/ui/vocations_panel.gd",
+      "href": "../../game/scripts/ui/vocations_panel.gd",
+      "extension": "gd",
+      "size": 3794
+    },
+    {
       "path": "game/scripts/world/first_island.gd",
       "href": "../../game/scripts/world/first_island.gd",
       "extension": "gd",
-      "size": 40079
+      "size": 38891
     },
     {
       "path": "game/scripts/world/first_island_hud.gd",
       "href": "../../game/scripts/world/first_island_hud.gd",
       "extension": "gd",
-      "size": 51336
+      "size": 57346
     },
     {
       "path": "game/scripts/world/isometric_3d_view.gd",
       "href": "../../game/scripts/world/isometric_3d_view.gd",
       "extension": "gd",
-      "size": 18250
+      "size": 17912
     },
     {
       "path": "project.godot",
       "href": "../../project.godot",
       "extension": "godot",
-      "size": 879
+      "size": 1014
     },
     {
       "path": "tools/art/README.md",
@@ -6150,13 +6531,13 @@
       "path": "tools/gameplay/smoke_playable_slice.gd",
       "href": "../../tools/gameplay/smoke_playable_slice.gd",
       "extension": "gd",
-      "size": 17467
+      "size": 17470
     },
     {
       "path": "tools/gameplay/test_attributes_hud_integration.gd",
       "href": "../../tools/gameplay/test_attributes_hud_integration.gd",
       "extension": "gd",
-      "size": 2393
+      "size": 2856
     },
     {
       "path": "tools/gameplay/test_attributes_window.gd",
@@ -6171,6 +6552,18 @@
       "size": 3150
     },
     {
+      "path": "tools/gameplay/test_crystal_kit.gd",
+      "href": "../../tools/gameplay/test_crystal_kit.gd",
+      "extension": "gd",
+      "size": 1402
+    },
+    {
+      "path": "tools/gameplay/test_crystal_ui_flow.gd",
+      "href": "../../tools/gameplay/test_crystal_ui_flow.gd",
+      "extension": "gd",
+      "size": 1954
+    },
+    {
       "path": "tools/gameplay/test_death_revive.gd",
       "href": "../../tools/gameplay/test_death_revive.gd",
       "extension": "gd",
@@ -6180,13 +6573,31 @@
       "path": "tools/gameplay/test_expanded_map_population.gd",
       "href": "../../tools/gameplay/test_expanded_map_population.gd",
       "extension": "gd",
-      "size": 8278
+      "size": 8339
+    },
+    {
+      "path": "tools/gameplay/test_fixed_map.gd",
+      "href": "../../tools/gameplay/test_fixed_map.gd",
+      "extension": "gd",
+      "size": 3023
+    },
+    {
+      "path": "tools/gameplay/test_hud_reconstruction.gd",
+      "href": "../../tools/gameplay/test_hud_reconstruction.gd",
+      "extension": "gd",
+      "size": 3740
     },
     {
       "path": "tools/gameplay/test_inventory_overlay_layout.gd",
       "href": "../../tools/gameplay/test_inventory_overlay_layout.gd",
       "extension": "gd",
-      "size": 5703
+      "size": 5984
+    },
+    {
+      "path": "tools/gameplay/test_lan_movement.gd",
+      "href": "../../tools/gameplay/test_lan_movement.gd",
+      "extension": "gd",
+      "size": 3687
     },
     {
       "path": "tools/gameplay/test_level_up_restores_resources.gd",
@@ -6205,6 +6616,12 @@
       "href": "../../tools/gameplay/test_melee_visual_spacing.py",
       "extension": "py",
       "size": 17403
+    },
+    {
+      "path": "tools/gameplay/test_minimap_camera.gd",
+      "href": "../../tools/gameplay/test_minimap_camera.gd",
+      "extension": "gd",
+      "size": 2053
     },
     {
       "path": "tools/gameplay/test_mobile_controls_layout.gd",
@@ -6243,10 +6660,40 @@
       "size": 1596
     },
     {
+      "path": "tools/gameplay/test_vocation_combat.gd",
+      "href": "../../tools/gameplay/test_vocation_combat.gd",
+      "extension": "gd",
+      "size": 2501
+    },
+    {
+      "path": "tools/gameplay/test_vocations.gd",
+      "href": "../../tools/gameplay/test_vocations.gd",
+      "extension": "gd",
+      "size": 2146
+    },
+    {
       "path": "tools/gameplay/validate_playable_slice.py",
       "href": "../../tools/gameplay/validate_playable_slice.py",
       "extension": "py",
       "size": 11862
+    },
+    {
+      "path": "tools/updater/test_content_pack.gd",
+      "href": "../../tools/updater/test_content_pack.gd",
+      "extension": "gd",
+      "size": 1906
+    },
+    {
+      "path": "tools/updater/test_content_updater.gd",
+      "href": "../../tools/updater/test_content_updater.gd",
+      "extension": "gd",
+      "size": 3676
+    },
+    {
+      "path": "tools/updater/test_update_boot_ui.gd",
+      "href": "../../tools/updater/test_update_boot_ui.gd",
+      "extension": "gd",
+      "size": 3212
     },
     {
       "path": "tools/validate_catalogs.py",
@@ -6258,7 +6705,7 @@
       "path": "tools/web/serve_web_build.py",
       "href": "../../tools/web/serve_web_build.py",
       "extension": "py",
-      "size": 3744
+      "size": 3945
     },
     {
       "path": "tools/wiki/build_index.py",
@@ -6267,16 +6714,28 @@
       "size": 6136
     },
     {
+      "path": "tools/wiki/serve.js",
+      "href": "../../tools/wiki/serve.js",
+      "extension": "js",
+      "size": 8971
+    },
+    {
       "path": "tools/wiki/test_catalog.py",
       "href": "../../tools/wiki/test_catalog.py",
       "extension": "py",
-      "size": 6787
+      "size": 8826
     },
     {
       "path": "tools/wiki/test_runtime.js",
       "href": "../../tools/wiki/test_runtime.js",
       "extension": "js",
       "size": 4898
+    },
+    {
+      "path": "tools/world/bake_first_island.py",
+      "href": "../../tools/world/bake_first_island.py",
+      "extension": "py",
+      "size": 3266
     }
   ],
   "documentation": [

@@ -49,7 +49,9 @@ def check_build(web_dir: Path) -> None:
     if not web_dir.is_dir():
         raise SystemExit(
             f"Build Web não encontrada: {web_dir}\n"
-            "Exporte primeiro com o preset Web para build/web/."
+            "Este lançador testa o jogo e precisa dos arquivos exportados em build/web/.\n"
+            "Exporte com Godot 4.5.1 e os templates Web: python3 tools/build/export_web.py "
+            "(no Windows, também pode usar: py -3 tools/build/export_web.py)."
         )
 
     missing = [name for name in REQUIRED_FILES if not (web_dir / name).is_file()]

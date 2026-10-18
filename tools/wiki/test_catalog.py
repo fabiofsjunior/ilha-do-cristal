@@ -5,15 +5,13 @@ from __future__ import annotations
 
 import json
 import re
-import shutil
 import subprocess
 import sys
-import threading
+import urllib.error
 import urllib.request
 from html.parser import HTMLParser
-from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import unquote, urljoin, urlsplit
+from urllib.parse import unquote, urljoin
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -91,26 +89,37 @@ def run() -> None:
     if not re.search(r"@media\s*\(max-width:\s*780px\)", css) or not re.search(r"@media\s*\(max-width:\s*520px\)", css):
         raise AssertionError("responsive breakpoints for tablet and mobile are missing")
 
-    node = shutil.which("node")
-    if not node:
-        raise AssertionError("Node.js is required for the JavaScript syntax check")
-    subprocess.run([node, "--check", str(WIKI / "app.js")], cwd=ROOT, check=True)
-    subprocess.run([node, str(ROOT / "tools/wiki/test_runtime.js")], cwd=ROOT, check=True)
+    node = subprocess.run(["node", "--version"], cwd=ROOT, check=True, capture_output=True, text=True).stdout.strip()
+    subprocess.run(["node", "--check", str(WIKI / "app.js")], cwd=ROOT, check=True)
+    subprocess.run(["node", "--check", str(ROOT / "tools/wiki/serve.js")], cwd=ROOT, check=True)
+    subprocess.run(["node", str(ROOT / "tools/wiki/test_runtime.js")], cwd=ROOT, check=True)
 
-    class QuietHandler(SimpleHTTPRequestHandler):
-        def log_message(self, _format: str, *_args: object) -> None:
-            return
-
-    server = ThreadingHTTPServer(("127.0.0.1", 0), lambda *args, **kwargs: QuietHandler(*args, directory=str(ROOT), **kwargs))
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    base_url = f"http://127.0.0.1:{server.server_port}/docs/wiki/"
+    server = subprocess.Popen(
+        ["node", str(ROOT / "tools/wiki/serve.js"), "--port", "0", "--no-browser"],
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
     try:
+        startup_line = server.stdout.readline() if server.stdout else ""
+        base_url = startup_line.replace("Wiki do projeto: ", "").strip()
+        if not base_url.startswith("http://127.0.0.1:") or not base_url.endswith("/docs/wiki/"):
+            remainder = server.communicate(timeout=5)[0]
+            raise AssertionError(f"Node wiki server failed to start: {startup_line}{remainder}")
+        root_url = base_url.replace("/docs/wiki/", "/")
+
+        with urllib.request.urlopen(root_url, timeout=5) as response:
+            if response.status != 200 or not response.geturl().endswith("/docs/wiki/"):
+                raise AssertionError("root URL did not redirect to the wiki")
+
         test_urls = [
             "index.html",
             "catalog-data.json",
             "wiki.css",
             "app.js",
+            "../../README.md",
+            "../../Docs/Main/GDD_MVP.md",
             payload["assets"][0]["href"],
             next(asset["href"] for asset in payload["assets"] if asset["group"] == "creatures"),
         ]
@@ -119,24 +128,51 @@ def run() -> None:
             with urllib.request.urlopen(request_url, timeout=5) as response:
                 body = response.read()
                 if response.status != 200 or not body:
-                    raise AssertionError(f"local server failed to serve {target}")
+                    raise AssertionError(f"Node server failed to serve {target}")
                 if target.endswith("catalog-data.json"):
                     served = json.loads(body)
                     assert len(served["catalog"]["skills"]) == 9
-        # Confirm the preview URL resolves to a PNG, not just a path that happens to exist.
+                if target.endswith("README.md") and not response.headers.get("Content-Type", "").startswith("text/markdown"):
+                    raise AssertionError("README did not return a Markdown content type")
+
         png_url = urljoin(base_url, next(asset["href"] for asset in payload["assets"] if asset["group"] == "creatures"))
         with urllib.request.urlopen(png_url, timeout=5) as response:
             if not response.headers.get("Content-Type", "").startswith("image/png"):
                 raise AssertionError("sprite preview did not return an image/png response")
+        for private_url in (root_url + ".git/config", root_url + "build/"):
+            try:
+                urllib.request.urlopen(private_url, timeout=5)
+            except urllib.error.HTTPError as error:
+                if error.code != 403:
+                    raise AssertionError(f"private path returned HTTP {error.code}, expected 403") from error
+            else:
+                raise AssertionError(f"private path was served: {private_url}")
+
+        try:
+            urllib.request.urlopen(urllib.request.Request(root_url + "README.md", method="POST"), timeout=5)
+        except urllib.error.HTTPError as error:
+            if error.code != 405:
+                raise AssertionError(f"POST returned HTTP {error.code}, expected 405") from error
+        else:
+            raise AssertionError("server accepted an unsupported POST request")
+
+        head_request = urllib.request.Request(urljoin(base_url, "index.html"), method="HEAD")
+        with urllib.request.urlopen(head_request, timeout=5) as response:
+            if response.status != 200 or not response.headers.get("Content-Type", "").startswith("text/html"):
+                raise AssertionError("HEAD request failed for the wiki home page")
     finally:
-        server.shutdown()
-        server.server_close()
-        thread.join(timeout=2)
+        if server.poll() is None:
+            server.terminate()
+        try:
+            server.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            server.kill()
+            server.wait(timeout=5)
 
     print(
         "PASS wiki: 4 aparências, 3 vocações, 9 skills; "
         f"{len(payload['assets'])} prévias; {len(payload['files'])} arquivos; "
-        "links verificados, JavaScript válido e servidor HTTP local respondendo."
+        f"servidor Node.js {node} abre a wiki, serve links/imagens e bloqueia pastas privadas."
     )
 
 

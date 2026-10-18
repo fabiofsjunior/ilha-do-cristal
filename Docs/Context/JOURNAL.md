@@ -352,3 +352,11 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - `first_island.gd` valida as camadas e não carrega/repinta o mapa a partir do JSON no startup. `isometric_3d_view.gd` lê todas as células, inclusive a área inicial 64×44 que antes usava uma superfície legada. O minimapa também é derivado das células. Colisões, limites, água bloqueada, spawns, obstáculos e recursos continuam vindos do layout, preservando mecânicas.
 - Validação estática decodificou `tile_map_data` e comparou cada coordenada e atlas tile com o JSON de origem; as contagens e as 56 entradas do TileSet coincidem. Regressões para persistência/edição manual e população expandida foram atualizadas.
 - Godot 4.5.1 não está disponível neste ambiente, então importação/editor, execução dos testes headless e renderização não foram verificadas. Salvar/reabrir no editor e medir desempenho em Android permanecem pendentes. A composição continua plana; o conceito de ilha irregular não foi implementado nem aprovado por esta alteração.
+
+
+## 2026-10-18 — Servidor Node.js para wiki e exportação Web sob demanda
+
+- Adicionado `Acessar_Wiki.bat` na raiz e `tools/wiki/serve.js`, sem dependências npm. O servidor usa apenas loopback, abre `/docs/wiki/`, escolhe outra porta se 8000 estiver ocupada e atende os documentos/imagens usados pelos links da wiki. `.git`, `.godot`, `build`, segredos e arquivos de save/assinatura são bloqueados.
+- `Testar_Jogo_Web.bat` agora tenta gerar `build/web/` com Godot 4.5.1 quando não encontra a exportação. O servidor Web explica o comando de exportação caso a build continue ausente. Este ambiente não tem Godot/exports Web, então não foi possível produzir a build do jogo aqui.
+- README e roadmap atualizados. `python3 tools/wiki/test_catalog.py` passou com Node.js 24.19.0, verificando catálogo, links locais, imagens PNG, redirecionamento da raiz, HEAD e bloqueio de diretórios privados. `node --check`, `py_compile` e `git diff --check` também passaram.
+- Próxima ação: abrir PR da branch do servidor da wiki contra `Staging`; para jogar Web neste checkout, instalar Godot 4.5.1 e templates Web, executar `Testar_Jogo_Web.bat` e revisar a build no navegador.
