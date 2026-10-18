@@ -2,7 +2,7 @@
 
 RPG de sobrevivência em pixel art. Melissa, Helena, Maíra e Fábio sobrevivem ao naufrágio de um cruzeiro, despertam poderes de um cristal e constroem um refúgio numa ilha mutante. Vael é a ameaça narrativa das expansões.
 
-**Base desta branch:** reconstrução 0.1.9 em Godot 4.5.1, `main` em `e38821d` (HUD, minimapa, mapa fixo e prévia LAN de movimento). A branch `feature/s07-github-content-updater` acrescenta verificação de atualizações de conteúdo no boot Android e prepara o app 0.1.10/versionCode 11. O APK 0.1.10 ainda não foi exportado; Android SDK Platform 35 e Build Tools 35.0.0 não estão disponíveis neste ambiente. Combate/itens/saves LAN e talentos passivos continuam pendentes. A arte de personagem ainda usa as aparências Warrior compartilhadas.
+**Base desta branch:** `Staging` em `5a1d4a0`, com reconstrução 0.1.9 e atualizador de conteúdo Android. A branch `feature/s08-logo-app-icon-splash` aplica a arte enviada pelo usuário ao ícone e às telas de inicialização. O próximo APK permanece 0.1.10/versionCode 11; ainda não foi exportado porque o Android SDK Platform 35 e Build Tools 35.0.0 não estão disponíveis neste ambiente. Combate/itens/saves LAN e talentos passivos continuam pendentes. A arte de personagem ainda usa as aparências Warrior compartilhadas.
 
 [Relatório e capturas da reconstrução](docs/gameplay/HUD_RECONSTRUCTION_019.md) · [Metadados do APK0.1.9](artifacts/preview/HUD-0.1.9.json) · [Próxima ação](Docs/Context/HANDOFF.md).
 

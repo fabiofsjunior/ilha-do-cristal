@@ -48,6 +48,10 @@ func _run() -> void:
 	var boot: Control = load("res://game/scenes/update_boot.tscn").instantiate()
 	root.add_child(boot)
 	await process_frame
+	var logo := boot.find_child("GameLogo", true, false) as TextureRect
+	_check(logo != null and logo.texture != null, "The startup screen must show the game logo.")
+	if logo != null and logo.texture != null:
+		_check(logo.texture.get_size() == Vector2(512, 512), "The startup logo must use the generated square brand asset.")
 	_check(_button_exists(boot, "Atualizar agora"), "An optional update must show the update button.")
 	_check(_button_exists(boot, "Agora não"), "An optional update must allow deferring.")
 	_find_button(boot, "Atualizar agora").emit_signal("pressed")

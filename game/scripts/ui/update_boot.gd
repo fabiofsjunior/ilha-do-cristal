@@ -2,6 +2,7 @@ extends Control
 ## Startup screen for optional/required GitHub content updates.
 
 const UI_STYLE = preload("res://game/scripts/ui/ui_style.gd")
+const GAME_LOGO = preload("res://assets/ui/app_icon.png")
 const GAME_SCENE := "res://game/scenes/main.tscn"
 
 var _content: VBoxContainer
@@ -47,18 +48,18 @@ func _build_shell() -> void:
 
 	var header := VBoxContainer.new()
 	header.alignment = BoxContainer.ALIGNMENT_CENTER
-	header.add_theme_constant_override("separation", 3)
+	header.add_theme_constant_override("separation", 10)
 	layout.add_child(header)
-	var crystal := Label.new()
-	crystal.text = "✧"
-	crystal.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	UI_STYLE.style_label(crystal, 46, Color("80e0d1"))
-	header.add_child(crystal)
-	var title := Label.new()
-	title.text = "A ILHA DO CRISTAL"
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	UI_STYLE.style_label(title, 23, UI_STYLE.CREAM)
-	header.add_child(title)
+	var logo := TextureRect.new()
+	logo.name = "GameLogo"
+	logo.texture = GAME_LOGO
+	logo.custom_minimum_size = Vector2(0, 224)
+	logo.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	logo.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	logo.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	logo.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	header.add_child(logo)
 	var subtitle := Label.new()
 	subtitle.text = "Exploração · sobrevivência · cooperação"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

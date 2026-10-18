@@ -4,6 +4,10 @@ config_version=5
 [application]
 config/name="A Ilha do Cristal — Demo jogável"
 config/icon="res://assets/ui/app_icon.png"
+boot_splash/image="res://assets/ui/app_icon.png"
+boot_splash/bg_color=Color(0.062745, 0.105882, 0.14902, 1)
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/version="0.1.10"
 config/content_version="1.0.0"
 run/main_scene="res://game/scenes/update_boot.tscn"

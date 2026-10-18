@@ -344,3 +344,12 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - Godot 4.5.1: importação headless, `test_content_updater.gd`, `test_update_boot_ui.gd`, `test_content_pack.gd` e `smoke_playable_slice.gd` passaram. Exportado localmente um PCK de aproximadamente 9,8 MB e testada a montagem/leitura de JSON e textura. `py_compile` e `git diff --check` passaram.
 - Limites: a API pública do projeto ainda não tem Releases; o PCK de teste não foi publicado. A consulta direta ao GitHub pelo runtime headless deste ambiente falha por restrição de rede. Android SDK Platform 35/Build Tools 35.0.0 não estão disponíveis, portanto o APK 0.1.10 não foi exportado e não houve teste físico.
 - Próxima ação: finalizar o PR desta branch; depois configurar SDK/templates Android, exportar e instalar o APK 0.1.10, testar conexão/offline e preservação de save em aparelho e publicar um Release de conteúdo somente quando houver conteúdo aprovado para atualizar.
+
+
+## 2026-10-18 — Logo no launcher e boot Android
+
+- Partida na branch `feature/s08-logo-app-icon-splash`, baseada em `Staging` `5a1d4a0`. A imagem enviada pelo usuário foi preservada em `tools/art/source/ilha-cristal-logo.jpg` e alimenta `tools/art/generate_app_icon.py`.
+- Geradas as quatro variantes de launcher: principal 512×512, adaptive background/foreground e monochrome 432×432. A Godot usa o ícone principal na splash nativa e a mesma marca no cabeçalho da tela de atualização. O foreground adaptativo mantém a wordmark dentro da área segura; o ícone monocromático usa o cristal central simplificado.
+- O preset Android já referencia esses quatro caminhos; agora eles contêm a arte aprovada. A build segue em 0.1.10/versionCode 11, sem incremento, pois esta APK ainda não foi exportada.
+- Godot 4.5.1: importação headless, `test_update_boot_ui.gd` e `test_content_updater.gd` passaram. A checagem de projeto confirmou os parâmetros de splash; PNGs têm 512×512 (principal) e 432×432 (variantes adaptativas/monocromática), alpha esperado, e o JPEG-fonte confere byte a byte com o anexo. `py_compile` e `git diff --check` passaram. O único aviso de import foi ADB sem daemon/dispositivo conectado.
+- Limite: Android SDK Platform 35/Build Tools 35.0.0 não disponíveis; sem APK ou teste em aparelho.
