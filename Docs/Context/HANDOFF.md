@@ -1,25 +1,24 @@
-# Handoff — cenas editáveis de criaturas
+# Handoff — validar launcher Web no Windows
 
-**Branch:** `Staging`  
-**Base desta integração:** `31952366dc06bc60b49b94c761a0a1fea78fa5ad`
+**Branch do ajuste:** `feature/s12-web-godot-discovery`
+**Commit:** `0c38bff95f7c7b4ef110f6401c92bbb94e796b92`
+**PR:** [#27](https://github.com/fabiofsjunior/ilha-do-cristal/pull/27), destino `Staging`
+**Base da PR:** `0d87452ceebf51271b121daaaec8cd0fc953a43d`
 
 ## Implementado
 
-- `game/scenes/creatures/creature_base.tscn` define o prefab Godot 4 com `CharacterBody2D`, cápsula corporal, `DetectionArea` e `AttackArea`.
-- `fox.tscn`, `wolf.tscn` e `bear.tscn` herdam do prefab e têm recursos de forma locais, editáveis por espécie.
-- `creature_actor.gd` lê a cápsula e os círculos da cena; `first_island.gd` usa a cena correta em cada spawn e respawn.
-- O teste de espaçamento instancia as cenas reais e verifica dimensões, camadas e áreas personalizadas após `_ready()`.
+- `Testar_Jogo_Web.bat` tenta exportar `build/web/` quando não encontra a build. O exportador procura Godot 4.5.1 no `PATH`, em pastas comuns do Windows, em `GODOT_BIN` e no caminho local `.godot-path`.
+- Se não encontrar, o launcher abre o seletor de arquivos do Windows. O caminho selecionado fica salvo localmente e a versão 4.5.1 é validada antes da exportação.
+- A exportação requer Python 3, Godot 4.5.1 e templates Web dessa mesma versão. Com uma build já existente em `build/web/`, o servidor inicia sem Godot.
+- `Acessar_Wiki.bat` continua iniciando a Wiki local por Node.js.
 
 ## Próxima ação exata
 
-No Godot 4.5.1, abrir cada cena herdada em `game/scenes/creatures/`, ajustar `CollisionShape2D` e as formas filhas de `DetectionArea` e `AttackArea` para o encaixe de cada sprite, salvar e reabrir para confirmar a persistência. Depois rodar `tools/gameplay/test_melee_contact_spacing.gd` em modo headless e revisar visualmente o combate.
+Em um checkout Windows atualizado pela PR deste branch, executar `Testar_Jogo_Web.bat`, selecionar `Godot_v4.5.1-stable_win64_console.exe` se solicitado, confirmar os templates Web e verificar que o jogo exporta em `build/web/` e abre no navegador.
 
-## Validação desta sessão
+## Pendências
 
-Godot 4.5.1 importou/reimportou o projeto. Passaram `test_melee_contact_spacing.gd`, `smoke_playable_slice.gd`, `test_expanded_map_population.gd` (30 spawns), `test_respawn_radius.gd`, `git diff --check` e as checagens estáticas de catálogo/referências. O editor emitiu aviso ao salvar configurações fora do projeto, sem impedir importação ou testes. O ajuste visual manual das formas permanece pendente.
-
-## Pendências anteriores
-
-- Validar `Acessar_Wiki.bat` e `Testar_Jogo_Web.bat` num Windows com Node.js 18+, Godot 4.5.1 e templates Web.
-- Exportar/testar o APK 0.1.10/versionCode 11 com Android SDK Platform 35 e Build Tools 35.0.0 em aparelho.
-- Editar, salvar e reabrir manualmente no Godot as camadas do atlas tropical e medir o resultado em Android.
+- O seletor PowerShell do launcher ainda precisa de validação em Windows. Neste ambiente Linux não há Godot 4.5.1, então a exportação e abertura Web não foram testadas.
+- Revisar a execução gráfica Web no navegador.
+- Abrir as cenas herdadas em `game/scenes/creatures/` no editor, ajustar as formas por sprite, salvar/reabrir e revisar visualmente o contato.
+- Exportar a APK 0.1.10/versionCode 11 com Android SDK Platform 35 e Build Tools 35.0.0 e testar em aparelho.

@@ -1,6 +1,7 @@
 # Godot generated state
 .godot/
 .import/
+.godot-path
 *.tmp
 __pycache__/
 *.pyc

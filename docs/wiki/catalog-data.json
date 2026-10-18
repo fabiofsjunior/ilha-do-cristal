@@ -4334,13 +4334,13 @@
       "path": "Docs/Context/HANDOFF.md",
       "href": "../../Docs/Context/HANDOFF.md",
       "extension": "md",
-      "size": 1458
+      "size": 1585
     },
     {
       "path": "Docs/Context/JOURNAL.md",
       "href": "../../Docs/Context/JOURNAL.md",
       "extension": "md",
-      "size": 66590
+      "size": 69299
     },
     {
       "path": "Docs/Context/PROTOTYPE_LOG.md",
@@ -4376,19 +4376,19 @@
       "path": "Docs/Main/ROADMAP.md",
       "href": "../../Docs/Main/ROADMAP.md",
       "extension": "md",
-      "size": 16117
+      "size": 16834
     },
     {
       "path": "README.md",
       "href": "../../README.md",
       "extension": "md",
-      "size": 10705
+      "size": 11803
     },
     {
       "path": "Testar_Jogo_Web.bat",
       "href": "../../Testar_Jogo_Web.bat",
       "extension": "bat",
-      "size": 1531
+      "size": 2977
     },
     {
       "path": "artifacts/preview/HUD-0.1.9.json",
@@ -4772,13 +4772,13 @@
       "path": "assets/environments/tropical_manual_v1/tropical_manual_props_v1.tres",
       "href": "../../assets/environments/tropical_manual_v1/tropical_manual_props_v1.tres",
       "extension": "tres",
-      "size": 1123
+      "size": 2113
     },
     {
       "path": "assets/environments/tropical_manual_v1/tropical_manual_terrain_v1.tres",
       "href": "../../assets/environments/tropical_manual_v1/tropical_manual_terrain_v1.tres",
       "extension": "tres",
-      "size": 1575
+      "size": 1605
     },
     {
       "path": "assets/environments/tropical_manual_v1/tropical_manual_v1.png",
@@ -6068,7 +6068,7 @@
       "path": "docs/technical/ARCHITECTURE.md",
       "href": "../../docs/technical/ARCHITECTURE.md",
       "extension": "md",
-      "size": 7553
+      "size": 8039
     },
     {
       "path": "docs/technical/GITHUB_CONTENT_UPDATES.md",
@@ -6143,10 +6143,34 @@
       "size": 304
     },
     {
+      "path": "game/scenes/creatures/bear.tscn",
+      "href": "../../game/scenes/creatures/bear.tscn",
+      "extension": "tscn",
+      "size": 707
+    },
+    {
+      "path": "game/scenes/creatures/creature_base.tscn",
+      "href": "../../game/scenes/creatures/creature_base.tscn",
+      "extension": "tscn",
+      "size": 1160
+    },
+    {
+      "path": "game/scenes/creatures/fox.tscn",
+      "href": "../../game/scenes/creatures/fox.tscn",
+      "extension": "tscn",
+      "size": 698
+    },
+    {
+      "path": "game/scenes/creatures/wolf.tscn",
+      "href": "../../game/scenes/creatures/wolf.tscn",
+      "extension": "tscn",
+      "size": 706
+    },
+    {
       "path": "game/scenes/first_island.tscn",
       "href": "../../game/scenes/first_island.tscn",
       "extension": "tscn",
-      "size": 812261
+      "size": 812351
     },
     {
       "path": "game/scenes/main.tscn",
@@ -6224,7 +6248,7 @@
       "path": "game/scripts/combat/creature_actor.gd",
       "href": "../../game/scripts/combat/creature_actor.gd",
       "extension": "gd",
-      "size": 8518
+      "size": 9475
     },
     {
       "path": "game/scripts/combat/spell_vfx.gd",
@@ -6338,7 +6362,7 @@
       "path": "game/scripts/world/first_island.gd",
       "href": "../../game/scripts/world/first_island.gd",
       "extension": "gd",
-      "size": 40623
+      "size": 41142
     },
     {
       "path": "game/scripts/world/first_island_hud.gd",
@@ -6662,7 +6686,7 @@
       "path": "tools/gameplay/test_melee_contact_spacing.gd",
       "href": "../../tools/gameplay/test_melee_contact_spacing.gd",
       "extension": "gd",
-      "size": 12608
+      "size": 16712
     },
     {
       "path": "tools/gameplay/test_melee_visual_spacing.py",

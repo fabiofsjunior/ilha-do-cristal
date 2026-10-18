@@ -30,9 +30,31 @@ if exist "%WEB_DIR%\index.html" goto start_server
 if not exist "%EXPORT_SCRIPT%" goto build_missing
 
 echo Build Web nao encontrada. Vou tentar exportar com Godot 4.5.1...
-%PYTHON_CMD% %PYTHON_ARGS% "%EXPORT_SCRIPT%"
+set "GODOT_PATH_FILE=%TEMP%\ilha-do-cristal-godot-path.txt"
+set "GODOT_EXE="
+%PYTHON_CMD% %PYTHON_ARGS% "%EXPORT_SCRIPT%" --print-godot > "%GODOT_PATH_FILE%"
+if errorlevel 1 goto select_godot
+set /p "GODOT_EXE="<"%GODOT_PATH_FILE%"
+del "%GODOT_PATH_FILE%" >nul 2>&1
+if not defined GODOT_EXE goto select_godot
+
+:export_web
+%PYTHON_CMD% %PYTHON_ARGS% "%EXPORT_SCRIPT%" --godot "%GODOT_EXE%"
 if errorlevel 1 goto export_failed
 if not exist "%WEB_DIR%\index.html" goto build_missing
+goto start_server
+
+:select_godot
+del "%GODOT_PATH_FILE%" >nul 2>&1
+echo.
+echo Se voce tem o Godot 4.5.1, selecione o executavel para esta exportacao.
+echo O caminho escolhido sera salvo localmente para os proximos testes.
+for /f "usebackq delims=" %%G in (`powershell -NoProfile -STA -Command "Add-Type -AssemblyName System.Windows.Forms; $d = New-Object System.Windows.Forms.OpenFileDialog; $d.Title = 'Selecione o executavel Godot 4.5.1'; $d.Filter = 'Godot console (*_console.exe)|*_console.exe|Todos os executaveis (*.exe)|*.exe'; if ($d.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) { Write-Output $d.FileName }"`) do set "GODOT_EXE=%%G"
+if not defined GODOT_EXE goto godot_missing
+%PYTHON_CMD% %PYTHON_ARGS% "%EXPORT_SCRIPT%" --godot "%GODOT_EXE%" --save-godot
+if errorlevel 1 goto export_failed
+if not exist "%WEB_DIR%\index.html" goto build_missing
+goto start_server
 
 :start_server
 %PYTHON_CMD% %PYTHON_ARGS% "%SERVER_SCRIPT%" --web-dir "%WEB_DIR%"
@@ -49,7 +71,15 @@ pause
 exit /b 1
 
 :export_failed
-echo A exportacao Web falhou. Confira a mensagem acima e instale os templates Web do Godot 4.5.1.
+echo A exportacao Web falhou. Confira a mensagem acima.
+echo Se faltarem templates, instale os templates de exportacao Web do Godot 4.5.1.
+pause
+exit /b 1
+
+:godot_missing
+echo.
+echo Nao foi possivel selecionar o Godot 4.5.1.
+echo Instale ou extraia o Godot 4.5.1, ou defina GODOT_BIN com o caminho do executavel.
 pause
 exit /b 1
 
