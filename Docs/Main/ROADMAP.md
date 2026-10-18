@@ -25,6 +25,7 @@ Prototipagem atual: **UI navegável v0.7 validada como protótipo em 2026-10-15;
 | S4 — LAN | Host autoritativo, entrada por IP/código local ou descoberta testada, sincronização de combate/itens, reanimação | Dois Androids na mesma rede sem duplicar drops; desconexão salva mundo |
 | S5 — Contas | Prova Firebase Auth, vínculo de visitante, progressão na nuvem, fila offline e resolução de conflitos | Troca de aparelho recupera personagem; mundo continua no host; internet ausente não bloqueia LAN |
 | S6 — Beta | UX, acessibilidade, áudio, otimização, save interrompido, tutorial, correção e build distribuível | Bateria de testes em aparelhos reais e sessão 30 min sem perda de progresso |
+| S7 — Atualizações de conteúdo | Verificação na inicialização, release versionado no GitHub, download de PCK e recuperação/offline | Atualização real aplicada no Android, hash validado e save preservado; APK permanece separado |
 
 Gate de cada PR: objetivo e antes/depois, teste específico, nenhum arquivo privado, importação Godot, evidência APK quando aplicável. Documentar resultado de FPS/memória sem prometer valor antes de medir. Conteúdo além do nível 10, NPCs coletores, outros monstros, castelo/Vael jogável e desktop ficam para atualizações posteriores.
 
@@ -39,6 +40,8 @@ Checklist vivo:
 - [ ] S4: LAN entre dois Androids.
 - [ ] S5: conta/progressão e modo visitante/offline.
 - [ ] S6: beta e testes de resiliência.
+- [x] S7 técnico parcial: tela inicial verifica Releases `content-v*`, apresenta atualização, baixa PCK, compara tamanho/SHA-256, monta o pacote e recarrega o jogo; testes de parser e montagem local passam.
+- [ ] S7 restante: publicar release real, exportar APK 0.1.10, testar rede/offline e preservação de save em Android físico. Não há release de conteúdo criada por esta tarefa.
 
 #### Subitens da primeira fatia em `feature/fabio-warrior-stage1`
 
