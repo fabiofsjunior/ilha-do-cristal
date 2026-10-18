@@ -4380,7 +4380,7 @@
       "path": "Docs/Context/PROTOTYPE_LOG.md",
       "href": "../../Docs/Context/PROTOTYPE_LOG.md",
       "extension": "md",
-      "size": 19452
+      "size": 20218
     },
     {
       "path": "Docs/Main/CATALOGS_MVP.md",
@@ -6121,6 +6121,12 @@
       "href": "../../docs/prototypes/mvp_ui_v0_7.html",
       "extension": "html",
       "size": 85066
+    },
+    {
+      "path": "docs/prototypes/wiki_theme_v0_1.html",
+      "href": "../../docs/prototypes/wiki_theme_v0_1.html",
+      "extension": "html",
+      "size": 15721
     },
     {
       "path": "docs/technical/ANDROID_BUILD.md",
