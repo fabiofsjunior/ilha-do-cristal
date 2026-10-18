@@ -1,18 +1,24 @@
-# Handoff — mapa irregular v0.3 aguardando validação
+# Handoff — Ilha do Cristal, amostra técnica v0.2
 
 **Branch:** `Staging`  
-**Commit do protótipo em Staging:** `f07a0b7b2e185c2110200c808aee033fbc00aa64`  
-**Base anterior:** `195a3d3445ab33ab456f9c2b612844d337265060`
+**Commit da amostra em Staging:** `66fbf6fdf14e1272f6df2dbddd60595239618895`  
+**Base anterior:** `8c70debdab37f0589298354c847828e7b17eb8f7`  
+**Artefato de revisão:** `tools/world/ilha_cristal_tilemap_review_v0_2.tscn`  
+**Captura local:** `outputs/ilha-cristal-tilemap-review-v0.2.png`
 
 ## Próxima ação exata
 
-Aguardar o usuário revisar [a prancha v0.3](../../docs/prototypes/global_map_island_v0_3.html). Registrar se aprova ou ajusta a escala lógica proposta de 400×250, a composição e a divisão dos 30 pontos (4 litoral, 12 floresta, 8 platôs/interior, 6 faixa corrompida futura). O bestiário está sendo atualizado para 30 tipos; não atribuir nomes ou spawns definitivos até a lista estar pronta.
-
-Se a prancha for aprovada, criar uma amostra representativa na cena alvo e apresentar para revisão antes de qualquer implementação em lote. Não expandir o mapa de produção para 100.000 células sem aprovação e validação de colisões, rampas, culling e desempenho.
+Apresentar a captura da amostra v0.2 ao usuário e pedir revisão do encaixe entre as faces, das transições de costa e da leitura dos quatro habitats. O usuário já aprovou o protótipo de composição v0.3 (400×250 e distribuição 4/12/8/6); aguardar validação explícita da amostra de arte antes de expandir os atlas ou alterar cenas e dados de runtime.
 
 ## Estado e limites
 
-- O jogo continua com mapa de 250×200 = 50.000 células.
-- A v0.3 é um protótipo HTML/SVG; os 30 pontos são distribuição candidata por habitat, não catálogo nem spawns de runtime.
-- A arte isométrica candidata ainda exige recortes/importação apropriados; nenhuma cena Godot, colisão, save, câmera ou dado de produção foi alterado.
-- Revisões pendentes: validar composição, escala, distribuição por habitat e fluxo global v0.1. Não houve teste de runtime neste incremento.
+- O jogo mantém o mapa de produção de 250×200 = 50.000 células. Não houve alteração de mapa, colisões, saves ou spawns.
+- A cena candidata é isolada, usa um patch 16×10 no renderer 2.5D e mostra 30 alocações por habitat sem atribuir espécies.
+- A cena recorta as imagens-fonte versionadas e compõe os TileSets candidatos em memória; a face de terreno alinha ao UV 128×64. A cobertura 1.0 fica isolada nessa cena e o padrão 1.10 permanece nas demais.
+- A cena foi executada visualmente no Godot 4.5.1. A importação completa do checkout esparso registra a ausência de `assets/ui/app_icon.png` em uma tela não relacionada. Não houve teste Android ou de desempenho em 100.000 células.
+
+## Bloqueios e perguntas abertas
+
+- Aceite explícito da amostra corrigida ou novos ajustes de alinhamento/shoreline.
+- Após a aprovação, integrar a arte em lote; para expansão runtime a 100.000 células ainda validar colisões, rampas, culling e desempenho.
+- Associar os marcadores às 30 espécies e fixar coordenadas/quantidade de spawns somente em uma atualização própria do layout.
