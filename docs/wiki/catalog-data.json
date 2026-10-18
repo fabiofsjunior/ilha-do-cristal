@@ -4334,13 +4334,13 @@
       "path": "Docs/Context/HANDOFF.md",
       "href": "../../Docs/Context/HANDOFF.md",
       "extension": "md",
-      "size": 1211
+      "size": 1200
     },
     {
       "path": "Docs/Context/JOURNAL.md",
       "href": "../../Docs/Context/JOURNAL.md",
       "extension": "md",
-      "size": 70136
+      "size": 71086
     },
     {
       "path": "Docs/Context/PROTOTYPE_LOG.md",
@@ -4376,13 +4376,13 @@
       "path": "Docs/Main/ROADMAP.md",
       "href": "../../Docs/Main/ROADMAP.md",
       "extension": "md",
-      "size": 16949
+      "size": 16912
     },
     {
       "path": "README.md",
       "href": "../../README.md",
       "extension": "md",
-      "size": 11916
+      "size": 11979
     },
     {
       "path": "Testar_Jogo_Web.bat",
@@ -5948,7 +5948,7 @@
       "path": "docs/gameplay/PLAYABLE_SLICE.md",
       "href": "../../docs/gameplay/PLAYABLE_SLICE.md",
       "extension": "md",
-      "size": 7790
+      "size": 7865
     },
     {
       "path": "docs/gameplay/PORTRAIT_BUILD_VALIDATION.md",
@@ -6782,7 +6782,7 @@
       "path": "tools/web/serve_web_build.py",
       "href": "../../tools/web/serve_web_build.py",
       "extension": "py",
-      "size": 3945
+      "size": 3962
     },
     {
       "path": "tools/wiki/build_index.py",

@@ -16,6 +16,8 @@ from zipfile import ZipFile, ZIP_DEFLATED
 
 ROOT = Path(__file__).resolve().parents[2]
 GODOT_PATH_FILE = ROOT / ".godot-path"
+GODOT_VERSION = "4.7.2"
+GODOT_VERSION_PREFIX = f"{GODOT_VERSION}."
 
 
 def _windows_godot_candidates() -> list[str]:
@@ -45,7 +47,7 @@ def _windows_godot_candidates() -> list[str]:
     for directory in dict.fromkeys(directories):
         if not directory.is_dir():
             continue
-        for pattern in ("Godot_v4.5.1-stable*.exe", "Godot.exe"):
+        for pattern in (f"Godot_v{GODOT_VERSION}-stable*.exe", "Godot.exe"):
             matches = list(directory.glob(pattern))
             matches.extend(directory.glob(f"*/{pattern}"))
             matches = [path for path in matches if path.is_file()]
@@ -60,23 +62,25 @@ def _windows_godot_candidates() -> list[str]:
 
 
 def find_godot(value: str | None) -> str:
-    candidates = [value, os.environ.get("GODOT_BIN")]
+    candidates = [value]
+    root_candidates = list(ROOT.glob(f"Godot_v{GODOT_VERSION}-stable*"))
+    root_candidates.sort(key=lambda path: "_console" not in path.name.lower())
+    candidates.extend(str(path) for path in root_candidates)
+    candidates.append(str(ROOT / "Godot.exe"))
+    candidates.append(os.environ.get("GODOT_BIN"))
+    candidates.extend(_windows_godot_candidates())
+    candidates.extend(
+        [
+            shutil.which(f"Godot_v{GODOT_VERSION}-stable_win64_console.exe"),
+            shutil.which("godot"),
+            shutil.which("godot4"),
+            shutil.which(f"Godot_v{GODOT_VERSION}-stable_win64.exe"),
+        ]
+    )
     if GODOT_PATH_FILE.is_file():
         configured_path = GODOT_PATH_FILE.read_text(encoding="utf-8").strip()
         if configured_path:
             candidates.append(configured_path)
-    root_candidates = list(ROOT.glob("Godot_v4.5.1-stable*"))
-    root_candidates.sort(key=lambda path: "_console" not in path.name.lower())
-    candidates.extend(str(path) for path in root_candidates)
-    candidates.extend(_windows_godot_candidates())
-    candidates.extend(
-        [
-            shutil.which("Godot_v4.5.1-stable_win64_console.exe"),
-            shutil.which("godot"),
-            shutil.which("godot4"),
-            shutil.which("Godot_v4.5.1-stable_win64.exe"),
-        ]
-    )
     for candidate in candidates:
         if not candidate:
             continue
@@ -84,11 +88,16 @@ def find_godot(value: str | None) -> str:
         if path.is_file() and (os.name != "nt" or path.suffix.lower() == ".exe"):
             return str(path.resolve())
     raise SystemExit(
-        "Godot 4.5.1 não encontrado. Instale/extraia essa versão e selecione o "
+        f"Godot {GODOT_VERSION} não encontrado. Instale/extraia essa versão e selecione o "
         "executável Godot (.exe) quando o launcher pedir, ou defina GODOT_BIN. "
         'No terminal: py -3 tools/build/export_web.py --godot '
-        '"C:\\caminho\\Godot_v4.5.1-stable_win64.exe".'
+        f'"C:\\caminho\\Godot_v{GODOT_VERSION}-stable_win64.exe".'
     )
+
+
+def validate_godot_version(version: str) -> None:
+    if not version.startswith(GODOT_VERSION_PREFIX):
+        raise SystemExit(f"Esperado Godot {GODOT_VERSION}, encontrado {version}")
 
 
 def package_web(output: Path, archive: Path, version: str) -> None:
@@ -139,7 +148,7 @@ def package_web(output: Path, archive: Path, version: str) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--godot", help="binário Godot 4.5.1")
+    parser.add_argument("--godot", help=f"binário Godot {GODOT_VERSION}")
     parser.add_argument(
         "--print-godot",
         action="store_true",
@@ -152,12 +161,11 @@ def main() -> int:
     )
     args = parser.parse_args()
     engine = find_godot(args.godot)
+    version = subprocess.check_output([engine, "--version"], text=True).strip()
+    validate_godot_version(version)
     if args.print_godot:
         print(engine)
         return 0
-    version = subprocess.check_output([engine, "--version"], text=True).strip()
-    if not version.startswith("4.5.1."):
-        raise SystemExit(f"Esperado Godot 4.5.1, encontrado {version}")
     if args.save_godot:
         GODOT_PATH_FILE.write_text(engine + "\n", encoding="utf-8")
     build = ROOT / "build"

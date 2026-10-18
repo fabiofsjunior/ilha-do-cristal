@@ -399,3 +399,10 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 
 - Na branch `feature/s13-web-root-godot`, `Testar_Jogo_Web.bat` agora procura primeiro o executável Godot 4.5.1 na raiz do projeto, priorizando a variante Windows 64-bit console, e passa o caminho absoluto ao exportador. Se não encontrar o binário na raiz, mantém a descoberta, o seletor e o fallback existentes.
 - README e roadmap descrevem essa prioridade. A checagem estática confirmou as variantes esperadas na raiz, caminho absoluto passado ao exportador e prioridade sobre `--print-godot`; `tools/wiki/test_catalog.py` e `git diff --check` passaram. Exportação e execução do `.bat` no Windows permanecem pendentes: este ambiente não tem Windows, Godot 4.5.1 ou templates Web.
+
+
+## 2026-10-18 — Atualização do exportador Web para Godot 4.7.2
+
+- Após o usuário reportar `Esperado Godot 4.5.1, encontrado 4.7.2.stable.official.ed1daf0bf`, o launcher, o exportador e o servidor Web foram alinhados para 4.7.2. O `.bat` procura os nomes 4.7.2 na raiz e passa o executável explicitamente; o Python prioriza o binário compatível da raiz, valida a versão também em `--print-godot` e deixa o caminho salvo antigo por último.
+- README, roadmap, handoff e instrução de exportação Web atualizados. A exportação Android permanece validada e fixada em Godot 4.5.1, fora do escopo desta correção Web.
+- Teste de versão aceitou `4.7.2.stable.official.ed1daf0bf` e recusou 4.5.1; teste isolado confirmou que o executável 4.7.2 da raiz prevalece sobre `GODOT_BIN` e `.godot-path` antigos. `py_compile` passou. Exportação real e compatibilidade do preset dependem de Windows, Godot 4.7.2 e templates Web correspondentes.

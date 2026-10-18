@@ -50,7 +50,7 @@ def check_build(web_dir: Path) -> None:
         raise SystemExit(
             f"Build Web não encontrada: {web_dir}\n"
             "Este lançador testa o jogo e precisa dos arquivos exportados em build/web/.\n"
-            "Exporte com Godot 4.5.1 e os templates Web: python3 tools/build/export_web.py "
+            "Exporte com Godot 4.7.2 e os templates Web da mesma versão: python3 tools/build/export_web.py "
             "(no Windows, também pode usar: py -3 tools/build/export_web.py)."
         )
 
