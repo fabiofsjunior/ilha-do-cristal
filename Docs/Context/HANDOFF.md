@@ -1,23 +1,19 @@
-# Handoff — validar launcher Web no Windows
+# Handoff — export Web usando Godot da raiz
 
-**Branch atual:** `Staging`
-**Merge da correção:** PR [#27](https://github.com/fabiofsjunior/ilha-do-cristal/pull/27), commit `183373acb9a86726dee0cf010ed2c024fed25a48`
-**Branch de origem:** `feature/s12-web-godot-discovery`, implementação `0c38bff95f7c7b4ef110f6401c92bbb94e796b92`
+**Branch de trabalho:** `feature/s13-web-root-godot`
+**Commit da implementação e testes estáticos:** `ffedf27f6779269b1ede965f4008a0d0c8a920a8`
+**Base:** `Staging` `533ff4f5cd2e2d84be3caadf2be93facfaf7aa92`
 
 ## Implementado
 
-- `Testar_Jogo_Web.bat` tenta exportar `build/web/` quando não encontra a build. O exportador procura Godot 4.5.1 no `PATH`, em pastas comuns do Windows, em `GODOT_BIN` e no caminho local `.godot-path`.
-- Se não encontrar, o launcher abre o seletor de arquivos do Windows. O caminho selecionado fica salvo localmente e a versão 4.5.1 é validada antes da exportação.
-- A exportação requer Python 3, Godot 4.5.1 e templates Web dessa mesma versão. Com uma build já existente em `build/web/`, o servidor inicia sem Godot.
-- `Acessar_Wiki.bat` continua iniciando a Wiki local por Node.js.
+- `Testar_Jogo_Web.bat` procura primeiro `Godot_v4.5.1-stable_win64_console.exe` na raiz, depois outras variantes 4.5.1 console/GUI, e passa o caminho completo para `export_web.py`.
+- A busca da raiz ocorre antes da descoberta por configuração, seletor de arquivos e `PATH`. Os fallbacks anteriores permanecem se nenhum executável compatível estiver na raiz.
+- README, roadmap, journal e catálogo da Wiki foram atualizados.
 
 ## Próxima ação exata
 
-No Windows, atualizar o checkout até `Staging` `183373a`, executar `Testar_Jogo_Web.bat`, selecionar `Godot_v4.5.1-stable_win64_console.exe` se solicitado, confirmar os templates Web e verificar que o jogo exporta em `build/web/` e abre no navegador.
+No Windows, deixar o executável Godot 4.5.1 extraído ao lado de `Testar_Jogo_Web.bat` e executá-lo sem configurar `PATH`. Confirmar a exportação em `build/web/` e abertura no navegador; Godot 4.5.1 requer os templates Web instalados.
 
-## Pendências
+## Validação e pendências
 
-- O seletor PowerShell do launcher ainda precisa de validação em Windows. Neste ambiente Linux não há Godot 4.5.1, então a exportação e abertura Web não foram testadas.
-- Revisar a execução gráfica Web no navegador.
-- Abrir as cenas herdadas em `game/scenes/creatures/` no editor, ajustar as formas por sprite, salvar/reabrir e revisar visualmente o contato.
-- Exportar a APK 0.1.10/versionCode 11 com Android SDK Platform 35 e Build Tools 35.0.0 e testar em aparelho.
+`tools/wiki/test_catalog.py`, verificações estáticas do `.bat` e `git diff --check` passaram. Este ambiente Linux não pode executar o `.bat` nem fazer exportação real; o teste Windows permanece pendente.
