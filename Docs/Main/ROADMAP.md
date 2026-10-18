@@ -127,6 +127,7 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [x] Mapa fixo50mil tiles, três vocações locais/VFX e LAN de movimento reconstruídos e versionados.
 - [x] Mapa visual persistido em `game/scenes/first_island.tscn`: 50.000 bases, 645 transições e 15 overlays, com TileSet compartilhado e sem repintura no início.
 - [x] Atlas tropical fornecido importado em 64 slices e camadas vazias para pintura manual (`ManualTerrain`/`ManualProps`); aprovação visual e teste no editor continuam pendentes.
+- [x] Corrigir a projeção do losango superior das células isométricas sobre o chão XZ; o UV agora cobre a face 128×64 px e mantém os pés na célula lógica 4×4 SQMs. A validação foi estática; a execução visual no Godot 4.5.1 continua pendente.
 - [ ] Validar no Godot 4.5.1 edição, salvar/reabrir e renderização das camadas `BaseTiles`, `Transitions`, `Paths`, `ManualTerrain` e `ManualProps`; medir a cena com 50.000 células no Android.
 - [x] Import, testes locais, comparação gráfica Godot e export/assinatura/integridade APK0.1.9.
 - [ ] Sincronizar combate pelo host; depois itens/coleta e saves idempotentes do host.

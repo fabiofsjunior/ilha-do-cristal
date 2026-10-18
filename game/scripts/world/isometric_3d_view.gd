@@ -203,9 +203,10 @@ func _build_expanded_tile_surface(
 	var vertices := PackedVector3Array()
 	var uvs := PackedVector2Array()
 	var indices := PackedInt32Array()
+	var is_isometric_art := layer.tile_set.tile_shape == TileSet.TILE_SHAPE_ISOMETRIC
 	for cell in layer.get_used_cells():
 		var atlas_cell := layer.get_cell_atlas_coords(cell)
-		_append_tile_quad(cell, atlas_cell, atlas_texture, atlas_region_pixels, world_tile_size, vertices, uvs, indices)
+		_append_tile_quad(cell, atlas_cell, atlas_texture, atlas_region_pixels, world_tile_size, is_isometric_art, vertices, uvs, indices)
 	if vertices.is_empty():
 		return
 	var arrays: Array = []
@@ -236,6 +237,7 @@ func _append_tile_quad(
 	atlas_texture: Texture2D,
 	atlas_region_pixels: float,
 	world_tile_size: float,
+	is_isometric_art: bool,
 	vertices: PackedVector3Array,
 	uvs: PackedVector2Array,
 	indices: PackedInt32Array
@@ -256,12 +258,29 @@ func _append_tile_quad(
 	var inset := Vector2(0.5, 0.5)
 	var uv_min := (pixel_origin + inset) / pixel_size
 	var uv_max := (pixel_origin + Vector2.ONE * atlas_region_pixels - inset) / pixel_size
-	uvs.append_array(PackedVector2Array([
-		Vector2(uv_min.x, uv_min.y),
-		Vector2(uv_max.x, uv_min.y),
-		Vector2(uv_max.x, uv_max.y),
-		Vector2(uv_min.x, uv_max.y)
-	]))
+	if is_isometric_art:
+		# The 128×128 slices contain a 128×64 diamond ground face. Map that
+		# face onto the square XZ tile, which projects to the same diamond
+		# under the fixed 30°/45° camera. This removes transparent corners
+		# that otherwise expose the sky between terrain and under the player.
+		var half_region := atlas_region_pixels * 0.5
+		var face_uv_bottom := (pixel_origin + Vector2(half_region, atlas_region_pixels * 0.75 - 0.5)) / pixel_size
+		var face_uv_right := (pixel_origin + Vector2(atlas_region_pixels - 0.5, half_region)) / pixel_size
+		var face_uv_top := (pixel_origin + Vector2(half_region, atlas_region_pixels * 0.25 + 0.5)) / pixel_size
+		var face_uv_left := (pixel_origin + Vector2(0.5, half_region)) / pixel_size
+		uvs.append_array(PackedVector2Array([
+			face_uv_bottom,
+			face_uv_right,
+			face_uv_top,
+			face_uv_left
+		]))
+	else:
+		uvs.append_array(PackedVector2Array([
+			Vector2(uv_min.x, uv_min.y),
+			Vector2(uv_max.x, uv_min.y),
+			Vector2(uv_max.x, uv_max.y),
+			Vector2(uv_min.x, uv_max.y)
+		]))
 	indices.append_array(PackedInt32Array([
 		base_index, base_index + 2, base_index + 1,
 		base_index, base_index + 3, base_index + 2

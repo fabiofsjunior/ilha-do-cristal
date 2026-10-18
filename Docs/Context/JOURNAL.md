@@ -445,3 +445,10 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - As cenas base e herdadas agora incluem `StaticCandidatePoseSE` com a textura/atlas e o pivô usados pelo carregador atual, visível no editor para alinhar o corpo e as áreas à sprite.
 - `creature_actor.gd` reutiliza o nó serializado e mantém criação de fallback para instâncias sem prévia; os spawns continuam usando a cena própria de cada espécie.
 - Godot 4.5.1 importou/reimportou o projeto com saída 0. A execução headless de uma cena e do teste de contato terminou com falha nativa signal 11, então não houve confirmação de runtime nesta atualização. Ajuste/salvamento/reabertura visual permanece pendente.
+
+
+## 2026-10-18 — Alinhamento da superfície isométrica com o personagem
+
+- A captura do jogo mostrou os losangos de terreno separados e o fundo visível sob os pés. O renderer projetava a imagem 128×128 inteira sobre o chão 4×4 SQMs, embora o atlas tropical contenha uma face superior isométrica 128×64 com cantos transparentes.
+- `isometric_3d_view.gd` agora mapeia os quatro vértices da face superior do atlas para os quatro cantos projetados da célula XZ. As coordenadas da simulação, o spawn, colisões, saves e demais mecânicas permanecem iguais. O minimapa continua usando as mesmas células do jogo.
+- README, arquitetura e roadmap descrevem o ajuste. A checagem estática confirmou que a amostra de UV cobre o losango 128×64; a cena ainda precisa ser executada visualmente no Godot 4.5.1 para conferir a aparência final e o encaixe sob os pés.
