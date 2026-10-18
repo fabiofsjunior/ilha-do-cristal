@@ -4,6 +4,7 @@ extends Node3D
 
 const TERRAIN_ATLAS_PATH := "res://assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.png"
 const TILE_PIXELS := 32.0
+const ISOMETRIC_TILE_COVER_SCALE := 1.10
 
 @export var orthogonal_size := 16.0
 @export var follow_distance := 24.0
@@ -243,10 +244,17 @@ func _append_tile_quad(
 	indices: PackedInt32Array
 ) -> void:
 	var base_index := vertices.size()
-	var x0 := float(cell.x) * world_tile_size
-	var z0 := float(cell.y) * world_tile_size
-	var x1 := x0 + world_tile_size
-	var z1 := z0 + world_tile_size
+	# Transparent pixels near the atlas diamond edges leave visible seams.
+	# A centered 10% overscan covers them without moving the logical cell.
+	var cover_scale := ISOMETRIC_TILE_COVER_SCALE if is_isometric_art else 1.0
+	var covered_tile_size := world_tile_size * cover_scale
+	var center_x := (float(cell.x) + 0.5) * world_tile_size
+	var center_z := (float(cell.y) + 0.5) * world_tile_size
+	var half_tile_size := covered_tile_size * 0.5
+	var x0 := center_x - half_tile_size
+	var z0 := center_z - half_tile_size
+	var x1 := center_x + half_tile_size
+	var z1 := center_z + half_tile_size
 	vertices.append_array(PackedVector3Array([
 		Vector3(x0, 0.0, z0),
 		Vector3(x1, 0.0, z0),

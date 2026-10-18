@@ -452,3 +452,9 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - A captura do jogo mostrou os losangos de terreno separados e o fundo visível sob os pés. O renderer projetava a imagem 128×128 inteira sobre o chão 4×4 SQMs, embora o atlas tropical contenha uma face superior isométrica 128×64 com cantos transparentes.
 - `isometric_3d_view.gd` agora mapeia os quatro vértices da face superior do atlas para os quatro cantos projetados da célula XZ. As coordenadas da simulação, o spawn, colisões, saves e demais mecânicas permanecem iguais. O minimapa continua usando as mesmas células do jogo.
 - README, arquitetura e roadmap descrevem o ajuste. A checagem estática confirmou que a amostra de UV cobre o losango 128×64; a cena ainda precisa ser executada visualmente no Godot 4.5.1 para conferir a aparência final e o encaixe sob os pés.
+
+## 2026-10-18 — Fechamento das frestas entre tiles isométricos
+
+- A captura após o primeiro ajuste ainda mostrava faixas do fundo entre os losangos. As células lógicas encostavam, mas a arte opaca não cobria toda a borda do recorte do atlas.
+- `isometric_3d_view.gd` agora amplia cada quad isométrico em 10%, de forma centrada na célula. UVs, centros, movimento, colisões, saves e mecânicas continuam iguais.
+- Verificação estática confirmou o fator 1.10 apenas nas camadas isométricas e a preservação do centro/tamanho lógico da célula. A cena ainda precisa de execução visual no Godot 4.5.1.
