@@ -4,7 +4,9 @@
 
 **Base:** `Staging` em `5a1d4a0`
 
-**Implementação:** `ae8313b` — ícone e boot com a logo enviada pelo usuário.
+**Implementação:** `e0a1a2d` + `eb75383` — ícone/boot e correção do blob da fonte original.
+
+**PR:** [#24](https://github.com/fabiofsjunior/ilha-do-cristal/pull/24), rascunho contra `Staging`.
 
 **Versão planejada:** APK 0.1.10, `versionCode` 11.
 
