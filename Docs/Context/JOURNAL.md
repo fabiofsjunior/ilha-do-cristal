@@ -458,3 +458,11 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - A captura após o primeiro ajuste ainda mostrava faixas do fundo entre os losangos. As células lógicas encostavam, mas a arte opaca não cobria toda a borda do recorte do atlas.
 - `isometric_3d_view.gd` agora amplia cada quad isométrico em 10%, de forma centrada na célula. UVs, centros, movimento, colisões, saves e mecânicas continuam iguais.
 - Verificação estática confirmou o fator 1.10 apenas nas camadas isométricas e a preservação do centro/tamanho lógico da célula. A cena ainda precisa de execução visual no Godot 4.5.1.
+
+
+## 2026-10-18 — Mapa da Ilha do Cristal v0.3
+
+- A revisão visual local amplia a escala proposta para 400×250 = 100.000 células e acrescenta 30 pontos de alocação por habitat: 4 litoral, 12 floresta, 8 platôs/interior e 6 faixa corrompida futura.
+- O usuário informou que o bestiário está sendo atualizado para 30 tipos. A legenda não inventa nomes; cada ponto é uma posição/habitat candidato e as coordenadas finais ficam pendentes da lista atualizada.
+- A prancha HTML foi aberta para revisão. SVG e contagem são material de protótipo; produção permanece em 250×200 = 50.000, sem alteração de spawns, colisões, saves ou cena.
+- Nenhum teste de runtime foi executado. Próxima ação: receber aprovação/ajustes da composição, escala e divisão dos pontos; após aprovação, preparar uma amostra representativa para revisão antes da produção.

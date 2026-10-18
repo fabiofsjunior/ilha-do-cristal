@@ -148,6 +148,14 @@ Na conversa o usuário confirmou “Prototipagem aprovada”, apontou divergênc
 - O anexo `isometric_tilemap_layers_v0_1.html` foi consultado como amostra de camadas: 64×32, quatro layers, platô/rampa, colisão ilustrada e Y-sort. Não é uma aprovação para substituir a grade atual 32×32/Câmera3D.
 - Revisão solicitada: fluxo sem pause, zoom compartilhado, conceito/relevo e escolha entre conservar 32×32 ou testar uma amostra 64×32 isolada. Implementação de produção pendente.
 
+## Mapa irregular e alocação do bestiário — protótipo v0.3 — 2026-10-18
+
+- **Artefatos:** [prancha navegável](../../docs/prototypes/global_map_island_v0_3.html) e [notas da revisão](../../docs/prototypes/global_map_island_v0_3.md).
+- A pedido do usuário, a escala lógica do protótipo visual foi ampliada para 400×250 = 100.000 células. O jogo permanece em 250×200 = 50.000; nenhum dado/runtime foi alterado.
+- Acrescentados 30 pontos de alocação candidatos: 4 litoral/enseadas, 12 floresta ocidental, 8 platôs/interior e 6 faixa corrompida futura. O usuário informou que o bestiário está sendo atualizado para 30 tipos; os pontos indicam habitats propostos e ainda não se ligam a nomes de criaturas nem coordenadas finais.
+- A prancha usa SVG ilustrativo, links para os três tilesets candidatos e controle para ocultar/mostrar os marcadores. Não há tilemap, spawns, colisões ou cena Godot implementados.
+- **Estado do gate:** em validação explícita. Rever composição, 400×250 e divisão 4/12/8/6. Não iniciar produção até aprovação; depois testar uma amostra representativa no destino antes de ampliar o lote.
+
 ## Bestiário de expansão — concept v0.1 — 2026-10-18
 
 - Fonte consultada: GDD, catálogos e conteúdo de balanceamento. Bestiário MVP tem `fox`, `wolf`, `bear`; candidatos e derivações estão em `docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md`.

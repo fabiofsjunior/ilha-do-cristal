@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Ilha do Cristal — mapa v0.3 (protótipo)</title>
+<style>
+:root{color-scheme:dark;--bg:#11151d;--panel:#191f29;--panel2:#202a35;--line:#344351;--ink:#f5f0dd;--muted:#b8c4c8;--gold:#efc46a;--cyan:#66e2e8;--green:#9fd57a;--violet:#c38bff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 30% -20%,#283c48 0,transparent 48%),var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1480px;margin:0 auto;padding:28px clamp(16px,3vw,42px) 44px}.eyebrow{display:flex;align-items:center;gap:10px;color:#f5d58b;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.dot{width:8px;height:8px;border-radius:50%;background:#ffcb61;box-shadow:0 0 12px #ffca55}h1{margin:8px 0 6px;font-size:clamp(28px,4vw,44px);line-height:1.08;letter-spacing:-.03em}.intro{max-width:820px;margin:0;color:var(--muted);font-size:16px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 22px}.chip{border:1px solid #45515a;background:#1c242d;border-radius:999px;padding:6px 11px;color:#d9e3df;font-size:12px}.layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(290px,.8fr);gap:18px;align-items:start}.card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,#1a222c,#171c24);box-shadow:0 12px 36px #0004;overflow:hidden}.map-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}.map-head strong{font-size:14px}.map-head span{color:var(--muted);font-size:12px}.map-wrap{padding:12px;background:#071e31}.map-svg{display:block;width:100%;height:auto;border-radius:10px;overflow:hidden;background:#06477c}.layer-controls{display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}.layer-controls button{display:inline-flex;align-items:center;gap:8px;border:1px solid #435260;border-radius:999px;background:#222d38;color:#e6ebdf;padding:7px 11px;font:inherit;font-size:12px;cursor:pointer}.layer-controls button[aria-pressed="false"]{opacity:.45;background:#131920}.swatch{width:10px;height:10px;border-radius:3px;background:var(--swatch)}.notes{display:grid;gap:14px}.note{padding:17px}.note h2{margin:0 0 10px;font-size:17px;letter-spacing:-.01em}.note p{margin:0 0 10px;color:var(--muted);font-size:13px}.zones{display:grid;gap:8px;margin:0;padding:0;list-style:none}.zones li{display:grid;grid-template-columns:26px 1fr;gap:9px;align-items:start;padding:7px 0;border-top:1px solid #2e3945;color:#d6dfd8;font-size:13px}.num{display:grid;place-items:center;width:22px;height:22px;border:1px solid #f4cf76;border-radius:50%;color:#f7d782;font-weight:800;font-size:11px}.rows{display:grid;gap:7px;margin-top:12px}.row{display:grid;grid-template-columns:90px 1fr;gap:10px;padding:8px 9px;border-radius:8px;background:#202a34;color:#d8e1dd;font-size:12px}.row b{color:#f0cf85}.assets{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.assets a{color:#bce5ee;border:1px solid #3b6570;background:#172b32;border-radius:8px;padding:7px 9px;text-decoration:none;font-size:11px}.assets a:hover{background:#213d45}.callout{border-left:3px solid var(--gold);padding:9px 11px;background:#28271f;border-radius:0 8px 8px 0;color:#eee4cb;font-size:12px}.scope{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:18px}.scope div{padding:11px;border:1px solid #313f48;border-radius:10px;background:#192129}.scope b{display:block;margin-bottom:3px;color:#d4e8d2;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.scope span{color:var(--muted);font-size:12px}.footer{margin-top:18px;color:#aebbc0;font-size:12px}.footer strong{color:#e9d49d}
+.isle-outline{stroke:#55dce3;stroke-width:28;stroke-linejoin:round;stroke-linecap:round;fill:none;opacity:.9}.foam{stroke:#b4ffff;stroke-width:3;stroke-dasharray:2 11;fill:none;stroke-linecap:round;opacity:.85}.land{fill:#6d9c49;stroke:#9bd676;stroke-width:5;stroke-linejoin:round}.sand{fill:#efd18c;stroke:#fff0bd;stroke-width:4;stroke-linejoin:round}.grass2{fill:#4e7d3e}.forest-floor{fill:#315d37}.plateau-top{fill:#8fbb53;stroke:#b9dd74;stroke-width:5;stroke-linejoin:round}.cliff{fill:#746753;stroke:#a39172;stroke-width:4;stroke-linejoin:round}.rockline{stroke:#c0ad8c;stroke-width:3;opacity:.67}.path-dark{fill:none;stroke:#aa7545;stroke-width:17;stroke-linejoin:round;stroke-linecap:round}.path-light{fill:none;stroke:#f5d783;stroke-width:8;stroke-linejoin:round;stroke-linecap:round}.river{fill:none;stroke:#159ec0;stroke-width:30;stroke-linecap:round;stroke-linejoin:round}.river-hi{fill:none;stroke:#7ffff1;stroke-width:13;stroke-linecap:round;stroke-linejoin:round}.canopy{stroke:#214c35;stroke-width:4}.tree-shadow{fill:#183d32;opacity:.42}.tree-hi{fill:#a8d765;opacity:.9}.tree-mid{fill:#4e963e}.tree-dark{fill:#23613b}.palm-trunk{fill:none;stroke:#855b33;stroke-width:8;stroke-linecap:round}.palm-leaf{fill:none;stroke:#387d3b;stroke-width:7;stroke-linecap:round}.rock{fill:#81796a;stroke:#c1b59a;stroke-width:3}.ruin{fill:#342a51;stroke:#8162a4;stroke-width:4;stroke-linejoin:round}.glow{fill:#ba62f3;filter:url(#softglow)}.small-label{font:800 13px system-ui,sans-serif;letter-spacing:.08em;fill:#fff1ce;paint-order:stroke;stroke:#12212d;stroke-width:5px;stroke-linejoin:round}.hidden{display:none}
+.monster-dot{stroke:#fff9e8;stroke-width:3;filter:url(#shadow)}.monster-dot.coast{fill:#efb94e}.monster-dot.forest{fill:#e85f54}.monster-dot.highland{fill:#67d4d0}.monster-dot.corrupt{fill:#cb83ff}.monster-core{fill:#201e24;pointer-events:none}.monster-key{display:inline-block;width:12px;height:12px;border:2px solid #fff9e8;border-radius:50%;box-shadow:0 0 8px #0008;vertical-align:-1px}.legend-list{display:grid;gap:7px;margin-top:10px}.legend-item{display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:8px;background:#202a34;color:#dce5dc;font-size:12px}.legend-item b{margin-left:auto;color:#f2d28e;font-variant-numeric:tabular-nums}.legend-item small{color:#aebbc0}
+@media(max-width:950px){.layout{grid-template-columns:1fr}.notes{grid-template-columns:repeat(2,minmax(0,1fr))}.notes .wide{grid-column:1/-1}}
+@media(max-width:620px){main{padding:18px 12px 32px}.notes{grid-template-columns:1fr}.notes .wide{grid-column:auto}.map-head{align-items:flex-start;flex-direction:column}.scope{grid-template-columns:1fr}.row{grid-template-columns:78px 1fr}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow"><span class="dot"></span> Protótipo visual v0.3 · em validação</div>
+  <h1>Uma ilha irregular, organizada por camadas</h1>
+  <p class="intro">Nova composição inspirada no mapa anexado, ampliada para 400 × 250 células: naufrágio na praia sudoeste, floresta a oeste, lago cristalino central, platôs com cachoeira ao norte/leste e ruínas violetas distantes no nordeste. Os pontos propõem regiões para os 30 tipos que estão sendo definidos no bestiário; a associação de cada criatura ainda fica em aberto.</p>
+  <div class="chips"><span class="chip">400 × 250 células lógicas</span><span class="chip">100.000 células no protótipo (+50.000)</span><span class="chip">Câmera 2.5D atual</span><span class="chip">Topo de tile isométrico 128 × 64 px</span></div>
+  <div class="layout">
+    <section class="card" aria-label="Prévia do mapa">
+      <div class="map-head"><strong>Composição candidata — vista geral</strong><span>Ative e oculte camadas para revisar a leitura</span></div>
+      <div class="map-wrap">
+        <svg class="map-svg" viewBox="0 0 1440 880" role="img" aria-labelledby="mapTitle mapDesc">
+          <title id="mapTitle">Mapa candidato da Ilha do Cristal com zonas de alocação para 30 tipos de monstros</title><desc id="mapDesc">Ilha irregular em mar azul, com naufrágio e praia ao sudoeste, floresta a oeste, lago azul de cristal no centro, platôs de pedra com cachoeiras ao norte e leste, ruínas violetas distantes a nordeste e trinta pontos de alocação propostos distribuídos por quatro biomas.</desc>
+          <defs>
+            <pattern id="waves" width="160" height="96" patternUnits="userSpaceOnUse"><path d="M8 25q20-13 40 0t40 0m22 37q19-12 38 0t39 0M15 83q14-9 28 0t29 0" fill="none" stroke="#2c91bd" stroke-width="3" opacity=".4"/><circle cx="127" cy="18" r="2" fill="#72e7ed" opacity=".45"/></pattern>
+            <filter id="softglow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="12" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#082339" flood-opacity=".48"/></filter>
+            <clipPath id="islandClip"><path d="M449 110 534 84 620 110 696 76 774 100 848 84 923 122 1004 119 1087 160 1167 203 1214 267 1197 326 1222 386 1186 442 1194 501 1146 549 1115 617 1031 654 947 701 853 704 777 740 682 716 599 744 515 710 435 698 357 657 294 633 251 586 262 520 223 468 239 403 213 348 250 291 273 226 335 182 379 139Z"/></clipPath>
+            <g id="broadTree"><ellipse class="tree-shadow" cx="0" cy="15" rx="37" ry="21"/><path d="M-3 12v35" stroke="#674c31" stroke-width="8"/><circle class="tree-dark canopy" cx="-15" cy="0" r="25"/><circle class="tree-mid canopy" cx="13" cy="-8" r="29"/><circle class="tree-dark canopy" cx="30" cy="9" r="23"/><circle class="tree-hi" cx="-5" cy="-20" r="11"/><circle class="tree-hi" cx="22" cy="-18" r="8"/></g>
+            <g id="smallTree"><ellipse class="tree-shadow" cx="0" cy="11" rx="24" ry="14"/><path d="M0 7v26" stroke="#674c31" stroke-width="6"/><circle class="tree-dark canopy" cx="-9" cy="-3" r="19"/><circle class="tree-mid canopy" cx="11" cy="-7" r="21"/><circle class="tree-hi" cx="4" cy="-21" r="7"/></g>
+            <g id="palm"><path class="palm-trunk" d="M0 44Q4 18 2-11"/><path class="palm-leaf" d="M2-10Q-22-31-41-23M2-10Q-15-43-18-54M2-10Q11-43 32-52M2-10Q35-31 48-23M2-10Q31-5 43 6"/><circle cx="2" cy="-10" r="6" fill="#e6bb50"/></g>
+            <g id="stone"><path class="rock" d="m-25 17 8-23 12-13 11 5 15-8 14 18-4 21-18 9-22-4Z"/><path d="m-6-2 10-14 9 18" fill="none" stroke="#d1c2a4" stroke-width="3" opacity=".75"/></g>
+          </defs>
+          <rect width="1440" height="880" fill="#06477c"/><rect width="1440" height="880" fill="url(#waves)"/>
+          <g class="layer-base">
+            <path d="M449 110 534 84 620 110 696 76 774 100 848 84 923 122 1004 119 1087 160 1167 203 1214 267 1197 326 1222 386 1186 442 1194 501 1146 549 1115 617 1031 654 947 701 853 704 777 740 682 716 599 744 515 710 435 698 357 657 294 633 251 586 262 520 223 468 239 403 213 348 250 291 273 226 335 182 379 139Z" fill="#28c5d0" opacity=".62"/>
+            <path class="land" d="M449 110 534 84 620 110 696 76 774 100 848 84 923 122 1004 119 1087 160 1167 203 1214 267 1197 326 1222 386 1186 442 1194 501 1146 549 1115 617 1031 654 947 701 853 704 777 740 682 716 599 744 515 710 435 698 357 657 294 633 251 586 262 520 223 468 239 403 213 348 250 291 273 226 335 182 379 139Z" filter="url(#shadow)"/>
+            <path class="isle-outline" d="M449 110 534 84 620 110 696 76 774 100 848 84 923 122 1004 119 1087 160 1167 203 1214 267 1197 326 1222 386 1186 442 1194 501 1146 549 1115 617 1031 654 947 701 853 704 777 740 682 716 599 744 515 710 435 698 357 657 294 633 251 586 262 520 223 468 239 403 213 348 250 291 273 226 335 182 379 139Z"/>
+            <path class="foam" d="M449 110 534 84 620 110 696 76 774 100 848 84 923 122 1004 119 1087 160 1167 203 1214 267 1197 326 1222 386 1186 442 1194 501 1146 549 1115 617 1031 654 947 701 853 704 777 740 682 716 599 744 515 710 435 698 357 657 294 633 251 586 262 520 223 468 239 403 213 348 250 291 273 226 335 182 379 139Z"/>
+            <path class="sand" d="m260 516 47-39 64 16 54 41 70 24 30 65-24 63-65 25-71-20-68-36-45-52-10-47Z"/>
+            <path d="m294 549 66-16 73 31 55 40-28 49-72 24-70-34-37-45Z" fill="#f6dfa8" opacity=".9"/>
+            <path class="sand" d="m322 266 28-46 48-24 56 16 22 41-23 43-65 10-50-14Z"/>
+            <path class="sand" d="m508 151 48-28 57 8 29 31-23 32-58 8-49-16Z"/>
+            <path class="sand" d="m1052 557 45-17 38 22-13 34-50 16-36-21Z"/>
+          </g>
+          <g class="layer-height">
+            <path class="cliff" d="m504 258 61-55 74 9 53 36-15 70-67 40-73-15-45-40Z"/><path class="plateau-top" d="m504 238 61-55 74 9 53 36-15 53-67 34-73-15-45-40Z"/>
+            <path class="rockline" d="m510 266 48 32m4-50 53 42m15-52 38 39m-84 38 17 20m44-30 12 15"/>
+            <path class="cliff" d="m674 204 79-53 78 15 66 44-5 71-70 38-83-12-57-43Z"/><path class="plateau-top" d="m674 183 79-53 78 15 66 44-5 55-70 38-83-12-57-43Z"/>
+            <path class="rockline" d="m689 208 59 27m-16-60 64 44m20-49 42 43m-75 37 32 30m36-25 22 12"/>
+            <path class="cliff" d="m843 291 79-47 86 14 72 50-10 80-70 47-94-5-70-45Z"/><path class="plateau-top" d="m843 270 79-47 86 14 72 50-10 63-70 47-94-5-70-45Z"/>
+            <path class="rockline" d="m860 300 52 29m2-66 68 41m21-27 51 42m-95 29 43 30m31-40 27 17"/>
+            <path class="cliff" d="m720 456 78-51 86 8 67 50-9 81-72 44-88-8-65-47Z"/><path class="plateau-top" d="m720 435 78-51 86 8 67 50-9 64-72 44-88-8-65-47Z"/>
+            <path class="rockline" d="m737 465 61 31m-8-66 63 44m32-37 46 31m-100 54 30 25m44-40 28 18"/>
+            <path class="cliff" d="m933 517 58-38 71 7 52 40-9 59-60 39-68-8-55-38Z"/><path class="plateau-top" d="m933 497 58-38 71 7 52 40-9 43-60 39-68-8-55-38Z"/>
+            <path class="rockline" d="m950 524 50 24m11-60 51 37m-20 61 36-23"/>
+            <path d="m632 332 35-19 28 15-5 45-28 27-29-15Z" fill="#347a42" stroke="#8fc657" stroke-width="4"/><path d="m642 354 30-12 12 9-3 35-20 14-16-12Z" fill="#c8b99b"/>
+            <path d="m1049 215 40-24 42 16 23 33-20 42-43 14-42-22Z" fill="#483e53" stroke="#ab78d1" stroke-width="4"/>
+            <path d="m1060 230 31-17 27 13 14 18-15 26-32 11-30-16Z" fill="#6c5574"/>
+            <path d="m774 611 39-25 43 12 16 40-24 40-49 6-33-27Z" fill="#496b49" stroke="#8cb766" stroke-width="4"/>
+            <path class="rockline" d="m783 627 39 20m-17-46 34 28m31 9 17 7"/>
+            <path d="m759 361 31-16 29 16v93l-28 12-32-22Z" fill="#637b62" stroke="#a3b881" stroke-width="3"/><path class="river" d="M784 375Q777 410 795 435T805 483"/><path class="river-hi" d="M784 375Q777 410 795 435T805 483"/>
+          </g>
+          <g class="layer-base">
+            <path class="river" d="M801 479Q770 510 714 504T651 526Q609 544 590 591"/><path class="river-hi" d="M801 479Q770 510 714 504T651 526Q609 544 590 591"/>
+            <path d="M696 354c-20-21-15-52 8-68 24-18 64-10 81 12 18 22 12 57-11 75-24 20-59 11-78-19Z" fill="#0c9ac4" stroke="#5be8ee" stroke-width="8"/>
+            <path d="M702 355c-12-17-7-37 10-48 18-11 43-4 53 12 10 16 4 37-12 47-18 11-40 5-51-11Z" fill="#27cae0" opacity=".86"/>
+          </g>
+          <g class="layer-route">
+            <path class="path-dark" d="M401 608 437 576 470 554 501 518 536 497 567 465 592 431 623 405 656 381 680 356"/><path class="path-light" d="M401 608 437 576 470 554 501 518 536 497 567 465 592 431 623 405 656 381 680 356"/>
+            <path class="path-dark" d="M680 356 717 323 752 295 790 272 825 255 860 242 899 232 931 214 969 198 1013 187"/><path class="path-light" d="M680 356 717 323 752 295 790 272 825 255 860 242 899 232 931 214 969 198 1013 187"/>
+            <path class="path-dark" d="M673 363 716 392 748 426 779 450"/><path class="path-light" d="M673 363 716 392 748 426 779 450"/>
+            <path class="path-dark" d="M590 431 561 410 537 384 514 355 484 337"/><path class="path-light" d="M590 431 561 410 537 384 514 355 484 337"/>
+          </g>
+          <g class="layer-props">
+            <use href="#broadTree" transform="translate(352 300) scale(1.04)"/><use href="#broadTree" transform="translate(420 278) scale(.9)"/><use href="#broadTree" transform="translate(472 313) scale(1.03)"/>
+            <use href="#broadTree" transform="translate(318 375) scale(.96)"/><use href="#broadTree" transform="translate(393 382) scale(1.08)"/><use href="#broadTree" transform="translate(464 397) scale(.9)"/>
+            <use href="#broadTree" transform="translate(348 460) scale(.86)"/><use href="#broadTree" transform="translate(411 463) scale(1)"/><use href="#broadTree" transform="translate(526 350) scale(.84)"/>
+            <use href="#smallTree" transform="translate(553 284) scale(.9)"/><use href="#smallTree" transform="translate(602 262) scale(1.03)"/><use href="#smallTree" transform="translate(875 362) scale(.85)"/>
+            <use href="#smallTree" transform="translate(1003 427) scale(.84)"/><use href="#smallTree" transform="translate(1085 455) scale(.85)"/><use href="#smallTree" transform="translate(846 564) scale(.8)"/>
+            <use href="#palm" transform="translate(306 600) scale(.95)"/><use href="#palm" transform="translate(361 641) scale(.75)"/><use href="#palm" transform="translate(456 659) scale(.82)"/>
+            <use href="#stone" transform="translate(282 473) scale(.8)"/><use href="#stone" transform="translate(545 648) scale(.75)"/><use href="#stone" transform="translate(1151 474) scale(.72)"/><use href="#stone" transform="translate(1100 623) scale(.9)"/>
+            <g transform="translate(374 570) rotate(-22)" fill="none" stroke="#654325" stroke-width="9" stroke-linecap="round"><path d="M-52 20Q0 48 61 12L42 43Q0 58-45 39Z" fill="#84582f"/><path d="M-18 19V-39M22 26V-52M-20-30 27 8M22-42-32 7M-6 3 46-24"/><path d="M-54 47 57 52M-42 60 44 63" stroke-width="5"/></g>
+            <g transform="translate(730 358)" filter="url(#shadow)"><path d="M-19 23 0-36 14 25Z" fill="#20e9fa" stroke="#b0ffff" stroke-width="4"/><path d="M-2 25 23-17 31 31Z" fill="#0aa8db" stroke="#83ffff" stroke-width="4"/><path d="M-32 30-20-5-7 31Z" fill="#45c8ec" stroke="#a7ffff" stroke-width="3"/><ellipse cx="3" cy="30" rx="44" ry="12" fill="#8cffff" opacity=".55"/></g>
+            <g transform="translate(1111 176)" filter="url(#shadow)"><path class="ruin" d="M-48 46V-3l15-16v-38l16 13v29l12-10v-46l19 11v40l15-15v-34l18 16v99Z"/><path d="M-27 46V19h10v27M14 46V10h11v36M-2-9h8v17h-8Z" fill="#a246db"/><path class="glow" d="M-3 4h10v25H-3Z"/></g>
+            <g transform="translate(1056 240)"><circle cx="0" cy="0" r="17" fill="#26192e" stroke="#d091ff" stroke-width="3"/><path d="M-4 7V-3l5-6 5 6V7Z" fill="#ca87ff"/><text x="0" y="5" text-anchor="middle" font-size="12" font-weight="900" fill="#1c1228">5</text></g>
+            <g transform="translate(359 627)"><circle cx="0" cy="0" r="17" fill="#382b1c" stroke="#f5d783" stroke-width="3"/><text x="0" y="5" text-anchor="middle" font-size="12" font-weight="900" fill="#fff0c2">1</text></g>
+            <g transform="translate(697 419)"><circle cx="0" cy="0" r="17" fill="#123943" stroke="#77f2eb" stroke-width="3"/><text x="0" y="5" text-anchor="middle" font-size="12" font-weight="900" fill="#d5ffff">2</text></g>
+            <g transform="translate(912 349)"><circle cx="0" cy="0" r="17" fill="#283d29" stroke="#c6e27b" stroke-width="3"/><text x="0" y="5" text-anchor="middle" font-size="12" font-weight="900" fill="#efffd0">3</text></g>
+            <g transform="translate(822 206)"><circle cx="0" cy="0" r="17" fill="#443d2b" stroke="#efd182" stroke-width="3"/><text x="0" y="5" text-anchor="middle" font-size="12" font-weight="900" fill="#fff0c2">4</text></g>
+          </g>
+          <g class="layer-monsters" aria-label="Trinta pontos propostos de alocação de monstros; cores indicam o bioma">
+            <g aria-label="Quatro pontos no litoral e enseadas"><circle class="monster-dot coast" cx="300" cy="555" r="10"/><circle class="monster-core" cx="300" cy="555" r="3"/><circle class="monster-dot coast" cx="429" cy="610" r="10"/><circle class="monster-core" cx="429" cy="610" r="3"/><circle class="monster-dot coast" cx="491" cy="667" r="10"/><circle class="monster-core" cx="491" cy="667" r="3"/><circle class="monster-dot coast" cx="336" cy="625" r="10"/><circle class="monster-core" cx="336" cy="625" r="3"/></g>
+            <g aria-label="Doze pontos na floresta ocidental"><circle class="monster-dot forest" cx="340" cy="270" r="10"/><circle class="monster-core" cx="340" cy="270" r="3"/><circle class="monster-dot forest" cx="410" cy="260" r="10"/><circle class="monster-core" cx="410" cy="260" r="3"/><circle class="monster-dot forest" cx="465" cy="285" r="10"/><circle class="monster-core" cx="465" cy="285" r="3"/><circle class="monster-dot forest" cx="302" cy="340" r="10"/><circle class="monster-core" cx="302" cy="340" r="3"/><circle class="monster-dot forest" cx="360" cy="350" r="10"/><circle class="monster-core" cx="360" cy="350" r="3"/><circle class="monster-dot forest" cx="430" cy="375" r="10"/><circle class="monster-core" cx="430" cy="375" r="3"/><circle class="monster-dot forest" cx="495" cy="386" r="10"/><circle class="monster-core" cx="495" cy="386" r="3"/><circle class="monster-dot forest" cx="321" cy="414" r="10"/><circle class="monster-core" cx="321" cy="414" r="3"/><circle class="monster-dot forest" cx="384" cy="438" r="10"/><circle class="monster-core" cx="384" cy="438" r="3"/><circle class="monster-dot forest" cx="468" cy="440" r="10"/><circle class="monster-core" cx="468" cy="440" r="3"/><circle class="monster-dot forest" cx="353" cy="486" r="10"/><circle class="monster-core" cx="353" cy="486" r="3"/><circle class="monster-dot forest" cx="521" cy="340" r="10"/><circle class="monster-core" cx="521" cy="340" r="3"/></g>
+            <g aria-label="Oito pontos nos platôs e interior"><circle class="monster-dot highland" cx="590" cy="235" r="10"/><circle class="monster-core" cx="590" cy="235" r="3"/><circle class="monster-dot highland" cx="650" cy="267" r="10"/><circle class="monster-core" cx="650" cy="267" r="3"/><circle class="monster-dot highland" cx="731" cy="221" r="10"/><circle class="monster-core" cx="731" cy="221" r="3"/><circle class="monster-dot highland" cx="826" cy="251" r="10"/><circle class="monster-core" cx="826" cy="251" r="3"/><circle class="monster-dot highland" cx="909" cy="281" r="10"/><circle class="monster-core" cx="909" cy="281" r="3"/><circle class="monster-dot highland" cx="1001" cy="340" r="10"/><circle class="monster-core" cx="1001" cy="340" r="3"/><circle class="monster-dot highland" cx="1073" cy="400" r="10"/><circle class="monster-core" cx="1073" cy="400" r="3"/><circle class="monster-dot highland" cx="956" cy="506" r="10"/><circle class="monster-core" cx="956" cy="506" r="3"/></g>
+            <g aria-label="Seis pontos na faixa corrompida, conteúdo futuro"><circle class="monster-dot corrupt" cx="1076" cy="278" r="10"/><circle class="monster-core" cx="1076" cy="278" r="3"/><circle class="monster-dot corrupt" cx="1133" cy="308" r="10"/><circle class="monster-core" cx="1133" cy="308" r="3"/><circle class="monster-dot corrupt" cx="1155" cy="354" r="10"/><circle class="monster-core" cx="1155" cy="354" r="3"/><circle class="monster-dot corrupt" cx="1122" cy="400" r="10"/><circle class="monster-core" cx="1122" cy="400" r="3"/><circle class="monster-dot corrupt" cx="1075" cy="426" r="10"/><circle class="monster-core" cx="1075" cy="426" r="3"/><circle class="monster-dot corrupt" cx="1027" cy="379" r="10"/><circle class="monster-core" cx="1027" cy="379" r="3"/></g>
+          </g>
+          <g aria-hidden="true"><path d="M92 120v58m0-58-13 22m13-22 13 22" stroke="#fff0c2" stroke-width="4"/><text x="92" y="108" text-anchor="middle" class="small-label">N</text><text x="92" y="203" text-anchor="middle" class="small-label" font-size="10">S</text></g>
+          <g transform="translate(1240 800)" opacity=".8"><path d="M0 0h120" stroke="#e7dfc8" stroke-width="4"/><path d="M0-6v12M60-6v12M120-6v12" stroke="#e7dfc8" stroke-width="3"/><text x="60" y="-12" text-anchor="middle" fill="#e7dfc8" font-size="11">referência de escala</text></g>
+        </svg>
+      </div>
+      <div class="layer-controls" aria-label="Camadas visíveis">
+        <button type="button" data-layer="layer-base" aria-pressed="true"><span class="swatch" style="--swatch:#46cbd5"></span>Mar, praias e lago</button>
+        <button type="button" data-layer="layer-height" aria-pressed="true"><span class="swatch" style="--swatch:#aa936e"></span>Platôs e cachoeira</button>
+        <button type="button" data-layer="layer-route" aria-pressed="true"><span class="swatch" style="--swatch:#eacb79"></span>Rotas</button>
+        <button type="button" data-layer="layer-props" aria-pressed="true"><span class="swatch" style="--swatch:#70b453"></span>Vegetação e marcos</button>
+        <button type="button" data-layer="layer-monsters" aria-pressed="true"><span class="swatch" style="--swatch:#e85f54"></span>Monstros (30 pontos)</button>
+      </div>
+    </section>
+    <aside class="notes">
+      <section class="card note">
+        <h2>Leitura da composição</h2>
+        <ol class="zones">
+          <li><span class="num">1</span><span><b>Praia sudoeste</b> — destroços, palmeiras e chegada protegida.</span></li>
+          <li><span class="num">2</span><span><b>Lago do Cristal</b> — marco central conectado às rotas e à cachoeira.</span></li>
+          <li><span class="num">3</span><span><b>Interior verde</b> — floresta oeste e caminho gradual para o planalto.</span></li>
+          <li><span class="num">4</span><span><b>Platôs elevados</b> — degraus rochosos, rampas e quedas d’água visíveis.</span></li>
+          <li><span class="num">5</span><span><b>Ruínas violetas</b> — ponto distante, narrativo e fora do conteúdo jogável do MVP.</span></li>
+        </ol>
+      </section>
+      <section class="card note">
+        <h2>Alocação proposta dos monstros</h2>
+        <p>Há 30 pontos no mapa, um por tipo previsto no bestiário. As cores agrupam biomas; nomes e coordenadas finais serão ligados quando a lista de criaturas estiver definida.</p>
+        <div class="legend-list">
+          <div class="legend-item"><span class="monster-key" style="background:#efb94e"></span><span>Litoral e enseadas</span><b>4 pontos</b></div>
+          <div class="legend-item"><span class="monster-key" style="background:#e85f54"></span><span>Floresta ocidental</span><b>12 pontos</b></div>
+          <div class="legend-item"><span class="monster-key" style="background:#67d4d0"></span><span>Platôs e interior</span><b>8 pontos</b></div>
+          <div class="legend-item"><span class="monster-key" style="background:#cb83ff"></span><span>Faixa corrompida (futura)</span><b>6 pontos</b></div>
+        </div>
+        <div class="callout" style="margin-top:12px">Distribuição visual para revisão: não substitui os spawns atuais do jogo nem define espécie, raridade, nível ou comportamento.</div>
+      </section>
+      <section class="card note">
+        <h2>Relação com os tilesets</h2>
+        <p>Proposta de pintura no atlas candidato; os números abaixo são linhas do prompt/organização descrita, não IDs Godot já importados.</p>
+        <div class="rows">
+          <div class="row"><b>Base e costa</b><span>Terreno R1; transições de praia R2 e R4</span></div>
+          <div class="row"><b>Caminhos</b><span>Trilhas com junções da R3</span></div>
+          <div class="row"><b>Altura</b><span>Faces de penhasco R5, rampas/rochas R6, rios R7</span></div>
+          <div class="row"><b>Corrupção</b><span>Solo, transição, falésia e rampa violetas R8</span></div>
+          <div class="row"><b>Props</b><span>Árvores, palmeiras, pedras, cristal, naufrágio e ruínas nas linhas 1–8</span></div>
+        </div>
+        <div class="assets">
+          <a href="https://github.com/fabiofsjunior/ilha-do-cristal/blob/Staging/assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_tileset_isometrico_v1.png" target="_blank" rel="noreferrer">Abrir tileset de terreno</a>
+          <a href="https://github.com/fabiofsjunior/ilha-do-cristal/blob/Staging/assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_elementos_isometricos_v1.png" target="_blank" rel="noreferrer">Abrir atlas de elementos</a>
+          <a href="https://github.com/fabiofsjunior/ilha-do-cristal/blob/Staging/assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_padroes_tilemap_v1.png" target="_blank" rel="noreferrer">Abrir prancha de padrões</a>
+        </div>
+      </section>
+      <section class="card note wide">
+        <h2>Decisões para esta revisão</h2>
+        <div class="callout">Esta versão representa uma expansão proposta para 400×250 células (100.000 no protótipo); o mapa no jogo segue em 250×200 (50.000) até aprovação e implementação. Câmera, colisões, spawns, recursos e salvamento não foram alterados.</div>
+        <div class="scope"><div><b>Representado</b><span>Forma da ilha, biomas, rotas e 30 zonas de alocação previstas.</span></div><div><b>Proposto</b><span>Reutilizar BaseTiles, Transitions, Paths, ManualTerrain e ManualProps.</span></div><div><b>Ainda não final</b><span>O SVG é uma prancha; a associação dos 30 tipos e os tiles reais dependem das revisões pendentes.</span></div></div>
+      </section>
+    </aside>
+  </div>
+  <p class="footer"><strong>Para validar:</strong> composição e escala 400×250, posição da rota e do cristal, e distribuição dos 30 pontos por bioma. Diga “aprovado” ou indique ajustes; depois disso a cena poderá ser redesenhada com os tiles reais e comparada no Godot.</p>
+</main>
+<script>
+document.querySelectorAll("[data-layer]").forEach(function(button){button.addEventListener("click",function(){var name=button.getAttribute("data-layer");var visible=button.getAttribute("aria-pressed")==="true";button.setAttribute("aria-pressed",visible?"false":"true");document.querySelectorAll("."+name).forEach(function(layer){layer.classList.toggle("hidden",visible);});});});
+</script>
+</body>
+</html>
+

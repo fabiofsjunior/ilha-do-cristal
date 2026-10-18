@@ -1,23 +1,17 @@
-# Handoff — fechamento das frestas do terreno isométrico
+# Handoff — mapa irregular v0.3 aguardando validação
 
-**Branch:** `Staging`
-
-**Base integrada:** `91d95e3fbc820558c74ae7aa838603250d7f5dd8`
-
-**Commit de implementação:** `a7cb783791566409d2db3302c55af9e57cc8f65f`
+**Branch:** `Staging`  
+**Commit base antes deste registro:** `195a3d3445ab33ab456f9c2b612844d337265060`
 
 ## Próxima ação exata
 
-Abra o projeto `game/project.godot` no Godot 4.5.1 e execute a cena principal. Confira o jogador na região de praia: os losangos do `BaseTiles` devem cobrir o chão sob os pés, sem frestas do fundo entre células. Depois abra `game/scenes/first_island.tscn`, selecione `BaseTiles`, pinte uma célula e execute novamente para confirmar que a edição salva aparece sem repintura no início.
+Aguardar o usuário revisar [a prancha v0.3](../../docs/prototypes/global_map_island_v0_3.html). Registrar se aprova ou ajusta a escala lógica proposta de 400×250, a composição e a divisão dos 30 pontos (4 litoral, 12 floresta, 8 platôs/interior, 6 faixa corrompida futura). O bestiário está sendo atualizado para 30 tipos; não atribuir nomes ou spawns definitivos até a lista estar pronta.
 
-## Alterações
+Se a prancha for aprovada, criar uma amostra representativa na cena alvo e apresentar para revisão antes de qualquer implementação em lote. Não expandir o mapa de produção para 100.000 células sem aprovação e validação de colisões, rampas, culling e desempenho.
 
-- `game/scripts/world/isometric_3d_view.gd` mapeia o losango superior 128×64 do atlas isométrico para a célula quadrada de 4×4 SQMs e amplia o quad 10% em torno do mesmo centro para cobrir as bordas transparentes.
-- `README.md`, `docs/technical/ARCHITECTURE.md`, `Docs/Main/ROADMAP.md` e `Docs/Context/JOURNAL.md` registram o comportamento e os limites de validação.
-- A posição lógica do jogador, colisões, saves, spawns e regras do jogo não foram alterados.
+## Estado e limites
 
-## Verificações e limites
-
-- Revisão estática confirmou os vértices UV do losango e a cobertura centrada 1.10; os centros lógicos permanecem inalterados.
-- Não houve execução da cena Godot neste fluxo via plugin GitHub; a conferência visual em Godot 4.5.1 ainda está pendente.
-- Nenhuma pergunta de escopo permanece; falta apenas a verificação visual local descrita acima.
+- O jogo continua com mapa de 250×200 = 50.000 células.
+- A v0.3 é um protótipo HTML/SVG; os 30 pontos são distribuição candidata por habitat, não catálogo nem spawns de runtime.
+- A arte isométrica candidata ainda exige recortes/importação apropriados; nenhuma cena Godot, colisão, save, câmera ou dado de produção foi alterado.
+- Revisões pendentes: validar composição, escala, distribuição por habitat e fluxo global v0.1. Não houve teste de runtime neste incremento.

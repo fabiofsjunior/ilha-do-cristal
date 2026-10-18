@@ -12,7 +12,7 @@ No Android, o boot consulta Releases `content-vX.Y.Z`, oferece o botão **Atuali
 
 ## Revisão visual em andamento — mapa global e bestiário
 
-Os protótipos de mapa global/ilha irregular e a proposta de dez monstros continuam aguardando revisão explícita. A grade atual tem 50.000 tiles (250×200), faixas planas e nenhuma altura. A persistência em camadas editáveis mantém essa composição; ela não aprova nem implementa a proposta de ilha irregular. Consulte [`global_map_island_v0_1.html`](docs/prototypes/global_map_island_v0_1.html), [`BESTIARY_EXPANSION_CANDIDATES_V0_1.md`](docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md) e o [handoff](Docs/Context/HANDOFF.md).
+A proposta de ilha irregular está em revisão explícita na [prancha v0.3](docs/prototypes/global_map_island_v0_3.html): escala lógica candidata de 400×250 = 100.000 células e 30 pontos de alocação por habitat. O usuário informou que o bestiário está sendo atualizado para 30 tipos; a legenda não associa espécies ainda. A produção continua em 50.000 células (250×200), sem alteração de mapa ou spawns. O fluxo global navegável v0.1 e os candidatos de arte do [bestiário](docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md) seguem sujeitos às respectivas revisões. Consulte também as [notas v0.3](docs/prototypes/global_map_island_v0_3.md) e o [handoff](Docs/Context/HANDOFF.md).
 
 ## Editar o terreno no Godot
 
