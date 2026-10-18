@@ -87,5 +87,7 @@ texture_region_size = Vector2i(128, 128)
 7:4/0 = 0
 
 [resource]
-tile_size = Vector2i(128, 128)
+tile_size = Vector2i(128, 64)
+tile_shape = 1
+tile_layout = 5
 sources/0 = SubResource("TileSetAtlasSource_tropical_manual_terrain_v1")

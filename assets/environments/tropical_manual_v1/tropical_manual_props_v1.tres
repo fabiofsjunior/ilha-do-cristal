@@ -7,53 +7,79 @@ texture = ExtResource("1_atlas")
 texture_region_size = Vector2i(128, 128)
 ; slice 40 (0, 5)
 0:5/0 = 0
+0:5/0/texture_origin = Vector2i(0, -60)
 ; slice 41 (1, 5)
 1:5/0 = 0
+1:5/0/texture_origin = Vector2i(0, -60)
 ; slice 42 (2, 5)
 2:5/0 = 0
+2:5/0/texture_origin = Vector2i(0, -60)
 ; slice 43 (3, 5)
 3:5/0 = 0
+3:5/0/texture_origin = Vector2i(0, -60)
 ; slice 44 (4, 5)
 4:5/0 = 0
+4:5/0/texture_origin = Vector2i(0, -60)
 ; slice 45 (5, 5)
 5:5/0 = 0
+5:5/0/texture_origin = Vector2i(0, -60)
 ; slice 46 (6, 5)
 6:5/0 = 0
+6:5/0/texture_origin = Vector2i(0, -60)
 ; slice 47 (7, 5)
 7:5/0 = 0
+7:5/0/texture_origin = Vector2i(0, -60)
 ; slice 48 (0, 6)
 0:6/0 = 0
+0:6/0/texture_origin = Vector2i(0, -60)
 ; slice 49 (1, 6)
 1:6/0 = 0
+1:6/0/texture_origin = Vector2i(0, -60)
 ; slice 50 (2, 6)
 2:6/0 = 0
+2:6/0/texture_origin = Vector2i(0, -60)
 ; slice 51 (3, 6)
 3:6/0 = 0
+3:6/0/texture_origin = Vector2i(0, -60)
 ; slice 52 (4, 6)
 4:6/0 = 0
+4:6/0/texture_origin = Vector2i(0, -60)
 ; slice 53 (5, 6)
 5:6/0 = 0
+5:6/0/texture_origin = Vector2i(0, -60)
 ; slice 54 (6, 6)
 6:6/0 = 0
+6:6/0/texture_origin = Vector2i(0, -60)
 ; slice 55 (7, 6)
 7:6/0 = 0
+7:6/0/texture_origin = Vector2i(0, -60)
 ; slice 56 (0, 7)
 0:7/0 = 0
+0:7/0/texture_origin = Vector2i(0, -60)
 ; slice 57 (1, 7)
 1:7/0 = 0
+1:7/0/texture_origin = Vector2i(0, -60)
 ; slice 58 (2, 7)
 2:7/0 = 0
+2:7/0/texture_origin = Vector2i(0, -60)
 ; slice 59 (3, 7)
 3:7/0 = 0
+3:7/0/texture_origin = Vector2i(0, -60)
 ; slice 60 (4, 7)
 4:7/0 = 0
+4:7/0/texture_origin = Vector2i(0, -60)
 ; slice 61 (5, 7)
 5:7/0 = 0
+5:7/0/texture_origin = Vector2i(0, -60)
 ; slice 62 (6, 7)
 6:7/0 = 0
+6:7/0/texture_origin = Vector2i(0, -60)
 ; slice 63 (7, 7)
 7:7/0 = 0
+7:7/0/texture_origin = Vector2i(0, -60)
 
 [resource]
-tile_size = Vector2i(128, 128)
+tile_size = Vector2i(128, 64)
+tile_shape = 1
+tile_layout = 5
 sources/0 = SubResource("TileSetAtlasSource_tropical_manual_props_v1")
