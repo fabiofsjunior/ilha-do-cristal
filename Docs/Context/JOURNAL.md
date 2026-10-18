@@ -439,3 +439,9 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - Validação feita nesta sessão: `py_compile`, testes isolados do detector com os dois arquivos ausentes/presentes, geração do índice da wiki e `git diff --check`. Após rebasear na Staging atual, `python3 tools/wiki/test_catalog.py` falha no mock de DOM do alternador de tema (`tools/wiki/test_runtime.js` não define `document.documentElement`); essa falha não envolve o exportador Web.
 - A janela do editor, download dos templates, exportação Web e navegador precisam de validação real no Windows.
 - Implementação publicada na branch `feature/s16-web-template-install`; PR #34 aberta para `Staging`, com base no commit `cd7c0c7`.
+
+## 2026-10-18 — Prévia de sprite para ajustar colisores de criaturas
+
+- As cenas base e herdadas agora incluem `StaticCandidatePoseSE` com a textura/atlas e o pivô usados pelo carregador atual, visível no editor para alinhar o corpo e as áreas à sprite.
+- `creature_actor.gd` reutiliza o nó serializado e mantém criação de fallback para instâncias sem prévia; os spawns continuam usando a cena própria de cada espécie.
+- Godot 4.5.1 importou/reimportou o projeto com saída 0. A execução headless de uma cena e do teste de contato terminou com falha nativa signal 11, então não houve confirmação de runtime nesta atualização. Ajuste/salvamento/reabertura visual permanece pendente.

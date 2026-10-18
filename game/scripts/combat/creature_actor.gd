@@ -68,9 +68,11 @@ func configure(
 func _ready() -> void:
 	add_to_group("combat_creatures")
 	_validate_authored_collision_setup()
-	_pose = Sprite2D.new()
-	_pose.name = "StaticCandidatePoseSE"
-	add_child(_pose)
+	_pose = get_node_or_null("StaticCandidatePoseSE") as Sprite2D
+	if _pose == null:
+		_pose = Sprite2D.new()
+		_pose.name = "StaticCandidatePoseSE"
+		add_child(_pose)
 	ART_LOADER.apply_static_pose(_pose, species_id)
 	_label = Label.new()
 	_label.text = display_name

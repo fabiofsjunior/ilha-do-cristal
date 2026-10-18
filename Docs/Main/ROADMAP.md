@@ -157,4 +157,5 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 
 - [x] Criado prefab Godot 4 com `CharacterBody2D`, colisão corporal e áreas editáveis de detecção/ataque; raposa, lobo e urso herdam cenas próprias e mantêm os parâmetros de colisão atuais como padrão.
 - [x] Spawns e respawns usam a cena da espécie. `creature_actor.gd` lê as formas salvas nas cenas sem recriar ou sobrescrever colisores em runtime; o teste de contato valida formas personalizadas.
+- [x] Cenas herdadas exibem a textura de cada espécie em `StaticCandidatePoseSE`; o actor reutiliza esse `Sprite2D` em runtime para não duplicar a arte.
 - [ ] Abrir e editar cada cena no Godot 4.5.1, salvar/reabrir e revisar o encaixe visual da forma na respectiva sprite. Testes headless não substituem essa revisão manual.

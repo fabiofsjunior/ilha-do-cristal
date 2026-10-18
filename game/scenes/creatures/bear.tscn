@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="PackedScene" path="res://game/scenes/creatures/creature_base.tscn" id="1_base"]
+[ext_resource type="Texture2D" path="res://assets/creatures/bear/bear_se_candidate_v1.png" id="2_bear_texture"]
 
 [sub_resource type="CapsuleShape2D" id="BearBody"]
 radius = 17.0
@@ -11,6 +12,10 @@ radius = 170.0
 
 [sub_resource type="CircleShape2D" id="BearAttack"]
 radius = 220.0
+
+[sub_resource type="AtlasTexture" id="BearPreviewTexture"]
+atlas = ExtResource("2_bear_texture")
+region = Rect2(0, 0, 128, 128)
 
 [node name="Bear" instance=ExtResource("1_base")]
 species_id = "bear"
@@ -23,3 +28,7 @@ shape = SubResource("BearDetection")
 
 [node name="CollisionShape2D" parent="AttackArea" index="0"]
 shape = SubResource("BearAttack")
+
+[node name="StaticCandidatePoseSE" parent="." index="1"]
+texture = SubResource("BearPreviewTexture")
+offset = Vector2(0, -44)
