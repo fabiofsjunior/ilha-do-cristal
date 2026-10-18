@@ -138,12 +138,21 @@ func _build_ground() -> void:
 	if atlas_texture == null or game == null:
 		push_error("Não foi possível carregar o atlas para a superfície 2.5D.")
 		return
-	for layer_name in ["BaseTiles", "Transitions", "Paths"]:
+	var base_layer := game.get_node_or_null("BaseTiles") as TileMapLayer
+	if base_layer == null or base_layer.tile_set == null:
+		push_error("Camada BaseTiles ausente ou sem TileSet.")
+		return
+	var base_source := base_layer.tile_set.get_source(0) as TileSetAtlasSource
+	if base_source == null or base_source.texture == null:
+		push_error("TileSet de BaseTiles sem TileSetAtlasSource ou textura.")
+		return
+	var base_region_pixels := float(base_source.texture_region_size.x)
+	var base_world_tile_size := float(base_layer.tile_set.tile_size.x) / TILE_PIXELS
+	_build_expanded_tile_surface("BaseTiles", base_source.texture, base_region_pixels, base_world_tile_size)
+	for layer_name in ["Transitions", "Paths"]:
 		_build_expanded_tile_surface(layer_name, atlas_texture)
 	_build_manual_terrain_surface()
 	_build_manual_prop_sprites()
-
-
 func _build_manual_terrain_surface() -> void:
 	var layer := game.get_node_or_null("ManualTerrain") as TileMapLayer
 	if layer == null or layer.tile_set == null:
@@ -209,7 +218,7 @@ func _build_expanded_tile_surface(
 	var surface := MeshInstance3D.new()
 	surface.name = "ExpandedTerrain_%s" % layer_name
 	surface.mesh = tile_mesh
-	surface.material_override = _terrain_material(atlas_texture, layer_name != "BaseTiles")
+	surface.material_override = _terrain_material(atlas_texture, true)
 	surface.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	match layer_name:
 		"Transitions":
