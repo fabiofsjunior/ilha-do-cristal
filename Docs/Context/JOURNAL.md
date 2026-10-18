@@ -399,3 +399,10 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 
 - Na branch `feature/s13-web-root-godot`, `Testar_Jogo_Web.bat` agora procura primeiro o executável Godot 4.5.1 na raiz do projeto, priorizando a variante Windows 64-bit console, e passa o caminho absoluto ao exportador. Se não encontrar o binário na raiz, mantém a descoberta, o seletor e o fallback existentes.
 - README e roadmap descrevem essa prioridade. A checagem estática confirmou as variantes esperadas na raiz, caminho absoluto passado ao exportador e prioridade sobre `--print-godot`; `tools/wiki/test_catalog.py` e `git diff --check` passaram. Exportação e execução do `.bat` no Windows permanecem pendentes: este ambiente não tem Windows, Godot 4.5.1 ou templates Web.
+
+## 2026-10-18 — pranchas isométricas candidatas
+
+- Adicionadas duas pranchas PNG RGBA 1254 x 1254 em `assets/environments/ilha_cristal_isometric_candidate_v1/`, com prompts e instruções.
+- Transparência real confirmada; há pixels semitransparentes residuais. Grade visual 8 x 8 exige recorte manual, pois 1254 não é divisível por 8.
+- Sem integração de cenas ou validação visual no Godot. Próxima ação: testar um terreno e uma árvore, ajustando recorte, origem, escala e halos.
+- Publicação direta em Staging solicitada pelo usuário, via plugin GitHub.
