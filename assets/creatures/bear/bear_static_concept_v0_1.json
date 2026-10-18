@@ -1,0 +1,63 @@
+{
+  "id": "bear",
+  "species": "bear",
+  "atlas": {
+    "file": "bear_static_concept_v0_1.png",
+    "columns": 1,
+    "rows": 1
+  },
+  "cell": [
+    229,
+    229
+  ],
+  "pivot": [
+    114.5,
+    229.0
+  ],
+  "directions": [
+    "SE"
+  ],
+  "animations": {
+    "idle": {
+      "frames": 1,
+      "fps": 1,
+      "loop": true
+    }
+  },
+  "render_scale": 0.40777,
+  "footprint_extents_px": [
+    -46.69,
+    46.69,
+    0.0,
+    84.0
+  ],
+  "approved": false,
+  "status": "concept_static_runtime_preview",
+  "candidate_stage": "single_static_pose",
+  "source": {
+    "file": "Docs/art/candidates/bestiary-static-concepts-30-v0.1.png",
+    "sheet_size": [
+      1145,
+      1374
+    ],
+    "grid": [
+      5,
+      6
+    ],
+    "cell_index": 2,
+    "cell": [
+      2,
+      0
+    ],
+    "alpha_bbox_threshold_gt": 31,
+    "alpha_bbox": [
+      0,
+      23,
+      229,
+      229
+    ],
+    "intermediate_alpha_pixels": 39482,
+    "crop_operation": "exact 229x229 cell crop; no resampling or alpha changes"
+  }
+}
+

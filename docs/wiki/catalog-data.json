@@ -7,8 +7,8 @@
   ],
   "catalog": {
     "schema_version": 1,
-    "status": "planning_provisional",
-    "note": "Catálogo de planejamento; não consumir como balanceamento de produção antes do sprint de validação.",
+    "status": "runtime_concept_provisional",
+    "note": "Conteúdo estático integrado ao recorte jogável; HP, ataque, XP, drops e distribuição são provisórios e exigem playtest. Sprites conceituais não são arte final nem incluem animações.",
     "characters": [
       {
         "id": "melissa",
@@ -83,7 +83,7 @@
       "dodge_cap_percent": 20,
       "hp_regen_cap_outside_combat_percent_per_sec": 2,
       "hp_regen_cap_inside_combat_percent_per_sec": 0.5,
-      "mp_regen_cap_outside_combat_percent_per_sec": 1.0,
+      "mp_regen_cap_outside_combat_percent_per_sec": 1,
       "mp_regen_cap_inside_combat_percent_per_sec": 0.25,
       "regeneration": {
         "out_of_combat_delay_sec": 8,
@@ -310,7 +310,12 @@
             "quantity": 1,
             "chance": 0.5
           }
-        ]
+        ],
+        "name": "Raposa",
+        "sprite_path": "assets/creatures/fox/fox_static_concept_v0_1.png",
+        "behavior": "skittish",
+        "attack_style": "basic",
+        "windup_sec": 0
       },
       {
         "id": "wolf",
@@ -334,7 +339,12 @@
             "quantity": 1,
             "chance": 0.3
           }
-        ]
+        ],
+        "name": "Lobo",
+        "sprite_path": "assets/creatures/wolf/wolf_static_concept_v0_1.png",
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0
       },
       {
         "id": "bear",
@@ -358,7 +368,363 @@
             "quantity": 1,
             "chance": 1
           }
-        ]
+        ],
+        "name": "Urso",
+        "sprite_path": "assets/creatures/bear/bear_static_concept_v0_1.png",
+        "behavior": "aggressive",
+        "attack_style": "heavy",
+        "windup_sec": 0.9
+      },
+      {
+        "id": "tidal_fox",
+        "name": "Raposa de Maré",
+        "region": "beach_spawn",
+        "hp": 42,
+        "attack": 6,
+        "xp": 10,
+        "drops": [],
+        "behavior": "skittish",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/tidal_fox/tidal_fox_static_concept_v0_1.png"
+      },
+      {
+        "id": "crystal_crab",
+        "name": "Caranguejo-Cristal",
+        "region": "beach_spawn",
+        "hp": 70,
+        "attack": 8,
+        "xp": 10,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/crystal_crab/crystal_crab_static_concept_v0_1.png"
+      },
+      {
+        "id": "lumen_heron",
+        "name": "Garça-Lúmen",
+        "region": "crystal_lagoon",
+        "hp": 48,
+        "attack": 7,
+        "xp": 10,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/lumen_heron/lumen_heron_static_concept_v0_1.png"
+      },
+      {
+        "id": "salt_wolf",
+        "name": "Lobo-de-Sal",
+        "region": "beach_spawn",
+        "hp": 105,
+        "attack": 14,
+        "xp": 20,
+        "drops": [],
+        "behavior": "skittish",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/salt_wolf/salt_wolf_static_concept_v0_1.png"
+      },
+      {
+        "id": "root_boar",
+        "name": "Javali de Raízes",
+        "region": "green_forest",
+        "hp": 125,
+        "attack": 16,
+        "xp": 20,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/root_boar/root_boar_static_concept_v0_1.png"
+      },
+      {
+        "id": "moss_deer",
+        "name": "Corça de Musgo",
+        "region": "green_forest",
+        "hp": 48,
+        "attack": 0,
+        "xp": 10,
+        "drops": [],
+        "behavior": "flee_only",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/moss_deer/moss_deer_static_concept_v0_1.png"
+      },
+      {
+        "id": "prismatic_bear",
+        "name": "Urso Prismático",
+        "region": "bear_interior",
+        "hp": 285,
+        "attack": 26,
+        "xp": 50,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "heavy",
+        "windup_sec": 0.9,
+        "sprite_path": "assets/creatures/prismatic_bear/prismatic_bear_static_concept_v0_1.png"
+      },
+      {
+        "id": "violet_vine",
+        "name": "Trepadeira Violeta",
+        "region": "corrupted_wilds",
+        "hp": 150,
+        "attack": 18,
+        "xp": 20,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/violet_vine/violet_vine_static_concept_v0_1.png"
+      },
+      {
+        "id": "obsidian_sentinel",
+        "name": "Sentinela de Obsidiana",
+        "region": "obsidian_ruins",
+        "hp": 320,
+        "attack": 28,
+        "xp": 50,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "heavy",
+        "windup_sec": 0.9,
+        "sprite_path": "assets/creatures/obsidian_sentinel/obsidian_sentinel_static_concept_v0_1.png"
+      },
+      {
+        "id": "corrupted_wanderer",
+        "name": "Errante Corrompido",
+        "region": "obsidian_ruins",
+        "hp": 220,
+        "attack": 23,
+        "xp": 50,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "heavy",
+        "windup_sec": 0.9,
+        "sprite_path": "assets/creatures/corrupted_wanderer/corrupted_wanderer_static_concept_v0_1.png"
+      },
+      {
+        "id": "lagoon_crocodile",
+        "name": "Crocodilo da Lagoa",
+        "region": "crystal_lagoon",
+        "hp": 165,
+        "attack": 19,
+        "xp": 20,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "heavy",
+        "windup_sec": 0.9,
+        "sprite_path": "assets/creatures/lagoon_crocodile/lagoon_crocodile_static_concept_v0_1.png"
+      },
+      {
+        "id": "coral_turtle",
+        "name": "Tartaruga Coralina",
+        "region": "beach_spawn",
+        "hp": 130,
+        "attack": 10,
+        "xp": 20,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/coral_turtle/coral_turtle_static_concept_v0_1.png"
+      },
+      {
+        "id": "reef_lizard",
+        "name": "Lagarto de Arrecife",
+        "region": "beach_spawn",
+        "hp": 60,
+        "attack": 8,
+        "xp": 10,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/reef_lizard/reef_lizard_static_concept_v0_1.png"
+      },
+      {
+        "id": "canopy_monkey",
+        "name": "Macaco de Copa",
+        "region": "green_forest",
+        "hp": 70,
+        "attack": 9,
+        "xp": 10,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/canopy_monkey/canopy_monkey_static_concept_v0_1.png"
+      },
+      {
+        "id": "fruit_bat",
+        "name": "Morcego-Fruta",
+        "region": "green_forest",
+        "hp": 38,
+        "attack": 6,
+        "xp": 10,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/fruit_bat/fruit_bat_static_concept_v0_1.png"
+      },
+      {
+        "id": "root_snake",
+        "name": "Cobra das Raízes",
+        "region": "green_forest",
+        "hp": 65,
+        "attack": 12,
+        "xp": 10,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/root_snake/root_snake_static_concept_v0_1.png"
+      },
+      {
+        "id": "prismatic_spider",
+        "name": "Aranha Prismática",
+        "region": "green_forest",
+        "hp": 90,
+        "attack": 13,
+        "xp": 10,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/prismatic_spider/prismatic_spider_static_concept_v0_1.png"
+      },
+      {
+        "id": "lumen_frog",
+        "name": "Sapo-Lúmen",
+        "region": "crystal_lagoon",
+        "hp": 50,
+        "attack": 6,
+        "xp": 10,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/lumen_frog/lumen_frog_static_concept_v0_1.png"
+      },
+      {
+        "id": "crystal_slime",
+        "name": "Slime de Cristal",
+        "region": "crystal_lagoon",
+        "hp": 95,
+        "attack": 12,
+        "xp": 10,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/crystal_slime/crystal_slime_static_concept_v0_1.png"
+      },
+      {
+        "id": "obsidian_beetle",
+        "name": "Besouro de Obsidiana",
+        "region": "corrupted_wilds",
+        "hp": 110,
+        "attack": 14,
+        "xp": 20,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/obsidian_beetle/obsidian_beetle_static_concept_v0_1.png"
+      },
+      {
+        "id": "lumen_eel",
+        "name": "Enguia-Lúmen",
+        "region": "crystal_lagoon",
+        "hp": 80,
+        "attack": 14,
+        "xp": 10,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/lumen_eel/lumen_eel_static_concept_v0_1.png"
+      },
+      {
+        "id": "turquoise_otter",
+        "name": "Lontra Turquesa",
+        "region": "crystal_lagoon",
+        "hp": 80,
+        "attack": 9,
+        "xp": 10,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/turquoise_otter/turquoise_otter_static_concept_v0_1.png"
+      },
+      {
+        "id": "basalt_gargoyle",
+        "name": "Gárgula de Basalto",
+        "region": "obsidian_ruins",
+        "hp": 270,
+        "attack": 25,
+        "xp": 50,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "heavy",
+        "windup_sec": 0.9,
+        "sprite_path": "assets/creatures/basalt_gargoyle/basalt_gargoyle_static_concept_v0_1.png"
+      },
+      {
+        "id": "spectral_wolf",
+        "name": "Lobo Espectral",
+        "region": "corrupted_wilds",
+        "hp": 185,
+        "attack": 21,
+        "xp": 20,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/spectral_wolf/spectral_wolf_static_concept_v0_1.png"
+      },
+      {
+        "id": "corrupted_treant",
+        "name": "Treant Corrompido",
+        "region": "corrupted_wilds",
+        "hp": 340,
+        "attack": 29,
+        "xp": 50,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "heavy",
+        "windup_sec": 0.9,
+        "sprite_path": "assets/creatures/corrupted_treant/corrupted_treant_static_concept_v0_1.png"
+      },
+      {
+        "id": "crystal_golem",
+        "name": "Golem de Cristal",
+        "region": "bear_interior",
+        "hp": 300,
+        "attack": 27,
+        "xp": 50,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "heavy",
+        "windup_sec": 0.9,
+        "sprite_path": "assets/creatures/crystal_golem/crystal_golem_static_concept_v0_1.png"
+      },
+      {
+        "id": "violet_serpent",
+        "name": "Serpente Violeta",
+        "region": "corrupted_wilds",
+        "hp": 200,
+        "attack": 24,
+        "xp": 20,
+        "drops": [],
+        "behavior": "aggressive",
+        "attack_style": "basic",
+        "windup_sec": 0,
+        "sprite_path": "assets/creatures/violet_serpent/violet_serpent_static_concept_v0_1.png"
       }
     ],
     "resources": [
@@ -1370,19 +1736,45 @@
     "regions": [
       {
         "id": "beach_spawn",
-        "playable_mvp": true
+        "playable_mvp": true,
+        "name": "Praia inicial",
+        "description": "Praia e faixa costeira de início."
       },
       {
         "id": "green_forest",
-        "playable_mvp": true
+        "playable_mvp": true,
+        "name": "Floresta verde",
+        "description": "Clareiras e copas tropicais."
       },
       {
         "id": "bear_interior",
-        "playable_mvp": true
+        "playable_mvp": true,
+        "name": "Interior cristalino",
+        "description": "Interior da ilha e clareiras de cristal."
       },
       {
         "id": "corrupted_castle",
-        "playable_mvp": false
+        "playable_mvp": false,
+        "name": "Castelo corrompido",
+        "description": "Conceito distante; sem conteúdo de castelo jogável."
+      },
+      {
+        "id": "crystal_lagoon",
+        "name": "Lagoa cristalina",
+        "playable_mvp": true,
+        "description": "Faixa costeira e poças; a água/terreno da lagoa ainda não foi redesenhada."
+      },
+      {
+        "id": "obsidian_ruins",
+        "name": "Ruínas de obsidiana",
+        "playable_mvp": true,
+        "description": "Zona lógica de encontros; arte de ruínas ainda pendente."
+      },
+      {
+        "id": "corrupted_wilds",
+        "name": "Terras corrompidas",
+        "playable_mvp": true,
+        "description": "Faixa distante da ilha; terreno corrompido ainda pendente."
       }
     ],
     "animations_and_vfx": {
@@ -3213,6 +3605,23 @@
       "directions": 8
     },
     {
+      "path": "assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
+      "href": "../../assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
+      "name": "melissa_mage_idle_candidate_v1_contact.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        1152,
+        576
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
       "path": "assets/characters/melissa/mage/melissa_mage_idle_candidate_v1.png",
       "href": "../../assets/characters/melissa/mage/melissa_mage_idle_candidate_v1.png",
       "name": "melissa_mage_idle_candidate_v1.png",
@@ -3236,23 +3645,6 @@
       "directions": 2
     },
     {
-      "path": "assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
-      "href": "../../assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
-      "name": "melissa_mage_idle_candidate_v1_contact.png",
-      "group": "characters",
-      "subgroup": "Melissa",
-      "dimensions": [
-        1152,
-        576
-      ],
-      "status": null,
-      "approved": null,
-      "cell": null,
-      "pivot": null,
-      "frames": null,
-      "directions": null
-    },
-    {
       "path": "assets/characters/melissa/mage/melissa_mage_idle_source_candidate_v1.png",
       "href": "../../assets/characters/melissa/mage/melissa_mage_idle_source_candidate_v1.png",
       "name": "melissa_mage_idle_source_candidate_v1.png",
@@ -3268,29 +3660,6 @@
       "pivot": null,
       "frames": null,
       "directions": null
-    },
-    {
-      "path": "assets/characters/melissa/warrior/melissa_warrior_idle.png",
-      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle.png",
-      "name": "melissa_warrior_idle.png",
-      "group": "characters",
-      "subgroup": "Melissa",
-      "dimensions": [
-        384,
-        192
-      ],
-      "status": "needs_correction",
-      "approved": null,
-      "cell": [
-        96,
-        96
-      ],
-      "pivot": [
-        48,
-        80
-      ],
-      "frames": null,
-      "directions": 2
     },
     {
       "path": "assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v1.png",
@@ -3385,13 +3754,13 @@
       "directions": 2
     },
     {
-      "path": "assets/characters/melissa/warrior/melissa_warrior_walk.png",
-      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk.png",
-      "name": "melissa_warrior_walk.png",
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle.png",
+      "name": "melissa_warrior_idle.png",
       "group": "characters",
       "subgroup": "Melissa",
       "dimensions": [
-        576,
+        384,
         192
       ],
       "status": "needs_correction",
@@ -3477,6 +3846,52 @@
       "directions": 2
     },
     {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk.png",
+      "name": "melissa_warrior_walk.png",
+      "group": "characters",
+      "subgroup": "Melissa",
+      "dimensions": [
+        576,
+        192
+      ],
+      "status": "needs_correction",
+      "approved": null,
+      "cell": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "frames": null,
+      "directions": 2
+    },
+    {
+      "path": "assets/creatures/basalt_gargoyle/basalt_gargoyle_static_concept_v0_1.png",
+      "href": "../../assets/creatures/basalt_gargoyle/basalt_gargoyle_static_concept_v0_1.png",
+      "name": "basalt_gargoyle_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Basalt_Gargoyle",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        120,
+        199
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
       "path": "assets/creatures/bear/bear_se_candidate_v1.png",
       "href": "../../assets/creatures/bear/bear_se_candidate_v1.png",
       "name": "bear_se_candidate_v1.png",
@@ -3495,6 +3910,190 @@
       "pivot": [
         64,
         108
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/bear/bear_static_concept_v0_1.png",
+      "href": "../../assets/creatures/bear/bear_static_concept_v0_1.png",
+      "name": "bear_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Bear",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/canopy_monkey/canopy_monkey_static_concept_v0_1.png",
+      "href": "../../assets/creatures/canopy_monkey/canopy_monkey_static_concept_v0_1.png",
+      "name": "canopy_monkey_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Canopy_Monkey",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        120,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/coral_turtle/coral_turtle_static_concept_v0_1.png",
+      "href": "../../assets/creatures/coral_turtle/coral_turtle_static_concept_v0_1.png",
+      "name": "coral_turtle_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Coral_Turtle",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        106,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/corrupted_treant/corrupted_treant_static_concept_v0_1.png",
+      "href": "../../assets/creatures/corrupted_treant/corrupted_treant_static_concept_v0_1.png",
+      "name": "corrupted_treant_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Corrupted_Treant",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        215
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/corrupted_wanderer/corrupted_wanderer_static_concept_v0_1.png",
+      "href": "../../assets/creatures/corrupted_wanderer/corrupted_wanderer_static_concept_v0_1.png",
+      "name": "corrupted_wanderer_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Corrupted_Wanderer",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/crystal_crab/crystal_crab_static_concept_v0_1.png",
+      "href": "../../assets/creatures/crystal_crab/crystal_crab_static_concept_v0_1.png",
+      "name": "crystal_crab_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Crystal_Crab",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        107,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/crystal_golem/crystal_golem_static_concept_v0_1.png",
+      "href": "../../assets/creatures/crystal_golem/crystal_golem_static_concept_v0_1.png",
+      "name": "crystal_golem_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Crystal_Golem",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        203
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/crystal_slime/crystal_slime_static_concept_v0_1.png",
+      "href": "../../assets/creatures/crystal_slime/crystal_slime_static_concept_v0_1.png",
+      "name": "crystal_slime_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Crystal_Slime",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
       ],
       "frames": null,
       "directions": 1
@@ -3523,6 +4122,466 @@
       "directions": 1
     },
     {
+      "path": "assets/creatures/fox/fox_static_concept_v0_1.png",
+      "href": "../../assets/creatures/fox/fox_static_concept_v0_1.png",
+      "name": "fox_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Fox",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        127,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/fruit_bat/fruit_bat_static_concept_v0_1.png",
+      "href": "../../assets/creatures/fruit_bat/fruit_bat_static_concept_v0_1.png",
+      "name": "fruit_bat_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Fruit_Bat",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/lagoon_crocodile/lagoon_crocodile_static_concept_v0_1.png",
+      "href": "../../assets/creatures/lagoon_crocodile/lagoon_crocodile_static_concept_v0_1.png",
+      "name": "lagoon_crocodile_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Lagoon_Crocodile",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/lumen_eel/lumen_eel_static_concept_v0_1.png",
+      "href": "../../assets/creatures/lumen_eel/lumen_eel_static_concept_v0_1.png",
+      "name": "lumen_eel_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Lumen_Eel",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/lumen_frog/lumen_frog_static_concept_v0_1.png",
+      "href": "../../assets/creatures/lumen_frog/lumen_frog_static_concept_v0_1.png",
+      "name": "lumen_frog_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Lumen_Frog",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        125.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/lumen_heron/lumen_heron_static_concept_v0_1.png",
+      "href": "../../assets/creatures/lumen_heron/lumen_heron_static_concept_v0_1.png",
+      "name": "lumen_heron_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Lumen_Heron",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        120,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/moss_deer/moss_deer_static_concept_v0_1.png",
+      "href": "../../assets/creatures/moss_deer/moss_deer_static_concept_v0_1.png",
+      "name": "moss_deer_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Moss_Deer",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/obsidian_beetle/obsidian_beetle_static_concept_v0_1.png",
+      "href": "../../assets/creatures/obsidian_beetle/obsidian_beetle_static_concept_v0_1.png",
+      "name": "obsidian_beetle_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Obsidian_Beetle",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/obsidian_sentinel/obsidian_sentinel_static_concept_v0_1.png",
+      "href": "../../assets/creatures/obsidian_sentinel/obsidian_sentinel_static_concept_v0_1.png",
+      "name": "obsidian_sentinel_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Obsidian_Sentinel",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/prismatic_bear/prismatic_bear_static_concept_v0_1.png",
+      "href": "../../assets/creatures/prismatic_bear/prismatic_bear_static_concept_v0_1.png",
+      "name": "prismatic_bear_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Prismatic_Bear",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        107,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/prismatic_spider/prismatic_spider_static_concept_v0_1.png",
+      "href": "../../assets/creatures/prismatic_spider/prismatic_spider_static_concept_v0_1.png",
+      "name": "prismatic_spider_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Prismatic_Spider",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        107,
+        223
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/reef_lizard/reef_lizard_static_concept_v0_1.png",
+      "href": "../../assets/creatures/reef_lizard/reef_lizard_static_concept_v0_1.png",
+      "name": "reef_lizard_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Reef_Lizard",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        121,
+        218
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/root_boar/root_boar_static_concept_v0_1.png",
+      "href": "../../assets/creatures/root_boar/root_boar_static_concept_v0_1.png",
+      "name": "root_boar_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Root_Boar",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/root_snake/root_snake_static_concept_v0_1.png",
+      "href": "../../assets/creatures/root_snake/root_snake_static_concept_v0_1.png",
+      "name": "root_snake_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Root_Snake",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        226
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/salt_wolf/salt_wolf_static_concept_v0_1.png",
+      "href": "../../assets/creatures/salt_wolf/salt_wolf_static_concept_v0_1.png",
+      "name": "salt_wolf_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Salt_Wolf",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/spectral_wolf/spectral_wolf_static_concept_v0_1.png",
+      "href": "../../assets/creatures/spectral_wolf/spectral_wolf_static_concept_v0_1.png",
+      "name": "spectral_wolf_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Spectral_Wolf",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        208
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/tidal_fox/tidal_fox_static_concept_v0_1.png",
+      "href": "../../assets/creatures/tidal_fox/tidal_fox_static_concept_v0_1.png",
+      "name": "tidal_fox_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Tidal_Fox",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/turquoise_otter/turquoise_otter_static_concept_v0_1.png",
+      "href": "../../assets/creatures/turquoise_otter/turquoise_otter_static_concept_v0_1.png",
+      "name": "turquoise_otter_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Turquoise_Otter",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        103,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/violet_serpent/violet_serpent_static_concept_v0_1.png",
+      "href": "../../assets/creatures/violet_serpent/violet_serpent_static_concept_v0_1.png",
+      "name": "violet_serpent_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Violet_Serpent",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        107,
+        215
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/violet_vine/violet_vine_static_concept_v0_1.png",
+      "href": "../../assets/creatures/violet_vine/violet_vine_static_concept_v0_1.png",
+      "name": "violet_vine_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Violet_Vine",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        121.5,
+        229
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
       "path": "assets/creatures/wolf/wolf_se_candidate_v1.png",
       "href": "../../assets/creatures/wolf/wolf_se_candidate_v1.png",
       "name": "wolf_se_candidate_v1.png",
@@ -3541,6 +4600,29 @@
       "pivot": [
         48,
         80
+      ],
+      "frames": null,
+      "directions": 1
+    },
+    {
+      "path": "assets/creatures/wolf/wolf_static_concept_v0_1.png",
+      "href": "../../assets/creatures/wolf/wolf_static_concept_v0_1.png",
+      "name": "wolf_static_concept_v0_1.png",
+      "group": "creatures",
+      "subgroup": "Wolf",
+      "dimensions": [
+        229,
+        229
+      ],
+      "status": "concept_static_runtime_preview",
+      "approved": false,
+      "cell": [
+        229,
+        229
+      ],
+      "pivot": [
+        114.5,
+        229
       ],
       "frames": null,
       "directions": 1
@@ -3665,14 +4747,14 @@
       "directions": null
     },
     {
-      "path": "assets/environments/tropical_oblique_candidate/palm.png",
-      "href": "../../assets/environments/tropical_oblique_candidate/palm.png",
-      "name": "palm.png",
+      "path": "assets/environments/tropical_oblique_candidate/palm_generated_source.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/palm_generated_source.png",
+      "name": "palm_generated_source.png",
       "group": "environments",
       "subgroup": "Terreno",
       "dimensions": [
-        112,
-        128
+        1086,
+        1448
       ],
       "status": null,
       "approved": null,
@@ -3699,14 +4781,14 @@
       "directions": null
     },
     {
-      "path": "assets/environments/tropical_oblique_candidate/palm_generated_source.png",
-      "href": "../../assets/environments/tropical_oblique_candidate/palm_generated_source.png",
-      "name": "palm_generated_source.png",
+      "path": "assets/environments/tropical_oblique_candidate/palm.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/palm.png",
+      "name": "palm.png",
       "group": "environments",
       "subgroup": "Terreno",
       "dimensions": [
-        1086,
-        1448
+        112,
+        128
       ],
       "status": null,
       "approved": null,
@@ -3724,23 +4806,6 @@
       "dimensions": [
         104,
         128
-      ],
-      "status": null,
-      "approved": null,
-      "cell": null,
-      "pivot": null,
-      "frames": null,
-      "directions": null
-    },
-    {
-      "path": "assets/ui/app_icon.png",
-      "href": "../../assets/ui/app_icon.png",
-      "name": "app_icon.png",
-      "group": "ui",
-      "subgroup": "Interface",
-      "dimensions": [
-        512,
-        512
       ],
       "status": null,
       "approved": null,
@@ -3801,43 +4866,26 @@
       "directions": null
     },
     {
+      "path": "assets/ui/app_icon.png",
+      "href": "../../assets/ui/app_icon.png",
+      "name": "app_icon.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        512,
+        512
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
       "path": "assets/ui/classic_v2/AGI.png",
       "href": "../../assets/ui/classic_v2/AGI.png",
       "name": "AGI.png",
-      "group": "ui",
-      "subgroup": "Interface",
-      "dimensions": [
-        32,
-        32
-      ],
-      "status": null,
-      "approved": null,
-      "cell": null,
-      "pivot": null,
-      "frames": null,
-      "directions": null
-    },
-    {
-      "path": "assets/ui/classic_v2/FOR.png",
-      "href": "../../assets/ui/classic_v2/FOR.png",
-      "name": "FOR.png",
-      "group": "ui",
-      "subgroup": "Interface",
-      "dimensions": [
-        32,
-        32
-      ],
-      "status": null,
-      "approved": null,
-      "cell": null,
-      "pivot": null,
-      "frames": null,
-      "directions": null
-    },
-    {
-      "path": "assets/ui/classic_v2/INT.png",
-      "href": "../../assets/ui/classic_v2/INT.png",
-      "name": "INT.png",
       "group": "ui",
       "subgroup": "Interface",
       "dimensions": [
@@ -4039,6 +5087,23 @@
       "directions": null
     },
     {
+      "path": "assets/ui/classic_v2/FOR.png",
+      "href": "../../assets/ui/classic_v2/FOR.png",
+      "name": "FOR.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
       "path": "assets/ui/classic_v2/head.png",
       "href": "../../assets/ui/classic_v2/head.png",
       "name": "head.png",
@@ -4076,6 +5141,23 @@
       "path": "assets/ui/classic_v2/hide.png",
       "href": "../../assets/ui/classic_v2/hide.png",
       "name": "hide.png",
+      "group": "ui",
+      "subgroup": "Interface",
+      "dimensions": [
+        32,
+        32
+      ],
+      "status": null,
+      "approved": null,
+      "cell": null,
+      "pivot": null,
+      "frames": null,
+      "directions": null
+    },
+    {
+      "path": "assets/ui/classic_v2/INT.png",
+      "href": "../../assets/ui/classic_v2/INT.png",
+      "name": "INT.png",
       "group": "ui",
       "subgroup": "Interface",
       "dimensions": [
@@ -4347,82 +5429,16 @@
   ],
   "files": [
     {
-      "path": "AGENTS.md",
-      "href": "../../AGENTS.md",
-      "extension": "md",
-      "size": 3496
-    },
-    {
       "path": "Acessar_Wiki.bat",
       "href": "../../Acessar_Wiki.bat",
       "extension": "bat",
       "size": 500
     },
     {
-      "path": "Docs/Context/DECISIONS.md",
-      "href": "../../Docs/Context/DECISIONS.md",
+      "path": "AGENTS.md",
+      "href": "../../AGENTS.md",
       "extension": "md",
-      "size": 19277
-    },
-    {
-      "path": "Docs/Context/HANDOFF.md",
-      "href": "../../Docs/Context/HANDOFF.md",
-      "extension": "md",
-      "size": 1997
-    },
-    {
-      "path": "Docs/Context/JOURNAL.md",
-      "href": "../../Docs/Context/JOURNAL.md",
-      "extension": "md",
-      "size": 75617
-    },
-    {
-      "path": "Docs/Context/PROTOTYPE_LOG.md",
-      "href": "../../Docs/Context/PROTOTYPE_LOG.md",
-      "extension": "md",
-      "size": 20655
-    },
-    {
-      "path": "Docs/Main/CATALOGS_MVP.md",
-      "href": "../../Docs/Main/CATALOGS_MVP.md",
-      "extension": "md",
-      "size": 19440
-    },
-    {
-      "path": "Docs/Main/CONTENT_DATA.md",
-      "href": "../../Docs/Main/CONTENT_DATA.md",
-      "extension": "md",
-      "size": 6390
-    },
-    {
-      "path": "Docs/Main/GDD_MVP.md",
-      "href": "../../Docs/Main/GDD_MVP.md",
-      "extension": "md",
-      "size": 10327
-    },
-    {
-      "path": "Docs/Main/PROTOTYPING_METHODOLOGY.md",
-      "href": "../../Docs/Main/PROTOTYPING_METHODOLOGY.md",
-      "extension": "md",
-      "size": 7602
-    },
-    {
-      "path": "Docs/Main/ROADMAP.md",
-      "href": "../../Docs/Main/ROADMAP.md",
-      "extension": "md",
-      "size": 17264
-    },
-    {
-      "path": "README.md",
-      "href": "../../README.md",
-      "extension": "md",
-      "size": 12769
-    },
-    {
-      "path": "Testar_Jogo_Web.bat",
-      "href": "../../Testar_Jogo_Web.bat",
-      "extension": "bat",
-      "size": 4426
+      "size": 3496
     },
     {
       "path": "artifacts/preview/HUD-0.1.9.json",
@@ -4611,6 +5627,12 @@
       "size": 189598
     },
     {
+      "path": "assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
+      "href": "../../assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
+      "extension": "png",
+      "size": 81992
+    },
+    {
       "path": "assets/characters/melissa/mage/melissa_mage_idle_candidate_v1.json",
       "href": "../../assets/characters/melissa/mage/melissa_mage_idle_candidate_v1.json",
       "extension": "json",
@@ -4623,28 +5645,10 @@
       "size": 55336
     },
     {
-      "path": "assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
-      "href": "../../assets/characters/melissa/mage/melissa_mage_idle_candidate_v1_contact.png",
-      "extension": "png",
-      "size": 81992
-    },
-    {
       "path": "assets/characters/melissa/mage/melissa_mage_idle_source_candidate_v1.png",
       "href": "../../assets/characters/melissa/mage/melissa_mage_idle_source_candidate_v1.png",
       "extension": "png",
       "size": 1183844
-    },
-    {
-      "path": "assets/characters/melissa/warrior/melissa_warrior_idle.json",
-      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle.json",
-      "extension": "json",
-      "size": 369
-    },
-    {
-      "path": "assets/characters/melissa/warrior/melissa_warrior_idle.png",
-      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle.png",
-      "extension": "png",
-      "size": 57767
     },
     {
       "path": "assets/characters/melissa/warrior/melissa_warrior_idle_8dir_candidate_v1.json",
@@ -4695,16 +5699,16 @@
       "size": 53621
     },
     {
-      "path": "assets/characters/melissa/warrior/melissa_warrior_walk.json",
-      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk.json",
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle.json",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle.json",
       "extension": "json",
       "size": 369
     },
     {
-      "path": "assets/characters/melissa/warrior/melissa_warrior_walk.png",
-      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk.png",
+      "path": "assets/characters/melissa/warrior/melissa_warrior_idle.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_idle.png",
       "extension": "png",
-      "size": 78247
+      "size": 57767
     },
     {
       "path": "assets/characters/melissa/warrior/melissa_warrior_walk_8dir_candidate_v1.json",
@@ -4743,6 +5747,30 @@
       "size": 79193
     },
     {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk.json",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk.json",
+      "extension": "json",
+      "size": 369
+    },
+    {
+      "path": "assets/characters/melissa/warrior/melissa_warrior_walk.png",
+      "href": "../../assets/characters/melissa/warrior/melissa_warrior_walk.png",
+      "extension": "png",
+      "size": 78247
+    },
+    {
+      "path": "assets/creatures/basalt_gargoyle/basalt_gargoyle_static_concept_v0_1.json",
+      "href": "../../assets/creatures/basalt_gargoyle/basalt_gargoyle_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1103
+    },
+    {
+      "path": "assets/creatures/basalt_gargoyle/basalt_gargoyle_static_concept_v0_1.png",
+      "href": "../../assets/creatures/basalt_gargoyle/basalt_gargoyle_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 104468
+    },
+    {
       "path": "assets/creatures/bear/bear_se_candidate_v1.json",
       "href": "../../assets/creatures/bear/bear_se_candidate_v1.json",
       "extension": "json",
@@ -4753,6 +5781,102 @@
       "href": "../../assets/creatures/bear/bear_se_candidate_v1.png",
       "extension": "png",
       "size": 12522
+    },
+    {
+      "path": "assets/creatures/bear/bear_static_concept_v0_1.json",
+      "href": "../../assets/creatures/bear/bear_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1069
+    },
+    {
+      "path": "assets/creatures/bear/bear_static_concept_v0_1.png",
+      "href": "../../assets/creatures/bear/bear_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 97403
+    },
+    {
+      "path": "assets/creatures/canopy_monkey/canopy_monkey_static_concept_v0_1.json",
+      "href": "../../assets/creatures/canopy_monkey/canopy_monkey_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1097
+    },
+    {
+      "path": "assets/creatures/canopy_monkey/canopy_monkey_static_concept_v0_1.png",
+      "href": "../../assets/creatures/canopy_monkey/canopy_monkey_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 75958
+    },
+    {
+      "path": "assets/creatures/coral_turtle/coral_turtle_static_concept_v0_1.json",
+      "href": "../../assets/creatures/coral_turtle/coral_turtle_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1091
+    },
+    {
+      "path": "assets/creatures/coral_turtle/coral_turtle_static_concept_v0_1.png",
+      "href": "../../assets/creatures/coral_turtle/coral_turtle_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 93024
+    },
+    {
+      "path": "assets/creatures/corrupted_treant/corrupted_treant_static_concept_v0_1.json",
+      "href": "../../assets/creatures/corrupted_treant/corrupted_treant_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1104
+    },
+    {
+      "path": "assets/creatures/corrupted_treant/corrupted_treant_static_concept_v0_1.png",
+      "href": "../../assets/creatures/corrupted_treant/corrupted_treant_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 121695
+    },
+    {
+      "path": "assets/creatures/corrupted_wanderer/corrupted_wanderer_static_concept_v0_1.json",
+      "href": "../../assets/creatures/corrupted_wanderer/corrupted_wanderer_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1109
+    },
+    {
+      "path": "assets/creatures/corrupted_wanderer/corrupted_wanderer_static_concept_v0_1.png",
+      "href": "../../assets/creatures/corrupted_wanderer/corrupted_wanderer_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 98670
+    },
+    {
+      "path": "assets/creatures/crystal_crab/crystal_crab_static_concept_v0_1.json",
+      "href": "../../assets/creatures/crystal_crab/crystal_crab_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1093
+    },
+    {
+      "path": "assets/creatures/crystal_crab/crystal_crab_static_concept_v0_1.png",
+      "href": "../../assets/creatures/crystal_crab/crystal_crab_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 76710
+    },
+    {
+      "path": "assets/creatures/crystal_golem/crystal_golem_static_concept_v0_1.json",
+      "href": "../../assets/creatures/crystal_golem/crystal_golem_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1096
+    },
+    {
+      "path": "assets/creatures/crystal_golem/crystal_golem_static_concept_v0_1.png",
+      "href": "../../assets/creatures/crystal_golem/crystal_golem_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 108350
+    },
+    {
+      "path": "assets/creatures/crystal_slime/crystal_slime_static_concept_v0_1.json",
+      "href": "../../assets/creatures/crystal_slime/crystal_slime_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1094
+    },
+    {
+      "path": "assets/creatures/crystal_slime/crystal_slime_static_concept_v0_1.png",
+      "href": "../../assets/creatures/crystal_slime/crystal_slime_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 76968
     },
     {
       "path": "assets/creatures/fox/fox_se_candidate_v1.json",
@@ -4767,6 +5891,246 @@
       "size": 4234
     },
     {
+      "path": "assets/creatures/fox/fox_static_concept_v0_1.json",
+      "href": "../../assets/creatures/fox/fox_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1065
+    },
+    {
+      "path": "assets/creatures/fox/fox_static_concept_v0_1.png",
+      "href": "../../assets/creatures/fox/fox_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 53864
+    },
+    {
+      "path": "assets/creatures/fruit_bat/fruit_bat_static_concept_v0_1.json",
+      "href": "../../assets/creatures/fruit_bat/fruit_bat_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1082
+    },
+    {
+      "path": "assets/creatures/fruit_bat/fruit_bat_static_concept_v0_1.png",
+      "href": "../../assets/creatures/fruit_bat/fruit_bat_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 64561
+    },
+    {
+      "path": "assets/creatures/lagoon_crocodile/lagoon_crocodile_static_concept_v0_1.json",
+      "href": "../../assets/creatures/lagoon_crocodile/lagoon_crocodile_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1103
+    },
+    {
+      "path": "assets/creatures/lagoon_crocodile/lagoon_crocodile_static_concept_v0_1.png",
+      "href": "../../assets/creatures/lagoon_crocodile/lagoon_crocodile_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 89606
+    },
+    {
+      "path": "assets/creatures/lumen_eel/lumen_eel_static_concept_v0_1.json",
+      "href": "../../assets/creatures/lumen_eel/lumen_eel_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1084
+    },
+    {
+      "path": "assets/creatures/lumen_eel/lumen_eel_static_concept_v0_1.png",
+      "href": "../../assets/creatures/lumen_eel/lumen_eel_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 91995
+    },
+    {
+      "path": "assets/creatures/lumen_frog/lumen_frog_static_concept_v0_1.json",
+      "href": "../../assets/creatures/lumen_frog/lumen_frog_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1089
+    },
+    {
+      "path": "assets/creatures/lumen_frog/lumen_frog_static_concept_v0_1.png",
+      "href": "../../assets/creatures/lumen_frog/lumen_frog_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 65477
+    },
+    {
+      "path": "assets/creatures/lumen_heron/lumen_heron_static_concept_v0_1.json",
+      "href": "../../assets/creatures/lumen_heron/lumen_heron_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1088
+    },
+    {
+      "path": "assets/creatures/lumen_heron/lumen_heron_static_concept_v0_1.png",
+      "href": "../../assets/creatures/lumen_heron/lumen_heron_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 87525
+    },
+    {
+      "path": "assets/creatures/moss_deer/moss_deer_static_concept_v0_1.json",
+      "href": "../../assets/creatures/moss_deer/moss_deer_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1084
+    },
+    {
+      "path": "assets/creatures/moss_deer/moss_deer_static_concept_v0_1.png",
+      "href": "../../assets/creatures/moss_deer/moss_deer_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 86172
+    },
+    {
+      "path": "assets/creatures/obsidian_beetle/obsidian_beetle_static_concept_v0_1.json",
+      "href": "../../assets/creatures/obsidian_beetle/obsidian_beetle_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1100
+    },
+    {
+      "path": "assets/creatures/obsidian_beetle/obsidian_beetle_static_concept_v0_1.png",
+      "href": "../../assets/creatures/obsidian_beetle/obsidian_beetle_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 105249
+    },
+    {
+      "path": "assets/creatures/obsidian_sentinel/obsidian_sentinel_static_concept_v0_1.json",
+      "href": "../../assets/creatures/obsidian_sentinel/obsidian_sentinel_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1106
+    },
+    {
+      "path": "assets/creatures/obsidian_sentinel/obsidian_sentinel_static_concept_v0_1.png",
+      "href": "../../assets/creatures/obsidian_sentinel/obsidian_sentinel_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 112276
+    },
+    {
+      "path": "assets/creatures/prismatic_bear/prismatic_bear_static_concept_v0_1.json",
+      "href": "../../assets/creatures/prismatic_bear/prismatic_bear_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1096
+    },
+    {
+      "path": "assets/creatures/prismatic_bear/prismatic_bear_static_concept_v0_1.png",
+      "href": "../../assets/creatures/prismatic_bear/prismatic_bear_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 103398
+    },
+    {
+      "path": "assets/creatures/prismatic_spider/prismatic_spider_static_concept_v0_1.json",
+      "href": "../../assets/creatures/prismatic_spider/prismatic_spider_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1105
+    },
+    {
+      "path": "assets/creatures/prismatic_spider/prismatic_spider_static_concept_v0_1.png",
+      "href": "../../assets/creatures/prismatic_spider/prismatic_spider_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 77951
+    },
+    {
+      "path": "assets/creatures/reef_lizard/reef_lizard_static_concept_v0_1.json",
+      "href": "../../assets/creatures/reef_lizard/reef_lizard_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1089
+    },
+    {
+      "path": "assets/creatures/reef_lizard/reef_lizard_static_concept_v0_1.png",
+      "href": "../../assets/creatures/reef_lizard/reef_lizard_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 71605
+    },
+    {
+      "path": "assets/creatures/root_boar/root_boar_static_concept_v0_1.json",
+      "href": "../../assets/creatures/root_boar/root_boar_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1081
+    },
+    {
+      "path": "assets/creatures/root_boar/root_boar_static_concept_v0_1.png",
+      "href": "../../assets/creatures/root_boar/root_boar_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 99301
+    },
+    {
+      "path": "assets/creatures/root_snake/root_snake_static_concept_v0_1.json",
+      "href": "../../assets/creatures/root_snake/root_snake_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1087
+    },
+    {
+      "path": "assets/creatures/root_snake/root_snake_static_concept_v0_1.png",
+      "href": "../../assets/creatures/root_snake/root_snake_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 92133
+    },
+    {
+      "path": "assets/creatures/salt_wolf/salt_wolf_static_concept_v0_1.json",
+      "href": "../../assets/creatures/salt_wolf/salt_wolf_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1084
+    },
+    {
+      "path": "assets/creatures/salt_wolf/salt_wolf_static_concept_v0_1.png",
+      "href": "../../assets/creatures/salt_wolf/salt_wolf_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 89979
+    },
+    {
+      "path": "assets/creatures/spectral_wolf/spectral_wolf_static_concept_v0_1.json",
+      "href": "../../assets/creatures/spectral_wolf/spectral_wolf_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1096
+    },
+    {
+      "path": "assets/creatures/spectral_wolf/spectral_wolf_static_concept_v0_1.png",
+      "href": "../../assets/creatures/spectral_wolf/spectral_wolf_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 98945
+    },
+    {
+      "path": "assets/creatures/tidal_fox/tidal_fox_static_concept_v0_1.json",
+      "href": "../../assets/creatures/tidal_fox/tidal_fox_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1083
+    },
+    {
+      "path": "assets/creatures/tidal_fox/tidal_fox_static_concept_v0_1.png",
+      "href": "../../assets/creatures/tidal_fox/tidal_fox_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 66815
+    },
+    {
+      "path": "assets/creatures/turquoise_otter/turquoise_otter_static_concept_v0_1.json",
+      "href": "../../assets/creatures/turquoise_otter/turquoise_otter_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1102
+    },
+    {
+      "path": "assets/creatures/turquoise_otter/turquoise_otter_static_concept_v0_1.png",
+      "href": "../../assets/creatures/turquoise_otter/turquoise_otter_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 87884
+    },
+    {
+      "path": "assets/creatures/violet_serpent/violet_serpent_static_concept_v0_1.json",
+      "href": "../../assets/creatures/violet_serpent/violet_serpent_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1099
+    },
+    {
+      "path": "assets/creatures/violet_serpent/violet_serpent_static_concept_v0_1.png",
+      "href": "../../assets/creatures/violet_serpent/violet_serpent_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 102167
+    },
+    {
+      "path": "assets/creatures/violet_vine/violet_vine_static_concept_v0_1.json",
+      "href": "../../assets/creatures/violet_vine/violet_vine_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1091
+    },
+    {
+      "path": "assets/creatures/violet_vine/violet_vine_static_concept_v0_1.png",
+      "href": "../../assets/creatures/violet_vine/violet_vine_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 114865
+    },
+    {
       "path": "assets/creatures/wolf/wolf_se_candidate_v1.json",
       "href": "../../assets/creatures/wolf/wolf_se_candidate_v1.json",
       "extension": "json",
@@ -4779,10 +6143,16 @@
       "size": 5812
     },
     {
-      "path": "assets/environments/ilha_cristal_isometric_candidate_v1/README.md",
-      "href": "../../assets/environments/ilha_cristal_isometric_candidate_v1/README.md",
-      "extension": "md",
-      "size": 842
+      "path": "assets/creatures/wolf/wolf_static_concept_v0_1.json",
+      "href": "../../assets/creatures/wolf/wolf_static_concept_v0_1.json",
+      "extension": "json",
+      "size": 1069
+    },
+    {
+      "path": "assets/creatures/wolf/wolf_static_concept_v0_1.png",
+      "href": "../../assets/creatures/wolf/wolf_static_concept_v0_1.png",
+      "extension": "png",
+      "size": 72753
     },
     {
       "path": "assets/environments/ilha_cristal_isometric_candidate_v1/ilha_cristal_elementos_isometricos_v1.png",
@@ -4807,6 +6177,12 @@
       "href": "../../assets/environments/ilha_cristal_isometric_candidate_v1/prompt-tileset.txt",
       "extension": "txt",
       "size": 3212
+    },
+    {
+      "path": "assets/environments/ilha_cristal_isometric_candidate_v1/README.md",
+      "href": "../../assets/environments/ilha_cristal_isometric_candidate_v1/README.md",
+      "extension": "md",
+      "size": 842
     },
     {
       "path": "assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.json",
@@ -4851,12 +6227,6 @@
       "size": 64166
     },
     {
-      "path": "assets/environments/tropical_oblique_candidate/README.md",
-      "href": "../../assets/environments/tropical_oblique_candidate/README.md",
-      "extension": "md",
-      "size": 2317
-    },
-    {
       "path": "assets/environments/tropical_oblique_candidate/boulder.png",
       "href": "../../assets/environments/tropical_oblique_candidate/boulder.png",
       "extension": "png",
@@ -4881,10 +6251,10 @@
       "size": 470
     },
     {
-      "path": "assets/environments/tropical_oblique_candidate/palm.png",
-      "href": "../../assets/environments/tropical_oblique_candidate/palm.png",
+      "path": "assets/environments/tropical_oblique_candidate/palm_generated_source.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/palm_generated_source.png",
       "extension": "png",
-      "size": 2273
+      "size": 1190847
     },
     {
       "path": "assets/environments/tropical_oblique_candidate/palm_generated.json",
@@ -4899,10 +6269,16 @@
       "size": 18255
     },
     {
-      "path": "assets/environments/tropical_oblique_candidate/palm_generated_source.png",
-      "href": "../../assets/environments/tropical_oblique_candidate/palm_generated_source.png",
+      "path": "assets/environments/tropical_oblique_candidate/palm.png",
+      "href": "../../assets/environments/tropical_oblique_candidate/palm.png",
       "extension": "png",
-      "size": 1190847
+      "size": 2273
+    },
+    {
+      "path": "assets/environments/tropical_oblique_candidate/README.md",
+      "href": "../../assets/environments/tropical_oblique_candidate/README.md",
+      "extension": "md",
+      "size": 2317
     },
     {
       "path": "assets/environments/tropical_oblique_candidate/tree.png",
@@ -4917,36 +6293,6 @@
       "size": 3681139
     },
     {
-      "path": "assets/references/generated-candidates/MELISSA_8DIR_SOURCE_V1.md",
-      "href": "../../assets/references/generated-candidates/MELISSA_8DIR_SOURCE_V1.md",
-      "extension": "md",
-      "size": 2494
-    },
-    {
-      "path": "assets/references/generated-candidates/README.md",
-      "href": "../../assets/references/generated-candidates/README.md",
-      "extension": "md",
-      "size": 4884
-    },
-    {
-      "path": "assets/references/generated-candidates/V2_SOURCE.md",
-      "href": "../../assets/references/generated-candidates/V2_SOURCE.md",
-      "extension": "md",
-      "size": 2973
-    },
-    {
-      "path": "assets/references/generated-candidates/V3_SOURCE.md",
-      "href": "../../assets/references/generated-candidates/V3_SOURCE.md",
-      "extension": "md",
-      "size": 1313
-    },
-    {
-      "path": "assets/references/generated-candidates/bear/README.md",
-      "href": "../../assets/references/generated-candidates/bear/README.md",
-      "extension": "md",
-      "size": 950
-    },
-    {
       "path": "assets/references/generated-candidates/bear/bear_se_source_v1.png",
       "href": "../../assets/references/generated-candidates/bear/bear_se_source_v1.png",
       "extension": "png",
@@ -4959,10 +6305,28 @@
       "size": 724663
     },
     {
+      "path": "assets/references/generated-candidates/bear/README.md",
+      "href": "../../assets/references/generated-candidates/bear/README.md",
+      "extension": "md",
+      "size": 950
+    },
+    {
       "path": "assets/references/generated-candidates/fabio_vocations_concept.png",
       "href": "../../assets/references/generated-candidates/fabio_vocations_concept.png",
       "extension": "png",
       "size": 1943505
+    },
+    {
+      "path": "assets/references/generated-candidates/fabio_warrior_8dir_cardinal_edited_v1.png",
+      "href": "../../assets/references/generated-candidates/fabio_warrior_8dir_cardinal_edited_v1.png",
+      "extension": "png",
+      "size": 2164778
+    },
+    {
+      "path": "assets/references/generated-candidates/fabio_warrior_8dir_cardinal_source_v1.png",
+      "href": "../../assets/references/generated-candidates/fabio_warrior_8dir_cardinal_source_v1.png",
+      "extension": "png",
+      "size": 2205427
     },
     {
       "path": "assets/references/generated-candidates/fabio_warrior_8dir_NE_SE_cellfit_v1.png",
@@ -4987,18 +6351,6 @@
       "href": "../../assets/references/generated-candidates/fabio_warrior_8dir_SW_NW_source_v1.png",
       "extension": "png",
       "size": 2228945
-    },
-    {
-      "path": "assets/references/generated-candidates/fabio_warrior_8dir_cardinal_edited_v1.png",
-      "href": "../../assets/references/generated-candidates/fabio_warrior_8dir_cardinal_edited_v1.png",
-      "extension": "png",
-      "size": 2164778
-    },
-    {
-      "path": "assets/references/generated-candidates/fabio_warrior_8dir_cardinal_source_v1.png",
-      "href": "../../assets/references/generated-candidates/fabio_warrior_8dir_cardinal_source_v1.png",
-      "extension": "png",
-      "size": 2205427
     },
     {
       "path": "assets/references/generated-candidates/fabio_warrior_stage1_source_v1.png",
@@ -5241,10 +6593,22 @@
       "size": 786444
     },
     {
+      "path": "assets/references/generated-candidates/MELISSA_8DIR_SOURCE_V1.md",
+      "href": "../../assets/references/generated-candidates/MELISSA_8DIR_SOURCE_V1.md",
+      "extension": "md",
+      "size": 2494
+    },
+    {
       "path": "assets/references/generated-candidates/melissa_warrior_E_source_8dir_v1.png",
       "href": "../../assets/references/generated-candidates/melissa_warrior_E_source_8dir_v1.png",
       "extension": "png",
       "size": 1296812
+    },
+    {
+      "path": "assets/references/generated-candidates/melissa_warrior_idle_source.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_idle_source.png",
+      "extension": "png",
+      "size": 1160563
     },
     {
       "path": "assets/references/generated-candidates/melissa_warrior_NE_source_8dir_v1.png",
@@ -5277,18 +6641,6 @@
       "size": 1108493
     },
     {
-      "path": "assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
-      "href": "../../assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
-      "extension": "png",
-      "size": 1073647
-    },
-    {
-      "path": "assets/references/generated-candidates/melissa_warrior_idle_source.png",
-      "href": "../../assets/references/generated-candidates/melissa_warrior_idle_source.png",
-      "extension": "png",
-      "size": 1160563
-    },
-    {
       "path": "assets/references/generated-candidates/melissa_warrior_unified_v2_source.png",
       "href": "../../assets/references/generated-candidates/melissa_warrior_unified_v2_source.png",
       "extension": "png",
@@ -5301,10 +6653,34 @@
       "size": 1414145
     },
     {
+      "path": "assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
+      "href": "../../assets/references/generated-candidates/melissa_warrior_W_source_8dir_v1.png",
+      "extension": "png",
+      "size": 1073647
+    },
+    {
       "path": "assets/references/generated-candidates/melissa_warrior_walk_source.png",
       "href": "../../assets/references/generated-candidates/melissa_warrior_walk_source.png",
       "extension": "png",
       "size": 1161884
+    },
+    {
+      "path": "assets/references/generated-candidates/README.md",
+      "href": "../../assets/references/generated-candidates/README.md",
+      "extension": "md",
+      "size": 4884
+    },
+    {
+      "path": "assets/references/generated-candidates/V2_SOURCE.md",
+      "href": "../../assets/references/generated-candidates/V2_SOURCE.md",
+      "extension": "md",
+      "size": 2973
+    },
+    {
+      "path": "assets/references/generated-candidates/V3_SOURCE.md",
+      "href": "../../assets/references/generated-candidates/V3_SOURCE.md",
+      "extension": "md",
+      "size": 1313
     },
     {
       "path": "assets/references/generated-candidates/wolf/GENERATION_NOTES.md",
@@ -5331,12 +6707,6 @@
       "size": 662919
     },
     {
-      "path": "assets/ui/app_icon.png",
-      "href": "../../assets/ui/app_icon.png",
-      "extension": "png",
-      "size": 469384
-    },
-    {
       "path": "assets/ui/app_icon_background.png",
       "href": "../../assets/ui/app_icon_background.png",
       "extension": "png",
@@ -5355,22 +6725,16 @@
       "size": 1815
     },
     {
+      "path": "assets/ui/app_icon.png",
+      "href": "../../assets/ui/app_icon.png",
+      "extension": "png",
+      "size": 469384
+    },
+    {
       "path": "assets/ui/classic_v2/AGI.png",
       "href": "../../assets/ui/classic_v2/AGI.png",
       "extension": "png",
       "size": 273
-    },
-    {
-      "path": "assets/ui/classic_v2/FOR.png",
-      "href": "../../assets/ui/classic_v2/FOR.png",
-      "extension": "png",
-      "size": 350
-    },
-    {
-      "path": "assets/ui/classic_v2/INT.png",
-      "href": "../../assets/ui/classic_v2/INT.png",
-      "extension": "png",
-      "size": 305
     },
     {
       "path": "assets/ui/classic_v2/amulet.png",
@@ -5439,6 +6803,12 @@
       "size": 299
     },
     {
+      "path": "assets/ui/classic_v2/FOR.png",
+      "href": "../../assets/ui/classic_v2/FOR.png",
+      "extension": "png",
+      "size": 350
+    },
+    {
       "path": "assets/ui/classic_v2/head.png",
       "href": "../../assets/ui/classic_v2/head.png",
       "extension": "png",
@@ -5455,6 +6825,12 @@
       "href": "../../assets/ui/classic_v2/hide.png",
       "extension": "png",
       "size": 275
+    },
+    {
+      "path": "assets/ui/classic_v2/INT.png",
+      "href": "../../assets/ui/classic_v2/INT.png",
+      "extension": "png",
+      "size": 305
     },
     {
       "path": "assets/ui/classic_v2/jewel_left.png",
@@ -5559,16 +6935,16 @@
       "size": 1372386
     },
     {
+      "path": "data/catalogs/mvp.json",
+      "href": "../../data/catalogs/mvp.json",
+      "extension": "json",
+      "size": 47568
+    },
+    {
       "path": "data/README.md",
       "href": "../../data/README.md",
       "extension": "md",
       "size": 535
-    },
-    {
-      "path": "data/catalogs/mvp.json",
-      "href": "../../data/catalogs/mvp.json",
-      "extension": "json",
-      "size": 34324
     },
     {
       "path": "docs/art/ART_DIRECTION_AND_SPRITES.md",
@@ -5577,10 +6953,10 @@
       "size": 5641
     },
     {
-      "path": "docs/art/MELISSA_TECHNICAL_QA.md",
-      "href": "../../docs/art/MELISSA_TECHNICAL_QA.md",
+      "path": "Docs/art/candidates/BESTIARY_EXPANSION_30_V0_2.md",
+      "href": "../../Docs/art/candidates/BESTIARY_EXPANSION_30_V0_2.md",
       "extension": "md",
-      "size": 25273
+      "size": 8418
     },
     {
       "path": "docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md",
@@ -5589,10 +6965,22 @@
       "size": 3656
     },
     {
+      "path": "Docs/art/candidates/BESTIARY_STATIC_CONCEPTS_30_V0_1.md",
+      "href": "../../Docs/art/candidates/BESTIARY_STATIC_CONCEPTS_30_V0_1.md",
+      "extension": "md",
+      "size": 7612
+    },
+    {
       "path": "docs/art/candidates/bestiary-expansion-concepts-v0.1.png",
       "href": "../../docs/art/candidates/bestiary-expansion-concepts-v0.1.png",
       "extension": "png",
       "size": 3052536
+    },
+    {
+      "path": "Docs/art/candidates/bestiary-static-concepts-30-v0.1.png",
+      "href": "../../Docs/art/candidates/bestiary-static-concepts-30-v0.1.png",
+      "extension": "png",
+      "size": 2847289
     },
     {
       "path": "docs/art/evidence/bear/BEAR_CANDIDATE_QA.md",
@@ -5985,6 +7373,66 @@
       "size": 3864
     },
     {
+      "path": "docs/art/MELISSA_TECHNICAL_QA.md",
+      "href": "../../docs/art/MELISSA_TECHNICAL_QA.md",
+      "extension": "md",
+      "size": 25273
+    },
+    {
+      "path": "Docs/Context/DECISIONS.md",
+      "href": "../../Docs/Context/DECISIONS.md",
+      "extension": "md",
+      "size": 19277
+    },
+    {
+      "path": "Docs/Context/HANDOFF.md",
+      "href": "../../Docs/Context/HANDOFF.md",
+      "extension": "md",
+      "size": 1997
+    },
+    {
+      "path": "Docs/Context/JOURNAL.md",
+      "href": "../../Docs/Context/JOURNAL.md",
+      "extension": "md",
+      "size": 75617
+    },
+    {
+      "path": "Docs/Context/PROTOTYPE_LOG.md",
+      "href": "../../Docs/Context/PROTOTYPE_LOG.md",
+      "extension": "md",
+      "size": 20655
+    },
+    {
+      "path": "docs/gameplay/evidence/hud-019/character.png",
+      "href": "../../docs/gameplay/evidence/hud-019/character.png",
+      "extension": "png",
+      "size": 369839
+    },
+    {
+      "path": "docs/gameplay/evidence/hud-019/hud.png",
+      "href": "../../docs/gameplay/evidence/hud-019/hud.png",
+      "extension": "png",
+      "size": 307431
+    },
+    {
+      "path": "docs/gameplay/evidence/hud-019/inventory.png",
+      "href": "../../docs/gameplay/evidence/hud-019/inventory.png",
+      "extension": "png",
+      "size": 415870
+    },
+    {
+      "path": "docs/gameplay/evidence/hud-019/lobby.png",
+      "href": "../../docs/gameplay/evidence/hud-019/lobby.png",
+      "extension": "png",
+      "size": 355533
+    },
+    {
+      "path": "docs/gameplay/evidence/melee_contact_spacing.md",
+      "href": "../../docs/gameplay/evidence/melee_contact_spacing.md",
+      "extension": "md",
+      "size": 7444
+    },
+    {
       "path": "docs/gameplay/HUD_RECONSTRUCTION_019.md",
       "href": "../../docs/gameplay/HUD_RECONSTRUCTION_019.md",
       "extension": "md",
@@ -6021,34 +7469,34 @@
       "size": 7683
     },
     {
-      "path": "docs/gameplay/evidence/hud-019/character.png",
-      "href": "../../docs/gameplay/evidence/hud-019/character.png",
-      "extension": "png",
-      "size": 369839
-    },
-    {
-      "path": "docs/gameplay/evidence/hud-019/hud.png",
-      "href": "../../docs/gameplay/evidence/hud-019/hud.png",
-      "extension": "png",
-      "size": 307431
-    },
-    {
-      "path": "docs/gameplay/evidence/hud-019/inventory.png",
-      "href": "../../docs/gameplay/evidence/hud-019/inventory.png",
-      "extension": "png",
-      "size": 415870
-    },
-    {
-      "path": "docs/gameplay/evidence/hud-019/lobby.png",
-      "href": "../../docs/gameplay/evidence/hud-019/lobby.png",
-      "extension": "png",
-      "size": 355533
-    },
-    {
-      "path": "docs/gameplay/evidence/melee_contact_spacing.md",
-      "href": "../../docs/gameplay/evidence/melee_contact_spacing.md",
+      "path": "Docs/Main/CATALOGS_MVP.md",
+      "href": "../../Docs/Main/CATALOGS_MVP.md",
       "extension": "md",
-      "size": 7444
+      "size": 19440
+    },
+    {
+      "path": "Docs/Main/CONTENT_DATA.md",
+      "href": "../../Docs/Main/CONTENT_DATA.md",
+      "extension": "md",
+      "size": 6390
+    },
+    {
+      "path": "Docs/Main/GDD_MVP.md",
+      "href": "../../Docs/Main/GDD_MVP.md",
+      "extension": "md",
+      "size": 10327
+    },
+    {
+      "path": "Docs/Main/PROTOTYPING_METHODOLOGY.md",
+      "href": "../../Docs/Main/PROTOTYPING_METHODOLOGY.md",
+      "extension": "md",
+      "size": 7602
+    },
+    {
+      "path": "Docs/Main/ROADMAP.md",
+      "href": "../../Docs/Main/ROADMAP.md",
+      "extension": "md",
+      "size": 17264
     },
     {
       "path": "docs/prototypes/assets/irregular-island-map-concept-v0.1.png",
@@ -6177,12 +7625,6 @@
       "size": 3522
     },
     {
-      "path": "game/README.md",
-      "href": "../../game/README.md",
-      "extension": "md",
-      "size": 1154
-    },
-    {
       "path": "game/data/first_island_layout.json",
       "href": "../../game/data/first_island_layout.json",
       "extension": "json",
@@ -6205,6 +7647,12 @@
       "href": "../../game/data/player_appearances.json",
       "extension": "json",
       "size": 1747
+    },
+    {
+      "path": "game/README.md",
+      "href": "../../game/README.md",
+      "extension": "md",
+      "size": 1154
     },
     {
       "path": "game/scenes/character_select.tscn",
@@ -6243,16 +7691,16 @@
       "size": 61563
     },
     {
-      "path": "game/scenes/main.tscn",
-      "href": "../../game/scenes/main.tscn",
-      "extension": "tscn",
-      "size": 283
-    },
-    {
       "path": "game/scenes/main_menu.tscn",
       "href": "../../game/scenes/main_menu.tscn",
       "extension": "tscn",
       "size": 290
+    },
+    {
+      "path": "game/scenes/main.tscn",
+      "href": "../../game/scenes/main.tscn",
+      "extension": "tscn",
+      "size": 283
     },
     {
       "path": "game/scenes/pause_overlay.tscn",
@@ -6429,16 +7877,16 @@
       "size": 3794
     },
     {
-      "path": "game/scripts/world/first_island.gd",
-      "href": "../../game/scripts/world/first_island.gd",
-      "extension": "gd",
-      "size": 41484
-    },
-    {
       "path": "game/scripts/world/first_island_hud.gd",
       "href": "../../game/scripts/world/first_island_hud.gd",
       "extension": "gd",
       "size": 57346
+    },
+    {
+      "path": "game/scripts/world/first_island.gd",
+      "href": "../../game/scripts/world/first_island.gd",
+      "extension": "gd",
+      "size": 41484
     },
     {
       "path": "game/scripts/world/isometric_3d_view.gd",
@@ -6453,10 +7901,22 @@
       "size": 1178
     },
     {
-      "path": "tools/art/README.md",
-      "href": "../../tools/art/README.md",
+      "path": "README.md",
+      "href": "../../README.md",
       "extension": "md",
-      "size": 1373
+      "size": 12769
+    },
+    {
+      "path": "Testar_Jogo_Web.bat",
+      "href": "../../Testar_Jogo_Web.bat",
+      "extension": "bat",
+      "size": 4426
+    },
+    {
+      "path": "tools/art/build_bestiary_prototype.py",
+      "href": "../../tools/art/build_bestiary_prototype.py",
+      "extension": "py",
+      "size": 12164
     },
     {
       "path": "tools/art/generate_app_icon.py",
@@ -6561,22 +8021,28 @@
       "size": 5041
     },
     {
+      "path": "tools/art/README.md",
+      "href": "../../tools/art/README.md",
+      "extension": "md",
+      "size": 1373
+    },
+    {
       "path": "tools/art/retouch_melissa_isolated_alpha_artifacts_v2.py",
       "href": "../../tools/art/retouch_melissa_isolated_alpha_artifacts_v2.py",
       "extension": "py",
       "size": 5371
     },
     {
+      "path": "tools/art/slice_bestiary_static_concepts.py",
+      "href": "../../tools/art/slice_bestiary_static_concepts.py",
+      "extension": "py",
+      "size": 4192
+    },
+    {
       "path": "tools/art/source/ilha-cristal-logo.jpg",
       "href": "../../tools/art/source/ilha-cristal-logo.jpg",
       "extension": "jpg",
       "size": 804034
-    },
-    {
-      "path": "tools/art/sprite_test/README.md",
-      "href": "../../tools/art/sprite_test/README.md",
-      "extension": "md",
-      "size": 3305
     },
     {
       "path": "tools/art/sprite_test/capture_all_frames.gd",
@@ -6621,6 +8087,12 @@
       "size": 197
     },
     {
+      "path": "tools/art/sprite_test/README.md",
+      "href": "../../tools/art/sprite_test/README.md",
+      "extension": "md",
+      "size": 3305
+    },
+    {
       "path": "tools/art/sprite_test/sprite_test.gd",
       "href": "../../tools/art/sprite_test/sprite_test.gd",
       "extension": "gd",
@@ -6631,6 +8103,12 @@
       "href": "../../tools/art/sprite_test/sprite_test.tscn",
       "extension": "tscn",
       "size": 205
+    },
+    {
+      "path": "tools/art/update_bestiary_docs.py",
+      "href": "../../tools/art/update_bestiary_docs.py",
+      "extension": "py",
+      "size": 14291
     },
     {
       "path": "tools/art/validate_creature_candidates.py",
@@ -6887,39 +8365,34 @@
   ],
   "documentation": [
     {
-      "path": "README.md",
-      "href": "../../README.md",
-      "summary": "Visão geral do projeto, estado atual e como testar."
+      "path": "assets/ui/pixel_hud_v1/regions.json",
+      "href": "../../assets/ui/pixel_hud_v1/regions.json",
+      "summary": "Regiões da prancha de HUD escolhida; aceite Android pendente."
     },
     {
-      "path": "Docs/Main/GDD_MVP.md",
-      "href": "../../Docs/Main/GDD_MVP.md",
-      "summary": "Escopo, regras, progressão, combate e critérios de aceite."
-    },
-    {
-      "path": "Docs/Main/CONTENT_DATA.md",
-      "href": "../../Docs/Main/CONTENT_DATA.md",
-      "summary": "Conversões de atributos, itens, drops, XP e árvore planejada."
-    },
-    {
-      "path": "Docs/Main/CATALOGS_MVP.md",
-      "href": "../../Docs/Main/CATALOGS_MVP.md",
-      "summary": "As doze listas de produção e seus limites conhecidos."
-    },
-    {
-      "path": "Docs/Main/ROADMAP.md",
-      "href": "../../Docs/Main/ROADMAP.md",
-      "summary": "Sprints, gates e estado dos aceites."
-    },
-    {
-      "path": "docs/technical/ARCHITECTURE.md",
-      "href": "../../docs/technical/ARCHITECTURE.md",
-      "summary": "Arquitetura pretendida para mundo, saves e rede."
+      "path": "data/catalogs/mvp.json",
+      "href": "../../data/catalogs/mvp.json",
+      "summary": "Fonte numérica planejada; contém valores ainda provisórios."
     },
     {
       "path": "docs/art/ART_DIRECTION_AND_SPRITES.md",
       "href": "../../docs/art/ART_DIRECTION_AND_SPRITES.md",
       "summary": "Contrato candidato de sprites, pivôs, atlas e escala."
+    },
+    {
+      "path": "Docs/art/candidates/BESTIARY_EXPANSION_30_V0_2.md",
+      "href": "../../Docs/art/candidates/BESTIARY_EXPANSION_30_V0_2.md",
+      "summary": "Tabela do bestiário de 30 espécies, valores provisórios e fontes de referência."
+    },
+    {
+      "path": "Docs/art/candidates/BESTIARY_STATIC_CONCEPTS_30_V0_1.md",
+      "href": "../../Docs/art/candidates/BESTIARY_STATIC_CONCEPTS_30_V0_1.md",
+      "summary": "Ordem da prancha e especificação das 30 poses estáticas recortadas."
+    },
+    {
+      "path": "Docs/Context/DECISIONS.md",
+      "href": "../../Docs/Context/DECISIONS.md",
+      "summary": "Decisões que afetam o escopo e a implementação."
     },
     {
       "path": "Docs/Context/HANDOFF.md",
@@ -6932,14 +8405,34 @@
       "summary": "Histórico curto de mudanças e validações."
     },
     {
-      "path": "Docs/Context/DECISIONS.md",
-      "href": "../../Docs/Context/DECISIONS.md",
-      "summary": "Decisões que afetam o escopo e a implementação."
+      "path": "Docs/Main/CATALOGS_MVP.md",
+      "href": "../../Docs/Main/CATALOGS_MVP.md",
+      "summary": "As doze listas de produção e seus limites conhecidos."
     },
     {
-      "path": "data/catalogs/mvp.json",
-      "href": "../../data/catalogs/mvp.json",
-      "summary": "Fonte numérica planejada; contém valores ainda provisórios."
+      "path": "Docs/Main/CONTENT_DATA.md",
+      "href": "../../Docs/Main/CONTENT_DATA.md",
+      "summary": "Conversões de atributos, itens, drops, XP e árvore planejada."
+    },
+    {
+      "path": "Docs/Main/GDD_MVP.md",
+      "href": "../../Docs/Main/GDD_MVP.md",
+      "summary": "Escopo, regras, progressão, combate e critérios de aceite."
+    },
+    {
+      "path": "Docs/Main/ROADMAP.md",
+      "href": "../../Docs/Main/ROADMAP.md",
+      "summary": "Sprints, gates e estado dos aceites."
+    },
+    {
+      "path": "docs/prototypes/bestiary_expansion_30_v0_2.html",
+      "href": "../../docs/prototypes/bestiary_expansion_30_v0_2.html",
+      "summary": "Protótipo visual com 30 sprites e regiões sugeridas, sem coordenadas ou quantidade de spawns."
+    },
+    {
+      "path": "docs/technical/ARCHITECTURE.md",
+      "href": "../../docs/technical/ARCHITECTURE.md",
+      "summary": "Arquitetura pretendida para mundo, saves e rede."
     },
     {
       "path": "game/data/first_island_layout.json",
@@ -6952,9 +8445,14 @@
       "summary": "Seleção de atlas de aparência usada pelo recorte solo."
     },
     {
-      "path": "assets/ui/pixel_hud_v1/regions.json",
-      "href": "../../assets/ui/pixel_hud_v1/regions.json",
-      "summary": "Regiões da prancha de HUD escolhida; aceite Android pendente."
+      "path": "README.md",
+      "href": "../../README.md",
+      "summary": "Visão geral do projeto, estado atual e como testar."
+    },
+    {
+      "path": "tools/art/slice_bestiary_static_concepts.py",
+      "href": "../../tools/art/slice_bestiary_static_concepts.py",
+      "summary": "Corta as 30 células transparentes e escreve metadata de pivô/escala."
     }
   ]
 }

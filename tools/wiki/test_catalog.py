@@ -60,7 +60,8 @@ def run() -> None:
     assert len(catalog["characters"]) == 4, "expected all four character records"
     assert len(catalog["vocations"]) == 3, "expected all three vocation records"
     assert len(catalog["skills"]) == 9, "expected all nine planned skills"
-    assert {entry["id"] for entry in catalog["monsters"]} == {"fox", "wolf", "bear"}
+    assert len(catalog["monsters"]) == 30, "expected 30 bestiary records"
+    assert len({entry["id"] for entry in catalog["monsters"]}) == 30, "monster IDs must be unique"
     assert len(payload["assets"]) >= 25, "sprite/atlas previews were not indexed"
     assert len(payload["files"]) >= 100, "repository file index is unexpectedly small"
 

@@ -189,3 +189,12 @@ Na conversa o usuário confirmou “Prototipagem aprovada”, apontou divergênc
 - **Estado do gate:** aprovado para implementar a alternância de tema; a validação foi limitada à aparência e ao comportamento demonstrados no protótipo.
 - **Implementação:** `docs/wiki/index.html` aplica a preferência antes da primeira pintura; `wiki.css` define paletas completas; `app.js` alterna o tema, atualiza o estado acessível e salva a preferência. README e roadmap também documentam a opção.
 - **Verificação:** testes automatizados e revisão visual em navegador não foram executados nesta atualização.
+
+### Bestiário — prancha conceitual de poses estáticas v0.1 — 2026-10-18
+
+- **Artefatos:** [prancha PNG](../../Docs/art/candidates/bestiary-static-concepts-30-v0.1.png) e [índice com nomes, HP, dano e ordem](../../Docs/art/candidates/BESTIARY_STATIC_CONCEPTS_30_V0_1.md).
+- **Conteúdo visual:** 30 poses únicas em grade 5×6, sem animações, na ordem row-major do índice. Direção tropical pixel art com acentos cianos e violetas, usando as referências do projeto.
+- **Arquivo:** 1145×1374 px, PNG RGBA com fundo transparente; células de 229×229 px. As 30 células foram recortadas sem redimensionar ou alterar o alpha e têm metadata individual.
+- **Origem/licença:** imagem conceitual original gerada para esta revisão; não contém sprites dos pacotes CC0 pesquisados.
+- **Estado da integração:** 30 fichas no catálogo, com uma região recomendada por espécie; a cena base é reaproveitada nas espécies sem prefab próprio. O layout e seus spawns não foram alterados nesta atualização. Os concepts continuam estáticos, não são atlas nem arte de produção.
+- **Próximo passo:** importar no Godot e revisar tamanho, pivô, alpha e contato em espécies pequenas, médias e grandes. Valores e loot das fichas novas exigem playtest.

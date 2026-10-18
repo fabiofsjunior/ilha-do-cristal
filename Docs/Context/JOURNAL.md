@@ -466,3 +466,12 @@ Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa5
 - O usuário informou que o bestiário está sendo atualizado para 30 tipos. A legenda não inventa nomes; cada ponto é uma posição/habitat candidato e as coordenadas finais ficam pendentes da lista atualizada.
 - A prancha HTML foi aberta para revisão. SVG e contagem são material de protótipo; produção permanece em 250×200 = 50.000, sem alteração de spawns, colisões, saves ou cena.
 - Nenhum teste de runtime foi executado. Próxima ação: receber aprovação/ajustes da composição, escala e divisão dos pontos; após aprovação, preparar uma amostra representativa para revisão antes da produção.
+
+## 2026-10-18 — integração das 30 fichas estáticas
+
+- A pedido do usuário, a prancha original foi fatiada em 30 PNGs RGBA exatos de 229×229 e metadata individual para pivô, escala, footprint alpha e pose estática SE. Criado `tools/art/slice_bestiary_static_concepts.py` para reproduzir os recortes.
+- `data/catalogs/mvp.json` agora lista 30 espécies com nomes em português, HP/dano/XP provisórios, comportamento, região, caminho do sprite e loot vazio nas 27 fichas novas. Valores não foram balanceados.
+- O catálogo recomenda uma região para cada espécie. Após a orientação do usuário de deixar o mapa para outra atualização, a proposta de 57 slots foi retirada; este commit não altera coordenadas nem quantidade de spawns em `first_island_layout.json`.
+- Runtime usa fallback de `creature_base.tscn` para os 27 novos IDs, aplica escala/pivô/footprint do metadata e comportamento comum do catálogo; Corça de Musgo foge sem atacar. Atualizados o protótipo navegável, tabelas de conteúdo, GDD, roadmap e gerador/wiki offline.
+- DENZI, Tiny Creatures e Crab CC0 continuam registrados como referências gratuitas pesquisadas; nenhum arquivo desses packs foi integrado.
+- Nenhum teste de jogo foi executado. Godot 4.5.1/importação e revisão gráfica de alpha, escala, pivôs, colisões e combate continuam pendentes; sprites têm somente pose estática SE e não são arte aprovada.

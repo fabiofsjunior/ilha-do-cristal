@@ -142,12 +142,16 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [ ] Decidir, após a revisão visual, a amostra técnica isolada e o tratamento de grade/câmera; validar colisão, rampas, culling e desempenho antes de qualquer expansão de runtime para 100.000 células.
 - [ ] Após validação explícita, produzir e revisar uma amostra representativa na cena alvo. A aprovação da prancha não aprova produção em lote.
 
-### Proposta de bestiário de expansão — aguardando validação
+### Bestiário estático de 30 espécies — 2026-10-18
 
-- [ ] Revisar os dez candidatos e a prancha concept em `docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md`.
-- [ ] Se a direção for aprovada, definir uma amostra de uma criatura, testar escala/pivô/alpha/legibilidade no Godot e pedir revisão antes de fazer sprites em lote.
-- [ ] Manter espécies/variantes novas fora do MVP e do catálogo de runtime até aprovação e escopo explícitos.
-
+- [x] Catálogo com 30 fichas, valores provisórios, nomes, regiões lógicas e caminhos de sprites.
+- [x] Cortar as 30 células da prancha em PNG RGBA individuais de 229×229; adicionar metadata estática SE, pivô, escala e footprint alpha.
+- [ ] Encaminhar as recomendações regionais das 30 espécies para a atualização do mapa; coordenadas e quantidade de spawns serão definidas no layout em tarefa própria.
+- [x] Usar cena base como fallback para as espécies novas; IA segue o comportamento de cada ficha; Corça de Musgo só foge.
+- [x] Atualizar protótipo navegável, tabela de conteúdo e wiki offline.
+- [ ] Importar e abrir no Godot 4.5.1; conferir escala, pivôs, alpha e combate com pelo menos uma espécie pequena, média e grande. Esta checagem no editor é necessária antes de considerar a arte aprovada.
+- [ ] Playtestar os valores provisórios, as seis regiões e loot/XP; as zonas lógicas ainda não alteram o terreno ou os props atuais.
+- [ ] Produzir direções e animações para o jogo final. Este lote tem apenas uma pose estática SE por criatura.
 
 ### Identidade visual do aplicativo — 2026-10-18
 

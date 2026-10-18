@@ -1,0 +1,63 @@
+{
+  "id": "lumen_frog",
+  "species": "lumen_frog",
+  "atlas": {
+    "file": "lumen_frog_static_concept_v0_1.png",
+    "columns": 1,
+    "rows": 1
+  },
+  "cell": [
+    229,
+    229
+  ],
+  "pivot": [
+    125.5,
+    229.0
+  ],
+  "directions": [
+    "SE"
+  ],
+  "animations": {
+    "idle": {
+      "frames": 1,
+      "fps": 1,
+      "loop": true
+    }
+  },
+  "render_scale": 0.27692,
+  "footprint_extents_px": [
+    -28.66,
+    28.66,
+    0.0,
+    54.0
+  ],
+  "approved": false,
+  "status": "concept_static_runtime_preview",
+  "candidate_stage": "single_static_pose",
+  "source": {
+    "file": "Docs/art/candidates/bestiary-static-concepts-30-v0.1.png",
+    "sheet_size": [
+      1145,
+      1374
+    ],
+    "grid": [
+      5,
+      6
+    ],
+    "cell_index": 20,
+    "cell": [
+      0,
+      4
+    ],
+    "alpha_bbox_threshold_gt": 31,
+    "alpha_bbox": [
+      22,
+      34,
+      229,
+      229
+    ],
+    "intermediate_alpha_pixels": 26584,
+    "crop_operation": "exact 229x229 cell crop; no resampling or alpha changes"
+  }
+}
+

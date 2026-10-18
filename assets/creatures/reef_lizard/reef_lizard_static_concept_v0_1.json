@@ -1,0 +1,63 @@
+{
+  "id": "reef_lizard",
+  "species": "reef_lizard",
+  "atlas": {
+    "file": "reef_lizard_static_concept_v0_1.png",
+    "columns": 1,
+    "rows": 1
+  },
+  "cell": [
+    229,
+    229
+  ],
+  "pivot": [
+    121.0,
+    218.0
+  ],
+  "directions": [
+    "SE"
+  ],
+  "animations": {
+    "idle": {
+      "frames": 1,
+      "fps": 1,
+      "loop": true
+    }
+  },
+  "render_scale": 0.24771,
+  "footprint_extents_px": [
+    -26.5,
+    26.5,
+    0.0,
+    54.0
+  ],
+  "approved": false,
+  "status": "concept_static_runtime_preview",
+  "candidate_stage": "single_static_pose",
+  "source": {
+    "file": "Docs/art/candidates/bestiary-static-concepts-30-v0.1.png",
+    "sheet_size": [
+      1145,
+      1374
+    ],
+    "grid": [
+      5,
+      6
+    ],
+    "cell_index": 15,
+    "cell": [
+      0,
+      3
+    ],
+    "alpha_bbox_threshold_gt": 31,
+    "alpha_bbox": [
+      14,
+      0,
+      228,
+      218
+    ],
+    "intermediate_alpha_pixels": 29641,
+    "crop_operation": "exact 229x229 cell crop; no resampling or alpha changes"
+  }
+}
+

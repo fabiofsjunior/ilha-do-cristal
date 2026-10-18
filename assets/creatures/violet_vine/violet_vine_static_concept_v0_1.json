@@ -1,0 +1,63 @@
+{
+  "id": "violet_vine",
+  "species": "violet_vine",
+  "atlas": {
+    "file": "violet_vine_static_concept_v0_1.png",
+    "columns": 1,
+    "rows": 1
+  },
+  "cell": [
+    229,
+    229
+  ],
+  "pivot": [
+    121.5,
+    229.0
+  ],
+  "directions": [
+    "SE"
+  ],
+  "animations": {
+    "idle": {
+      "frames": 1,
+      "fps": 1,
+      "loop": true
+    }
+  },
+  "render_scale": 0.30568,
+  "footprint_extents_px": [
+    -32.86,
+    32.86,
+    0.0,
+    70.0
+  ],
+  "approved": false,
+  "status": "concept_static_runtime_preview",
+  "candidate_stage": "single_static_pose",
+  "source": {
+    "file": "Docs/art/candidates/bestiary-static-concepts-30-v0.1.png",
+    "sheet_size": [
+      1145,
+      1374
+    ],
+    "grid": [
+      5,
+      6
+    ],
+    "cell_index": 10,
+    "cell": [
+      0,
+      2
+    ],
+    "alpha_bbox_threshold_gt": 31,
+    "alpha_bbox": [
+      14,
+      0,
+      229,
+      229
+    ],
+    "intermediate_alpha_pixels": 44265,
+    "crop_operation": "exact 229x229 cell crop; no resampling or alpha changes"
+  }
+}
+

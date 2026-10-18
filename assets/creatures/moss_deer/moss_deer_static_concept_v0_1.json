@@ -1,0 +1,63 @@
+{
+  "id": "moss_deer",
+  "species": "moss_deer",
+  "atlas": {
+    "file": "moss_deer_static_concept_v0_1.png",
+    "columns": 1,
+    "rows": 1
+  },
+  "cell": [
+    229,
+    229
+  ],
+  "pivot": [
+    114.5,
+    229.0
+  ],
+  "directions": [
+    "SE"
+  ],
+  "animations": {
+    "idle": {
+      "frames": 1,
+      "fps": 1,
+      "loop": true
+    }
+  },
+  "render_scale": 0.26087,
+  "footprint_extents_px": [
+    -29.87,
+    29.87,
+    0.0,
+    54.0
+  ],
+  "approved": false,
+  "status": "concept_static_runtime_preview",
+  "candidate_stage": "single_static_pose",
+  "source": {
+    "file": "Docs/art/candidates/bestiary-static-concepts-30-v0.1.png",
+    "sheet_size": [
+      1145,
+      1374
+    ],
+    "grid": [
+      5,
+      6
+    ],
+    "cell_index": 8,
+    "cell": [
+      3,
+      1
+    ],
+    "alpha_bbox_threshold_gt": 31,
+    "alpha_bbox": [
+      0,
+      22,
+      229,
+      229
+    ],
+    "intermediate_alpha_pixels": 35684,
+    "crop_operation": "exact 229x229 cell crop; no resampling or alpha changes"
+  }
+}
+

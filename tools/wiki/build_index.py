@@ -114,6 +114,9 @@ def documentation_rows() -> list[dict[str, str]]:
         ("Docs/Main/GDD_MVP.md", "Escopo, regras, progressão, combate e critérios de aceite."),
         ("Docs/Main/CONTENT_DATA.md", "Conversões de atributos, itens, drops, XP e árvore planejada."),
         ("Docs/Main/CATALOGS_MVP.md", "As doze listas de produção e seus limites conhecidos."),
+        ("Docs/art/candidates/BESTIARY_EXPANSION_30_V0_2.md", "Tabela do bestiário de 30 espécies, valores provisórios e fontes de referência."),
+        ("Docs/art/candidates/BESTIARY_STATIC_CONCEPTS_30_V0_1.md", "Ordem da prancha e especificação das 30 poses estáticas recortadas."),
+        ("docs/prototypes/bestiary_expansion_30_v0_2.html", "Protótipo visual com 30 sprites e regiões sugeridas, sem coordenadas ou quantidade de spawns."),
         ("Docs/Main/ROADMAP.md", "Sprints, gates e estado dos aceites."),
         ("docs/technical/ARCHITECTURE.md", "Arquitetura pretendida para mundo, saves e rede."),
         ("docs/art/ART_DIRECTION_AND_SPRITES.md", "Contrato candidato de sprites, pivôs, atlas e escala."),
@@ -124,6 +127,7 @@ def documentation_rows() -> list[dict[str, str]]:
         ("game/data/first_island_layout.json", "Layout estático do recorte jogável atual."),
         ("game/data/player_appearances.json", "Seleção de atlas de aparência usada pelo recorte solo."),
         ("assets/ui/pixel_hud_v1/regions.json", "Regiões da prancha de HUD escolhida; aceite Android pendente."),
+        ("tools/art/slice_bestiary_static_concepts.py", "Corta as 30 células transparentes e escreve metadata de pivô/escala."),
     ]
     return [{"path": path, "href": f"../../{path}", "summary": summary} for path, summary in docs]
 
@@ -150,3 +154,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

@@ -31,9 +31,10 @@ for recipe in data["recipes"]:
 for upgrade in data["camp_upgrades"]:
     assert all(item in ids and quantity > 0 for item, quantity in upgrade["requires"].items()), upgrade
 assert len(data["skills"]) == 9
-assert len(data["monsters"]) == 3
+assert len(data["monsters"]) == 30
 assert {entry["id"] for entry in data["characters"]} == {"melissa", "helena", "maira", "fabio"}
 assert len(data["animations_and_vfx"]["directions"]) == 8
 assert sum(data["attributes_and_levels"]["xp_to_next_level_from_1_to_9"]) == 3202
 assert data["talents"]["planned_per_vocation"] == {"small": 60, "large": 25, "special": 15}
 print(f"Catalog valid: {len(groups)} groups, {len(ids)} stable IDs")
+

@@ -70,3 +70,9 @@ A branch `feature/s03-crystal-ui-kit-v2` integra o spritesheet `assets/ui/crysta
 A build Android debug 0.1.7/versionCode 8 é anterior às PRs #15–#19 e **não foi recompilada com as mudanças posteriores**. Ela registra o joystick ampliado, janela de atributos, restauração de HP/MP ao subir de nível, mapa 192×132 e ajustes de interface/profundidade. As mudanças de gameplay posteriores — janela de queda e retorno, contato por footprint, movimento alinhado à câmera e regeneração de 1,2× — não estão confirmadas nesse APK. A PR #19 integrou a wiki à documentação; ela não faz parte do pacote Android.
 
 O histórico da composição retrato, alvo e dano flutuante está em [validação retrato](docs/gameplay/PORTRAIT_BUILD_VALIDATION.md); a interface 0.1.7 está em [MOBILE_UI_017_VALIDATION.md](docs/gameplay/MOBILE_UI_017_VALIDATION.md). O APK anterior pode não estar presente num checkout, pois `build/` não é versionado. Não trate esse binário como build atual nem como evidência para os recursos integrados depois.
+
+## Bestiário estático de 30 espécies
+
+O [protótipo navegável](docs/prototypes/bestiary_expansion_30_v0_2.html) e o [índice do bestiário](Docs/art/candidates/BESTIARY_EXPANSION_30_V0_2.md) apresentam 30 fichas com HP, dano, sprite e uma região sugerida para cada criatura. Os 30 recortes individuais de 229×229 px e seus metadados estão em `assets/creatures/`; a [prancha conceitual original](Docs/art/candidates/bestiary-static-concepts-30-v0.1.png) e o [índice dos recortes](Docs/art/candidates/BESTIARY_STATIC_CONCEPTS_30_V0_1.md) registram a ordem e a pose estática SE.
+
+As regiões são recomendações de alocação para a atualização do mapa. Esta entrega não altera o layout, as coordenadas nem o número de spawns. Os valores de HP/dano/XP são provisórios e as imagens são concepts sem animação ou aprovação de arte final; as referências CC0 pesquisadas não foram incorporadas.

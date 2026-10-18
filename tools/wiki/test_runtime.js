@@ -68,7 +68,7 @@ setImmediate(() => {
     if (!content.innerHTML.includes("Espada improvisada") || !content.innerHTML.includes("Curativo medicinal")) throw new Error("items section did not render equipment and consumables");
 
     navHandler({ target: { closest: () => nav.buttons.find(button => button.dataset.section === "world") } });
-    if (!content.innerHTML.includes("Criaturas") || !content.innerHTML.includes("layout estático")) throw new Error("world section did not render layout and bestiary");
+    if (!content.innerHTML.includes("Fichas das criaturas") || !content.innerHTML.includes("Região sugerida") || !content.innerHTML.includes("Alocação regional recomendada")) throw new Error("world section did not render creature cards with regional recommendations");
 
     search.value = "war_combo";
     search.handlers.input();
@@ -90,3 +90,4 @@ setImmediate(() => {
     process.exitCode = 1;
   }
 });
+

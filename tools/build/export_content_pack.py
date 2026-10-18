@@ -63,7 +63,7 @@ def main() -> int:
         "res://game/data/first_island_layout.json",
         "res://game/data/first_island_tiles.json",
         "res://game/data/player_appearances.json",
-        "res://assets/creatures/fox/fox_se_candidate_v1.png.import",
+        "res://assets/creatures/fox/fox_static_concept_v0_1.png.import",
         "res://assets/ui/crystal_v2/sheet.b64",
     }
     missing_files = sorted(required_files.difference(stored_files))
@@ -89,3 +89,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

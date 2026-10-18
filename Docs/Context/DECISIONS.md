@@ -144,3 +144,12 @@ O alvo selecionado deve usar uma elipse pixel art pequena, sem billboard, plana 
 - Os IDs 00–39 ficam no TileSet/camada `ManualTerrain`; IDs 40–63 ficam em `ManualProps`. Cada TileSet usa célula de 128×128 px, equivalente a 4×4 SQMs na grade atual de 32 px.
 - As camadas novas começam vazias e podem ser pintadas separadamente, mantendo terreno e decoração no mesmo ponto sem repintar o mapa original. O renderer projeta terreno no chão e objetos como sprites com billboard.
 - A mudança é visual. `first_island_layout.json` continua definindo limites, colisões, água bloqueada, spawns, obstáculos e recursos. O atlas fica disponível para pintura manual e não promove a arte a conteúdo final aprovado.
+
+## Decisão — bestiário estático de 30 espécies — 2026-10-18
+
+- O pedido explícito para fatiar cada sprite e atualizar o protótipo/wiki autoriza integrar os 30 concepts ao catálogo e ao runtime como prévias estáticas. O escopo passa de 3 para 30 fichas e a extensão é documentada no GDD e no roadmap.
+- A prancha original é preservada. Os recortes individuais são PNG RGBA 229×229, sem redimensionamento nem alteração do alpha; metadata guarda pose SE única, pivô, escala e footprint. A licença/fontes de packs CC0 foram pesquisadas, mas nenhum sprite deles foi incorporado.
+- Os 27 novos registros usam HP/dano/XP provisórios e `drops: []`. A Corça de Musgo foge e nunca ataca. Cena-base é reutilizada nos novos monstros; raposa, lobo e urso mantêm cenas herdadas.
+- Seis regiões são nomeadas no catálogo como recomendações por espécie. Lagoa cristalina, ruínas de obsidiana e terras corrompidas são grupos conceituais sobre o terreno/props atuais; coordenadas e quantidade de spawns ficam para a atualização do mapa, conduzida em outra tarefa.
+- A autorização de integração do concept não aprova arte final nem substitui o ajuste de colisão, a revisão de escala/pivô/alpha no Godot, direções/animações e playtest de equilíbrio/loot.
+

@@ -535,7 +535,7 @@ func award_creature(actor_death_id: String, species_id: String) -> Dictionary:
 			drops_received[item_id] = quantity
 	rewarded_deaths[actor_death_id] = {"species": species_id, "drops": drops_received.duplicate(true)}
 	add_xp(int(monster_data.get("xp", 0)))
-	recent_activity = "%s derrotado · +%d XP" % [species_id.capitalize(), int(monster_data.get("xp", 0))]
+	recent_activity = "%s derrotado · +%d XP" % [str(monster_data.get("name", species_id.capitalize())), int(monster_data.get("xp", 0))]
 	return {"xp": int(monster_data.get("xp", 0)), "drops": drops_received}
 
 
@@ -759,3 +759,4 @@ func _canonicalize(value: Variant) -> Variant:
 
 func weapon_id() -> String:
 	return CombatRules.weapon_id_for_vocation(vocation_id)
+

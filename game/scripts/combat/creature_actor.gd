@@ -18,8 +18,15 @@ const BEAR_WINDUP := 0.9
 
 var slot_id := ""
 var runtime_id := ""
-@export_enum("fox", "wolf", "bear") var species_id := "fox"
+var region_id := ""
+@export var species_id := "fox"
 var display_name := "Raposa"
+var _behavior := "aggressive"
+var _attack_style := "basic"
+var _windup_duration := BEAR_WINDUP
+var _move_speed := 60.0
+var _attack_interval := 2.0
+var _visual_extents := Vector4(-24.0, 24.0, 0.0, 52.0)
 var max_hp := 1.0
 var hp := 1.0
 var attack_damage := 1.0
@@ -43,18 +50,24 @@ func configure(
 	player: CharacterBody2D,
 	refuge_position: Vector2,
 	stored_state: Dictionary,
-	instance_id: String
+	instance_id: String,
+	spawn_region_id := ""
 ) -> void:
 	slot_id = spawn_slot_id
 	runtime_id = instance_id
 	species_id = str(creature_data.get("id", "fox"))
+	region_id = spawn_region_id
 	max_hp = float(creature_data.get("hp", 1))
 	attack_damage = float(creature_data.get("attack", 1))
+	_behavior = str(creature_data.get("behavior", "skittish" if species_id == "fox" else "aggressive"))
+	_attack_style = str(creature_data.get("attack_style", "heavy" if species_id == "bear" else "basic"))
+	_windup_duration = float(creature_data.get("windup_sec", BEAR_WINDUP))
+	_move_speed = float(creature_data.get("move_speed", MOVE_SPEEDS.get(species_id, 60.0)))
+	_attack_interval = float(creature_data.get("attack_interval_sec", ATTACK_INTERVALS.get(species_id, 2.0)))
 	_world_state = state
 	_player = player
 	_refuge_position = refuge_position
-	var names := {"fox": "Raposa", "wolf": "Lobo", "bear": "Urso"}
-	display_name = str(names.get(species_id, species_id.capitalize()))
+	display_name = str(creature_data.get("name", species_id.capitalize()))
 	hp = clampf(float(stored_state.get("hp", max_hp)), 0.0, max_hp)
 	var position_data: Array = stored_state.get("position", [0.0, 0.0])
 	position = Vector2(float(position_data[0]), float(position_data[1]))
@@ -74,10 +87,18 @@ func _ready() -> void:
 		_pose.name = "StaticCandidatePoseSE"
 		add_child(_pose)
 	ART_LOADER.apply_static_pose(_pose, species_id)
+	var footprint_value: Variant = _pose.get_meta("melee_visual_alpha_extents_px", Vector4.ZERO)
+	if footprint_value is Vector4 and footprint_value != Vector4.ZERO:
+		_visual_extents = footprint_value
+	else:
+		var legacy_extents := COMBAT_GEOMETRY.creature_visual_alpha_extents(species_id)
+		if legacy_extents != Vector4.ZERO:
+			_visual_extents = legacy_extents
 	_label = Label.new()
 	_label.text = display_name
-	_label.position = Vector2(-42, -44 if species_id != "bear" else -64)
-	_label.size = Vector2(84, 20)
+	var label_width := maxf(84.0, display_name.length() * 7.5)
+	_label.position = Vector2(-label_width * 0.5, -_visual_extents.w - 24.0)
+	_label.size = Vector2(label_width, 20)
 	_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_label.add_theme_font_size_override("font_size", 12)
 	_label.add_theme_color_override("font_color", Color("fff0c3"))
@@ -114,10 +135,10 @@ func _physics_process(delta: float) -> void:
 			_sync_state()
 			return
 		if windup_remaining == 0.0:
-			if is_player_in_basic_attack_range():
+			if attack_damage > 0.0 and is_player_in_basic_attack_range():
 				player_damaged.emit(attack_damage, species_id)
-			feedback_requested.emit("O urso golpeia o chão.")
-			attack_remaining = float(ATTACK_INTERVALS.get(species_id, 2.0))
+			feedback_requested.emit("%s golpeia." % display_name)
+			attack_remaining = _attack_interval
 			_sync_state()
 			return
 	if stunned_remaining > 0.0:
@@ -127,29 +148,28 @@ func _physics_process(delta: float) -> void:
 		return
 	var to_player := _player.global_position - global_position
 	var visual_gap := COMBAT_GEOMETRY.projected_visual_surface_gap_px_between(self, _player)
+	var fleeing := _behavior == "flee_only" or (_behavior == "skittish" and not provoked)
 	if is_player_in_basic_attack_range() and attack_remaining <= 0.0:
-		if species_id == "fox" and not provoked:
-			velocity = -to_player.normalized() * float(MOVE_SPEEDS.get(species_id, 60.0))
+		if fleeing:
+			velocity = -to_player.normalized() * _move_speed
 			_move_with_visual_contact(delta)
 			_sync_state()
 			return
 		velocity = Vector2.ZERO
 		_move_with_visual_contact(delta)
-		if species_id == "bear":
-			windup_remaining = BEAR_WINDUP
-			feedback_requested.emit("O urso prepara um golpe pesado!")
+		if _attack_style == "heavy":
+			windup_remaining = _windup_duration
+			feedback_requested.emit("%s prepara um golpe pesado!" % display_name)
 		else:
-			player_damaged.emit(attack_damage, species_id)
-			attack_remaining = float(ATTACK_INTERVALS.get(species_id, 2.0))
+			if attack_damage > 0.0:
+				player_damaged.emit(attack_damage, species_id)
+			attack_remaining = _attack_interval
 		_sync_state()
 		return
 	var direction := Vector2.ZERO
-	if species_id == "fox":
-		if _player_inside_area("DetectionArea") and visual_gap > ATTACK_VISUAL_GAP_TOLERANCE:
-			direction = -to_player.normalized()
-	elif _player_inside_area("DetectionArea") and visual_gap > ATTACK_VISUAL_GAP_TOLERANCE:
-		direction = to_player.normalized()
-	velocity = direction * float(MOVE_SPEEDS.get(species_id, 60.0))
+	if _player_inside_area("DetectionArea") and visual_gap > ATTACK_VISUAL_GAP_TOLERANCE:
+		direction = -to_player.normalized() if fleeing else to_player.normalized()
+	velocity = direction * _move_speed
 	_move_with_visual_contact(delta)
 	_sync_state()
 
@@ -160,7 +180,7 @@ func _move_with_visual_contact(delta: float) -> void:
 
 
 func melee_visual_alpha_extents_px() -> Vector4:
-	return COMBAT_GEOMETRY.creature_visual_alpha_extents(species_id)
+	return _visual_extents
 
 
 func is_player_in_basic_attack_range() -> bool:
@@ -243,19 +263,21 @@ func set_selected(value: bool) -> void:
 func selection_distance(point: Vector2, zoom: float) -> float:
 	# Target the visible body, not just the feet. Keep a minimum touch radius
 	# in logical screen pixels at every supported camera zoom.
-	var center := global_position + Vector2(0, -30 if species_id != "bear" else -40)
+	var visual_height := _visual_extents.z + _visual_extents.w
+	var center := global_position + Vector2(0, (_visual_extents.z - _visual_extents.w) * 0.5)
 	var delta := point - center
-	var radii := Vector2(28, 38) if species_id != "bear" else Vector2(42, 52)
+	var radii := Vector2(maxf(28.0, (_visual_extents.x + _visual_extents.y) * 0.5), maxf(38.0, visual_height * 0.5))
 	radii = radii.max(Vector2.ONE * 36.0 / zoom)
 	return Vector2(delta.x / radii.x, delta.y / radii.y).length()
 
 
 func _draw() -> void:
-	var width := 64.0 if species_id != "bear" else 90.0
+	var width := maxf(64.0, _visual_extents.x + _visual_extents.y)
 	if selected:
 		draw_texture_rect(HUD_ART.texture("selection_ring"), Rect2(-width * 0.6, -width * 0.25, width * 1.2, width * 0.65), false)
-		draw_texture_rect(HUD_ART.texture("target_marker"), Rect2(-8, -80, 16, 14), false)
+		draw_texture_rect(HUD_ART.texture("target_marker"), Rect2(-8, -_visual_extents.w - 14.0, 16, 14), false)
 	if selected or hp < max_hp:
-		var point := Vector2(-width / 2.0, -58 if species_id != "bear" else -72)
+		var point := Vector2(-width / 2.0, -_visual_extents.w - 18.0)
 		draw_rect(Rect2(point - Vector2.ONE, Vector2(width + 2, 8)), Color("18191e"))
 		draw_rect(Rect2(point, Vector2(width * clampf(hp / max_hp, 0, 1), 6)), Color("d94848"))
+

@@ -69,13 +69,40 @@ Estados a implementar: `bleed`, `burn`, `stun`, `invisible`, `attack_speed_up`, 
 
 ## 5. Bestiário
 
-| ID | Região | HP / ataque | Comportamento | XP | Loot |
-|---|---|---|---|---:|---|
-| `fox` | praia/floresta inicial | 35/5 | foge; revida se atacada | 10 | carne 1; couro 1 (50%) |
-| `wolf` | floresta | 90/12 | agressivo, alcance curto; eventual dupla | 20 | carne 1, couro 1; presa 1 (30%) |
-| `bear` | interior | 240/22 | lento, golpe forte anunciado | 50 | carne 2, couro 2, fragmento 1 |
+| ID / nome | Região | HP / ataque | Comportamento | XP | Drops |
+|---|---|---:|---|---:|---|
+| `fox` · Raposa | Praia inicial | 35/5 | foge; revida se atacada | 10 | 1 meat; 1 hide (50%) |
+| `wolf` · Lobo | Floresta verde | 90/12 | agressivo; persegue e ataca | 20 | 1 meat; 1 hide; 1 fang (30%) |
+| `bear` · Urso | Interior cristalino | 240/22 | agressivo; persegue e ataca | 50 | 2 meat; 2 hide; 1 crystal shard |
+| `tidal_fox` · Raposa de Maré | Praia inicial | 42/6 | foge; revida se atacada | 10 | sem loot definido |
+| `crystal_crab` · Caranguejo-Cristal | Praia inicial | 70/8 | agressivo; persegue e ataca | 10 | sem loot definido |
+| `lumen_heron` · Garça-Lúmen | Lagoa cristalina | 48/7 | agressivo; persegue e ataca | 10 | sem loot definido |
+| `salt_wolf` · Lobo-de-Sal | Praia inicial | 105/14 | foge; revida se atacada | 20 | sem loot definido |
+| `root_boar` · Javali de Raízes | Floresta verde | 125/16 | agressivo; persegue e ataca | 20 | sem loot definido |
+| `moss_deer` · Corça de Musgo | Floresta verde | 48/0 | foge; não ataca | 10 | sem loot definido |
+| `prismatic_bear` · Urso Prismático | Interior cristalino | 285/26 | agressivo; persegue e ataca | 50 | sem loot definido |
+| `violet_vine` · Trepadeira Violeta | Terras corrompidas | 150/18 | agressivo; persegue e ataca | 20 | sem loot definido |
+| `obsidian_sentinel` · Sentinela de Obsidiana | Ruínas de obsidiana | 320/28 | agressivo; persegue e ataca | 50 | sem loot definido |
+| `corrupted_wanderer` · Errante Corrompido | Ruínas de obsidiana | 220/23 | agressivo; persegue e ataca | 50 | sem loot definido |
+| `lagoon_crocodile` · Crocodilo da Lagoa | Lagoa cristalina | 165/19 | agressivo; persegue e ataca | 20 | sem loot definido |
+| `coral_turtle` · Tartaruga Coralina | Praia inicial | 130/10 | agressivo; persegue e ataca | 20 | sem loot definido |
+| `reef_lizard` · Lagarto de Arrecife | Praia inicial | 60/8 | agressivo; persegue e ataca | 10 | sem loot definido |
+| `canopy_monkey` · Macaco de Copa | Floresta verde | 70/9 | agressivo; persegue e ataca | 10 | sem loot definido |
+| `fruit_bat` · Morcego-Fruta | Floresta verde | 38/6 | agressivo; persegue e ataca | 10 | sem loot definido |
+| `root_snake` · Cobra das Raízes | Floresta verde | 65/12 | agressivo; persegue e ataca | 10 | sem loot definido |
+| `prismatic_spider` · Aranha Prismática | Floresta verde | 90/13 | agressivo; persegue e ataca | 10 | sem loot definido |
+| `lumen_frog` · Sapo-Lúmen | Lagoa cristalina | 50/6 | agressivo; persegue e ataca | 10 | sem loot definido |
+| `crystal_slime` · Slime de Cristal | Lagoa cristalina | 95/12 | agressivo; persegue e ataca | 10 | sem loot definido |
+| `obsidian_beetle` · Besouro de Obsidiana | Terras corrompidas | 110/14 | agressivo; persegue e ataca | 20 | sem loot definido |
+| `lumen_eel` · Enguia-Lúmen | Lagoa cristalina | 80/14 | agressivo; persegue e ataca | 10 | sem loot definido |
+| `turquoise_otter` · Lontra Turquesa | Lagoa cristalina | 80/9 | agressivo; persegue e ataca | 10 | sem loot definido |
+| `basalt_gargoyle` · Gárgula de Basalto | Ruínas de obsidiana | 270/25 | agressivo; persegue e ataca | 50 | sem loot definido |
+| `spectral_wolf` · Lobo Espectral | Terras corrompidas | 185/21 | agressivo; persegue e ataca | 20 | sem loot definido |
+| `corrupted_treant` · Treant Corrompido | Terras corrompidas | 340/29 | agressivo; persegue e ataca | 50 | sem loot definido |
+| `crystal_golem` · Golem de Cristal | Interior cristalino | 300/27 | agressivo; persegue e ataca | 50 | sem loot definido |
+| `violet_serpent` · Serpente Violeta | Terras corrompidas | 200/24 | agressivo; persegue e ataca | 20 | sem loot definido |
 
-Sem boss ou escalonamento automático pelo nível do jogador. Host decide drop uma vez, e respawn ocorre fora da visão e da proteção, com população limitada por chunk.
+Sem boss ou escalonamento automático pelo nível do jogador. O catálogo recomenda uma região para cada espécie; coordenadas e quantidade de spawns ficam para integração posterior no layout. Lagoa, ruínas e terras corrompidas são zonas lógicas sobre o terreno atual, sem cenário próprio. Host decide drop uma vez, e respawn ocorre fora da visão e da proteção, com população limitada por chunk.
 
 ## 6. Recursos e drops
 
@@ -187,9 +214,12 @@ Regra de progressão para a prévia: o nó inicial da vocação fica desbloquead
 | `beach_spawn` | centro inicial protegido | destroços do cruzeiro, cristal, fogueira, madeira/pedra/ervas, rota de saída |
 | `green_forest` | primeira expansão | raposas/lobos, árvores/rochas, rio, ponte e pontos de interesse |
 | `bear_interior` | área distante acessível | ursos, cristais e objetivo final do MVP |
+| `crystal_lagoon` | costa oeste do layout | garça, crocodilo, sapo, slime, enguia e lontra; zona lógica, sem nova água |
+| `obsidian_ruins` | clareiras centrais/leste | sentinela, errante, gárgula; zona lógica, sem arte de ruínas |
+| `corrupted_wilds` | faixa distante do mapa | vinhas, besouro, lobo, treant e serpente; zona lógica, sem terreno corrompido |
 | `corrupted_castle` | apenas no concept | Vael e exército; sem conteúdo jogável no MVP |
 
-Seed fixa, chunks 32×32, ilha até 1000×1000 tiles. Pontos de interesse a ~80–150 SQMs na parte habitada, testados por tempo de travessia. Proteger rota, recursos essenciais e spawn dos personagens; não posicionar inimigos na área segura.
+Seed fixa, chunks 32×32, ilha até 1000×1000 tiles. O layout estático atual mede 250×200; o catálogo recomenda uma região para cada espécie do bestiário. Coordenadas e quantidade de spawns serão definidas na atualização do mapa. Lagoa, ruínas e terras corrompidas são rótulos sobre o terreno existente, sem mudança de água ou props nesta proposta. Pontos de interesse a ~80–150 SQMs na parte habitada, testados por tempo de travessia. Proteger rota, recursos essenciais e spawn dos personagens; não posicionar inimigos na área segura.
 
 ## 11. Animações e VFX
 
@@ -212,3 +242,4 @@ Antes de criar sprites em lote, testar uma personagem e uma raposa em Godot Andr
 ## Reconstrução 0.1.9 — 2026-10-18
 
 Valores de alcance runtime: Warrior65/82/135px, conforme `skills[].range_px` no JSON; custos/cooldowns preservados. Archer/Mage usam arco/cajado e AGI/INT respectivos. Mapa fixo50mil tiles com24lobos/2raposas/4ursos. HUD: spells144×144, equipamentos96×96 e24slots de mochila. Os valores ilustrativos de `inventory_prototype_v0_7` continuam pertencendo ao protótipo e não substituem os testes de runtime. LAN: somente movimento; não atribuir autoridade de itens/saves ainda.
+

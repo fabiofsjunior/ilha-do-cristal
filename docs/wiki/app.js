@@ -63,7 +63,11 @@
     targets: { single: "Alvo único", adjacent_aoe: "Área adjacente", aoe: "Área", chain: "Cadeia", line: "Linha", radius: "Raio" },
     terrain: { water_deep: "Água profunda", water_shallow: "Água rasa", sand: "Areia", grass: "Grama", soil: "Solo", forest: "Floresta" },
     creatures: { fox: "Raposa", wolf: "Lobo", bear: "Urso" },
-    regions: { beach_spawn: "Praia inicial", green_forest: "Floresta verde", bear_interior: "Interior do urso", corrupted_castle: "Castelo corrompido (conceito)" }
+    regions: {
+      beach_spawn: "Praia inicial", green_forest: "Floresta verde", bear_interior: "Interior cristalino",
+      crystal_lagoon: "Lagoa cristalina", obsidian_ruins: "Ruínas de obsidiana",
+      corrupted_wilds: "Terras corrompidas", corrupted_castle: "Castelo corrompido (conceito)"
+    }
   };
   const skillEffects = {
     war_combo: "3 golpes; não atordoa. O efeito de item aplica no máximo uma vez.",
@@ -99,6 +103,9 @@
   }
   function prettyId(id, dictionary) {
     return dictionary[id] || String(id || "").replaceAll("_", " ");
+  }
+  function creatureName(id) {
+    return data?.catalog?.monsters?.find(monster => monster.id === id)?.name || prettyId(id, names.creatures);
   }
   function file(path) {
     return data.files.find(entry => entry.path === path);
@@ -221,29 +228,21 @@
 
   function renderWorld() {
     const catalog = data.catalog;
-    const layout = data.layout;
-    const width = layout.grid_size[0];
-    const height = layout.grid_size[1];
-    const spawnCounts = {};
-    for (const spawn of layout.creature_spawns) spawnCounts[spawn.species] = (spawnCounts[spawn.species] || 0) + 1;
     const monsterCards = catalog.monsters.map(monster => {
-      const creatureAsset = data.assets.find(asset => asset.group === "creatures" && asset.path.includes(`/${monster.id}/`));
-      const drops = monster.drops.map(drop => `${drop.quantity} ${prettyId(drop.item, names.items).toLocaleLowerCase("pt-BR")}${drop.chance < 1 ? ` (${number(drop.chance * 100, 0)}%)` : ""}`).join(" · ");
-      return `<article class="card"><div class="card-top"><h3>${prettyId(monster.id, names.creatures)}</h3>${tag(`${spawnCounts[monster.id] || 0} posições no layout`, "neutral")}</div>${creatureAsset ? `<button class="creature-preview" type="button" data-lightbox="${escapeHtml(creatureAsset.href)}" data-title="${escapeHtml(creatureAsset.name)}"><img src="${escapeHtml(creatureAsset.href)}" alt="Prévia candidata da ${prettyId(monster.id, names.creatures)}" loading="lazy"></button>` : ""}<div class="metric-row"><div class="metric"><span>HP</span><strong>${monster.hp}</strong></div><div class="metric"><span>ATAQUE</span><strong>${monster.attack}</strong></div><div class="metric"><span>XP</span><strong>${monster.xp}</strong></div></div><p>Região do catálogo: ${escapeHtml(prettyId(monster.region, names.regions))}.</p><p><strong>Drops:</strong> ${escapeHtml(drops)}</p><span class="id-label">${monster.id} · dados de planejamento</span></article>`;
+      const creatureAsset = data.assets.find(asset => asset.path === monster.sprite_path);
+      const drops = monster.drops.map(drop => `${drop.quantity} ${prettyId(drop.item, names.items).toLocaleLowerCase("pt-BR")}${drop.chance < 1 ? ` (${number(drop.chance * 100, 0)}%)` : ""}`).join(" · ") || "sem loot definido";
+      const displayName = monster.name || creatureName(monster.id);
+      const behavior = monster.behavior === "flee_only" ? "foge; não ataca" : monster.behavior === "skittish" ? "foge; revida se atacada" : "persegue e ataca";
+      return `<article class="card"><div class="card-top"><div><h3>${escapeHtml(displayName)}</h3><span class="id-label">${escapeHtml(monster.id)}</span></div>${tag(prettyId(monster.region, names.regions), "neutral")}</div>${creatureAsset ? `<button class="creature-preview" type="button" data-lightbox="${escapeHtml(creatureAsset.href)}" data-title="${escapeHtml(displayName)}"><img src="${escapeHtml(creatureAsset.href)}" alt="Sprite estático da ${escapeHtml(displayName)}" loading="lazy"></button>` : ""}<div class="metric-row"><div class="metric"><span>HP</span><strong>${monster.hp}</strong></div><div class="metric"><span>DANO</span><strong>${monster.attack}</strong></div><div class="metric"><span>XP</span><strong>${monster.xp}</strong></div></div><p>Região sugerida: ${escapeHtml(prettyId(monster.region, names.regions))} · ${escapeHtml(behavior)}.</p><p><strong>Drops:</strong> ${escapeHtml(drops)}</p>${creatureAsset ? `<div class="asset-path">${fileLink(creatureAsset.path, "abrir PNG individual ↗")}</div>` : ""}<span class="id-label">Pose SE · conceito estático · valores provisórios</span></article>`;
     }).join("");
-    const bandRows = layout.surface_bands.map(band => `<tr><td>${prettyId(band.group, names.terrain)}</td><td>x ${band.from_x}–${band.to_x - 1}</td></tr>`).join("");
-    const forestRows = layout.surface_areas.map((area, i) => `<tr><td>Área florestal ${i + 1}</td><td>x ${area.from_x}–${area.to_x - 1}; y ${area.from_y}–${area.to_y - 1}</td></tr>`).join("");
-    const bandCounts = layout.surface_bands.length;
-    const totalHarvest = layout.harvest_nodes.length;
-    const resourceCounts = layout.harvest_nodes.reduce((counts, node) => { counts[node.resource] = (counts[node.resource] || 0) + 1; return counts; }, {});
-    const mapImage = data.assets.find(asset => asset.path === "assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.png");
-    const actualRegionRows = [
-      ["Praia / spawn", "zona inicial protegida e recursos básicos"],
-      ["Floresta verde", "raposas/lobos, árvores, rochas e pontos de interesse"],
-      ["Interior do urso", "ursos, cristais e objetivo do MVP"],
-      ["Castelo corrompido", "somente conceito; sem conteúdo jogável no MVP"]
-    ].map(([region, description]) => `<tr><td>${escapeHtml(region)}</td><td>${escapeHtml(description)}</td><td>${region.includes("Castelo") ? tag("conceptual", "warn") : tag("planejado", "neutral")}</td></tr>`).join("");
-    return `${sectionHeader("Mundo, terreno & criaturas", "Dados do layout jogável estático e conteúdo de regiões planejado para o MVP.", "game/data/first_island_layout.json")}${notice("O recorte atual usa layout estático de ${width}×${height} SQMs. A geração procedural por seed/chunks e a ilha de até 1000×1000 tiles pertencem ao plano do MVP e ainda estão pendentes.", "Recorte atual")}${statStrip([["Mapa", `${width}×${height}`, "SQMs no layout versionado"], ["Seed", String(layout.seed), "layout atual"], ["Faixas", String(bandCounts), "superfície por coluna x"], ["Pontos de coleta", String(totalHarvest), `${resourceCounts.fiber || 0} fibra · ${resourceCounts.herb || 0} erva`]])}<div class="grid">${mapImage ? `<article class="card"><div class="card-top"><h3>Atlas de terreno candidato</h3>${sourceStatus(mapImage)}</div><button class="world-preview" type="button" data-lightbox="${escapeHtml(mapImage.href)}" data-title="${escapeHtml(mapImage.name)}"><img src="${escapeHtml(mapImage.href)}" alt="Prévia do atlas de terreno candidato" loading="lazy"></button><div class="asset-path">${fileLink(mapImage.path, "ver PNG original ↗")}</div></article>` : ""}<article class="card"><h3>Spawn &amp; marcos</h3><div class="metric-row"><div class="metric"><span>SPAWN</span><strong>${layout.spawn_cell.join(", ")}</strong></div><div class="metric"><span>CRISTAL</span><strong>${layout.beacon_cell.join(", ")}</strong></div><div class="metric"><span>TILE CANDIDATO</span><strong>${layout.tile_px_candidate.join("×")} px</strong></div></div><p>Coordenadas do arquivo, em células [x, y].</p></article></div><div class="section-head subhead"><div><h2>Superfície no layout</h2><p>Intervalos extraídos do arquivo do mapa; fim de faixa exclusivo.</p></div></div><div class="table-wrap"><table><thead><tr><th>Superfície</th><th>Colunas</th></tr></thead><tbody>${bandRows}</tbody></table></div><div class="table-wrap camp-table"><table><thead><tr><th>Área</th><th>Retângulo [x, y]</th></tr></thead><tbody>${forestRows}</tbody></table></div><div class="section-head subhead"><div><h2>Criaturas</h2><p>Contagem de posições no layout e atributos do catálogo de planejamento.</p></div>${sourceLink("Docs/Main/CONTENT_DATA.md")}</div><div class="grid three">${monsterCards}</div><div class="section-head subhead"><div><h2>Regiões planejadas</h2><p>O catálogo separa o mapa do recorte da visão de regiões do MVP.</p></div>${sourceLink("Docs/Main/CATALOGS_MVP.md")}</div><div class="table-wrap"><table><thead><tr><th>Região</th><th>Conteúdo documentado</th><th>Escopo</th></tr></thead><tbody>${actualRegionRows}</tbody></table></div><p class="intro-copy">Recursos no layout: ${Object.entries(resourceCounts).map(([id, count]) => `${count} ${prettyId(id, names.items).toLocaleLowerCase("pt-BR")}`).join(" · ")}.</p>`;
+    const assignmentRows = catalog.regions.map(region => {
+      const species = catalog.monsters.filter(monster => monster.region === region.id);
+      if (!species.length) return "";
+      const speciesNames = species.map(monster => monster.name || creatureName(monster.id)).join(", ");
+      return `<tr><td>${escapeHtml(region.name || prettyId(region.id, names.regions))}<span class="id-label">${escapeHtml(region.id)}</span></td><td>${escapeHtml(speciesNames)}</td><td>${species.length} espécies</td></tr>`;
+    }).filter(Boolean).join("");
+    const regionCount = catalog.regions.filter(region => catalog.monsters.some(monster => monster.region === region.id)).length;
+    return `${sectionHeader("Bestiário & regiões sugeridas", "30 fichas estáticas com uma recomendação regional por espécie.", "Docs/Main/CATALOGS_MVP.md")}${notice("As regiões são recomendações para a pessoa responsável pelo mapa. Esta atualização não define coordenadas, número de spawns nem altera o layout. HP, dano e XP são provisórios; os sprites são conceitos estáticos.", "Escopo desta atualização")}${statStrip([["Espécies", String(catalog.monsters.length), "fichas no catálogo"], ["Regiões", String(regionCount), "sugestões com espécies"], ["Posições", "A definir", "integração do mapa"]])}<div class="section-head subhead"><div><h2>Alocação regional recomendada</h2><p>Use esta tabela como referência ao atualizar o mapa. Ela não determina posição ou quantidade de encontros.</p></div>${sourceLink("Docs/Main/CONTENT_DATA.md")}</div><div class="table-wrap"><table><thead><tr><th>Região sugerida</th><th>Espécies</th><th>Quantidade</th></tr></thead><tbody>${assignmentRows}</tbody></table></div><div class="section-head subhead"><div><h2>Fichas das criaturas</h2><p>Sprites individuais, HP, dano por golpe, XP, comportamento e região sugerida.</p></div></div><div class="grid three">${monsterCards}</div>`;
   }
 
   function renderDocs() {
@@ -274,7 +273,7 @@
   function searchEntries() {
     const items = [];
     const addCatalog = (rows, label, page, nameMap = {}) => rows.forEach(row => items.push({
-      kind: label, title: prettyId(row.id, nameMap), path: "data/catalogs/mvp.json", href: file("data/catalogs/mvp.json")?.href,
+      kind: label, title: row.name || prettyId(row.id, nameMap), path: "data/catalogs/mvp.json", href: file("data/catalogs/mvp.json")?.href,
       haystack: JSON.stringify(row)
     }));
     addCatalog(data.catalog.characters, "Personagem", "characters", names.characters);
