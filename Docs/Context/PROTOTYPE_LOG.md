@@ -125,3 +125,31 @@ O usuário identificou os anexos 3/4 como “como deveria ser” e instruiu apli
 - Artefato consultado: `docs/prototypes/mvp_ui_v0_3.html`, estado navegável “Aliado caído”. A solicitação atual autorizou implementar esta tela como referência de fluxo; a página protótipo continua uma simulação e não passa a validar multiplayer, UI de produção ou Android.
 - Implementação comparada: janela Godot mostra prazo de 60 s, regra de reanimação em 5 s com indisponibilidade de co-op declarada no solo, conteúdo exato que irá para a mochila persistente e botão “Renascer no acampamento”. A perda é aplicada somente no respawn; XP e equipamentos são mantidos.
 - Reanimação é exposta por `FirstIsland.request_ally_revive(reviver_id)` e sinais de início/conclusão/cancelamento para um host futuro. Não há segundo jogador ou transporte LAN nesta versão. Revisão em aparelho Android e comparação gráfica seguem pendentes.
+
+
+## Kit UI Crystal v2 — referência enviada em 2026-10-17
+
+O usuário pediu a implementação completa do kit mostrado nos anexos (mockup de interface e folha de sprites) no projeto e solicitou novas builds Web/APK. A solicitação autoriza essa composição como referência visual desta implementação. A produção aplica sprites do kit aos fluxos reais já existentes e preserva indisponíveis os sistemas que ainda não existem. Os três conceitos separados de personagens não são usados como sprites de runtime. Essa referência não valida a execução gráfica em navegador nem o teste físico Android.
+
+
+### APK de preview publicado na branch — 2026-10-17
+
+O usuário pediu armazenar o APK no repositório. A branch do kit contém `artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk` e [link direto para baixar o APK](https://raw.githubusercontent.com/fabiofsjunior/ilha-do-cristal/feature/s03-crystal-ui-kit-v2/artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk). É um artefato debug ARM64-only, derivado da exportação de preview dual-arch; 32 bits e instalação física não foram validados. O link de branch não representa merge em `main`.
+
+## Reconstrução da referência aprovada — 2026-10-18
+
+Na conversa o usuário confirmou “Prototipagem aprovada”, apontou divergências de HUD/inventário/minimapa e autorizou “Reconstrua e salve no repositório”. Esta autorização foi reutilizada para restaurar a composição solicitada sem nova rodada de confirmação. Comparação gráfica Godot4.5.1 realizada com captura de HUD, inventário, lobby e seleção no relatório `docs/gameplay/HUD_RECONSTRUCTION_019.md`. Campos de equipamentos e spells ampliados, minimapa circular e funções reais de navegação foram conferidos. Arte de Archer/Mage ainda compartilha Warrior; botões usam texto. Não representa aprovação de nova arte nem teste Android físico.
+
+## Mapa global e ilha irregular — protótipo v0.1 — 2026-10-18
+
+- Artefato navegável: `docs/prototypes/global_map_island_v0_1.html`; notas/prompt: `docs/prototypes/global_map_island_v0_1.md`; conceito da ilha em `docs/prototypes/assets/irregular-island-map-concept-v0.1.png`.
+- Abrir o minimapa demonstra a janela global; X/Escape retornam à mesma tela; zoom no HUD e mapa compartilha o estado; o indicador de simulação continua avançando. HTML responsivo; comportamento simulado, sem código Godot/runtime.
+- O conceito preserva o alvo de 250×200 = 50.000 tiles e propõe costa irregular, praia, floresta, lago cristalino, platôs, penhascos/rampas e região corrompida ao longe. A imagem é concept, não mapa tileável ou asset final.
+- O anexo `isometric_tilemap_layers_v0_1.html` foi consultado como amostra de camadas: 64×32, quatro layers, platô/rampa, colisão ilustrada e Y-sort. Não é uma aprovação para substituir a grade atual 32×32/Câmera3D.
+- Revisão solicitada: fluxo sem pause, zoom compartilhado, conceito/relevo e escolha entre conservar 32×32 ou testar uma amostra 64×32 isolada. Implementação de produção pendente.
+
+## Bestiário de expansão — concept v0.1 — 2026-10-18
+
+- Fonte consultada: GDD, catálogos e conteúdo de balanceamento. Bestiário MVP tem `fox`, `wolf`, `bear`; candidatos e derivações estão em `docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md`.
+- Prancha `docs/art/candidates/bestiary-expansion-concepts-v0.1.png` gerada como concept de dez candidatos, não sprite sheet nem entrada de catálogo. Espécies/variantes de expansão permanecem fora do MVP até aprovação.
+- Gate em validação: aprovar ou corrigir lista e concept; após aprovação, produzir apenas uma amostra de sprite para revisar antes de qualquer lote.

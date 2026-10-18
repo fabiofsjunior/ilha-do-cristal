@@ -68,7 +68,8 @@ func open_for_state(state: Object) -> bool:
 	_tree_was_paused = get_tree().paused
 	_modal_open = true
 	visible = true
-	get_tree().paused = true
+	if not multiplayer.multiplayer_peer is ENetMultiplayerPeer:
+		get_tree().paused = true
 	_refresh()
 	return true
 

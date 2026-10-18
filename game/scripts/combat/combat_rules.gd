@@ -83,7 +83,9 @@ static func physical_attack(raw: Dictionary, vocation_id: String, weapon_id: Str
 	var per_point := float(
 		catalog().get("ui_and_audio", {}).get("inventory_prototype_v0_7", {}).get("attribute_derived_effects", {}).get("FOR", {}).get("melee_damage_per_effective_point", 0.6)
 	)
-	return float(weapon_data.get("damage", 0)) + effective.FOR * per_point
+	if vocation_id == "archer":
+		per_point = float(catalog().get("ui_and_audio", {}).get("inventory_prototype_v0_7", {}).get("attribute_derived_effects", {}).get("AGI", {}).get("ranged_damage_per_effective_point", 0.6))
+	return float(weapon_data.get("damage", 0)) + float(effective.AGI if vocation_id == "archer" else effective.FOR) * per_point
 
 
 static func magic_attack(raw: Dictionary, vocation_id: String) -> float:
@@ -91,7 +93,7 @@ static func magic_attack(raw: Dictionary, vocation_id: String) -> float:
 	var per_point := float(
 		catalog().get("ui_and_audio", {}).get("inventory_prototype_v0_7", {}).get("attribute_derived_effects", {}).get("INT", {}).get("magic_damage_per_effective_point", 0.6)
 	)
-	return effective.INT * per_point
+	return effective.INT * per_point + (float(weapon(weapon_id_for_vocation(vocation_id)).get("damage", 0)) if vocation_id == "mage" else 0.0)
 
 
 ## Returns HP/MP regeneration rates as percent of each maximum per second.
@@ -144,3 +146,23 @@ static func regenerated_resources(raw: Dictionary, vocation_id: String, seconds_
 		"mp_gained": next_mp - current_mp,
 		"rates": rates
 	}
+
+
+static func weapon_id_for_vocation(vocation_id: String) -> String:
+	return {"warrior": "sword_basic", "archer": "bow_basic", "mage": "staff_basic"}.get(vocation_id, "sword_basic")
+
+
+static func skills_for_vocation(vocation_id: String) -> Array[String]:
+	var result: Array[String] = []
+	for value in catalog().get("skills", []):
+		if str(value.get("vocation", "")) == vocation_id:
+			result.append(str(value.id))
+	return result
+
+
+static func skill_damage(skill_data: Dictionary, physical: float, magical: float, target_index := 0) -> float:
+	var physical_ratio := float(skill_data.get("physical_percent", skill_data.get("physical_percent_each_hit", 0)))
+	var chain: Array = skill_data.get("physical_percent_each_target", [])
+	if not chain.is_empty():
+		physical_ratio = float(chain[clampi(target_index, 0, chain.size() - 1)])
+	return physical * physical_ratio / 100.0 + magical * float(skill_data.get("magic_percent", 0)) / 100.0

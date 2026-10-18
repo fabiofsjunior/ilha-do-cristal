@@ -83,19 +83,43 @@
       "out_of_combat_rate_multiplier": 1.2,
       "base_percent_per_sec": {
         "hp": {
-          "warrior": { "combat": 0.20, "outside_combat": 0.60 },
-          "archer": { "combat": 0.15, "outside_combat": 0.50 },
-          "mage": { "combat": 0.10, "outside_combat": 0.35 }
+          "warrior": {
+            "combat": 0.2,
+            "outside_combat": 0.6
+          },
+          "archer": {
+            "combat": 0.15,
+            "outside_combat": 0.5
+          },
+          "mage": {
+            "combat": 0.1,
+            "outside_combat": 0.35
+          }
         },
         "mp": {
-          "warrior": { "combat": 0.03, "outside_combat": 0.12 },
-          "archer": { "combat": 0.06, "outside_combat": 0.25 },
-          "mage": { "combat": 0.10, "outside_combat": 0.40 }
+          "warrior": {
+            "combat": 0.03,
+            "outside_combat": 0.12
+          },
+          "archer": {
+            "combat": 0.06,
+            "outside_combat": 0.25
+          },
+          "mage": {
+            "combat": 0.1,
+            "outside_combat": 0.4
+          }
         }
       },
       "effective_attribute_bonus_percentage_points_per_sec": {
-        "FOR": { "combat": 0.003, "outside_combat": 0.010 },
-        "INT": { "combat": 0.001, "outside_combat": 0.004 }
+        "FOR": {
+          "combat": 0.003,
+          "outside_combat": 0.01
+        },
+        "INT": {
+          "combat": 0.001,
+          "outside_combat": 0.004
+        }
       }
     }
   },
@@ -159,7 +183,8 @@
       "physical_percent_each_hit": 120,
       "hits": 3,
       "cooldown_sec": 10,
-      "mp": 10
+      "mp": 10,
+      "range_px": 65
     },
     {
       "id": "war_circle",
@@ -168,7 +193,8 @@
       "physical_percent": 100,
       "status": "bleed",
       "cooldown_sec": 15,
-      "mp": 15
+      "mp": 15,
+      "range_px": 82
     },
     {
       "id": "war_quake",
@@ -179,7 +205,8 @@
       "status": "stun",
       "status_duration_sec": 3,
       "cooldown_sec": 90,
-      "mp": 35
+      "mp": 35,
+      "range_px": 135
     },
     {
       "id": "arc_precise",
@@ -190,7 +217,8 @@
       "status": "invisible",
       "status_duration_sec": 3,
       "cooldown_sec": 10,
-      "mp": 10
+      "mp": 10,
+      "range_px": 180
     },
     {
       "id": "arc_bounce",
@@ -204,7 +232,8 @@
         60
       ],
       "cooldown_sec": 14,
-      "mp": 15
+      "mp": 15,
+      "range_px": 180
     },
     {
       "id": "arc_pierce",
@@ -215,7 +244,8 @@
       "status": "attack_speed_up",
       "status_duration_sec": 6,
       "cooldown_sec": 90,
-      "mp": 35
+      "mp": 35,
+      "range_px": 220
     },
     {
       "id": "mag_bolt",
@@ -223,7 +253,8 @@
       "target": "single",
       "magic_percent": 150,
       "cooldown_sec": 5,
-      "mp": 8
+      "mp": 8,
+      "range_px": 180
     },
     {
       "id": "mag_fire",
@@ -233,7 +264,8 @@
       "status": "burn",
       "status_duration_sec": 6,
       "cooldown_sec": 14,
-      "mp": 18
+      "mp": 18,
+      "range_px": 112
     },
     {
       "id": "mag_ice",
@@ -241,7 +273,8 @@
       "target": "radius",
       "magic_percent": 300,
       "cooldown_sec": 90,
-      "mp": 40
+      "mp": 40,
+      "range_px": 135
     }
   ],
   "status_effects": [

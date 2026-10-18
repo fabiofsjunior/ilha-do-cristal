@@ -108,3 +108,33 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [x] Wiki HTML responsiva e sem dependências externas em `docs/wiki/`, com índice gerado a partir dos dados do projeto, previews clicáveis de PNGs, busca e links relativos aos arquivos.
 - [x] Gerador e verificador local: `python3 tools/wiki/build_index.py` e `python3 tools/wiki/test_catalog.py`.
 - [x] README aponta para a wiki e documenta execução por servidor HTTP local. Esta entrega é documentação/ferramenta de consulta; não altera o status de aceite das fases de jogo.
+
+
+### Kit UI Crystal v2 — 2026-10-17
+
+- [x] Incorporar o spritesheet de UI e aplicar molduras/controles nos fluxos de HUD, inventário/equipamento, refúgio/crafting, vocações/talentos, seleção e pausa.
+- [x] Testes Godot 4.5.1 para recortes do atlas e fluxo integrado; ZIP Web validado e APK debug ARM64 armazenado em `artifacts/preview/` na branch. [Download do APK](https://raw.githubusercontent.com/fabiofsjunior/ilha-do-cristal/feature/s03-crystal-ui-kit-v2/artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk); somente `arm64-v8a`.
+- [ ] Revisão Web gráfica em navegador e teste Android físico (safe area, toque, save e estabilidade por 10 min). Esta entrega não conclui S0–S3 nem habilita vocações/talentos ausentes.
+
+## Reconstrução persistida — 2026-10-18
+
+- [x] HUD aprovada: equipamentos96×96, spells144×144, navegação exclusiva, engrenagem e inventário responsivo.
+- [x] Minimap circular projetado pela câmera e zoom compartilhado, com teste geométrico.
+- [x] Mapa fixo50mil tiles, três vocações locais/VFX e LAN de movimento reconstruídos e versionados.
+- [x] Import, testes locais, comparação gráfica Godot e export/assinatura/integridade APK0.1.9.
+- [ ] Sincronizar combate pelo host; depois itens/coleta e saves idempotentes do host.
+- [ ] Testar o mesmo APK em dois Androids reais; validar UI/toque/safe area, LAN e persistência.
+- [ ] Terrain Sets64×32/elevações e novas amostras de arte/atlas. Nenhum gate Android foi encerrado por testes headless.
+
+### Proposta de mapa global/ilha irregular — aguardando validação
+
+- [ ] Revisar o fluxo navegável em `docs/prototypes/global_map_island_v0_1.html`: toque no minimapa, mapa global, retorno sem pausar e zoom compartilhado.
+- [ ] Revisar o conceito visual e a proposta de costa/biomas/elevações. A ilha atual já tem 250×200 = 50.000 tiles, porém com faixas de terreno planas; a nova arte não altera os dados de produção.
+- [ ] Decidir se a amostra técnica seguinte conserva 32×32 em Camera3D ou testa 64×32 isoladamente, conforme o HTML de camadas anexado.
+- [ ] Após validar a amostra visual, implementar dados irregulares e relevo no recorte de 50.000 tiles; não converter toda a malha sem teste de colisão, rampa, culling e performance.
+
+### Proposta de bestiário de expansão — aguardando validação
+
+- [ ] Revisar os dez candidatos e a prancha concept em `docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md`.
+- [ ] Se a direção for aprovada, definir uma amostra de uma criatura, testar escala/pivô/alpha/legibilidade no Godot e pedir revisão antes de fazer sprites em lote.
+- [ ] Manter espécies/variantes novas fora do MVP e do catálogo de runtime até aprovação e escopo explícitos.

@@ -2,6 +2,12 @@ extends Control
 
 signal back_requested
 signal host_solo_requested
+signal host_lan_requested
+signal join_lan_requested(address: String)
+var lan
+var _address: LineEdit
+var _rooms: OptionButton
+var _room_codes: Array = []
 
 const UI_STYLE = preload("res://game/scripts/ui/ui_style.gd")
 var character_name := "Aventureiro"
@@ -25,7 +31,7 @@ func _build_screen() -> void:
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = Vector2(656, 790)
 	panel.add_theme_stylebox_override(
-		"panel", UI_STYLE.panel_style(Color("241d31"), Color("a77ce8"))
+		"panel", UI_STYLE.classic_style()
 	)
 	center.add_child(panel)
 	var margin := MarginContainer.new()
@@ -71,13 +77,19 @@ func _build_screen() -> void:
 	actions.add_child(
 		_session_card(
 			"Entrar",
-			"O endereço e a descoberta LAN ainda não conectam nesta fatia.",
-			"Testar entrada",
+			"Mesmo Wi-Fi: selecione uma sala, digite o código ou o IP local. Combate e saves ainda são locais.",
+			"Conectar via Wi-Fi",
 			false
 		)
 	)
+	var wifi := Button.new()
+	wifi.text = "Hospedar Wi-Fi · 2 jogadores"
+	wifi.custom_minimum_size.y = 56
+	UI_STYLE.style_button(wifi, true)
+	wifi.pressed.connect(func(): host_lan_requested.emit())
+	stack.add_child(wifi)
 	_status = Label.new()
-	_status.text = "Sessão solo com salvamento local. LAN e contas ainda estão em desenvolvimento."
+	_status.text = "LAN: movimento compartilhado; combate, itens e saves locais."
 	_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_status.custom_minimum_size.y = 44
@@ -89,7 +101,7 @@ func _session_card(title_text: String, detail: String, button_text: String, host
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = Vector2(300, 235)
 	panel.add_theme_stylebox_override(
-		"panel", UI_STYLE.panel_style(Color("211b2b"), Color("594b69"))
+		"panel", UI_STYLE.classic_style()
 	)
 	var box := VBoxContainer.new()
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -108,9 +120,16 @@ func _session_card(title_text: String, detail: String, button_text: String, host
 	UI_STYLE.style_label(detail_label, 14, UI_STYLE.MUTED)
 	box.add_child(detail_label)
 	if not host:
+		_rooms = OptionButton.new()
+		_rooms.add_item("Procurar salas Wi-Fi…")
+		_rooms.item_selected.connect(func(index: int):
+			if index > 0: _address.text = _rooms.get_item_text(index)
+		)
+		box.add_child(_rooms)
 		var address := LineEdit.new()
-		address.placeholder_text = "Endereço local (mock)"
-		address.editable = false
+		_address = address
+		address.placeholder_text = "Código da sala ou IP local"
+		address.editable = true
 		address.custom_minimum_size = Vector2(245, 42)
 		box.add_child(address)
 	var action := Button.new()
@@ -120,14 +139,20 @@ func _session_card(title_text: String, detail: String, button_text: String, host
 	if host:
 		action.pressed.connect(func() -> void: host_solo_requested.emit())
 	else:
-		action.pressed.connect(_show_mock_connection_error)
+		action.pressed.connect(func(): join_lan_requested.emit(_address.text))
 	box.add_child(action)
 	return panel
 
 
-func _show_mock_connection_error() -> void:
-	_status.text = (
-		"Conexão indisponível: entrar via LAN é um mock e nenhum endereço foi usado. "
-		+ "Você pode voltar ou hospedar solo."
-	)
-	UI_STYLE.style_label(_status, 14, UI_STYLE.GOLD)
+func show_status(message: String) -> void:
+	_status.text = message
+
+func _process(_delta: float) -> void:
+	if lan == null or _rooms == null: return
+	var codes: Array = lan.rooms.keys()
+	codes.sort()
+	if _room_codes == codes: return
+	_room_codes = codes.duplicate()
+	_rooms.clear()
+	_rooms.add_item("Salas Wi-Fi encontradas")
+	for code in codes: _rooms.add_item(str(code))

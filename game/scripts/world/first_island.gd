@@ -23,6 +23,10 @@ const CREATURE_SELECT_RADIUS := 42.0
 const BASE_ATTACK_INTERVAL := 1.0
 
 var selected_character_id := "melissa"
+var selected_vocation_id := "warrior"
+var _speed_boost_remaining := 0.0
+var _precise_remaining := 0.0
+var _burns: Dictionary = {}
 var character_name := "Melissa"
 var _player
 var _iso_view: Node3D
@@ -49,14 +53,15 @@ var _fatal_save_error := false
 
 func _ready() -> void:
 	var save_root_override := OS.get_environment("GAMEPLAY_TEST_SAVE_DIR")
-	_state = EXPEDITION_STATE.open_for_character(selected_character_id, save_root_override)
+	_state = EXPEDITION_STATE.open_for_character(selected_character_id, save_root_override, selected_vocation_id)
 	_layout = _load_json(LAYOUT_PATH)
 	var manifest := _load_json(TILE_MANIFEST)
 	if _layout.is_empty() or manifest.is_empty():
 		return
 	if not _build_tile_set(manifest):
 		return
-	_paint_map(manifest)
+	if not _paint_map(manifest):
+		return
 	_build_world_collision()
 	_build_beacon()
 	_connect_hud()
@@ -104,6 +109,12 @@ func _process(delta: float) -> void:
 		COMBAT_RULES.regeneration_out_of_combat_delay_sec()
 	)
 	_attack_remaining = maxf(0.0, _attack_remaining - delta)
+	_speed_boost_remaining = maxf(0.0, _speed_boost_remaining - delta)
+	_tick_burns(delta)
+	if _precise_remaining > 0.0:
+		_precise_remaining = maxf(0.0, _precise_remaining - delta)
+		if _precise_remaining == 0.0:
+			_fire_precise_shot()
 	_state.tick_cooldowns(delta)
 	if _state.bandages_in_use:
 		_state.tick_bandage(delta)
@@ -121,7 +132,7 @@ func _process(delta: float) -> void:
 			_return_to_refuge(true)
 	if _target != null and is_instance_valid(_target) and _auto_attack_enabled and _target.is_alive:
 		if player_basic_attack_can_reach(_target) and _attack_remaining <= 0.0:
-			_attack_remaining = BASE_ATTACK_INTERVAL
+			_attack_remaining = BASE_ATTACK_INTERVAL / (1.25 if _speed_boost_remaining > 0.0 else 1.0)
 			_perform_basic_attack()
 	_state.tick_regeneration(delta, _combat_idle_seconds)
 	_tick_bleeds(delta)
@@ -146,13 +157,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			interact_with_nearest()
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_1:
-			_use_skill("war_combo")
+			_use_skill(COMBAT_RULES.skills_for_vocation(_state.vocation_id)[0])
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_2:
-			_use_skill("war_circle")
+			_use_skill(COMBAT_RULES.skills_for_vocation(_state.vocation_id)[1])
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_3:
-			_use_skill("war_quake")
+			_use_skill(COMBAT_RULES.skills_for_vocation(_state.vocation_id)[2])
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_B:
 			_hud.toggle_inventory_from_game()
@@ -235,56 +246,54 @@ func _build_tile_set(manifest: Dictionary) -> bool:
 	return true
 
 
-func _paint_map(manifest: Dictionary) -> void:
-	var size_data: Array = _layout.get("grid_size", [64, 44])
-	var width := int(size_data[0])
-	var height := int(size_data[1])
-	var base_by_group: Dictionary = {}
-	for tile in manifest.get("tiles", []):
-		if str(tile.get("role", "")) == "base":
-			var group := str(tile.get("group", ""))
-			if not base_by_group.has(group):
-				base_by_group[group] = []
-			base_by_group[group].append(str(tile.get("id", "")))
-	var base_layer := get_node("BaseTiles") as TileMapLayer
-	var seeded := int(_layout.get("seed", 0))
-	for band in _layout.get("surface_bands", []):
-		var group := str(band.get("group", ""))
-		var variants: Array = base_by_group.get(group, [])
-		if variants.is_empty():
-			push_error("Nenhum tile base no grupo %s" % group)
-			continue
-		for x in range(int(band.get("from_x", 0)), int(band.get("to_x", 0))):
-			for y in range(height):
-				var index := (x * 17 + y * 31 + seeded) % variants.size()
-				_set_tile(base_layer, Vector2i(x, y), str(variants[index]))
-	for area in _layout.get("surface_areas", []):
-		var variants: Array = base_by_group.get(str(area.get("group", "")), [])
-		if variants.is_empty():
-			continue
-		for x in range(int(area.get("from_x", 0)), int(area.get("to_x", 0))):
-			for y in range(int(area.get("from_y", 0)), int(area.get("to_y", 0))):
-				_set_tile(
-					base_layer,
-					Vector2i(x, y),
-					str(variants[(x * 17 + y * 31 + seeded) % variants.size()])
-				)
-	for band in _layout.get("transition_bands", []):
-		var id := "%s_edge_%s" % [str(band.get("prefix", "")), str(band.get("edge", ""))]
-		var x := int(band.get("x", 0))
-		for y in range(height):
-			_set_tile(get_node("Transitions") as TileMapLayer, Vector2i(x, y), id)
-	for patch in _layout.get("transition_patches", []):
-		_paint_transition_patch(patch)
-	for path in _layout.get("path_network", []):
-		var cell: Array = path.get("cell", [0, 0])
-		_set_tile(
-			get_node("Paths") as TileMapLayer,
-			Vector2i(int(cell[0]), int(cell[1])),
-			str(path.get("id", ""))
-		)
-
+func _paint_map(_manifest: Dictionary) -> bool:
+	# Authored tile choices are baked offline and versioned; startup only hydrates cells.
+	var fixed := _load_json("res://game/data/first_island_tiles.json")
+	var grid: Array = fixed.get("grid_size", [])
+	if int(fixed.get("schema_version", 0)) != 1 or grid != _layout.get("grid_size", []):
+		push_error("Mapa fixo incompatível com o layout; execute tools/world/bake_first_island.py.")
+		return false
+	var width := int(grid[0])
+	var palette: Array = fixed.get("palette", [])
+	var layers: Dictionary = fixed.get("layers", {})
+	var base: Array = layers.get("BaseTiles", [])
+	if base.size() != width * int(grid[1]) or base.size() != 50000:
+		push_error("Mapa fixo incompleto: esperados 50000 tiles base.")
+		return false
+	for tile_id in palette:
+		if not _tile_lookup.has(str(tile_id)):
+			push_error("Mapa fixo referencia tile desconhecido: %s" % str(tile_id))
+			return false
+	# Validate all entries before applying any cells, so corrupt data cannot partly load.
+	for layer_name in ["BaseTiles", "Transitions", "Paths"]:
+		if not layers.has(layer_name) or not layers[layer_name] is Array:
+			push_error("Camada inválida no mapa fixo: %s" % layer_name)
+			return false
+		var entries: Array = layers[layer_name]
+		for index in range(entries.size()):
+			var cell_index := index
+			var palette_index := -1
+			if layer_name == "BaseTiles":
+				palette_index = int(entries[index])
+			else:
+				var entry: Variant = entries[index]
+				if not entry is Array or entry.size() != 2:
+					push_error("Entrada inválida no mapa fixo: %s" % layer_name)
+					return false
+				cell_index = int(entry[0])
+				palette_index = int(entry[1])
+			if cell_index < 0 or cell_index >= base.size() or palette_index < 0 or palette_index >= palette.size():
+				push_error("Índice fora dos limites no mapa fixo: %s" % layer_name)
+				return false
+	for layer_name in ["BaseTiles", "Transitions", "Paths"]:
+		var layer := get_node(layer_name) as TileMapLayer
+		var entries: Array = layers[layer_name]
+		for index in range(entries.size()):
+			var cell_index := index if layer_name == "BaseTiles" else int(entries[index][0])
+			var palette_index := int(entries[index]) if layer_name == "BaseTiles" else int(entries[index][1])
+			_set_tile(layer, Vector2i(cell_index % width, cell_index / width), str(palette[palette_index]))
 	_build_oblique_ground()
+	return true
 
 
 func _paint_transition_patch(patch: Dictionary) -> void:
@@ -681,8 +690,12 @@ func _perform_basic_attack() -> void:
 	if _is_safe_position(_player.global_position):
 		_hud.set_status("O cristal protege o refúgio; ataque fora da área segura.")
 		return
+	if bool(_player.get_meta("combat_invisible", false)):
+		_fire_precise_shot()
+		return
 	_state.cancel_bandage()
-	var damage := _state.physical_attack()
+	var damage := _state.magic_attack() if _state.vocation_id == "mage" else _state.physical_attack()
+	_show_spell_vfx("mag_bolt" if _state.vocation_id == "mage" else "basic", _target.global_position)
 	var target := _target
 	_mark_combat_activity()
 	target.take_hit(damage)
@@ -693,7 +706,7 @@ func _perform_basic_attack() -> void:
 func player_basic_attack_can_reach(actor: CreatureActor) -> bool:
 	if _player == null or not is_instance_valid(_player) or not is_instance_valid(actor) or not actor.is_alive:
 		return false
-	var sword := COMBAT_RULES.weapon("sword_basic")
+	var sword := COMBAT_RULES.weapon(_state.weapon_id())
 	var reach_tiles := maxf(0.0, float(sword.get("range_tiles", 1.0)))
 	# Preserve the catalogued one-SQM sword reach, measuring from the projected
 	# sprite surfaces so larger candidate art does not force visual overlap.
@@ -719,44 +732,62 @@ func _use_skill(skill_id: String) -> void:
 	if _state.mp < mana_cost:
 		_hud.set_status("Mana insuficiente.")
 		return
+	if skill_id == "arc_precise":
+		_state.mp -= mana_cost
+		_state.skill_cooldowns[skill_id] = cooldown
+		_precise_remaining = 3.0
+		_attack_remaining = 3.0
+		_player.set_meta("combat_invisible", true)
+		_hud.set_status("Invisível por até 3s; preparando disparo preciso.")
+		save_progress()
+		_update_hud()
+		return
 	var targets: Array[CreatureActor] = []
 	var target_kind := str(skill.get("target", ""))
+	var reach := float(skill.get("range_px", 65.0))
 	if target_kind == "single":
-		if _target != null and is_instance_valid(_target) and _target.is_alive and _player.global_position.distance_to(_target.global_position) <= 54.0:
+		if is_instance_valid(_target) and _target.is_alive and _player.global_position.distance_to(_target.global_position) <= reach:
 			targets.append(_target)
-	elif target_kind == "adjacent_aoe":
-		targets = _actors_in_radius(68.0)
+	elif target_kind == "line":
+		if is_instance_valid(_target) and _target.is_alive:
+			var direction: Vector2 = (_target.global_position - _player.global_position).normalized()
+			for actor in _actors_in_radius(reach):
+				var offset: Vector2 = actor.global_position - _player.global_position
+				if offset.dot(direction) >= 0.0 and absf(offset.cross(direction)) <= 26.0:
+					targets.append(actor)
 	else:
-		targets = _actors_in_radius(112.0)
+		targets = _actors_in_radius(reach)
+		if target_kind == "chain":
+			targets.sort_custom(func(a: CreatureActor, b: CreatureActor) -> bool: return _player.global_position.distance_squared_to(a.global_position) < _player.global_position.distance_squared_to(b.global_position))
+			if targets.size() > 5:
+				targets.resize(5)
 	if targets.is_empty():
 		_hud.set_status("Nenhum alvo no alcance da habilidade.")
 		return
+	_precise_remaining = 0.0
+	_player.set_meta("combat_invisible", false)
 	_state.mp -= mana_cost
 	_state.skill_cooldowns[skill_id] = cooldown
 	_mark_combat_activity()
 	var physical := _state.physical_attack()
 	var magical := _state.magic_attack()
-	if target_kind == "single":
-		var hits := maxi(1, int(skill.get("hits", 1)))
-		var ratio := float(skill.get("physical_percent", skill.get("physical_percent_each_hit", 100))) / 100.0
-		for _hit in range(hits):
-			if not is_instance_valid(targets[0]) or not targets[0].is_alive:
-				break
-			targets[0].take_hit(physical * ratio)
-			if not is_instance_valid(targets[0]) or not targets[0].is_alive:
-				break
-	else:
-		for actor in targets:
+	for index in range(targets.size()):
+		var actor := targets[index]
+		_show_spell_vfx(skill_id, actor.global_position)
+		for hit in range(maxi(1, int(skill.get("hits", 1)))):
 			if not is_instance_valid(actor) or not actor.is_alive:
-				continue
-			var damage := physical * float(skill.get("physical_percent", 0)) / 100.0
-			damage += magical * float(skill.get("magic_percent", 0)) / 100.0
-			var died := actor.take_hit(damage)
-			if target_kind == "adjacent_aoe" and not died and is_instance_valid(actor) and actor.is_alive:
-				_apply_bleed(actor, physical)
-			if skill.has("status_duration_sec") and str(skill.get("status", "")) == "stun" and not died and is_instance_valid(actor) and actor.is_alive:
-				actor.apply_stun(float(skill.get("status_duration_sec", 0)))
-	_hud.set_status("%s · %d MP." % [skill_id.replace("war_", "").capitalize(), int(mana_cost)])
+				break
+			var died := actor.take_hit(COMBAT_RULES.skill_damage(skill, physical, magical, index))
+			if not died and is_instance_valid(actor) and actor.is_alive:
+				if str(skill.get("status", "")) == "bleed":
+					_apply_bleed(actor, physical)
+				if str(skill.get("status", "")) == "stun":
+					actor.apply_stun(float(skill.get("status_duration_sec", 0)))
+				if str(skill.get("status", "")) == "burn":
+					_burns[actor.runtime_id] = {"actor": actor, "remaining": 6.0, "tick": 1.0, "damage": magical * 0.05}
+	if skill_id == "arc_pierce":
+		_speed_boost_remaining = 6.0
+	_hud.set_status("%s · %d MP." % [skill_id, int(mana_cost)])
 	save_progress()
 	_update_hud()
 
@@ -961,6 +992,9 @@ func _update_hud() -> void:
 	if _hud._minimap != null and _player != null:
 		var grid: Array = _layout.get("grid_size", [192, 132])
 		_hud._minimap.update_position(_player.global_position, Vector2(float(grid[0]), float(grid[1])) * TILE_SIZE)
+		if _iso_view != null and _iso_view.camera != null:
+			var camera_view: PackedVector2Array = _iso_view.minimap_camera_view()
+			_hud._minimap.set_camera_view(camera_view[0], camera_view[1], camera_view[2])
 		var enemies := PackedVector2Array()
 		for actor in _creature_actors.values():
 			if is_instance_valid(actor) and actor.is_alive:
@@ -968,6 +1002,7 @@ func _update_hud() -> void:
 		_hud._minimap.update_enemies(enemies)
 	if _state == null or not _state.is_ready():
 		return
+	_hud.set_vocation(_state.vocation_id)
 	var maximum := _state.max_hp_mp()
 	var xp_before_level := 0
 	for previous_level in range(1, _state.level):
@@ -1041,3 +1076,52 @@ func _build_minimap() -> void:
 	for cell in layer.get_used_cells():
 		image.set_pixelv(cell, palette.get(groups.get(layer.get_cell_atlas_coords(cell), "grass"), Color("738955")))
 	_hud._minimap.set_map(ImageTexture.create_from_image(image))
+
+
+func _show_spell_vfx(skill_id: String, destination: Vector2) -> void:
+	if not is_instance_valid(_iso_view):
+		return
+	var layer := CanvasLayer.new()
+	layer.layer = 5
+	add_child(layer)
+	var effect = preload("res://game/scripts/combat/spell_vfx.gd").new()
+	effect.view = _iso_view
+	effect.source = _player.global_position
+	effect.destination = destination
+	effect.skill_id = skill_id
+	effect.tree_exited.connect(func() -> void: layer.queue_free())
+	layer.add_child(effect)
+
+
+func _tick_burns(delta: float) -> void:
+	for key in _burns.keys():
+		var effect: Dictionary = _burns[key]
+		var actor := effect.actor as CreatureActor
+		if not is_instance_valid(actor) or not actor.is_alive:
+			_burns.erase(key)
+			continue
+		effect.remaining -= delta
+		effect.tick -= delta
+		if effect.tick <= 0.0:
+			effect.tick += 1.0
+			actor.take_hit(float(effect.damage))
+		if effect.remaining <= 0.0:
+			_burns.erase(key)
+
+
+func _fire_precise_shot() -> void:
+	_precise_remaining = 0.0
+	_player.set_meta("combat_invisible", false)
+	if _state.downed_remaining >= 0.0 or _is_safe_position(_player.global_position):
+		return
+	if not is_instance_valid(_target) or not _target.is_alive:
+		_hud.set_status("Disparo preciso encerrado: selecione um alvo vivo.")
+		return
+	if _player.global_position.distance_to(_target.global_position) > float(COMBAT_RULES.skill("arc_precise").range_px):
+		_hud.set_status("Disparo preciso: alvo fora de alcance.")
+		return
+	_show_spell_vfx("arc_precise", _target.global_position)
+	_target.take_hit(COMBAT_RULES.skill_damage(COMBAT_RULES.skill("arc_precise"), _state.physical_attack(), _state.magic_attack()))
+	_mark_combat_activity()
+	_attack_remaining = BASE_ATTACK_INTERVAL
+	_update_hud()

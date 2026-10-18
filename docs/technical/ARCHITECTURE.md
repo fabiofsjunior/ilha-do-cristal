@@ -25,3 +25,9 @@ Progresso pessoal na conta: ID de personagem, aparência, vocação permanente, 
 Testes de geração determinística, integridade do save/corrupção, cálculo XP e dano, recompensas uma vez, disconnect/rejoin, tempo de load, FPS e memória em dois aparelhos Android. Não construir conta antes de provar loop local/saves; não considerar protótipo no editor evidência de Android. Desktop reaproveita lógica de input e UI adaptativa, sem virar plataforma prioritária.
 
 Docs oficiais: [export Android](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html), [TileMaps](https://docs.godotengine.org/en/stable/tutorials/2d/using_tilemaps.html), [multiplayer](https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html), [dados `user://`](https://docs.godotengine.org/en/stable/tutorials/io/data_paths.html), [Firebase preços](https://firebase.google.com/pricing).
+
+## Estado concreto da reconstrução 0.1.9
+
+A simulação permanece Node2D e apresentação Camera3D, sem migração de perspectiva. `first_island_tiles.json` contém índices fixos de50mil tiles; `tools/world/bake_first_island.py --check` verifica determinismo. O loader pinta batches existentes, sem gerar topologia no startup. `minimap_camera_view` fornece origem/vetores do frustum no chão para o mesmo recorte no minimapa.
+
+`LanSession` no main mantém caminho RPC estável, ENet UDP27840 e descoberta UDP27841. O código6 identifica sala descoberta no Wi-Fi. Somente movimento é validado/replicado; modelos de combate e inventário ainda rodam localmente. A arquitetura autoritativa de transações descrita acima permanece alvo, não implementação atual. Ver LAN_MOVEMENT_PREVIEW.md.

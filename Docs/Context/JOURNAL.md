@@ -306,3 +306,33 @@ Verificação Godot4.5.1: import e smoke jogável, test_close_view (três propor
 - Incluído `out_of_combat_rate_multiplier: 1.2` no catálogo. O runtime multiplica a soma de base e bônus de atributo somente fora de combate, antes dos caps. Combate, delay, caps, clamp no máximo, pausa em personagem caído/morto e restauração ao subir de nível permanecem iguais.
 - Documentados os valores efetivos no GDD, catálogo, dados de balanceamento, README e roadmap. O teste de regras verifica as seis taxas base pós-fator, as taxas com atributos nas três vocações, taxas de combate, caps, clamp e tick integrado; o teste do painel valida os bônus exibidos.
 - Godot 4.5.1 headless: import (exit 0), `test_regeneration_rules.gd`, `test_attributes_window.gd` e `smoke_playable_slice.gd` passaram. O import emitiu o aviso `Unable to open Android 'build-tools' directory`; não houve exportação APK nem teste em aparelho.
+
+
+## 2026-10-17 — Kit UI Crystal v2
+
+- Branch `feature/s03-crystal-ui-kit-v2`, implementada a partir das referências visuais anexadas pelo usuário e do spritesheet `assets/ui/crystal_v2/sheet.b64`. O atlas/runtime renderer recorta molduras, botões, barras, slots, navegação, itens e estruturas; os fluxos de HUD, mochila/equipamento, fabricação/refúgio, talentos/vocações, seleção, pausa, minimapa e alertas passaram a compartilhar o kit.
+- Atualizados componentes Godot e presets de exportação; adicionados `tools/gameplay/test_crystal_kit.gd` e `test_crystal_ui_flow.gd`. Limites respeitados: Guerreiro continua a única vocação jogável, talentos ainda não implementados; Arqueiro/Mago são prévias. Imagens de personagens separadas do sprite sheet não foram incorporadas ao projeto.
+- Godot 4.5.1: importação/editor, checagem de `main.gd`, teste de regiões do atlas e teste integrado de fluxo passaram. Exportações Web e APK debug completadas. APK validado por integridade ZIP, manifesto/launcher/ícones/permissões e assinatura; APK e ZIP Web também entregues fora do repositório. Web ainda sem inspeção gráfica em navegador; APK não foi instalado/testado em aparelho físico. Builds são artefatos de teste, não publicação.
+- Capturas locais de revisão: inventário e pausa. O diff inclui os arquivos de interface, atlas e testes no branch; arte dos personagens permanece sem promoção de status.
+- Próxima ação: revisar PR, testar fluxo e safe areas/toque por 10 min em Android físico e fazer smoke gráfico Web em navegador. Resolver eventuais regressões com base nas evidências e manter vocações/talentos não implementados explicitamente indisponíveis.
+
+
+## 2026-10-17 — APK de preview armazenado na branch
+
+- A pedido do usuário, o APK foi disponibilizado pelo plugin GitHub em `artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk`, commit `28dee2d3df72dd3ba225eefd624c2859f476c2e0`, branch `feature/s03-crystal-ui-kit-v2`. [Download direto](https://raw.githubusercontent.com/fabiofsjunior/ilha-do-cristal/feature/s03-crystal-ui-kit-v2/artifacts/preview/Ilha-do-Cristal-Android-Preview-arm64.apk).
+- A variante dual-arch excedia o limite de transmissão do conector. A partir do APK de preview Godot validado, removida somente a biblioteca `armeabi-v7a`, reempacotado o arquivo e aplicada assinatura debug novamente. Resultado ARM64-only: 39.337.295 bytes; SHA-256 `9d723315cae0bfe5f4f68c88527484e618e61897ddcef0be0de8489c25b9e88a`.
+- Verificados com Godot 4.5.1/helper: manifesto portrait, ID/label preview, ícones, ausência de permissões, JSON de runtime, CRC/integridade ZIP e assinatura v2/v3. `aapt` exibiu um diagnóstico de atributo `android:required` no dump de badging, mas o manifesto XML-tree do APK passou e o APK permaneceu válido; teste em aparelho ainda pendente.
+- Documentos atualizados para identificar o link da branch e a limitação de 64 bits. O artefato permanece no PR #21 e não foi integrado a `main`.
+
+## 2026-10-18 — Reconstrução e persistência da entrega perdida
+
+Partida: remoto2a1784d; código reconstruído publicado5f14e623f6787e97e1f6b4aa58778cd132f247f8 na feature/s03-crystal-ui-kit-v2. Microtarefas independentes para HUD, minimapa, mapa fixo, vocações e LAN; integrações verificadas. HUD144/96, frustum circular, profissões locais/VFX, mapa prebaked50mil e ENet/descoberta/movimento. Corrigidos atributos Archer por AGI, pausa LAN e validador de permissões. Testes de interface/combate/save/mapa e LAN2processos passaram; smoke atualizado para50000 tiles. Comparação gráfica Godot executada via Xvfb/OpenGL. APK0.1.9 exportado da árvore limpa de5f14e62, CRC/manifesto/assinatura v2/v3/recursos/permissões verificados, metadados artifacts/preview/HUD-0.1.9.json. Nenhum teste físico Android. Não recuperar exatamente APK anterior; esta é reconstrução nova. Próxima tarefa: combate autoritativo, itens/coleta e save host; depois doisAndroids. Relatório completo em docs/gameplay/HUD_RECONSTRUCTION_019.md.
+
+## 2026-10-18 — Proposta de mapa global e bestiário para revisão
+
+- Worktree inspecionado, limpo no commit 6133ee6; criada a branch `feature/s04-global-map-island-content` sem alterar a branch anterior.
+- Auditoria GDD/catalog/ArtDirection confirmou que o bestiário MVP contém apenas raposa, lobo e urso. Foram documentados dez conceitos candidatos, todos identificados como expansão ou variante futura, sem stats/drops nem alteração no catálogo. Prancha concept gerada com imagegen em `docs/art/candidates/bestiary-expansion-concepts-v0.1.png`.
+- A auditoria do mapa confirmou 250×200=50.000 tiles, 645 transições e 15 overlays de trilha; o bake determinístico passou. Terreno usa faixas retas/áreas retangulares, sem alturas, rampas, penhascos ou Terrain Sets. Mantida a escala runtime 32×32 por ora.
+- Criados protótipo navegável do mapa global sem pausa/zoom compartilhado e imagem conceitual da ilha irregular com costa/platôs/rampas; ambos em revisão explícita. O arquivo HTML do usuário foi tratado como protótipo 64×32, sem promover migração.
+- Não houve alteração de gameplay, runtime UI, mapa prebaked nem assets de produção. APK0.1.9 permanece a build atual até aprovação e implementação.
+- Verificações desta etapa: estado inicial limpo, bestiário e GDD/art direction lidos, auditorias read-only, `python3 tools/world/bake_first_island.py --check` passou; HTML/links locais analisados, JavaScript passou `node --check` e `git diff --check` passou. Playwright está instalado, mas o executável Chromium não está disponível neste ambiente; não houve renderização interativa em navegador. A validação visual do protótipo fica para a revisão do usuário.

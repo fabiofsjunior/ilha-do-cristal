@@ -96,6 +96,18 @@ func point_from_screen(screen_point: Vector2) -> Vector2:
 		return Vector2(-1e7, -1e7)
 	return Vector2(ground.x * 32.0, ground.z * 32.0)
 
+func minimap_camera_view() -> PackedVector2Array:
+	# Use camera rays rather than guessed zoom/aspect math: this also tracks
+	# camera smoothing, edge clamping and any viewport aspect ratio.
+	var viewport_size := get_viewport().get_visible_rect().size
+	var origin := point_from_screen(Vector2.ZERO)
+	return PackedVector2Array([
+		origin,
+		point_from_screen(Vector2(viewport_size.x, 0.0)) - origin,
+		point_from_screen(Vector2(0.0, viewport_size.y)) - origin
+	])
+
+
 func is_on_screen(point: Vector2) -> bool:
 	var projected := camera.unproject_position(world_point(point, 0.5))
 	return get_viewport().get_visible_rect().has_point(projected)
@@ -311,6 +323,8 @@ func _sync_actors() -> void:
 		sprite.offset = Vector2(source_offset.x, -source_offset.y)
 		sprite.position = Vector3(actor.global_position.x / 32.0, 0.04, actor.global_position.y / 32.0)
 		sprite.visible = true
+		if key == "player":
+			sprite.modulate = Color(1, 1, 1, 0.35 if bool(actor.get_meta("combat_invisible", false)) else 1.0)
 		if key != "player":
 			sprite.modulate = Color.WHITE if not actor.selected else Color("fff0b5")
 			_update_target_feedback(str(key), actor)

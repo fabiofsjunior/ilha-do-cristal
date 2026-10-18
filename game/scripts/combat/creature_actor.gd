@@ -102,6 +102,11 @@ func _physics_process(delta: float) -> void:
 	if not is_alive or _player == null or not is_instance_valid(_player):
 		velocity = Vector2.ZERO
 		return
+	if bool(_player.get_meta("combat_invisible", false)):
+		windup_remaining = 0.0
+		velocity = Vector2.ZERO
+		_sync_state()
+		return
 	attack_remaining = maxf(0.0, attack_remaining - delta)
 	stunned_remaining = maxf(0.0, stunned_remaining - delta)
 	if _inside_refuge(_player.global_position):

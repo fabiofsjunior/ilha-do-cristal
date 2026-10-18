@@ -57,16 +57,19 @@ static func active_character_id(root_override := "") -> String:
 	return "melissa"
 
 
-static func open_for_character(requested_character_id: String, root_override := "") -> ExpeditionState:
+static func open_for_character(requested_character_id: String, root_override := "", requested_vocation := "warrior") -> ExpeditionState:
 	var result := ExpeditionState.new()
 	result.character_id = requested_character_id if APPEARANCE_IDS.has(requested_character_id) else "melissa"
-	result.world_id = "solo_%s" % result.character_id
+	result.vocation_id = requested_vocation if ["warrior", "archer", "mage"].has(requested_vocation) else "warrior"
+	result.world_id = "solo_%s" % result.character_id if result.vocation_id == "warrior" else "solo_%s_%s" % [result.character_id, result.vocation_id]
 	if not str(root_override).is_empty():
 		result.save_root = str(root_override)
 		result.active_pointer_root = str(root_override)
 	else:
 		result.save_root = DEFAULT_SAVE_ROOT.path_join(result.character_id)
 		result.active_pointer_root = DEFAULT_SAVE_ROOT
+	if result.vocation_id != "warrior":
+		result.save_root = result.save_root.path_join(result.vocation_id)
 	result._load_or_create()
 	return result
 
@@ -149,7 +152,7 @@ func _initialize_new() -> void:
 	var base := CombatRules.max_hp_mp(raw_attributes, vocation_id)
 	hp = base.x
 	mp = base.y
-	inventory = {"sword_basic": 1}
+	inventory = {weapon_id(): 1}
 	harvested_nodes = {}
 	actors = {}
 	rewarded_deaths = {}
@@ -350,7 +353,7 @@ func max_hp_mp() -> Vector2:
 
 
 func physical_attack() -> float:
-	return CombatRules.physical_attack(raw_attributes, vocation_id, "sword_basic")
+	return CombatRules.physical_attack(raw_attributes, vocation_id, weapon_id())
 
 
 func magic_attack() -> float:
@@ -752,3 +755,7 @@ func _canonicalize(value: Variant) -> Variant:
 	if typeof(value) == TYPE_FLOAT or typeof(value) == TYPE_INT:
 		return "%.3f" % float(value)
 	return value
+
+
+func weapon_id() -> String:
+	return CombatRules.weapon_id_for_vocation(vocation_id)

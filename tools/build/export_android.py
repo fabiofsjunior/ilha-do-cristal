@@ -27,6 +27,7 @@ FORBIDDEN_EXPORTED_PATH_PREFIXES = (
     "/assets/docs/",
     "/assets/Docs/",
     "/assets/assets/references/",
+    "/assets/artifacts/",
     "/assets/build/",
     "/assets/dist/",
 )
@@ -38,6 +39,7 @@ KNOWN_PROJECT_ICON_ERROR = (
 REQUIRED_RUNTIME_FILES = (
     "/assets/data/catalogs/mvp.json",
     "/assets/game/data/first_island_layout.json",
+    "/assets/game/data/first_island_tiles.json",
 )
 REQUIRED_LAUNCHER_ICONS = (
     "res/mipmap-xxxhdpi-v4/icon.png",
@@ -274,15 +276,20 @@ def validate_apk(apk: Path, android_sdk: Path, env: dict[str, str]) -> None:
         fail(f"Nome incorreto no launcher Android: {app_label!r}; esperado {APP_NAME!r}")
     print(f"Android launcher label: {app_label}")
 
-    uses_permissions = [
-        node.tag.rsplit("}", 1)[-1]
+    permissions = {
+        node.attrib.get(f"{{{ANDROID_XMLNS}}}name", "")
         for node in manifest
         if node.tag.rsplit("}", 1)[-1] in ("uses-permission", "uses-permission-sdk-23")
-    ]
-    if uses_permissions:
-        fail("Permissões não aprovadas no APK: " + ", ".join(uses_permissions))
+    }
+    required_permissions = {
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.ACCESS_WIFI_STATE",
+    }
+    if permissions != required_permissions:
+        fail(f"Permissões LAN inesperadas: {sorted(permissions)}; esperadas: {sorted(required_permissions)}")
     print(f"Package ID: {PACKAGE_NAME}")
-    print("Android permissions: none")
+    print("Android permissions: INTERNET, ACCESS_NETWORK_STATE, ACCESS_WIFI_STATE (LAN)")
 
     signing = subprocess.run(
         [str(apksigner), "verify", "--verbose", "--print-certs", str(apk)],

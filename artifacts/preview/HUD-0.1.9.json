@@ -1,0 +1,27 @@
+{
+  "engine": "4.5.1.stable.official.f62fdbde1",
+  "source_commit": "5f14e623f6787e97e1f6b4aa58778cd132f247f8",
+  "source_tree": "b4755ab95755144d3b5c551b81c166ff22cd2af9",
+  "source_dirty": false,
+  "built_at": "2026-10-18T12:44:49.782254+00:00",
+  "target": "Android",
+  "package_id": "com.fabiofsjunior.ilhadocristal.preview",
+  "apk": "ilha-do-cristal-hud-rebuilt.apk",
+  "sha256": "b688c1493a8cb443d022f47c8086342d97d104c773eabe93206e72c89979568d",
+  "data": {
+    "status": "candidate",
+    "runtime_files": [
+      "/assets/data/catalogs/mvp.json",
+      "/assets/game/data/first_island_layout.json",
+      "/assets/game/data/first_island_tiles.json"
+    ]
+  },
+  "art_approval": "candidate; visual review pending",
+  "size_bytes": 67035052,
+  "version_name": "0.1.9-hud-rebuilt",
+  "version_code": 10,
+  "architectures": [
+    "armeabi-v7a",
+    "arm64-v8a"
+  ]
+}

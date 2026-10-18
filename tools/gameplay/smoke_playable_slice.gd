@@ -50,7 +50,7 @@ func _run() -> void:
 	var path_layer := gameplay.get_node_or_null("Paths") as TileMapLayer
 	var map_size: Array = gameplay.get("_layout").get("grid_size", [])
 	var expected_base_cells := int(map_size[0]) * int(map_size[1]) if map_size.size() >= 2 else 0
-	if not _expect(base_layer != null and map_size.size() >= 2 and int(map_size[0]) == 192 and int(map_size[1]) == 132 and base_layer.get_used_cells().size() == expected_base_cells, "Island did not build all cells of the expanded 192×132 map."):
+	if not _expect(base_layer != null and map_size.size() >= 2 and int(map_size[0]) == 250 and int(map_size[1]) == 200 and base_layer.get_used_cells().size() == expected_base_cells, "Island did not build all cells of the fixed 250×200 map."):
 		return
 	if not _expect(path_layer != null and path_layer.get_used_cells().size() > 0, "Island path overlay was not composed."):
 		return
@@ -127,7 +127,7 @@ func _run() -> void:
 	if not _expect(not paused and _script_path(app.get("current_screen")) == MAIN_MENU_SCRIPT, "Pause return-to-start transition failed."):
 		return
 
-	print("Playable slice smoke test passed: menu → character → session → island, four player atlases, world harvesting, static SE creature candidates, target click, auto-attack, peaceful/retaliating fox, aggressive wolf, safe bear windup, 25,344 terrain cells, camera-aligned eight-direction movement, water collision and pause transitions.")
+	print("Playable slice smoke test passed: menu → character → session → island, four player atlases, world harvesting, static SE creature candidates, target click, auto-attack, peaceful/retaliating fox, aggressive wolf, safe bear windup, 50,000 fixed terrain cells, camera-aligned eight-direction movement, water collision and pause transitions.")
 	quit(0)
 
 
