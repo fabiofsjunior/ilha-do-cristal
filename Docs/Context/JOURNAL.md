@@ -1,5 +1,12 @@
 # Journal — Diário de bordo
 
+## 2026-10-18 — descoberta do Godot no launcher Web
+
+- Corrigido o caso em que `Testar_Jogo_Web.bat` falhava ao exportar `build/web/` porque o Godot 4.5.1 não estava no `PATH`. O exportador também procura executáveis em pastas comuns do Windows, lê `GODOT_BIN` e um caminho local salvo em `.godot-path`.
+- Se o Godot não for localizado, o launcher abre o seletor de arquivos do Windows; depois de selecionado, verifica que a versão é 4.5.1 e guarda o caminho localmente. O arquivo fica ignorado pelo Git. A mensagem de exportação agora diferencia a ausência do executável de uma falha dos templates.
+- Verificação: `py_compile`, smoke test de resolução via `GODOT_BIN` e `.godot-path`, `tools/wiki/test_catalog.py` e `git diff --check` passaram. Não foi possível abrir o seletor nem exportar a build neste ambiente Linux, sem Godot 4.5.1; confirmar no Windows com o executável e templates Web instalados.
+- Branch `feature/s12-web-godot-discovery`; README, checklist do launcher e handoff atualizados. O ajuste não altera o jogo nem fecha a revisão gráfica Web.
+
 ## 2026-10-17 — handoff final e integração das PRs #15–#19
 
 - Revisados README e Handoff para refletir o estado integrado de `main`: queda por 60 s, metade de cada pilha de materiais na mochila (arredondada para baixo), renascimento manual/automático no acampamento, reanimação de aliado apenas pelo contrato local sem LAN, contato por footprint visual, movimento relativo à câmera e regeneração fora de combate a 1,2×. A wiki offline permanece ligada ao catálogo e ao índice de arquivos.

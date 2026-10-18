@@ -49,7 +49,7 @@ Os itens marcados como implementados descrevem validação técnica desktop/head
 
 - [x] S0 parcial: `project.godot` inicia uma cena de jogo (`game/scenes/main.tscn`), mantém viewport horizontal 1280×720, stretch `canvas_items` e renderer Compatibility; o harness de sprites foi preservado em `tools/art/sprite_test/`.
 - [x] S0 técnico desktop: importação do projeto e execução da cena principal em Godot 4.5.1 Linux headless; smoke test automatizado cobre cenas, atlas, mapa e movimento. A pasta de fontes de referência truncadas da Maíra é explicitamente excluída do import Godot; ela não é dependência de runtime.
-- [x] Ferramenta de teste Web: preset Godot 4.5.1 e launcher local que tenta exportar `build/web/` se faltar e abre a build no navegador; a execução visual em navegador ainda precisa de revisão.
+- [x] Ferramenta de teste Web: preset Godot 4.5.1 e launcher local que tenta exportar `build/web/` se faltar, procura Godot em locais comuns e permite selecionar/salvar o executável no Windows; abre a build no navegador. A execução visual em navegador ainda precisa de revisão.
 - [x] S0 export: preset Android Debug, SDK/JDK/templates e scripts de export Web/APK; APK com assinatura debug e manifesto validados.
 - [ ] S0 restante: APK instalado e testado em aparelho.
 - [x] S1 parcial: mapa inicial estático 64×44; tile atlas mantém 56 IDs (17 base, 24 transições, 15 overlays); jogador usa idle/walk das quatro aparências Warrior e movimentação em oito direções por teclado/joystick touch, alinhada aos eixos da câmera 2.5D; há colisão de água, bordas e proxies, câmera nearest com zoom 50–125% e interação demonstrativa com cristal.
