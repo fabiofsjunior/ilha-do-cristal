@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 from zipfile import ZipFile, ZIP_DEFLATED
 
 
@@ -18,6 +19,42 @@ ROOT = Path(__file__).resolve().parents[2]
 GODOT_PATH_FILE = ROOT / ".godot-path"
 GODOT_VERSION = "4.7.2"
 GODOT_VERSION_PREFIX = f"{GODOT_VERSION}."
+WEB_EXPORT_TEMPLATES = ("web_nothreads_debug.zip", "web_nothreads_release.zip")
+
+
+def godot_templates_directory() -> Path:
+    """Return Godot's per-user export-template folder for this engine version."""
+    if os.name == "nt":
+        app_data = Path(os.environ.get("APPDATA", Path.home() / "AppData" / "Roaming"))
+        godot_data = app_data / "Godot"
+    elif sys.platform == "darwin":
+        godot_data = Path.home() / "Library" / "Application Support" / "Godot"
+    else:
+        godot_data = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share")) / "godot"
+    return godot_data / "export_templates" / f"{GODOT_VERSION}.stable"
+
+
+def missing_web_templates(directory: Path | None = None) -> list[Path]:
+    templates_directory = directory or godot_templates_directory()
+    return [
+        templates_directory / name
+        for name in WEB_EXPORT_TEMPLATES
+        if not (templates_directory / name).is_file()
+        or (templates_directory / name).stat().st_size == 0
+    ]
+
+
+def web_templates_guidance(missing: list[Path]) -> str:
+    files = "\n".join(f"  {path}" for path in missing)
+    return (
+        f"Templates de exportação Web do Godot {GODOT_VERSION} ausentes ou vazios:\n"
+        f"{files}\n\n"
+        "No editor Godot 4.7.2, abra Editor > Gerenciar modelos de exportação "
+        "(Manage Export Templates...), marque somente Web e clique em Instalar modelos selecionados "
+        "(Install Selected Templates). "
+        "Depois feche o editor; o launcher verificará novamente e continuará a exportação.\n"
+        "O launcher pode abrir o editor e aguardar a instalação. Não é necessário baixar o TPZ completo."
+    )
 
 
 def _windows_godot_candidates() -> list[str]:
@@ -230,13 +267,28 @@ def main() -> int:
         action="store_true",
         help="salva localmente o caminho fornecido em --godot",
     )
+    parser.add_argument(
+        "--check-web-templates",
+        action="store_true",
+        help="verifica se os templates Web da versão fixada estão instalados",
+    )
     args = parser.parse_args()
     engine, version = find_godot(args.godot)
     if args.print_godot:
         print(engine)
         return 0
+    if args.check_web_templates:
+        missing = missing_web_templates()
+        if missing:
+            print(web_templates_guidance(missing), file=sys.stderr)
+            return 2
+        print(f"Templates Web do Godot {GODOT_VERSION} encontrados em {godot_templates_directory()}")
+        return 0
     if args.save_godot:
         GODOT_PATH_FILE.write_text(engine + "\n", encoding="utf-8")
+    missing = missing_web_templates()
+    if missing:
+        raise SystemExit(web_templates_guidance(missing))
     build = ROOT / "build"
     output = build / "web"
     output.mkdir(parents=True, exist_ok=True)
