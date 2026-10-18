@@ -1,28 +1,16 @@
-# Handoff — identidade visual do aplicativo Android
+# Handoff — atlas tropical para pintura manual
 
-**Branch:** `feature/s08-logo-app-icon-splash`
-
-**Base:** `Staging` em `5a1d4a0`
-
-**Implementação:** `e0a1a2d` + `eb75383` — ícone/boot e correção do blob da fonte original.
-
-**PR:** [#24](https://github.com/fabiofsjunior/ilha-do-cristal/pull/24), rascunho contra `Staging`.
-
-**Versão planejada:** APK 0.1.10, `versionCode` 11.
+**Branch:** `Staging`  
+**Base desta alteração:** `9f43dad7d0d1d931914401eb8a83ac590fb4ee90`
 
 ## Implementado
 
-- Fonte original em `tools/art/source/ilha-cristal-logo.jpg`, preservada byte a byte. As variantes são reproduzidas por `python3 tools/art/generate_app_icon.py`.
-- Ícone clássico com a arte integral (512×512); camadas adaptativas Android (432×432) com a wordmark dentro da área segura; símbolo de cristal monocromático para temas Android.
-- Splash nativa da Godot e cabeçalho da tela de atualização usam o ícone com a logo. O restante do fluxo e a gameplay não mudaram.
-- O preset Android já referencia os quatro caminhos `assets/ui/app_icon*.png`.
+A folha enviada foi limpa e cortada em 64 slices RGBA de 128×128. `assets/environments/tropical_manual_v1/` contém o atlas, os TileSets e o manifesto. `ManualTerrain` expõe os IDs 00–39; `ManualProps`, 40–63. Cada tile ocupa 4×4 SQMs da grade de jogo. As camadas começam vazias e a apresentação 2.5D lê as alterações salvas na cena; o mapa original de 50.000 células, colisões e spawns seguem intactos.
 
-## Verificações
+## Próxima ação exata
 
-- Godot 4.5.1: importação headless, `test_update_boot_ui.gd` e `test_content_updater.gd` passaram.
-- Confirmadas dimensões e alpha das quatro variantes, igualdade da fonte com o anexo, configurações da splash, `py_compile` e `git diff --check`.
-- A importação mostrou apenas o aviso de ADB sem daemon/dispositivo.
+No Godot 4.5.1, abra `game/scenes/first_island.tscn`. Selecione `ManualTerrain` na árvore da cena, abra o painel TileMap e pinte o terreno; use `ManualProps` para vegetação, rochas e objetos. Salve a cena, feche e reabra para confirmar a persistência. As células manuais são 128×128 px (4×4 SQMs). O layout de colisões, limites, spawns, obstáculos e recursos continua em `game/data/first_island_layout.json`.
 
-## Pendências e próximo passo
+## Validação
 
-Android SDK Platform 35 e Build Tools 35.0.0 não estão disponíveis neste ambiente; não foi possível exportar ou instalar a APK, nem conferir máscaras adaptativas em aparelho. Quando o SDK estiver disponível, exportar a APK 0.1.10/versionCode 11, instalar e conferir o ícone clássico/adaptativo, splash nativa e logo no boot em retrato/safe area.
+O validador estrutural da folha, dos 64 slices, dos TileSets e das referências da cena passou. A importação real, a pintura/salvamento/reabertura no editor e o teste em Android ainda precisam ser feitos no Godot instalado no computador de desenvolvimento.

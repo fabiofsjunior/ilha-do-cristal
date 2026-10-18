@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bake authored layout into fixed row-major tile IDs; never called by runtime."""
+"""Rebuild the legacy JSON reference used to migrate the fixed map into the Godot scene."""
 import argparse
 import json
 from pathlib import Path

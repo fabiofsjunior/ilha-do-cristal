@@ -1,0 +1,123 @@
+[gd_resource type="TileSet" load_steps=3 format=3]
+
+[ext_resource type="Texture2D" uid="uid://dan6d8bb13hjr" path="res://assets/environments/terrain_mvp_candidate_v1/terrain_mvp_candidate_v1.png" id="1_atlas"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_terrain_mvp_v1"]
+texture = ExtResource("1_atlas")
+texture_region_size = Vector2i(32, 32)
+; water_deep_01 [base: water_deep]
+0:0/0 = 0
+; water_deep_02 [base: water_deep]
+1:0/0 = 0
+; water_deep_03 [base: water_deep]
+2:0/0 = 0
+; water_shallow_01 [base: water_shallow]
+3:0/0 = 0
+; water_shallow_02 [base: water_shallow]
+4:0/0 = 0
+; sand_01 [base: sand]
+5:0/0 = 0
+; sand_02 [base: sand]
+6:0/0 = 0
+; sand_03 [base: sand]
+7:0/0 = 0
+; grass_01 [base: grass]
+0:1/0 = 0
+; grass_02 [base: grass]
+1:1/0 = 0
+; grass_03 [base: grass]
+2:1/0 = 0
+; forest_01 [base: forest]
+3:1/0 = 0
+; forest_02 [base: forest]
+4:1/0 = 0
+; forest_03 [base: forest]
+5:1/0 = 0
+; soil_01 [base: soil]
+6:1/0 = 0
+; soil_02 [base: soil]
+7:1/0 = 0
+; soil_03 [base: soil]
+0:2/0 = 0
+; shore_sand_water_edge_n [transition: sand_water]
+1:2/0 = 0
+; shore_sand_water_edge_e [transition: sand_water]
+2:2/0 = 0
+; shore_sand_water_edge_s [transition: sand_water]
+3:2/0 = 0
+; shore_sand_water_edge_w [transition: sand_water]
+4:2/0 = 0
+; shore_sand_water_corner_nw [transition: sand_water]
+5:2/0 = 0
+; shore_sand_water_corner_ne [transition: sand_water]
+6:2/0 = 0
+; shore_sand_water_corner_se [transition: sand_water]
+7:2/0 = 0
+; shore_sand_water_corner_sw [transition: sand_water]
+0:3/0 = 0
+; beach_grass_edge_n [transition: sand_grass]
+1:3/0 = 0
+; beach_grass_edge_e [transition: sand_grass]
+2:3/0 = 0
+; beach_grass_edge_s [transition: sand_grass]
+3:3/0 = 0
+; beach_grass_edge_w [transition: sand_grass]
+4:3/0 = 0
+; beach_grass_corner_nw [transition: sand_grass]
+5:3/0 = 0
+; beach_grass_corner_ne [transition: sand_grass]
+6:3/0 = 0
+; beach_grass_corner_se [transition: sand_grass]
+7:3/0 = 0
+; beach_grass_corner_sw [transition: sand_grass]
+0:4/0 = 0
+; grass_soil_edge_n [transition: grass_soil]
+1:4/0 = 0
+; grass_soil_edge_e [transition: grass_soil]
+2:4/0 = 0
+; grass_soil_edge_s [transition: grass_soil]
+3:4/0 = 0
+; grass_soil_edge_w [transition: grass_soil]
+4:4/0 = 0
+; grass_soil_corner_nw [transition: grass_soil]
+5:4/0 = 0
+; grass_soil_corner_ne [transition: grass_soil]
+6:4/0 = 0
+; grass_soil_corner_se [transition: grass_soil]
+7:4/0 = 0
+; grass_soil_corner_sw [transition: grass_soil]
+0:5/0 = 0
+; path_overlay_h [overlay: path]
+1:5/0 = 0
+; path_overlay_v [overlay: path]
+2:5/0 = 0
+; path_overlay_turn_ne [overlay: path]
+3:5/0 = 0
+; path_overlay_turn_es [overlay: path]
+4:5/0 = 0
+; path_overlay_turn_sw [overlay: path]
+5:5/0 = 0
+; path_overlay_turn_wn [overlay: path]
+6:5/0 = 0
+; path_overlay_tee_n [overlay: path]
+7:5/0 = 0
+; path_overlay_tee_e [overlay: path]
+0:6/0 = 0
+; path_overlay_tee_s [overlay: path]
+1:6/0 = 0
+; path_overlay_tee_w [overlay: path]
+2:6/0 = 0
+; path_overlay_dead_n [overlay: path]
+3:6/0 = 0
+; path_overlay_dead_e [overlay: path]
+4:6/0 = 0
+; path_overlay_dead_s [overlay: path]
+5:6/0 = 0
+; path_overlay_dead_w [overlay: path]
+6:6/0 = 0
+; path_overlay_cross [overlay: path]
+7:6/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_terrain_mvp_v1")
