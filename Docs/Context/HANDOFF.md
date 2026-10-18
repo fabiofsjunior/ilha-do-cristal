@@ -1,28 +1,22 @@
-# Handoff — exportação Web com Godot 4.7.2
+# Handoff — tema claro da wiki
 
-**Branch de correção:** `feature/s15-web-godot-launch-validation`
+**Branch:** `Staging`
 
-**Commit de implementação:** `ff6bc60283e5882dd48906375d6cea6d1d56b644`
-
-**Base original da correção:** `186ef56000402936a7fd8e247eb35dc8cbdcf80c`
-
-**Staging incorporada antes do merge:** `b019a28da04450a036c75aa4951295ea33d4652c`
-
-**PR #31 mesclada em Staging:** `b9c0cee12fd380a2fe38a6b2c1d2f99d9e784fd3`
+**Commit de implementação:** `baf8e459fe1bde7e1884c985d6117ffb10032154`
 
 ## Próxima ação exata
 
-No Windows, baixe o [ZIP oficial do Godot 4.7.2 para Windows x64](https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_win64.exe.zip), extraia-o e mantenha o `Godot_v4.7.2-stable_win64_console.exe` extraído na raiz ou escolha-o no seletor do `Testar_Jogo_Web.bat`. Instale os templates Web 4.7.2, execute o launcher e confirme a exportação em `build/web/` e a abertura no navegador.
+Nenhuma ação técnica pendente para esta solicitação. Continuar a partir da branch `Staging` caso haja uma nova solicitação.
 
-## Diagnóstico e correção
+## Estado
 
-- O executável versionado na raiz mede 198.152 bytes e falha em `--version` com código Windows `4294967295` (`-1`). Esse arquivo não se comporta como o editor Godot completo: o ZIP oficial para Windows x64 (`Godot_v4.7.2-stable_win64.exe.zip`) mede 86.013.866 bytes.
-- O arquivo inválido foi removido do Git. `.gitignore` agora ignora executáveis Godot locais; o usuário pode extrair o binário completo na raiz sem versioná-lo.
-- `export_web.py` testa cada candidato com `--version`, ignora binários que não iniciam ou não sejam 4.7.2 e continua a descoberta. Quando um caminho explícito falha, mostra uma mensagem curta com o código/causa e como obter a distribuição oficial.
-- `Testar_Jogo_Web.bat` usa a descoberta validada e abre o seletor caso não encontre uma instalação executável. O caminho escolhido continua salvo localmente.
+- A página canônica da wiki é `docs/wiki/index.html`; nela o botão acessível alterna entre os temas escuro e claro.
+- A preferência de tema fica salva no navegador.
+- Estilos e comportamento estão em `docs/wiki/wiki.css` e `docs/wiki/app.js`.
+- README, roadmap, journal e registro do protótipo foram atualizados.
 
-## Limites e pendências
+## Verificações e limites
 
-- A validação real do `.bat`, da exportação e da abertura no navegador precisa ser feita no Windows com Godot 4.7.2 e os templates Web da mesma versão.
-- Android segue fixado em Godot 4.5.1.
-- As pranchas isométricas em `assets/environments/ilha_cristal_isometric_candidate_v1/` continuam candidatas, sem integração nem aprovação visual.
+- Testes automatizados não foram executados.
+- A revisão visual no navegador integrado não ocorreu: o ambiente recusou abrir o protótipo local por política de URL.
+- Não há bloqueios ou decisões pendentes para esta solicitação.
