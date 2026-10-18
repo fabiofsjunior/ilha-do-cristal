@@ -4368,13 +4368,13 @@
       "path": "Docs/Context/HANDOFF.md",
       "href": "../../Docs/Context/HANDOFF.md",
       "extension": "md",
-      "size": 1667
+      "size": 1798
     },
     {
       "path": "Docs/Context/JOURNAL.md",
       "href": "../../Docs/Context/JOURNAL.md",
       "extension": "md",
-      "size": 71862
+      "size": 73226
     },
     {
       "path": "Docs/Context/PROTOTYPE_LOG.md",
@@ -4410,19 +4410,19 @@
       "path": "Docs/Main/ROADMAP.md",
       "href": "../../Docs/Main/ROADMAP.md",
       "extension": "md",
-      "size": 16912
+      "size": 16981
     },
     {
       "path": "README.md",
       "href": "../../README.md",
       "extension": "md",
-      "size": 11979
+      "size": 12189
     },
     {
       "path": "Testar_Jogo_Web.bat",
       "href": "../../Testar_Jogo_Web.bat",
       "extension": "bat",
-      "size": 3604
+      "size": 3252
     },
     {
       "path": "artifacts/preview/HUD-0.1.9.json",
@@ -6234,7 +6234,7 @@
       "path": "game/scenes/first_island.tscn",
       "href": "../../game/scenes/first_island.tscn",
       "extension": "tscn",
-      "size": 812351
+      "size": 61563
     },
     {
       "path": "game/scenes/main.tscn",
@@ -6426,7 +6426,7 @@
       "path": "game/scripts/world/first_island.gd",
       "href": "../../game/scripts/world/first_island.gd",
       "extension": "gd",
-      "size": 41142
+      "size": 41484
     },
     {
       "path": "game/scripts/world/first_island_hud.gd",
@@ -6438,7 +6438,7 @@
       "path": "game/scripts/world/isometric_3d_view.gd",
       "href": "../../game/scripts/world/isometric_3d_view.gd",
       "extension": "gd",
-      "size": 20073
+      "size": 20697
     },
     {
       "path": "project.godot",

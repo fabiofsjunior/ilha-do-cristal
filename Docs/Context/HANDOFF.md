@@ -1,25 +1,26 @@
-# Handoff — Godot 4.7.2 Web e pranchas candidatas
+# Handoff — exportação Web com Godot 4.7.2
 
-**Branch de trabalho Web:** `feature/s14-web-godot-472`
-**Commit da implementação Web:** `c0fd9d63099ea92e326f23f0b9ba301cd7c1c5b5`
-**Base `Staging` atual:** `fb95bdfdcdab2f3857d1007a64102fabf808fc08`
+**Branch de correção:** `feature/s15-web-godot-launch-validation`
+
+**Commit de implementação:** `ff6bc60283e5882dd48906375d6cea6d1d56b644`
+
+**Base original da correção:** `186ef56000402936a7fd8e247eb35dc8cbdcf80c`
+
+**Última Staging incorporada:** `b019a28da04450a036c75aa4951295ea33d4652c`
 
 ## Próxima ação exata
 
-No Windows, manter `Godot_v4.7.2-stable_win64_console.exe` ao lado de `Testar_Jogo_Web.bat`, com os templates Web 4.7.2 instalados, e executar o launcher. Confirmar exportação em `build/web/` e abertura no navegador.
+No Windows, baixe o [ZIP oficial do Godot 4.7.2 para Windows x64](https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_win64.exe.zip), extraia-o e mantenha o `Godot_v4.7.2-stable_win64_console.exe` extraído na raiz ou escolha-o no seletor do `Testar_Jogo_Web.bat`. Instale os templates Web 4.7.2, execute o launcher e confirme a exportação em `build/web/` e a abertura no navegador.
 
-## Correção Web preparada
+## Diagnóstico e correção
 
-- O launcher, exportador e servidor Web agora exigem Godot 4.7.2; o `.bat` prioriza o executável 4.7.2 da raiz e passa o caminho absoluto.
-- A descoberta de versões 4.7.2 ocorre antes de reutilizar `.godot-path`, para não escolher um executável antigo. Android segue fixado em 4.5.1.
-- CLI simulado aceitou `4.7.2.stable.official.ed1daf0bf` e recusou 4.5.1. A prioridade do binário da raiz também foi testada. Build real não foi executada neste Linux.
+- O executável versionado na raiz mede 198.152 bytes e falha em `--version` com código Windows `4294967295` (`-1`). Esse arquivo não se comporta como o editor Godot completo: o ZIP oficial para Windows x64 (`Godot_v4.7.2-stable_win64.exe.zip`) mede 86.013.866 bytes.
+- O arquivo inválido foi removido do Git. `.gitignore` agora ignora executáveis Godot locais; o usuário pode extrair o binário completo na raiz sem versioná-lo.
+- `export_web.py` testa cada candidato com `--version`, ignora binários que não iniciam ou não sejam 4.7.2 e continua a descoberta. Quando um caminho explícito falha, mostra uma mensagem curta com o código/causa e como obter a distribuição oficial.
+- `Testar_Jogo_Web.bat` usa a descoberta validada e abre o seletor caso não encontre uma instalação executável. O caminho escolhido continua salvo localmente.
 
-## Pranchas isométricas candidatas
+## Limites e pendências
 
-- Duas imagens RGBA 1254×1254 e seus prompts/instruções ficam em `assets/environments/ilha_cristal_isometric_candidate_v1/`.
-- Transparência real foi confirmada, mas restam pixels semitransparentes e a grade 8×8 requer recorte manual. Nenhuma cena foi integrada nem validada no Godot.
-- Depois do teste Web, testar uma superfície e uma árvore no Godot, ajustando recorte, origem, escala e halos.
-
-## Pendências
-
-Godot 4.7.2 e templates Web ainda precisam ser testados no Windows; compatibilidade do preset Web permanece sem validação de exportação nesta sessão. As pranchas continuam candidatas, aguardando revisão na cena.
+- A validação real do `.bat`, da exportação e da abertura no navegador precisa ser feita no Windows com Godot 4.7.2 e os templates Web da mesma versão.
+- Android segue fixado em Godot 4.5.1.
+- As pranchas isométricas em `assets/environments/ilha_cristal_isometric_candidate_v1/` continuam candidatas, sem integração nem aprovação visual.

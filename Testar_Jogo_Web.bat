@@ -33,21 +33,13 @@ echo Build Web nao encontrada. Vou tentar exportar com Godot 4.7.2...
 set "GODOT_PATH_FILE=%TEMP%\ilha-do-cristal-godot-path.txt"
 set "GODOT_EXE="
 
-rem Prefere o Godot 4.7.2 baixado na raiz do projeto, sem depender do PATH.
-for %%G in ("%~dp0Godot_v4.7.2-stable_win64_console.exe") do if exist "%%~fG" set "GODOT_EXE=%%~fG"
-if not defined GODOT_EXE for %%G in ("%~dp0Godot_v4.7.2-stable*_console.exe") do if exist "%%~fG" set "GODOT_EXE=%%~fG"
-if not defined GODOT_EXE for %%G in ("%~dp0Godot_v4.7.2-stable_win64.exe") do if exist "%%~fG" set "GODOT_EXE=%%~fG"
-if not defined GODOT_EXE for %%G in ("%~dp0Godot_v4.7.2-stable*.exe") do if exist "%%~fG" set "GODOT_EXE=%%~fG"
-if defined GODOT_EXE (
-    echo Godot 4.7.2 encontrado na raiz: "%GODOT_EXE%"
-    goto export_web
-)
-
+rem O Python testa --version e ignora executaveis quebrados antes de retornar o caminho.
 %PYTHON_CMD% %PYTHON_ARGS% "%EXPORT_SCRIPT%" --print-godot > "%GODOT_PATH_FILE%"
 if errorlevel 1 goto select_godot
 set /p "GODOT_EXE="<"%GODOT_PATH_FILE%"
 del "%GODOT_PATH_FILE%" >nul 2>&1
 if not defined GODOT_EXE goto select_godot
+echo Godot 4.7.2 valido: "%GODOT_EXE%"
 
 :export_web
 %PYTHON_CMD% %PYTHON_ARGS% "%EXPORT_SCRIPT%" --godot "%GODOT_EXE%"
@@ -59,6 +51,7 @@ goto start_server
 del "%GODOT_PATH_FILE%" >nul 2>&1
 echo.
 echo Se voce tem o Godot 4.7.2, selecione o executavel para esta exportacao.
+echo ZIP oficial do Godot 4.7.2 x64: https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_win64.exe.zip
 echo O caminho escolhido sera salvo localmente para os proximos testes.
 for /f "usebackq delims=" %%G in (`powershell -NoProfile -STA -Command "Add-Type -AssemblyName System.Windows.Forms; $d = New-Object System.Windows.Forms.OpenFileDialog; $d.Title = 'Selecione o executavel Godot 4.7.2'; $d.Filter = 'Godot console (*_console.exe)|*_console.exe|Todos os executaveis (*.exe)|*.exe'; if ($d.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) { Write-Output $d.FileName }"`) do set "GODOT_EXE=%%G"
 if not defined GODOT_EXE goto godot_missing

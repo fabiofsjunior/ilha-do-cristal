@@ -61,12 +61,19 @@ def _windows_godot_candidates() -> list[str]:
     return found
 
 
-def find_godot(value: str | None) -> str:
-    candidates = [value]
+def _godot_candidates(value: str | None) -> list[str]:
+    if value:
+        return [value]
+
+    candidates: list[str | None] = []
     root_candidates = list(ROOT.glob(f"Godot_v{GODOT_VERSION}-stable*"))
     root_candidates.sort(key=lambda path: "_console" not in path.name.lower())
     candidates.extend(str(path) for path in root_candidates)
     candidates.append(str(ROOT / "Godot.exe"))
+    if GODOT_PATH_FILE.is_file():
+        configured_path = GODOT_PATH_FILE.read_text(encoding="utf-8").strip()
+        if configured_path:
+            candidates.append(configured_path)
     candidates.append(os.environ.get("GODOT_BIN"))
     candidates.extend(_windows_godot_candidates())
     candidates.extend(
@@ -77,21 +84,85 @@ def find_godot(value: str | None) -> str:
             shutil.which(f"Godot_v{GODOT_VERSION}-stable_win64.exe"),
         ]
     )
-    if GODOT_PATH_FILE.is_file():
-        configured_path = GODOT_PATH_FILE.read_text(encoding="utf-8").strip()
-        if configured_path:
-            candidates.append(configured_path)
-    for candidate in candidates:
-        if not candidate:
-            continue
+
+    return [candidate for candidate in candidates if candidate]
+
+
+def query_godot_version(engine: str) -> str:
+    try:
+        result = subprocess.run(
+            [engine, "--version"],
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=20,
+        )
+    except subprocess.TimeoutExpired as error:
+        raise SystemExit(
+            f"O executável Godot não respondeu ao comando --version em 20 segundos: {engine}"
+        ) from error
+    except OSError as error:
+        raise SystemExit(
+            f"Não foi possível iniciar o executável Godot em {engine}: {error}"
+        ) from error
+
+    output = "\n".join(
+        part.strip() for part in (result.stdout, result.stderr) if part and part.strip()
+    )
+    if result.returncode:
+        exit_code = result.returncode
+        if 2**31 <= exit_code <= 2**32 - 1:
+            exit_code -= 2**32
+        detail = f"\nSaída do executável: {output}" if output else ""
+        raise SystemExit(
+            f"O executável selecionado não iniciou como Godot {GODOT_VERSION} "
+            f"(comando --version, código {exit_code}): {engine}.{detail}\n"
+            "Baixe e extraia a versão estável oficial do Godot para Windows; "
+            "selecione o *_console.exe que vem dentro do ZIP extraído."
+        )
+
+    version = next((line.strip() for line in result.stdout.splitlines() if line.strip()), "")
+    if not version:
+        raise SystemExit(
+            f"O executável não informou a versão pelo comando --version: {engine}"
+        )
+    return version
+
+
+def find_godot(value: str | None) -> tuple[str, str]:
+    failures: list[str] = []
+    seen: set[str] = set()
+    for candidate in _godot_candidates(value):
         path = Path(candidate).expanduser()
-        if path.is_file() and (os.name != "nt" or path.suffix.lower() == ".exe"):
-            return str(path.resolve())
+        if not path.is_file() or (os.name == "nt" and path.suffix.lower() != ".exe"):
+            if value:
+                raise SystemExit(f"Executável Godot não encontrado: {path}")
+            continue
+        resolved = str(path.resolve())
+        key = resolved.casefold() if os.name == "nt" else resolved
+        if key in seen:
+            continue
+        seen.add(key)
+
+        try:
+            version = query_godot_version(resolved)
+            validate_godot_version(version)
+        except SystemExit as error:
+            if value:
+                raise
+            failures.append(f"- {resolved}: {error}")
+            continue
+        return resolved, version
+
+    diagnostic = ""
+    if failures:
+        diagnostic = "\nExecutáveis encontrados, mas ignorados:\n" + "\n".join(failures[:5])
     raise SystemExit(
-        f"Godot {GODOT_VERSION} não encontrado. Instale/extraia essa versão e selecione o "
-        "executável Godot (.exe) quando o launcher pedir, ou defina GODOT_BIN. "
-        'No terminal: py -3 tools/build/export_web.py --godot '
-        f'"C:\\caminho\\Godot_v{GODOT_VERSION}-stable_win64.exe".'
+        f"Godot {GODOT_VERSION} não encontrado ou não inicializou. Instale/extraia essa "
+        "versão e selecione o executável Godot (.exe) quando o launcher pedir, ou defina "
+        "GODOT_BIN. Download oficial: https://godotengine.org/download/windows/."
+        f"{diagnostic}"
     )
 
 
@@ -160,9 +231,7 @@ def main() -> int:
         help="salva localmente o caminho fornecido em --godot",
     )
     args = parser.parse_args()
-    engine = find_godot(args.godot)
-    version = subprocess.check_output([engine, "--version"], text=True).strip()
-    validate_godot_version(version)
+    engine, version = find_godot(args.godot)
     if args.print_godot:
         print(engine)
         return 0
