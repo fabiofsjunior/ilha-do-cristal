@@ -1,21 +1,21 @@
-# Handoff — Reconstrução 0.1.9
+# Handoff — mapa global e conteúdo candidato
 
-**Branch:** `feature/s03-crystal-ui-kit-v2`. **Commit de código/APK:** `5f14e623f6787e97e1f6b4aa58778cd132f247f8`. A atualização documental subsequente fica no HEAD da mesma branch. Baseline remoto recuperado: `2a1784d`. Não fazer merge em main sem os aceites pendentes.
+**Branch de trabalho:** `feature/s04-global-map-island-content`, baseada no HEAD anterior `6133ee6`. O HEAD desta branch registra os protótipos e notas descritos abaixo; nenhum código de produção foi alterado. A implementação atual do jogo/APK continua a reconstrução 0.1.9, com código no commit `5f14e623f6787e97e1f6b4aa58778cd132f247f8`.
 
-## Entrega persistida
+## Estado do mapa
 
-HUD spells144×144/equipamentos96×96, inventário com scroll, painéis exclusivos, engrenagem e minimapa circular orientado pelo frustum/zoom. Mapa fixo250×200 prebaked e50mil tiles;24lobos/2raposas/4ursos. Três vocações com mecânicas locais/VFX e saves separados por vocação; sprites de aparência Warrior continuam compartilhados. LAN ENet para2jogadores, descoberta/código/IP e movimento com validação do host. Combate/monstros/coleta/itens/saves continuam locais.
+O mapa existente é 250×200 = 50.000 tiles, na grade candidata 32×32. `first_island_layout.json` usa bandas retilíneas e áreas retangulares de floresta; o bake gera 50.000 bases, 645 transições e 15 overlays. Não há alturas por célula, costa recortada, rampas/penhascos com colisão poligonal ou Terrain Sets de autotiling. O baker determinístico passou.
 
-**APK:** `build/android/ilha-do-cristal-hud-rebuilt.apk`, debug preview, versionCode10/0.1.9, ARMv7+ARM64, Godot4.5.1. Metadados/SHA em `artifacts/preview/HUD-0.1.9.json`; APK/ZIP entregues como anexos persistentes da conversa. O APK ARM64 versionado anteriormente é histórico e não deve ser anunciado como atual.
+Referência de revisão: `docs/prototypes/global_map_island_v0_1.html` e `docs/prototypes/assets/irregular-island-map-concept-v0.1.png`. O anexo `isometric_tilemap_layers_v0_1.html` demonstra 64×32 e quatro layers, mas não foi aprovação de migração. O protótipo de UI demonstra abrir pelo minimapa, fechar por X/Escape, não pausar, e manter zoom sincronizado.
 
-## Testes e limites
+## Estado do bestiário
 
-Import e catálogo/bake Python; HUD/mínimap/inventário/safe area/atributos/visão/fluxo; mapa/população; vocações/combate/cooldown/save; morte/loop/regen/smoke passaram. LAN dois processos: movimento, NaN/teleport, incompatibilidade de mapa e queda do host. Comparação gráfica Godot sob Xvfb feita, capturas no relatório `docs/gameplay/HUD_RECONSTRUCTION_019.md`. APK manifesto/recursos/CRC/assinatura/permissões passou. Não instalado nem testado em Android físico. Nova reconstrução, não APK idêntico ao binário perdido.
+GDD/Catalogs têm somente `fox`, `wolf`, `bear` no MVP. Os dez candidatos de expansão e os vínculos à lore estão em `docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md`, com a prancha `docs/art/candidates/bestiary-expansion-concepts-v0.1.png`. Nada foi adicionado ao catálogo runtime. Concept art não é atlas; a metodologia exige amostra de uma criatura e revisão antes de produzir lote.
 
 ## Próxima ação exata
 
-Implementar uma intenção de ataque enviada pelo cliente ao host, com sequência/ownership, validação de alvo/distância/mana/cooldown e evento autoritativo único de dano/estado/XP; testar em2processos antes de ampliar. Depois coleta/drop idempotentes e saves de mundo/inventário somente no host. Instalar o mesmo APK em dois Androids na mesma rede e validar lobby/código/IP/movimento/pausa/atributos/desconexão/UI/toque/save.
+Obter o retorno do usuário sobre: (1) o fluxo do mapa global sem pause e o zoom compartilhado; (2) a forma da ilha e suas elevações; (3) 32×32 atual versus amostra isolada 64×32; (4) aprovação/revisão dos dez monstros e da prancha. Depois implementar somente as decisões aprovadas, adicionar regressões de overlay/câmera, bake/altura/colisão e revisar captura Godot. Gerar a APK nova após implementação e validação.
 
-## Pendências abertas
+## APK e pendências
 
-Teste físico Android, combate/itens/saves LAN e talentos passivos. Terrain Sets64×32/elevações e atlas mais polidos precisam de assets/amostra apropriados e validação, sem trocar a perspectiva ou expandir arte silenciosamente. Protótipos de lobby/vocação/HUD já foram aprovados nesta conversa; não pedir novamente para a mesma reconstrução. Godot/SDK/chave debug/saves e build ficam fora do Git.
+A APK entregue anteriormente é `Ilha-do-Cristal-0.1.9.apk` (source code commit acima). Ela não contém a nova janela de mapa nem o terreno proposto. Instalação/toque/performance Android físico e LAN em dois aparelhos continuam pendentes. Combate, coleta/itens e saves LAN do host continuam próximos passos independentes registrados no handoff anterior.

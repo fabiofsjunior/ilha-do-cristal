@@ -8,6 +8,10 @@ RPG de sobrevivência em pixel art. Melissa, Helena, Maíra e Fábio sobrevivem 
 
 O APK0.1.9 foi entregue na conversa como anexo persistente. O APK0.1.7 em `artifacts/preview/` é histórico; seus links abaixo não apontam para a reconstrução atual. Não houve instalação em Android físico nesta sessão.
 
+## Revisão visual em andamento — mapa global e bestiário
+
+Na branch `feature/s04-global-map-island-content`, os protótipos de mapa global/ilha irregular e a proposta de dez monstros estão aguardando revisão explícita. A grade atual já tem 50.000 tiles (250×200), mas ainda usa faixas retas e não tem alturas. Não há código de produção novo nesta branch até a validação dos protótipos. Consulte [`global_map_island_v0_1.html`](docs/prototypes/global_map_island_v0_1.html), [`BESTIARY_EXPANSION_CANDIDATES_V0_1.md`](docs/art/candidates/BESTIARY_EXPANSION_CANDIDATES_V0_1.md) e o [handoff](Docs/Context/HANDOFF.md).
+
 ## Jogar e exportar
 
 - **Web:** o ZIP de teste foi exportado desta branch com Godot 4.5.1. Para gerar novamente, use `python3 tools/build/export_web.py` com Godot 4.5.1 e os templates correspondentes. Extraia `build/ilha-do-cristal-web.zip` e execute `Testar_Jogo_Web.bat` no Windows com Python 3; em outro sistema, rode `python3 -m http.server 8000` na pasta extraída e abra `http://localhost:8000/`. A revisão gráfica no navegador ainda está pendente.
