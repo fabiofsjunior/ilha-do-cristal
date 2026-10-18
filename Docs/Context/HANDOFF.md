@@ -1,9 +1,8 @@
 # Handoff — validar launcher Web no Windows
 
-**Branch do ajuste:** `feature/s12-web-godot-discovery`
-**Commit:** `0c38bff95f7c7b4ef110f6401c92bbb94e796b92`
-**PR:** [#27](https://github.com/fabiofsjunior/ilha-do-cristal/pull/27), destino `Staging`
-**Base da PR:** `0d87452ceebf51271b121daaaec8cd0fc953a43d`
+**Branch atual:** `Staging`
+**Merge da correção:** PR [#27](https://github.com/fabiofsjunior/ilha-do-cristal/pull/27), commit `183373acb9a86726dee0cf010ed2c024fed25a48`
+**Branch de origem:** `feature/s12-web-godot-discovery`, implementação `0c38bff95f7c7b4ef110f6401c92bbb94e796b92`
 
 ## Implementado
 
@@ -14,7 +13,7 @@
 
 ## Próxima ação exata
 
-Em um checkout Windows atualizado pela PR deste branch, executar `Testar_Jogo_Web.bat`, selecionar `Godot_v4.5.1-stable_win64_console.exe` se solicitado, confirmar os templates Web e verificar que o jogo exporta em `build/web/` e abre no navegador.
+No Windows, atualizar o checkout até `Staging` `183373a`, executar `Testar_Jogo_Web.bat`, selecionar `Godot_v4.5.1-stable_win64_console.exe` se solicitado, confirmar os templates Web e verificar que o jogo exporta em `build/web/` e abre no navegador.
 
 ## Pendências
 
