@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "beach_spawn_playable_slice",
-  "grid_size": [192,132],
+  "grid_size": [250,200],
   "tile_px_candidate": [32,32],
   "seed": 20261015,
   "surface_bands": [
@@ -9,14 +9,17 @@
     {"from_x": 3,"to_x": 8,"group": "water_shallow"},
     {"from_x": 8,"to_x": 20,"group": "sand"},
     {"from_x": 20,"to_x": 50,"group": "grass"},
-    {"from_x": 50,"to_x": 192,"group": "soil"}
+    {"from_x": 50,"to_x": 250,"group": "soil"}
   ],
   "surface_areas": [
     {"from_x": 35,"to_x": 47,"from_y": 7,"to_y": 37,"group": "forest"},
     {"from_x": 72,"to_x": 96,"from_y": 14,"to_y": 50,"group": "forest"},
     {"from_x": 105,"to_x": 129,"from_y": 77,"to_y": 116,"group": "forest"},
     {"from_x": 145,"to_x": 169,"from_y": 22,"to_y": 52,"group": "forest"},
-    {"from_x": 158,"to_x": 183,"from_y": 82,"to_y": 119,"group": "forest"}
+    {"from_x": 158,"to_x": 183,"from_y": 82,"to_y": 119,"group": "forest"},
+    {"from_x": 195,"to_x": 224,"from_y": 36,"to_y": 74,"group": "forest"},
+    {"from_x": 148,"to_x": 190,"from_y": 143,"to_y": 181,"group": "forest"},
+    {"from_x": 74,"to_x": 110,"from_y": 157,"to_y": 192,"group": "forest"}
   ],
   "transition_bands": [
     {"prefix": "shore_sand_water","edge": "w","x": 7},
@@ -67,7 +70,19 @@
     {"id": "wolf_11","species": "wolf","cell": [177,75]},
     {"id": "bear_3","species": "bear","cell": [112,71]},
     {"id": "bear_4","species": "bear","cell": [165,95]},
-    {"id": "wolf_12","species": "wolf","cell": [184,112]}
+    {"id": "wolf_12","species": "wolf","cell": [184,112]},
+    {"id": "wolf_13","species": "wolf","cell": [204,22]},
+    {"id": "wolf_14","species": "wolf","cell": [235,53]},
+    {"id": "wolf_15","species": "wolf","cell": [211,88]},
+    {"id": "wolf_16","species": "wolf","cell": [239,116]},
+    {"id": "wolf_17","species": "wolf","cell": [205,146]},
+    {"id": "wolf_18","species": "wolf","cell": [237,180]},
+    {"id": "wolf_19","species": "wolf","cell": [172,153]},
+    {"id": "wolf_20","species": "wolf","cell": [143,181]},
+    {"id": "wolf_21","species": "wolf","cell": [112,150]},
+    {"id": "wolf_22","species": "wolf","cell": [81,180]},
+    {"id": "wolf_23","species": "wolf","cell": [49,152]},
+    {"id": "wolf_24","species": "wolf","cell": [25,185]}
   ],
   "harvest_nodes": [
     {"id": "fiber_22_18","resource": "fiber","quantity": 5,"cell": [22,18]},
@@ -109,7 +124,13 @@
     {"id": "herb_exp_09","resource": "herb","quantity": 1,"cell": [150,111]},
     {"id": "herb_exp_10","resource": "herb","quantity": 1,"cell": [160,69]},
     {"id": "herb_exp_11","resource": "herb","quantity": 1,"cell": [175,17]},
-    {"id": "herb_exp_12","resource": "herb","quantity": 1,"cell": [181,119]}
+    {"id": "herb_exp_12","resource": "herb","quantity": 1,"cell": [181,119]},
+    {"id": "fiber_fixed_199_42","resource": "fiber","quantity": 5,"cell": [199,42]},
+    {"id": "fiber_fixed_222_106","resource": "fiber","quantity": 5,"cell": [222,106]},
+    {"id": "fiber_fixed_190_168","resource": "fiber","quantity": 5,"cell": [190,168]},
+    {"id": "fiber_fixed_122_172","resource": "fiber","quantity": 5,"cell": [122,172]},
+    {"id": "fiber_fixed_65_158","resource": "fiber","quantity": 5,"cell": [65,158]},
+    {"id": "fiber_fixed_34_175","resource": "fiber","quantity": 5,"cell": [34,175]}
   ],
   "obstacles": [
     {"kind": "tree","cell": [24,17]},
@@ -154,16 +175,19 @@
     {"kind": "boulder","cell": [162,57]},
     {"kind": "boulder","cell": [174,25]},
     {"kind": "boulder","cell": [182,61]},
-    {"kind": "boulder","cell": [185,125]}
+    {"kind": "boulder","cell": [185,125]},
+    {"kind": "tree","cell": [202,44]},
+    {"kind": "tree","cell": [225,108]},
+    {"kind": "tree","cell": [193,170]},
+    {"kind": "tree","cell": [125,174]},
+    {"kind": "tree","cell": [68,160]},
+    {"kind": "tree","cell": [37,177]}
   ],
   "map_expansion": {
-    "interpretation": "3x largura e 3x altura da grade original; área total 9x",
+    "interpretation": "Mapa fixo 250x200, 50000 tiles base; região anterior preservada",
     "baseline_grid_size": [64,44],
-    "linear_multiplier": 3,
-    "area_multiplier": 9,
-    "legacy_region_preserved": {
-      "origin_cell": [0,0],
-      "grid_size": [64,44]
-    }
+    "legacy_region_preserved": {"origin_cell": [0,0],"grid_size": [64,44]},
+    "previous_grid_size": [192,132],
+    "total_base_tiles": 50000
   }
 }

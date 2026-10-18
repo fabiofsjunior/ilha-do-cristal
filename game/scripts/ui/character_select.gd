@@ -7,6 +7,8 @@ const UI_STYLE = preload("res://game/scripts/ui/ui_style.gd")
 const APPEARANCE_DATA = preload("res://game/scripts/actors/appearance_data.gd")
 const FALLBACK_ID := "melissa"
 var selected_character_id := FALLBACK_ID
+var selected_vocation_id := "warrior"
+var _vocation_buttons: Array[Button] = []
 var _description: Label
 var _selected_name: Label
 var _confirm_button: Button
@@ -54,7 +56,7 @@ func _build_screen() -> void:
 
 	var intro := Label.new()
 	intro.text = (
-		"Vocação disponível nesta fatia: Guerreiro. As quatro aparências e animações "
+		"Guerreiro, Arqueiro e Mago disponíveis. A vocação é permanente neste perfil. As aparências "
 		+ "seguem como CANDIDATO/CORRIGIR."
 	)
 	intro.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -72,7 +74,12 @@ func _build_screen() -> void:
 		button.expand_icon = true
 		button.add_theme_constant_override("icon_max_width", 28)
 		button.custom_minimum_size = Vector2(184, 52)
-		button.disabled = choice[0] != "warrior"
+		button.set_meta("vocation_id", choice[0])
+		button.pressed.connect(func() -> void:
+			selected_vocation_id = str(button.get_meta("vocation_id"))
+			_update_selection()
+		)
+		_vocation_buttons.append(button)
 		button.tooltip_text = "Disponível" if not button.disabled else "Vocação ainda indisponível nesta versão"
 		UI_STYLE.style_button(button, choice[0] == "warrior")
 		vocations.add_child(button)
@@ -179,10 +186,10 @@ func _update_selection() -> void:
 		selected_character_id = FALLBACK_ID
 		profile = APPEARANCE_DATA.profile_for_id(selected_character_id)
 	if _selected_name != null:
-		_selected_name.text = "Selecionado: %s · Guerreiro" % str(profile.get("name", ""))
+		_selected_name.text = "Selecionado: %s · %s" % [str(profile.get("name", "")), {"warrior": "Guerreiro", "archer": "Arqueiro", "mage": "Mago"}[selected_vocation_id]]
+	for button in _vocation_buttons:
+		UI_STYLE.style_button(button, str(button.get_meta("vocation_id")) == selected_vocation_id)
 	for button in _choice_buttons:
 		var id := str(button.get_meta("appearance_id", ""))
 		button.text = "Selecionado" if id == selected_character_id else "Selecionar"
 		UI_STYLE.style_button(button, id == selected_character_id)
-
-

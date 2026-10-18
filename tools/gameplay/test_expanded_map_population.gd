@@ -1,11 +1,11 @@
 extends SceneTree
-## Expansion regression: 3x linear dimensions, complete terrain and sparse species distribution.
+## Fixed 50,000-tile regression: complete terrain and sparse species distribution.
 
 const GAME_SCENE := preload("res://game/scenes/first_island.tscn")
 const TILE_SIZE := 32.0
 const CHUNK_SIZE := 32
-const EXPECTED_GRID := Vector2i(192, 132)
-const EXPECTED_SPECIES := {"wolf": 12, "fox": 2, "bear": 4}
+const EXPECTED_GRID := Vector2i(250, 200)
+const EXPECTED_SPECIES := {"wolf": 24, "fox": 2, "bear": 4}
 
 var failures := 0
 
@@ -30,7 +30,7 @@ func _run() -> void:
 	game.queue_free()
 	await process_frame
 	if failures == 0:
-		print("PASS expanded map: 64x44 -> 192x132 SQMs (area x9), 12 wolves, 2 foxes, 4 bears; terrain, water barrier, spawn safety, chunk cap and legacy start validated")
+		print("PASS expanded map: 64x44 -> 250x200 SQMs (50000 fixed tiles), 24 wolves, 2 foxes, 4 bears; terrain, water barrier, spawn safety, chunk cap and legacy start validated")
 	quit(0 if failures == 0 else 1)
 
 
@@ -50,10 +50,10 @@ func _test_layout_dimensions(layout: Dictionary) -> void:
 	var size: Array = layout.get("grid_size", [])
 	var expansion: Dictionary = layout.get("map_expansion", {})
 	var baseline: Array = expansion.get("baseline_grid_size", [])
-	_check(size.size() == 2 and int(size[0]) == EXPECTED_GRID.x and int(size[1]) == EXPECTED_GRID.y, "Expanded map must be 192x132 SQMs.")
+	_check(size.size() == 2 and int(size[0]) == EXPECTED_GRID.x and int(size[1]) == EXPECTED_GRID.y, "Expanded map must be 250x200 SQMs.")
 	_check(baseline.size() == 2 and int(baseline[0]) == 64 and int(baseline[1]) == 44, "Expansion baseline must record the original 64x44 grid.")
-	_check(int(expansion.get("linear_multiplier", 0)) == 3, "Expansion must document 3x width and height.")
-	_check(int(expansion.get("area_multiplier", 0)) == 9, "Expansion must document a 9x area increase.")
+	_check(int(expansion.get("total_base_tiles", 0)) == 50000, "Expansion must document 50000 fixed tiles.")
+	_check(Vector2i(int(expansion.previous_grid_size[0]), int(expansion.previous_grid_size[1])) == Vector2i(192, 132), "Previous region dimensions must remain documented.")
 	var spawn: Array = layout.get("spawn_cell", [])
 	var beacon: Array = layout.get("beacon_cell", [])
 	_check(spawn.size() == 2 and int(spawn[0]) == 16 and int(spawn[1]) == 23, "Legacy player start must remain in its original cell.")
@@ -118,7 +118,7 @@ func _test_spawn_distribution(layout: Dictionary) -> void:
 			_check(false, "Unexpected species in spawn layout: %s" % species)
 		var chunk := Vector2i(position.x / CHUNK_SIZE, position.y / CHUNK_SIZE)
 		chunk_counts[chunk] = int(chunk_counts.get(chunk, 0)) + 1
-	_check(counts == EXPECTED_SPECIES, "Expected 12 wolves, 2 foxes and 4 bears; found %s." % str(counts))
+	_check(counts == EXPECTED_SPECIES, "Expected 24 wolves, 2 foxes and 4 bears; found %s." % str(counts))
 	_check(counts.wolf > counts.fox + counts.bear, "Wolves should outnumber all other species combined.")
 	_check(float(counts.fox) / maxf(1.0, float(ids.size())) <= 0.15, "Fox population must remain below 15 percent.")
 	for chunk in chunk_counts:
@@ -127,8 +127,8 @@ func _test_spawn_distribution(layout: Dictionary) -> void:
 
 
 func _test_runtime_world(game: Node) -> void:
-	_check(game._creature_actors.size() == 18, "All 18 configured monster slots should spawn in the live world.")
-	_check(game._creature_spawn_specs.size() == 18, "Runtime respawn records should cover all configured monsters.")
+	_check(game._creature_actors.size() == 30, "All 30 configured monster slots should spawn in the live world.")
+	_check(game._creature_spawn_specs.size() == 30, "Runtime respawn records should cover all configured monsters.")
 	var expected_water_width := 8.0 * TILE_SIZE
 	var water_body := game.get_node_or_null("BlockedWater")
 	var water_collision := water_body.get_child(0) as CollisionShape2D if water_body != null and water_body.get_child_count() > 0 else null

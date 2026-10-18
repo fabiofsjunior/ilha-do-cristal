@@ -81,6 +81,12 @@ func _check(condition: bool, message: String) -> void:
 func _check_visible_inventory_bounds(node: Node, viewport_bounds: Rect2) -> void:
 	if node is Control and node.is_visible_in_tree() and (node is PanelContainer or node is Button):
 		var control := node as Control
-		_check(viewport_bounds.encloses(control.get_global_rect()), "Visible inventory control %s overflows the viewport: %s in %s" % [node.name, control.get_global_rect(), viewport_bounds])
+		var visible_rect := control.get_global_rect()
+		var ancestor := control.get_parent()
+		while ancestor != null:
+			if ancestor is Control and ancestor.clip_contents:
+				visible_rect = visible_rect.intersection(ancestor.get_global_rect())
+			ancestor = ancestor.get_parent()
+		_check(not visible_rect.has_area() or viewport_bounds.encloses(visible_rect), "Visible inventory control %s overflows the viewport: %s in %s" % [node.name, visible_rect, viewport_bounds])
 	for child in node.get_children():
 		_check_visible_inventory_bounds(child, viewport_bounds)

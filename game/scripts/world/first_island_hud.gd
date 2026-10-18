@@ -27,13 +27,13 @@ const MOBILE_JOYSTICK_BASE_SIZE := Vector2(144.0, 144.0)
 const MOBILE_JOYSTICK_BASE_RADIUS := 64.0
 const BAG_ITEM_IDS := [
 	"wood", "stone", "fiber", "herb", "bandage", "meat", "hide", "fang", "crystal_shard",
-	"sword_basic", "sword_reinforced", "axe_basic", "pickaxe_basic"
+	"sword_basic", "sword_reinforced", "axe_basic", "pickaxe_basic", "bow_basic", "staff_basic"
 ]
 const ITEM_LABELS := {
 	"wood": "Madeira", "stone": "Pedra", "fiber": "Fibra", "herb": "Erva",
 	"bandage": "Curativo", "meat": "Carne", "hide": "Couro", "fang": "Presa",
 	"crystal_shard": "Fragmento", "sword_basic": "Espada básica", "sword_reinforced": "Espada reforçada",
-	"axe_basic": "Machado", "pickaxe_basic": "Picareta"
+	"axe_basic": "Machado", "pickaxe_basic": "Picareta", "bow_basic": "Arco básico", "staff_basic": "Cajado básico"
 }
 const PENALTY_ITEM_LABELS := {
 	"wood": "madeira", "stone": "pedra", "fiber": "fibra", "herb": "erva",
@@ -61,6 +61,9 @@ var _interact_button: Button
 var _auto_attack_button: Button
 var _bandage_button: Button
 var _skill_buttons: Dictionary = {}
+var _vocation_id := "warrior"
+const VOCATION_LABELS := {"warrior": "Guerreiro", "archer": "Arqueiro", "mage": "Mago"}
+const SKILL_LABELS := {"war_combo": "Combo", "war_circle": "Corte", "war_quake": "Terremoto", "arc_precise": "Preciso", "arc_bounce": "Ricochete", "arc_pierce": "Perfurante", "mag_bolt": "Centelha", "mag_fire": "Fogo", "mag_ice": "Gelo"}
 var _inventory_overlay: Control
 var _inventory_panel: PanelContainer
 var _inventory_scroll: ScrollContainer
@@ -157,10 +160,19 @@ func _build_hud() -> void:
 		_hud_button("Bolsa", Vector2(12, 130), Vector2(52, 52), _toggle_inventory),
 		_hud_button("Base", Vector2(70, 130), Vector2(52, 52), _toggle_camp),
 		attributes_button,
-		_hud_button("Ⅱ", Vector2(186, 130), Vector2(52, 52), func() -> void: pause_pressed.emit()),
+		_hud_button("✦", Vector2.ZERO, Vector2(52, 52), _toggle_talents),
+		_hud_button("⚙", Vector2(186, 130), Vector2(52, 52), func() -> void:
+			_hide_other_panels(null)
+			pause_pressed.emit()),
 		_hud_button("−", Vector2(244, 130), Vector2(52, 52), func() -> void: zoom_requested.emit(-1)),
 		_hud_button("+", Vector2(302, 130), Vector2(52, 52), func() -> void: zoom_requested.emit(1)),
 	]
+	_nav_buttons[3].tooltip_text = "Talentos e vocações"
+	_nav_buttons[4].tooltip_text = "Configurações e pausa"
+	for index in [3, 4]:
+		for state in ["normal", "hover", "pressed", "disabled"]:
+			_nav_buttons[index].add_theme_stylebox_override(state, UI_STYLE.KIT.style("slot", 4.0))
+		_nav_buttons[index].add_theme_font_size_override("font_size", 28)
 	_status = Label.new()
 	_status.position = Vector2(16, 194)
 	_status.size = Vector2(330, 64)
@@ -189,10 +201,45 @@ func _build_hud() -> void:
 	]
 	for data in skills:
 		var id := str(data[0])
-		var button := _hud_button(str(data[1]), Vector2.ZERO, Vector2(72, 72), func() -> void: skill_pressed.emit(id))
+		var button := _hud_button(str(data[1]), Vector2.ZERO, Vector2(144, 144), func() -> void: _emit_skill(id))
 		_apply_button_art(button, id)
-		button.size = Vector2(72, 72)
+		button.size = Vector2(144, 144)
+		button.set_meta("skill_id", id)
+		button.set_meta("slot_index", _skill_buttons.size())
 		_skill_buttons[id] = button
+
+
+func _emit_skill(original_id: String) -> void:
+	var index := ["war_combo", "war_circle", "war_quake"].find(original_id)
+	if index >= 0 and index < _skill_buttons.size():
+		skill_pressed.emit(str(_skill_buttons.keys()[index]))
+
+
+func set_vocation(vocation_id: String) -> void:
+	if vocation_id == _vocation_id:
+		return
+	var ids: Array[String] = []
+	for data in COMBAT_RULES.catalog().get("skills", []):
+		if str(data.get("vocation", "")) == vocation_id:
+			ids.append(str(data.id))
+	if ids.size() != 3:
+		push_error("HUD requires three catalog skills for vocation: %s" % vocation_id)
+		return
+	var buttons := _skill_buttons.values()
+	_skill_buttons.clear()
+	for index in ids.size():
+		var button: Button = buttons[index]
+		button.set_meta("skill_id", ids[index])
+		button.set_meta("native_skill", vocation_id != "warrior")
+		button.get_node("PixelArtwork").visible = vocation_id == "warrior"
+		for state in ["normal", "hover", "pressed", "disabled"]:
+			button.add_theme_stylebox_override(state, UI_STYLE.classic_style("slot") if vocation_id != "warrior" else StyleBoxEmpty.new())
+		_skill_buttons[ids[index]] = button
+	_vocation_id = vocation_id
+	var display_name := _name_label.text.split("·")[0].strip_edges()
+	_name_label.text = "%s · %s" % [display_name if not display_name.is_empty() else "Melissa", VOCATION_LABELS[vocation_id]]
+	_refresh_inventory_character_status()
+	_layout_edge_controls()
 
 
 func _bar_caption(bar: ProgressBar) -> Label:
@@ -322,8 +369,8 @@ func _set_button_text(button: Button, value: String) -> void:
 	if caption == null:
 		button.text = value
 		return
-	button.text = ""
 	var lines := value.split("\n")
+	button.text = str(lines[0]) if bool(button.get_meta("native_skill", false)) else ""
 	caption.text = str(lines[-1]) if lines.size() > 1 else value
 	if str(button.get_meta("art_id", "")) in ["pause", "zoom_in", "zoom_out"]:
 		caption.text = ""
@@ -347,7 +394,7 @@ func _build_inventory_overlay() -> void:
 	_inventory_overlay.add_child(center)
 	_inventory_panel = PanelContainer.new()
 	_inventory_panel.name = "InventoryPanel"
-	_inventory_panel.custom_minimum_size = Vector2(680, 920)
+	_inventory_panel.custom_minimum_size = Vector2(704, 1060)
 	_inventory_panel.add_theme_stylebox_override("panel", UI_STYLE.classic_style())
 	center.add_child(_inventory_panel)
 	var margin := MarginContainer.new()
@@ -403,37 +450,37 @@ func _build_inventory_overlay() -> void:
 	equipment_box.add_child(equipment_row)
 	var equipment_board := Control.new()
 	equipment_board.name = "EquipmentBoard"
-	equipment_board.custom_minimum_size = Vector2(260, 330)
+	equipment_board.custom_minimum_size = Vector2(324, 496)
 	equipment_board.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	equipment_row.add_child(equipment_board)
 	_character_preview = TextureRect.new()
 	_character_preview.name = "CharacterPreview"
-	_character_preview.position = Vector2(50, 70)
-	_character_preview.size = Vector2(160, 248)
+	_character_preview.position = Vector2(4, 4)
+	_character_preview.size = Vector2(96, 116)
 	_character_preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_character_preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_character_preview.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	_character_preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	equipment_board.add_child(_character_preview)
-	_character_preview.hide()
+	_character_preview.show()
 	var character_caption := Label.new()
 	character_caption.text = "EQUIPAMENTO"
-	character_caption.position = Vector2(64, 322)
+	character_caption.position = Vector2(4, 474)
 	character_caption.size = Vector2(124, 20)
 	character_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	character_caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI_STYLE.style_label(character_caption, 10, UI_STYLE.MUTED)
 	equipment_board.add_child(character_caption)
 	var equipment_layout := [
-		{"id": "amulet", "label": "AMULETO", "short": "AM", "position": Vector2(188, 22)},
-		{"id": "head", "label": "CABEÇA", "short": "ELM", "position": Vector2(100, 22)},
-		{"id": "main_hand", "label": "ARMA · MÃO PRINCIPAL", "short": "ARM", "position": Vector2(12, 104)},
-		{"id": "offhand", "label": "ARMA · MÃO SECUNDÁRIA", "short": "OFF", "position": Vector2(188, 104)},
-		{"id": "jewel_left", "label": "ACESSÓRIO I", "short": "J1", "position": Vector2(12, 186)},
-		{"id": "chest", "label": "PEITORAL", "short": "ARM", "position": Vector2(100, 104)},
-		{"id": "jewel_right", "label": "ACESSÓRIO II", "short": "J2", "position": Vector2(188, 186)},
-		{"id": "pants", "label": "CALÇAS", "short": "CAL", "position": Vector2(100, 186)},
-		{"id": "boots", "label": "BOTAS", "short": "BOT", "position": Vector2(100, 268)}
+		{"id": "amulet", "label": "AMULETO", "short": "AM", "position": Vector2(224, 24)},
+		{"id": "head", "label": "CABEÇA", "short": "ELM", "position": Vector2(114, 24)},
+		{"id": "main_hand", "label": "ARMA · MÃO PRINCIPAL", "short": "ARM", "position": Vector2(4, 142)},
+		{"id": "offhand", "label": "ARMA · MÃO SECUNDÁRIA", "short": "OFF", "position": Vector2(224, 142)},
+		{"id": "jewel_left", "label": "ACESSÓRIO I", "short": "J1", "position": Vector2(4, 260)},
+		{"id": "chest", "label": "PEITORAL", "short": "ARM", "position": Vector2(114, 142)},
+		{"id": "jewel_right", "label": "ACESSÓRIO II", "short": "J2", "position": Vector2(224, 260)},
+		{"id": "pants", "label": "CALÇAS", "short": "CAL", "position": Vector2(114, 260)},
+		{"id": "boots", "label": "BOTAS", "short": "BOT", "position": Vector2(114, 378)}
 	]
 	for slot_data in equipment_layout:
 		var slot := _make_equipment_slot(slot_data)
@@ -442,8 +489,8 @@ func _build_inventory_overlay() -> void:
 		var slot_name := Label.new()
 		var names := {"head":"Cabeça", "amulet":"Amuleto", "main_hand":"Mão dir.", "offhand":"Mão esq.", "chest":"Peitoral", "jewel_left":"Joia I", "jewel_right":"Joia II", "pants":"Calças", "boots":"Botas"}
 		slot_name.text = names.get(str(slot_data.id), "")
-		slot_name.position = slot_data.position - Vector2(10, 17)
-		slot_name.size = Vector2(68, 16)
+		slot_name.position = slot_data.position - Vector2(0, 20)
+		slot_name.size = Vector2(96, 20)
 		slot_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		UI_STYLE.style_label(slot_name, 12, UI_STYLE.MUTED)
 		equipment_board.add_child(slot_name)
@@ -558,8 +605,7 @@ func _build_inventory_overlay() -> void:
 	talents.custom_minimum_size.y = 48
 	UI_STYLE.style_button(talents)
 	talents.pressed.connect(func() -> void:
-		_inventory_overlay.hide()
-		_talents_overlay.show()
+		_toggle_talents()
 		_refresh_joystick_blocking()
 	)
 	footer.add_child(talents)
@@ -579,8 +625,8 @@ func _make_equipment_slot(slot_data: Dictionary) -> PanelContainer:
 	var slot := PanelContainer.new()
 	slot.name = "EquipmentSlot_%s" % str(slot_data.id)
 	slot.position = slot_data.position
-	slot.custom_minimum_size = Vector2(48, 48)
-	slot.size = Vector2(48, 48)
+	slot.custom_minimum_size = Vector2(96, 96)
+	slot.size = Vector2(96, 96)
 	slot.tooltip_text = "%s · equipamento não configurável no MVP" % str(slot_data.label)
 	slot.mouse_filter = Control.MOUSE_FILTER_STOP
 	slot.add_theme_stylebox_override("panel", UI_STYLE.classic_style("slot"))
@@ -592,7 +638,7 @@ func _make_equipment_slot(slot_data: Dictionary) -> PanelContainer:
 	caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI_STYLE.style_label(caption, 9, UI_STYLE.GOLD)
-	var icon := UI_STYLE.picture(UI_STYLE.icon(str(slot_data.id)), Vector2(32, 32))
+	var icon := UI_STYLE.picture(UI_STYLE.icon(str(slot_data.id)), Vector2(72, 72))
 	icon.name = "EquipmentIcon"
 	icon.modulate = Color(0.7, 0.72, 0.65, 0.38) if str(slot_data.id) != "main_hand" else Color.WHITE
 	slot.add_child(icon)
@@ -783,8 +829,25 @@ func _close_button() -> Button:
 	return close
 
 
+func _hide_other_panels(except_panel: Control) -> void:
+	for panel in [_inventory_overlay, _camp_overlay, _talents_overlay]:
+		if panel != except_panel:
+			panel.hide()
+	if _attributes_window.visible:
+		_attributes_window.call("close_window")
+
+
+func _toggle_talents() -> void:
+	var opening := not _talents_overlay.visible
+	_hide_other_panels(_talents_overlay)
+	_talents_overlay.visible = opening
+	_refresh_joystick_blocking()
+
+
 func _toggle_inventory() -> void:
-	_inventory_overlay.visible = not _inventory_overlay.visible
+	var opening := not _inventory_overlay.visible
+	_hide_other_panels(_inventory_overlay)
+	_inventory_overlay.visible = opening
 	if _inventory_overlay.visible:
 		_camp_overlay.hide()
 		inventory_pressed.emit()
@@ -792,7 +855,9 @@ func _toggle_inventory() -> void:
 
 
 func _toggle_camp() -> void:
-	_camp_overlay.visible = not _camp_overlay.visible
+	var opening := not _camp_overlay.visible
+	_hide_other_panels(_camp_overlay)
+	_camp_overlay.visible = opening
 	if _camp_overlay.visible:
 		_inventory_overlay.hide()
 		camp_pressed.emit()
@@ -804,8 +869,7 @@ func _toggle_attributes() -> void:
 
 
 func open_attributes_for_state(state: Object) -> bool:
-	_inventory_overlay.hide()
-	_camp_overlay.hide()
+	_hide_other_panels(_attributes_window)
 	_joystick.set_blocked(true)
 	var opened := bool(_attributes_window.call("open_for_state", state))
 	if not opened:
@@ -857,7 +921,9 @@ func _refresh_inventory() -> void:
 		var item_id: String = str(BAG_ITEM_IDS[index])
 		var count := int(_inventory_items.get(item_id, 0))
 		button.text = ""
-		(button.get_node("ItemIcon") as TextureRect).texture = UI_STYLE.icon(item_id) if count > 0 else null
+		var textual_weapon := item_id in ["bow_basic", "staff_basic"]
+		button.text = ("Arco" if item_id == "bow_basic" else "Cajado") if count > 0 and textual_weapon else ""
+		(button.get_node("ItemIcon") as TextureRect).texture = UI_STYLE.icon(item_id) if count > 0 and not textual_weapon else null
 		(button.get_node("Quantity") as Label).text = "×%d" % count if count > 0 else ""
 		button.tooltip_text = str(ITEM_LABELS.get(item_id, item_id))
 		button.disabled = count <= 0
@@ -885,16 +951,17 @@ func _refresh_inventory_character_status() -> void:
 	if _inventory_stats == null:
 		return
 	var display_name := "Melissa"
-	var character_title := "Melissa · Guerreiro"
+	var character_title := "Melissa · %s" % VOCATION_LABELS[_vocation_id]
 	if _name_label != null and not _name_label.text.is_empty():
 		character_title = _name_label.text
 		display_name = _name_label.text.split("·")[0].strip_edges()
 	if _character_preview != null and _character_preview.visible and _inventory_preview_for_name != display_name:
 		_inventory_preview_for_name = display_name
 		_character_preview.texture = _load_inventory_character_preview(display_name)
-	var weapon_data := COMBAT_RULES.weapon("sword_basic")
+	var weapon_id := COMBAT_RULES.weapon_id_for_vocation(_vocation_id)
+	var weapon_data := COMBAT_RULES.weapon(weapon_id)
 	var weapon_damage := float(weapon_data.get("damage", 0.0))
-	var weapon_name := str(ITEM_LABELS.get("sword_basic", "Arma base"))
+	var weapon_name := str(ITEM_LABELS.get(weapon_id, "Arma base"))
 	var level_text := _level_label.text if _level_label != null else "Nv. 1"
 	var hp_text := _hp_text.text if _hp_text != null else "HP —"
 	var mp_text := _mp_text.text if _mp_text != null else "MP —"
@@ -910,8 +977,9 @@ func _refresh_inventory_character_status() -> void:
 	if weapon_slot != null:
 		var slot_caption := weapon_slot.get_node_or_null("SlotCaption") as Label
 		if slot_caption != null:
-			var count := int(_inventory_items.get("sword_basic", 0))
-			slot_caption.text = ""
+			slot_caption.text = weapon_name if _vocation_id != "warrior" else ""
+		var weapon_icon := weapon_slot.get_node("EquipmentIcon") as TextureRect
+		weapon_icon.texture = UI_STYLE.icon("main_hand") if _vocation_id == "warrior" else null
 		weapon_slot.tooltip_text = "Arma base de combate: %s (%s de dano no catálogo). Equipamentos não podem ser trocados no MVP." % [weapon_name, "%.0f" % weapon_damage]
 
 
@@ -1000,7 +1068,7 @@ func _find_label(parent: Node, prefix: String) -> Label:
 
 func set_character_name(value: String) -> void:
 	if _name_label != null:
-		_name_label.text = "%s · Guerreiro" % value
+		_name_label.text = "%s · %s" % [value, VOCATION_LABELS[_vocation_id]]
 		var profiles = preload("res://game/scripts/actors/appearance_data.gd")
 		for profile in profiles.profiles():
 			if str(profile.get("name", "")) == value:
@@ -1083,10 +1151,8 @@ func set_combat_state(
 	if bandage_active:
 		_set_button_text(_bandage_button, "Curando\n%d%%" % roundi(bandage_progress * 25.0))
 		_bandage_button.disabled = true
-	if _skill_buttons.has("war_combo"):
-		_update_skill_button("war_combo", "Combo", mp, cooldowns)
-		_update_skill_button("war_circle", "Corte", mp, cooldowns)
-		_update_skill_button("war_quake", "Terremoto", mp, cooldowns)
+	for skill_id in _skill_buttons:
+		_update_skill_button(str(skill_id), str(SKILL_LABELS.get(skill_id, skill_id)), mp, cooldowns)
 	if not bandage_active:
 		_set_button_text(_bandage_button, "Curativo\n%d" % int(_inventory_items.get("bandage", 0)))
 		_bandage_button.disabled = int(_inventory_items.get("bandage", 0)) <= 0
@@ -1161,7 +1227,7 @@ func _layout_safe_area() -> void:
 		var inventory_modal_scale := minf(1.0, _root.size.y / 1160.0)
 		var inventory_global_scale := maxf(factor * inventory_modal_scale, 0.01)
 		var available_panel_height := maxf(320.0, (viewport_size.y - 32.0) / inventory_global_scale)
-		_inventory_panel.custom_minimum_size.y = minf(920.0, available_panel_height)
+		_inventory_panel.custom_minimum_size.y = minf(1060.0, available_panel_height)
 	for overlay in [_inventory_overlay, _camp_overlay, _downed_shade]:
 		var modal_scale := minf(1.0, _root.size.y / 1160.0)
 		overlay.set_anchors_preset(Control.PRESET_TOP_LEFT)
@@ -1195,25 +1261,25 @@ func _layout_edge_controls() -> void:
 	# Keep the HUD root mapped to the complete portrait viewport. Safe-area insets
 	# only move controls inward; they must never shrink or offset the gameplay canvas.
 	const EDGE_GAP := 16.0
-	const SKILL_SIZE := Vector2(72.0, 72.0)
+	const SKILL_SIZE := Vector2(144.0, 144.0)
 	const SKILL_GAP := 12.0
 	var joystick_size := MOBILE_JOYSTICK_BASE_SIZE * MOBILE_JOYSTICK_SCALE
 	var safe_left := _safe_rect.position.x + EDGE_GAP
 	var safe_top := _safe_rect.position.y + EDGE_GAP
 	var safe_right := _safe_rect.end.x - EDGE_GAP
 	var safe_bottom := _safe_rect.end.y - EDGE_GAP
-	var skill_row_width := SKILL_SIZE.x * 3.0 + SKILL_GAP * 2.0
+	var skill_row_width := SKILL_SIZE.x
 	var skill_row_x := safe_right - skill_row_width
-	var skill_row_y := safe_bottom - SKILL_SIZE.y
+	var skill_row_y := safe_bottom - SKILL_SIZE.y * 3.0 - SKILL_GAP * 2.0
 	var joystick_position := Vector2(safe_left, safe_bottom - joystick_size.y)
 
 	_set_control_rect(_joystick, joystick_position, joystick_size)
 	_set_control_rect(_bandage_button, Vector2(minf(joystick_position.x + joystick_size.x + SKILL_GAP, safe_right - 64.0), safe_bottom - 64.0), Vector2(64.0, 64.0))
 	_set_control_rect(_interact_button, Vector2(safe_right - 224.0, skill_row_y - 12.0 - 48.0), Vector2(224.0, 48.0))
 	var skill_index := 0
-	for skill_id in ["war_combo", "war_circle", "war_quake"]:
+	for skill_id in _skill_buttons:
 		var skill_button: Control = _skill_buttons[skill_id]
-		_set_control_rect(skill_button, Vector2(skill_row_x + skill_index * (SKILL_SIZE.x + SKILL_GAP), skill_row_y), SKILL_SIZE)
+		_set_control_rect(skill_button, Vector2(skill_row_x, skill_row_y + skill_index * (SKILL_SIZE.y + SKILL_GAP)), SKILL_SIZE)
 		skill_index += 1
 
 	_set_control_rect(_portrait.get_parent() as Control, Vector2(safe_left - EDGE_GAP + 12.0, safe_top - EDGE_GAP + 12.0), Vector2(88.0, 102.0))
@@ -1222,12 +1288,15 @@ func _layout_edge_controls() -> void:
 	_set_control_rect(_mp_bar, Vector2(safe_left - EDGE_GAP + 100.0, safe_top - EDGE_GAP + 66.0), Vector2(238.0, 28.0))
 	_set_control_rect(_xp_bar, Vector2(safe_left - EDGE_GAP + 100.0, safe_top - EDGE_GAP + 94.0), Vector2(238.0, 28.0))
 	for index in _nav_buttons.size():
-		_set_control_rect(_nav_buttons[index], Vector2(safe_left - EDGE_GAP + 12.0 + index * 58.0, safe_top - EDGE_GAP + 130.0), Vector2(52.0, 52.0))
+		var point := Vector2(safe_left - EDGE_GAP + 12.0 + index * 58.0, safe_top - EDGE_GAP + 130.0)
+		if index >= 5:
+			point = Vector2(safe_right - 116.0 + (index - 5) * 60.0, safe_top + 164.0)
+		_set_control_rect(_nav_buttons[index], point, Vector2(52.0, 52.0))
 	_set_control_rect(_status, Vector2(safe_left - EDGE_GAP + 16.0, safe_top - EDGE_GAP + 194.0), Vector2(330.0, 64.0))
-	_set_control_rect(_minimap, Vector2(safe_right - 156.0, safe_top), Vector2(156.0, 146.0))
-	_set_control_rect(_target_portrait.get_parent() as Control, Vector2(safe_right - 224.0, safe_top + 166.0), Vector2(64.0, 72.0))
-	_set_control_rect(_target_label, Vector2(safe_right - 160.0, safe_top + 170.0), Vector2(148.0, 44.0))
-	_set_control_rect(_target_bar, Vector2(safe_right - 220.0, safe_top + 236.0), Vector2(208.0, 28.0))
+	_set_control_rect(_minimap, Vector2(safe_right - 156.0, safe_top), Vector2(156.0, 156.0))
+	_set_control_rect(_target_portrait.get_parent() as Control, Vector2(safe_right - 224.0, safe_top + 230.0), Vector2(64.0, 72.0))
+	_set_control_rect(_target_label, Vector2(safe_right - 160.0, safe_top + 234.0), Vector2(148.0, 44.0))
+	_set_control_rect(_target_bar, Vector2(safe_right - 220.0, safe_top + 300.0), Vector2(208.0, 28.0))
 
 
 func _set_control_rect(control: Control, point: Vector2, dimensions: Vector2) -> void:

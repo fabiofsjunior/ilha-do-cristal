@@ -68,7 +68,7 @@ func select_vocation(id: String) -> void:
 	for child in _skills.get_children():
 		_skills.remove_child(child)
 		child.queue_free()
-	_note.text = "Habilidades do Guerreiro disponíveis na ilha." if id == "warrior" else "Prévia do catálogo. Esta vocação ainda não pode ser jogada."
+	_note.text = "Três vocações jogáveis. Esta tela consulta habilidades; a vocação é escolhida antes de entrar na ilha."
 	for skill in RULES.catalog().get("skills", []):
 		if str(skill.get("vocation", "")) != id: continue
 		var panel := PanelContainer.new()

@@ -15,12 +15,12 @@ func _run() -> void:
 	root.add_child(game)
 	await process_frame
 	var hud = game.get_node("HUD")
-	_check(hud._nav_buttons.size() == 6, "Attributes button was not added to the HUD navigation row.")
+	_check(hud._nav_buttons.size() == 7, "Attributes button was not added to the HUD navigation row.")
 	if failures > 0:
 		quit(failures)
 		return
 	var attributes_button: Button = hud._nav_buttons[2]
-	_check(attributes_button.text == "ATR" and attributes_button.tooltip_text == "Atributos", "Attributes button label or tooltip is missing.")
+	_check(attributes_button.icon != null and attributes_button.tooltip_text == "Atributos", "Attributes button label or tooltip is missing.")
 	game._state.available_attribute_points = 2
 	attributes_button.emit_signal("pressed")
 	await process_frame
