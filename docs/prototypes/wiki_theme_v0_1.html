@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101819">
+  <meta name="description" content="Protótipo de revisão do tema claro e do controle de modo escuro para a wiki A Ilha do Cristal.">
+  <title>Protótipo de tema — Arquivo de Campo</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101819;
+      --surface: #182223;
+      --surface-2: #1e2a2b;
+      --surface-3: #243233;
+      --line: #334344;
+      --line-soft: rgba(197, 214, 195, .12);
+      --text: #e6e7d8;
+      --muted: #a0aea3;
+      --subtle: #829087;
+      --gold: #e7bd71;
+      --mint: #a8cbb1;
+      --notice: #2d2a20;
+      --notice-line: #665c3d;
+      --shadow: 0 12px 28px #00000012;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f4f2e9;
+      --surface: #fffdf6;
+      --surface-2: #f0eee2;
+      --surface-3: #e7e5d8;
+      --line: #d0d0c0;
+      --line-soft: rgba(56, 69, 58, .14);
+      --text: #202b27;
+      --muted: #52635a;
+      --subtle: #718078;
+      --gold: #9a6b23;
+      --mint: #38684a;
+      --notice: #f7f0d9;
+      --notice-line: #c6ad70;
+      --shadow: 0 12px 28px rgba(39, 49, 40, .08);
+    }
+    * { box-sizing: border-box; }
+    html { min-width: 320px; background: var(--bg); }
+    body { margin: 0; color: var(--text); background: var(--bg); min-height: 100vh; transition: background-color .18s ease, color .18s ease; }
+    button, input { font: inherit; }
+    a { color: var(--mint); text-underline-offset: 3px; }
+    .skip-link { position: fixed; z-index: 10; top: -5rem; left: 1rem; padding: .7rem 1rem; color: var(--text); background: var(--gold); border-radius: .5rem; }
+    .skip-link:focus { top: 1rem; }
+    .topbar { min-height: 68px; padding: 12px clamp(16px, 4vw, 32px); display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--line-soft); background: var(--surface); }
+    .brand { color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 12px; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; color: #202525; background: var(--gold); border-radius: 10px 4px 10px 4px; font-size: 21px; }
+    .brand strong { display: block; font-size: 11px; letter-spacing: .17em; }
+    .brand small { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; letter-spacing: .14em; }
+    .topbar-actions { display: flex; align-items: center; justify-content: end; gap: 16px; }
+    .topbar-meta { color: var(--muted); font: 11px var(--mono); display: flex; gap: 8px; align-items: center; }
+    .offline-dot { width: 7px; height: 7px; border-radius: 50%; background: #5f9a70; box-shadow: 0 0 10px #5f9a7066; }
+    .theme-toggle { min-height: 38px; display: inline-flex; align-items: center; gap: 8px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--text); cursor: pointer; font-size: 12px; }
+    .theme-toggle:hover { background: var(--surface-3); }
+    button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+    .theme-icon { color: var(--gold); font-size: 16px; }
+    .layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); min-height: calc(100vh - 68px); }
+    .rail { padding: 31px 16px 24px 24px; border-right: 1px solid var(--line-soft); background: var(--surface); display: flex; flex-direction: column; }
+    .rail-kicker, .eyebrow, .section-kicker { color: var(--subtle); font: 10px var(--mono); letter-spacing: .15em; }
+    .rail-kicker { padding: 0 12px 14px; }
+    .section-nav { display: grid; gap: 4px; }
+    .nav-item { border: 1px solid transparent; background: none; text-align: left; color: var(--muted); padding: 11px 12px; border-radius: 9px; display: flex; align-items: center; gap: 11px; cursor: pointer; font-size: 12px; }
+    .nav-item span { width: 22px; color: var(--subtle); font: 10px var(--mono); }
+    .nav-item:hover { color: var(--text); background: var(--surface-2); }
+    .nav-item.active { border-color: var(--line); color: var(--text); background: var(--surface-2); box-shadow: inset 2px 0 var(--gold); }
+    .nav-item.active span { color: var(--gold); }
+    .rail-note { margin: auto 8px 0; padding: 15px 12px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+    .note-icon { width: 18px; height: 18px; display: grid; place-items: center; border: 1px solid var(--mint); border-radius: 50%; color: var(--mint); font: 12px Georgia, serif; }
+    .rail-note p { margin: 10px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .content { min-width: 0; max-width: 1440px; width: 100%; margin: 0 auto; padding: 42px clamp(22px, 4.5vw, 68px) 32px; }
+    .prototype-label { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 24px; padding: 7px 10px; border: 1px solid var(--notice-line); border-radius: 7px; color: var(--text); background: var(--notice); font: 10px var(--mono); letter-spacing: .04em; }
+    .intro-row { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 24px; }
+    .eyebrow { margin: 0 0 12px; }
+    .eyebrow span { color: var(--gold); padding: 0 4px; }
+    h1 { margin: 0; font-size: clamp(28px, 3vw, 42px); line-height: 1.05; font-weight: 620; letter-spacing: -.045em; }
+    .intro-copy { margin: 12px 0 0; max-width: 680px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .search-box { width: min(360px, 38vw); min-width: 240px; height: 44px; display: flex; align-items: center; gap: 9px; padding: 0 13px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--muted); }
+    .search-box span { color: var(--gold); font-size: 22px; }
+    .search-box input { min-width: 0; width: 100%; border: 0; outline: 0; color: var(--text); background: transparent; font-size: 12px; }
+    .notice { border: 1px solid var(--notice-line); background: var(--notice); border-radius: 10px; padding: 12px 15px; margin: 0 0 20px; color: var(--text); font-size: 11px; line-height: 1.55; }
+    .stats-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 20px; }
+    .stat-card, .card { border: 1px solid var(--line); border-radius: 10px; padding: 15px; background: var(--surface); box-shadow: var(--shadow); }
+    .stat-label { color: var(--subtle); display: block; font: 9px var(--mono); text-transform: uppercase; letter-spacing: .1em; }
+    .stat-value { margin-top: 7px; font-size: 21px; font-weight: 620; color: var(--gold); }
+    .stat-sub { margin-top: 4px; color: var(--muted); font-size: 10px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 0 0 14px; }
+    .section-head h2 { margin: 0; font-size: 20px; font-weight: 590; }
+    .section-head p { color: var(--muted); margin: 6px 0 0; font-size: 12px; line-height: 1.55; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card h3 { margin: 0; font-size: 15px; }
+    .card p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .tag { display: inline-flex; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--mint); background: var(--surface-2); font: 9px var(--mono); }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 11px; }
+    th { color: var(--muted); background: var(--surface-2); font: 9px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+    th, td { padding: 11px 13px; border-bottom: 1px solid var(--line-soft); }
+    td { color: var(--muted); line-height: 1.5; }
+    td:first-child { color: var(--text); font-weight: 570; }
+    .page-foot { margin-top: 28px; border-top: 1px solid var(--line-soft); padding-top: 14px; display: flex; justify-content: space-between; color: var(--subtle); font: 10px var(--mono); }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 205px minmax(0, 1fr); }
+      .topbar-meta { display: none; }
+      .stats-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .intro-row { align-items: stretch; flex-direction: column; }
+      .search-box { width: 100%; }
+    }
+    @media (max-width: 620px) {
+      .topbar { align-items: flex-start; }
+      .topbar-actions { gap: 0; }
+      .theme-toggle { width: 40px; min-width: 40px; padding: 0; justify-content: center; }
+      .theme-toggle .toggle-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+      .layout { display: block; }
+      .rail { padding: 16px; border-right: 0; border-bottom: 1px solid var(--line-soft); }
+      .section-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav-item { padding: 9px 8px; font-size: 11px; }
+      .rail-note { margin: 16px 0 0; }
+      .content { padding: 26px 16px; }
+      .grid { grid-template-columns: 1fr; }
+      .page-foot { gap: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">Pular para o conteúdo</a>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Arquivo de Campo, página inicial">
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span><strong>ARQUIVO DE CAMPO</strong><small>A ILHA DO CRISTAL</small></span>
+    </a>
+    <div class="topbar-actions">
+      <span class="topbar-meta"><span class="offline-dot"></span> catálogo local · sem serviços externos</span>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="true">
+        <span class="theme-icon" aria-hidden="true">☼</span>
+        <span class="toggle-label">Desativar modo escuro</span>
+      </button>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="rail" aria-label="Seções do catálogo">
+      <div class="rail-kicker">CONSULTA DO PROJETO</div>
+      <nav class="section-nav" aria-label="Seções do catálogo">
+        <button class="nav-item active" type="button"><span>01</span>Personagens &amp; vocações</button>
+        <button class="nav-item" type="button"><span>02</span>Sprites &amp; atlas</button>
+        <button class="nav-item" type="button"><span>03</span>Atributos &amp; níveis</button>
+        <button class="nav-item" type="button"><span>04</span>Itens &amp; equipamento</button>
+        <button class="nav-item" type="button"><span>05</span>Habilidades &amp; combate</button>
+        <button class="nav-item" type="button"><span>06</span>Mundo &amp; criaturas</button>
+        <button class="nav-item" type="button"><span>07</span>Documentação</button>
+      </nav>
+      <div class="rail-note"><span class="note-icon" aria-hidden="true">i</span><p>Dados de planejamento aparecem identificados. O recorte jogável atual não implementa todo o conteúdo do MVP.</p></div>
+      <a href="#">Abrir README ↗</a>
+    </aside>
+    <main id="content" class="content" tabindex="-1">
+      <p class="prototype-label">PROTÓTIPO · PRÉVIA VISUAL PARA VALIDAÇÃO</p>
+      <section class="intro-row" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">WIKI DO REPOSITÓRIO <span>•</span> CONSULTA OFFLINE</p>
+          <h1 id="page-title">Personagens &amp; vocações</h1>
+          <p class="intro-copy">Referência rápida para conteúdo, arquivos e estado real dos dados de <em>A Ilha do Cristal</em>.</p>
+        </div>
+        <label class="search-box" for="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar conteúdo ou arquivo…" autocomplete="off"></label>
+      </section>
+      <div class="notice"><strong>Prévia:</strong> o botão alterna entre a paleta escura atual e a nova paleta clara. Esta tela usa conteúdo de exemplo e não altera dados do catálogo.</div>
+      <section class="stats-strip" aria-label="Resumo do catálogo">
+        <article class="stat-card"><span class="stat-label">Aparências</span><div class="stat-value">4</div><div class="stat-sub">identidades no catálogo</div></article>
+        <article class="stat-card"><span class="stat-label">Vocações</span><div class="stat-value">3</div><div class="stat-sub">Warrior · Archer · Mage</div></article>
+        <article class="stat-card"><span class="stat-label">Combinações</span><div class="stat-value">12</div><div class="stat-sub">aparência × vocação</div></article>
+        <article class="stat-card"><span class="stat-label">Equipamento</span><div class="stat-value">Livre</div><div class="stat-sub">não muda o visual</div></article>
+      </section>
+      <div class="section-head"><div><h2>Personagens</h2><p>Quatro aparências disponíveis para cada vocação.</p></div><span class="tag">dados de catálogo</span></div>
+      <section class="grid" aria-label="Prévia de personagens">
+        <article class="card"><h3>Melissa <span class="tag">aparência livre</span></h3><p>Escolha de vocação permanente por personagem. O equipamento não troca a aparência visual.</p></article>
+        <article class="card"><h3>Warrior</h3><p>HP/MP iniciais e multiplicadores apresentados conforme o catálogo versionado.</p></article>
+      </section>
+      <div class="section-head" style="margin-top: 24px"><div><h2>Exemplo de tabela</h2><p>O contraste de texto, cabeçalho e divisórias também muda com o tema.</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Vocação</th><th>HP / MP base</th><th>FOR / AGI / INT</th></tr></thead><tbody><tr><td>Warrior</td><td>alto / baixo</td><td>FOR · AGI · INT</td></tr><tr><td>Archer</td><td>médio / médio</td><td>AGI · FOR · INT</td></tr><tr><td>Mage</td><td>baixo / alto</td><td>INT · AGI · FOR</td></tr></tbody></table></div>
+      <footer class="page-foot"><span>Índice regenerável a partir do repositório</span><span>Tema claro e escuro</span></footer>
+    </main>
+  </div>
+  <script>
+    const root = document.documentElement;
+    const toggle = document.querySelector("#theme-toggle");
+    const label = toggle.querySelector(".toggle-label");
+    const icon = toggle.querySelector(".theme-icon");
+
+    function setTheme(theme) {
+      const dark = theme === "dark";
+      root.dataset.theme = theme;
+      root.style.colorScheme = theme;
+      toggle.setAttribute("aria-pressed", String(dark));
+      label.textContent = dark ? "Desativar modo escuro" : "Ativar modo escuro";
+      icon.textContent = dark ? "☼" : "☾";
+      document.querySelector('meta[name="theme-color"]').content = dark ? "#101819" : "#f4f2e9";
+    }
+
+    try {
+      const saved = localStorage.getItem("ilha-cristal-wiki-theme");
+      if (saved === "light" || saved === "dark") setTheme(saved);
+    } catch (_) {
+      // O protótipo continua funcionando em navegadores com armazenamento bloqueado.
+    }
+
+    toggle.addEventListener("click", () => {
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
+      setTheme(next);
+      try { localStorage.setItem("ilha-cristal-wiki-theme", next); } catch (_) { /* preferência apenas nesta página */ }
+    });
+  </script>
+</body>
+</html>
+

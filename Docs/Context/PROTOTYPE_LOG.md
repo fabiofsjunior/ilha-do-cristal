@@ -170,3 +170,12 @@ Na conversa o usuário confirmou “Prototipagem aprovada”, apontou divergênc
 - Referência: anexo `icone Ilha do Cristal.jpg`, arte quadrada com cristal azul, moldura e wordmark. O usuário pediu explicitamente que fosse usada como ícone do APK e logo antes de iniciar o jogo; essa seleção aprova a referência para este incremento sem redesenho da marca.
 - Aplicação: ícone principal com a arte integral, ícone adaptativo com a logo contida na área segura, símbolo monocromático de cristal derivado do centro da marca, splash nativa e cabeçalho da tela de verificação. O fluxo e a gameplay não mudam.
 - A comparação de produção é feita no Godot após a importação. Exportação/instalação e revisão em Android físico continuam pendentes.
+
+
+## Wiki — tema claro e controle de modo escuro v0.1 — 2026-10-18
+
+- **Objetivo:** revisar a paleta clara, o controle de ativar/desativar modo escuro e a legibilidade da wiki em ambas as aparências.
+- **Artefato:** [`docs/prototypes/wiki_theme_v0_1.html`](../../docs/prototypes/wiki_theme_v0_1.html).
+- **Simulado:** a wiki mantém o modo escuro atual como padrão; o botão alterna entre as paletas escura e clara, atualiza o rótulo acessível e grava a preferência localmente. O conteúdo é representativo, sem conexão ao catálogo.
+- **Estado do gate:** em validação; aguarda revisão explícita da aparência e do comportamento do controle.
+- **Próximo passo:** após aprovação, implementar no catálogo real e atualizar a documentação da wiki.
