@@ -153,3 +153,10 @@ O alvo selecionado deve usar uma elipse pixel art pequena, sem billboard, plana 
 - Seis regiões são nomeadas no catálogo como recomendações por espécie. Lagoa cristalina, ruínas de obsidiana e terras corrompidas são grupos conceituais sobre o terreno/props atuais; coordenadas e quantidade de spawns ficam para a atualização do mapa, conduzida em outra tarefa.
 - A autorização de integração do concept não aprova arte final nem substitui o ajuste de colisão, a revisão de escala/pivô/alpha no Godot, direções/animações e playtest de equilíbrio/loot.
 
+## Decisão — mapa irregular de 100.000 células no loop — 2026-10-18
+
+- O usuário aprovou o encaixe da amostra isométrica v0.2 e autorizou implementar o protótipo v0.3 dentro do jogo.
+- A primeira ilha usa grade lógica 400×250 = 100.000 células de 32 px. A camada visual agrupa 4×4 células em 6.300 tiles isométricos de 128×64; o layout e o bake continuam editáveis em JSON.
+- As superfícies e props são recortadas das pranchas candidatas originais e montadas em TileSets temporários. A correção aprovada usa cobertura 1.0 para encaixar a face 128×64.
+- A ilha e a lagoa têm limites físicos. O mapa e o minimapa exibem 30 alocações por zona, associadas aos 30 IDs do catálogo. O loop ativo cria atores com os prefabs de raposa, lobo e urso; os 27 demais não têm prefabs de combate próprios nesta mudança.
+- A cena real passou verificação headless de bake, movimento e colisão de costa/lagoa. Revisão visual com o conjunto completo de assets, rotas/rampas e desempenho Android seguem pendentes.

@@ -125,7 +125,7 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [x] HUD aprovada: equipamentos96×96, spells144×144, navegação exclusiva, engrenagem e inventário responsivo.
 - [x] Minimap circular projetado pela câmera e zoom compartilhado, com teste geométrico.
 - [x] Mapa fixo50mil tiles, três vocações locais/VFX e LAN de movimento reconstruídos e versionados.
-- [x] Mapa visual persistido em `game/scenes/first_island.tscn`: 50.000 bases, 645 transições e 15 overlays, com TileSet compartilhado e sem repintura no início.
+- [x] Mapa da primeira ilha integrado ao runtime em 400×250 células lógicas (100.000), com 6.300 tiles isométricos 4×4, terreno derivado do layout e tilesets candidatos montados das pranchas originais.
 - [x] Atlas tropical fornecido importado em 64 slices e camadas vazias para pintura manual (`ManualTerrain`/`ManualProps`); aprovação visual e teste no editor continuam pendentes.
 - [x] Corrigir o encaixe das células isométricas no chão XZ; o UV cobre a face 128×64 px e o quad recebe 10% de sobreposição para fechar frestas de transparência, mantendo os pés na célula lógica 4×4 SQMs. A validação foi estática; a execução visual no Godot 4.5.1 continua pendente.
 - [ ] Validar no Godot 4.5.1 edição, salvar/reabrir e renderização das camadas `BaseTiles`, `Transitions`, `Paths`, `ManualTerrain` e `ManualProps`; medir a cena com 50.000 células no Android.
@@ -134,20 +134,20 @@ A aprovação técnica desta correção não fecha os gates físicos de S0–S2.
 - [ ] Testar o mesmo APK em dois Androids reais; validar UI/toque/safe area, LAN e persistência.
 - [ ] Terrain Sets64×32/elevações e novas amostras de arte/atlas. Nenhum gate Android foi encerrado por testes headless.
 
-### Mapa global/ilha irregular — composição v0.3 aprovada; amostra de arte em validação
+### Mapa global/ilha irregular — implementado no loop; revisão visual pendente
 
 - [ ] Revisar o fluxo navegável em `docs/prototypes/global_map_island_v0_1.html`: toque no minimapa, mapa global, retorno sem pausar e zoom compartilhado.
-- [x] O usuário aprovou a composição, a escala de 400×250 = 100.000 células e a divisão 4/12/8/6 da prancha v0.3. A aprovação cobre o protótipo visual, não o mapa de runtime, as espécies ou a arte final.
-- [x] Preparar amostra técnica isolada 16×10 com tilesets reais e a câmera/render 2.5D do jogo; corrigir a face do atlas para o losango de 128×64 px e capturar no Godot 4.5.1. Cena: `tools/world/ilha_cristal_tilemap_review_v0_2.tscn`.
-- [ ] Obter aprovação explícita da amostra técnica v0.2 após a correção de encaixe. Só então ampliar a produção de arte e alterar cenas/dados de runtime.
-- [ ] Antes de expandir o runtime para 100.000 células, validar colisão, rampas, culling e desempenho; produção atual segue em 250×200 = 50.000 células.
-- [ ] Revisar o fluxo global navegável v0.1. A divisão de habitats continua sem ID de espécie e sem coordenadas finais de spawn.
-
+- [x] O usuário aprovou a composição 400×250 = 100.000 células, a divisão 4/12/8/6 e o encaixe da amostra técnica v0.2, autorizando a implementação.
+- [x] Integrar o mapa à cena principal: 6.300 tiles isométricos, contorno de ilha e lagoa com colisões, 30 pontos coloridos no minimapa/cenário e 30 espécies associadas às zonas.
+- [x] Verificar a cena real em execução headless: mapa 100.000 células, 30 marcadores, 30 atores ativos dos prefabs existentes, movimento no loop de física e colisão nas bordas da costa e da lagoa.
+- [ ] Revisar visualmente o mapa dentro do jogo com a cópia completa dos assets; conferir encaixe, legibilidade dos pontos/legenda, câmera, zoom e interação.
+- [ ] Medir culling e desempenho do mapa completo no Android; validar rotas/rampas antes da validação de dispositivo.
+- [ ] Revisar o fluxo global navegável v0.1. A abertura de mapa global e o zoom compartilhado continuam fora da implementação desta atualização.
 ### Bestiário estático de 30 espécies — 2026-10-18
 
 - [x] Catálogo com 30 fichas, valores provisórios, nomes, regiões lógicas e caminhos de sprites.
 - [x] Cortar as 30 células da prancha em PNG RGBA individuais de 229×229; adicionar metadata estática SE, pivô, escala e footprint alpha.
-- [ ] Encaminhar as recomendações regionais das 30 espécies para a atualização do mapa; coordenadas e quantidade de spawns serão definidas no layout em tarefa própria.
+- [x] Associar os 30 IDs do bestiário a 30 pontos de habitat em `game/data/first_island_layout.json`; os spawns de combate ativo continuam usando os prefabs disponíveis de raposa, lobo e urso.
 - [x] Usar cena base como fallback para as espécies novas; IA segue o comportamento de cada ficha; Corça de Musgo só foge.
 - [x] Atualizar protótipo navegável, tabela de conteúdo e wiki offline.
 - [ ] Importar e abrir no Godot 4.5.1; conferir escala, pivôs, alpha e combate com pelo menos uma espécie pequena, média e grande. Esta checagem no editor é necessária antes de considerar a arte aprovada.

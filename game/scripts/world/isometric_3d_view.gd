@@ -48,6 +48,7 @@ func configure(world: Node) -> void:
 	_build_lighting()
 	_build_ground()
 	_build_props()
+	_build_allocation_markers()
 	camera.current = true
 	camera.global_position = _camera_position(_bounded_focus(_player_focus()))
 	_sync_actors()
@@ -309,20 +310,23 @@ func _terrain_material(atlas_texture: Texture2D, has_transparency: bool) -> Stan
 
 
 func _build_props() -> void:
-	for obstacle in game._layout.get("obstacles", []):
-		var cell: Array = obstacle.get("cell", [0,0])
-		var kind := str(obstacle.get("kind", "tree"))
-		var id := "%s_%d_%d" % [kind, int(cell[0]), int(cell[1])]
-		if game._state.harvested_nodes.has(id):
-			continue
-		var texture_path := "palm_generated" if kind == "tree" and int(cell[0]) < 35 else ("tree" if kind == "tree" else "boulder")
-		var pivot := Vector2(69,126) if texture_path == "palm_generated" else (Vector2(52,109) if texture_path == "tree" else Vector2(32,40))
-		var node := _make_sprite(load("res://assets/environments/tropical_oblique_candidate/%s.png" % texture_path), id)
-		var foot := Vector2((float(cell[0]) + 0.5)*32.0, (float(cell[1]) + 0.5)*32.0)
-		_place_sprite(node, foot, int(pivot.y))
+	var use_island_candidate := str(game._layout.get("map_art_profile", "")) == "ilha_cristal_isometric_candidate_v1"
+	if not use_island_candidate:
+		for obstacle in game._layout.get("obstacles", []):
+			var cell: Array = obstacle.get("cell", [0,0])
+			var kind := str(obstacle.get("kind", "tree"))
+			var id := "%s_%d_%d" % [kind, int(cell[0]), int(cell[1])]
+			if game._state.harvested_nodes.has(id):
+				continue
+			var texture_path := "palm_generated" if kind == "tree" and int(cell[0]) < 35 else ("tree" if kind == "tree" else "boulder")
+			var pivot := Vector2(69,126) if texture_path == "palm_generated" else (Vector2(52,109) if texture_path == "tree" else Vector2(32,40))
+			var node := _make_sprite(load("res://assets/environments/tropical_oblique_candidate/%s.png" % texture_path), id)
+			var foot := Vector2((float(cell[0]) + 0.5)*32.0, (float(cell[1]) + 0.5)*32.0)
+			_place_sprite(node, foot, int(pivot.y))
 	var beacon_cell: Array = game._layout.get("beacon_cell", [21,23])
-	var crystal := _make_sprite(load("res://assets/environments/tropical_oblique_candidate/crystal.png"), "CrystalBeacon")
-	_place_sprite(crystal, Vector2((float(beacon_cell[0])+0.5)*32.0,(float(beacon_cell[1])+0.5)*32.0), 84)
+	if not use_island_candidate:
+		var crystal := _make_sprite(load("res://assets/environments/tropical_oblique_candidate/crystal.png"), "CrystalBeacon")
+		_place_sprite(crystal, Vector2((float(beacon_cell[0])+0.5)*32.0,(float(beacon_cell[1])+0.5)*32.0), 84)
 	crystal_light = OmniLight3D.new()
 	crystal_light.name = "CrystalGlow"
 	crystal_light.light_color = Color("64dfff")
@@ -331,6 +335,45 @@ func _build_props() -> void:
 	crystal_light.shadow_enabled = false
 	crystal_light.position = Vector3((float(beacon_cell[0])+0.5), 1.1, (float(beacon_cell[1])+0.5))
 	add_child(crystal_light)
+
+
+func _build_allocation_markers() -> void:
+	var allocations: Array = game._layout.get("monster_allocations", [])
+	for index in range(allocations.size()):
+		var allocation: Dictionary = allocations[index]
+		var cell: Array = allocation.get("cell", [])
+		if cell.size() < 2:
+			continue
+		var marker := MeshInstance3D.new()
+		marker.name = "MonsterAllocation_%02d" % (index + 1)
+		var mesh := SphereMesh.new()
+		mesh.radius = 0.13
+		mesh.height = 0.14
+		mesh.radial_segments = 8
+		mesh.rings = 4
+		marker.mesh = mesh
+		var material := StandardMaterial3D.new()
+		material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		material.albedo_color = _allocation_color(str(allocation.get("zone", "")))
+		material.emission_enabled = true
+		material.emission = material.albedo_color
+		material.emission_energy_multiplier = 0.35
+		marker.material_override = material
+		marker.position = Vector3(float(cell[0]) + 0.5, 0.18, float(cell[1]) + 0.5)
+		add_child(marker)
+
+
+func _allocation_color(zone: String) -> Color:
+	match zone:
+		"coast":
+			return Color("35ddf3")
+		"forest":
+			return Color("98df58")
+		"plateau":
+			return Color("ffc75e")
+		"corruption":
+			return Color("c986ff")
+	return Color("fff2d1")
 
 func _make_sprite(texture: Texture2D, key: String) -> Sprite3D:
 	var sprite := Sprite3D.new()

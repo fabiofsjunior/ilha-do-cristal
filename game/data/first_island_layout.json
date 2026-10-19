@@ -1,193 +1,2657 @@
 {
-  "schema_version": 1,
-  "id": "beach_spawn_playable_slice",
-  "grid_size": [250,200],
-  "tile_px_candidate": [32,32],
-  "seed": 20261015,
-  "surface_bands": [
-    {"from_x": 0,"to_x": 3,"group": "water_deep"},
-    {"from_x": 3,"to_x": 8,"group": "water_shallow"},
-    {"from_x": 8,"to_x": 20,"group": "sand"},
-    {"from_x": 20,"to_x": 50,"group": "grass"},
-    {"from_x": 50,"to_x": 250,"group": "soil"}
+  "schema_version": 2,
+  "id": "ilha_cristal_world_100k",
+  "grid_size": [
+    400,
+    250
   ],
-  "surface_areas": [
-    {"from_x": 35,"to_x": 47,"from_y": 7,"to_y": 37,"group": "forest"},
-    {"from_x": 72,"to_x": 96,"from_y": 14,"to_y": 50,"group": "forest"},
-    {"from_x": 105,"to_x": 129,"from_y": 77,"to_y": 116,"group": "forest"},
-    {"from_x": 145,"to_x": 169,"from_y": 22,"to_y": 52,"group": "forest"},
-    {"from_x": 158,"to_x": 183,"from_y": 82,"to_y": 119,"group": "forest"},
-    {"from_x": 195,"to_x": 224,"from_y": 36,"to_y": 74,"group": "forest"},
-    {"from_x": 148,"to_x": 190,"from_y": 143,"to_y": 181,"group": "forest"},
-    {"from_x": 74,"to_x": 110,"from_y": 157,"to_y": 192,"group": "forest"}
+  "tile_px_candidate": [
+    128,
+    128
   ],
-  "transition_bands": [
-    {"prefix": "shore_sand_water","edge": "w","x": 7},
-    {"prefix": "beach_grass","edge": "w","x": 19},
-    {"prefix": "grass_soil","edge": "e","x": 49}
+  "tile_cells_per_sqm": 4,
+  "seed": 20261018,
+  "map_art_profile": "ilha_cristal_isometric_candidate_v1",
+  "island_outline": [
+    [
+      26,
+      146
+    ],
+    [
+      31,
+      122
+    ],
+    [
+      45,
+      99
+    ],
+    [
+      64,
+      80
+    ],
+    [
+      91,
+      63
+    ],
+    [
+      120,
+      46
+    ],
+    [
+      151,
+      34
+    ],
+    [
+      174,
+      28
+    ],
+    [
+      193,
+      11
+    ],
+    [
+      211,
+      3
+    ],
+    [
+      229,
+      16
+    ],
+    [
+      248,
+      22
+    ],
+    [
+      269,
+      18
+    ],
+    [
+      293,
+      28
+    ],
+    [
+      319,
+      37
+    ],
+    [
+      343,
+      53
+    ],
+    [
+      363,
+      73
+    ],
+    [
+      379,
+      96
+    ],
+    [
+      389,
+      122
+    ],
+    [
+      386,
+      145
+    ],
+    [
+      377,
+      169
+    ],
+    [
+      362,
+      190
+    ],
+    [
+      342,
+      207
+    ],
+    [
+      316,
+      218
+    ],
+    [
+      290,
+      228
+    ],
+    [
+      262,
+      239
+    ],
+    [
+      235,
+      244
+    ],
+    [
+      208,
+      242
+    ],
+    [
+      180,
+      237
+    ],
+    [
+      153,
+      242
+    ],
+    [
+      127,
+      234
+    ],
+    [
+      102,
+      225
+    ],
+    [
+      78,
+      212
+    ],
+    [
+      57,
+      195
+    ],
+    [
+      41,
+      176
+    ],
+    [
+      29,
+      160
+    ]
   ],
-  "transition_patches": [
-    {"prefix": "shore_sand_water","center": [5,22],"inner_base": "sand_01"},
-    {"prefix": "beach_grass","center": [15,25],"inner_base": "grass_01"},
-    {"prefix": "grass_soil","center": [56,22],"inner_base": "grass_01"},
-    {"prefix": "grass_soil","center": [57,67],"inner_base": "grass_02"},
-    {"prefix": "grass_soil","center": [56,108],"inner_base": "grass_03"}
+  "water_polygons": [
+    [
+      [
+        172,
+        113
+      ],
+      [
+        188,
+        102
+      ],
+      [
+        209,
+        105
+      ],
+      [
+        224,
+        118
+      ],
+      [
+        228,
+        135
+      ],
+      [
+        214,
+        149
+      ],
+      [
+        192,
+        152
+      ],
+      [
+        176,
+        140
+      ]
+    ]
   ],
-  "path_network": [
-    {"id": "path_overlay_dead_s","cell": [33,14]},
-    {"id": "path_overlay_turn_es","cell": [31,15]},
-    {"id": "path_overlay_h","cell": [32,15]},
-    {"id": "path_overlay_cross","cell": [33,15]},
-    {"id": "path_overlay_tee_s","cell": [34,15]},
-    {"id": "path_overlay_turn_sw","cell": [35,15]},
-    {"id": "path_overlay_dead_e","cell": [30,16]},
-    {"id": "path_overlay_tee_w","cell": [31,16]},
-    {"id": "path_overlay_turn_ne","cell": [33,16]},
-    {"id": "path_overlay_tee_n","cell": [34,16]},
-    {"id": "path_overlay_turn_wn","cell": [35,16]},
-    {"id": "path_overlay_tee_e","cell": [31,17]},
-    {"id": "path_overlay_dead_w","cell": [32,17]},
-    {"id": "path_overlay_v","cell": [31,18]},
-    {"id": "path_overlay_dead_n","cell": [31,19]}
+  "terrain_zones": [
+    {
+      "id": "corruption",
+      "group": "corruption",
+      "polygons": [
+        [
+          [
+            299,
+            45
+          ],
+          [
+            333,
+            48
+          ],
+          [
+            358,
+            70
+          ],
+          [
+            375,
+            96
+          ],
+          [
+            378,
+            121
+          ],
+          [
+            361,
+            140
+          ],
+          [
+            336,
+            136
+          ],
+          [
+            312,
+            120
+          ],
+          [
+            297,
+            91
+          ]
+        ],
+        [
+          [
+            291,
+            157
+          ],
+          [
+            316,
+            146
+          ],
+          [
+            346,
+            151
+          ],
+          [
+            361,
+            169
+          ],
+          [
+            342,
+            193
+          ],
+          [
+            316,
+            207
+          ],
+          [
+            286,
+            206
+          ],
+          [
+            275,
+            185
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "mountain_plateau",
+      "group": "plateau",
+      "polygons": [
+        [
+          [
+            153,
+            30
+          ],
+          [
+            180,
+            18
+          ],
+          [
+            211,
+            9
+          ],
+          [
+            234,
+            28
+          ],
+          [
+            252,
+            38
+          ],
+          [
+            248,
+            59
+          ],
+          [
+            228,
+            74
+          ],
+          [
+            196,
+            76
+          ],
+          [
+            169,
+            65
+          ]
+        ],
+        [
+          [
+            193,
+            126
+          ],
+          [
+            225,
+            107
+          ],
+          [
+            253,
+            106
+          ],
+          [
+            281,
+            120
+          ],
+          [
+            302,
+            137
+          ],
+          [
+            294,
+            159
+          ],
+          [
+            274,
+            173
+          ],
+          [
+            247,
+            181
+          ],
+          [
+            218,
+            169
+          ],
+          [
+            198,
+            150
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "green_forest",
+      "group": "forest",
+      "polygons": [
+        [
+          [
+            46,
+            107
+          ],
+          [
+            65,
+            84
+          ],
+          [
+            91,
+            72
+          ],
+          [
+            118,
+            70
+          ],
+          [
+            139,
+            80
+          ],
+          [
+            153,
+            100
+          ],
+          [
+            145,
+            126
+          ],
+          [
+            119,
+            141
+          ],
+          [
+            84,
+            141
+          ],
+          [
+            58,
+            128
+          ]
+        ],
+        [
+          [
+            77,
+            151
+          ],
+          [
+            104,
+            141
+          ],
+          [
+            138,
+            148
+          ],
+          [
+            157,
+            165
+          ],
+          [
+            148,
+            191
+          ],
+          [
+            119,
+            206
+          ],
+          [
+            91,
+            197
+          ],
+          [
+            73,
+            177
+          ]
+        ],
+        [
+          [
+            144,
+            110
+          ],
+          [
+            167,
+            94
+          ],
+          [
+            181,
+            105
+          ],
+          [
+            176,
+            129
+          ],
+          [
+            152,
+            139
+          ]
+        ]
+      ]
+    }
   ],
-  "spawn_cell": [16,23],
-  "beacon_cell": [21,23],
+  "spawn_cell": [
+    42,
+    146
+  ],
+  "beacon_cell": [
+    202,
+    162
+  ],
+  "path_tiles": [
+    [
+      11,
+      40
+    ],
+    [
+      12,
+      40
+    ],
+    [
+      13,
+      40
+    ],
+    [
+      14,
+      41
+    ],
+    [
+      15,
+      41
+    ],
+    [
+      16,
+      41
+    ],
+    [
+      17,
+      40
+    ],
+    [
+      18,
+      40
+    ],
+    [
+      19,
+      39
+    ],
+    [
+      20,
+      39
+    ],
+    [
+      21,
+      38
+    ],
+    [
+      22,
+      38
+    ],
+    [
+      23,
+      37
+    ],
+    [
+      24,
+      36
+    ],
+    [
+      25,
+      36
+    ],
+    [
+      26,
+      36
+    ],
+    [
+      27,
+      36
+    ],
+    [
+      28,
+      36
+    ],
+    [
+      29,
+      36
+    ],
+    [
+      30,
+      35
+    ],
+    [
+      31,
+      35
+    ],
+    [
+      32,
+      34
+    ],
+    [
+      33,
+      34
+    ],
+    [
+      34,
+      34
+    ],
+    [
+      35,
+      33
+    ],
+    [
+      36,
+      33
+    ],
+    [
+      37,
+      33
+    ],
+    [
+      38,
+      33
+    ],
+    [
+      39,
+      33
+    ],
+    [
+      40,
+      33
+    ],
+    [
+      41,
+      33
+    ],
+    [
+      42,
+      33
+    ],
+    [
+      43,
+      33
+    ],
+    [
+      48,
+      38
+    ],
+    [
+      49,
+      39
+    ]
+  ],
+  "prop_placements": [
+    {
+      "tile": [
+        47,
+        4
+      ],
+      "atlas_index": 11
+    },
+    {
+      "tile": [
+        49,
+        4
+      ],
+      "atlas_index": 0
+    },
+    {
+      "tile": [
+        51,
+        4
+      ],
+      "atlas_index": 0
+    },
+    {
+      "tile": [
+        53,
+        4
+      ],
+      "atlas_index": 1
+    },
+    {
+      "tile": [
+        55,
+        4
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        57,
+        4
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        47,
+        6
+      ],
+      "atlas_index": 1
+    },
+    {
+      "tile": [
+        49,
+        6
+      ],
+      "atlas_index": 0
+    },
+    {
+      "tile": [
+        51,
+        6
+      ],
+      "atlas_index": 11
+    },
+    {
+      "tile": [
+        53,
+        6
+      ],
+      "atlas_index": 1
+    },
+    {
+      "tile": [
+        51,
+        8
+      ],
+      "atlas_index": 0
+    },
+    {
+      "tile": [
+        55,
+        16
+      ],
+      "atlas_index": 0
+    },
+    {
+      "tile": [
+        55,
+        18
+      ],
+      "atlas_index": 11
+    },
+    {
+      "tile": [
+        57,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        59,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        61,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        63,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        65,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        67,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        69,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        71,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        73,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        75,
+        18
+      ],
+      "atlas_index": 12
+    },
+    {
+      "tile": [
+        89,
+        18
+      ],
+      "atlas_index": 12
+    },
+    {
+      "tile": [
+        15,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        17,
+        20
+      ],
+      "atlas_index": 0
+    },
+    {
+      "tile": [
+        53,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        55,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        57,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        59,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        61,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        63,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        65,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        67,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        69,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        71,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        73,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        75,
+        20
+      ],
+      "atlas_index": 12
+    },
+    {
+      "tile": [
+        77,
+        20
+      ],
+      "atlas_index": 12
+    },
+    {
+      "tile": [
+        79,
+        20
+      ],
+      "atlas_index": 12
+    },
+    {
+      "tile": [
+        89,
+        20
+      ],
+      "atlas_index": 11
+    },
+    {
+      "tile": [
+        91,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        13,
+        22
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        15,
+        22
+      ],
+      "atlas_index": 0
+    },
+    {
+      "tile": [
+        17,
+        22
+      ],
+      "atlas_index": 0
+    },
+    {
+      "tile": [
+        19,
+        22
+      ],
+      "atlas_index": 1
+    },
+    {
+      "tile": [
+        21,
+        22
+      ],
+      "atlas_index": 0
+    },
+    {
+      "tile": [
+        27,
+        22
+      ],
+      "atlas_index": 0
+    },
+    {
+      "tile": [
+        39,
+        22
+      ],
+      "atlas_index": 7
+    },
+    {
+      "tile": [
+        13,
+        45
+      ],
+      "atlas_index": 8
+    },
+    {
+      "tile": [
+        50,
+        39
+      ],
+      "atlas_index": 9
+    },
+    {
+      "tile": [
+        57,
+        23
+      ],
+      "atlas_index": 10
+    },
+    {
+      "tile": [
+        61,
+        28
+      ],
+      "atlas_index": 11
+    },
+    {
+      "tile": [
+        81,
+        17
+      ],
+      "atlas_index": 13
+    },
+    {
+      "tile": [
+        86,
+        24
+      ],
+      "atlas_index": 14
+    },
+    {
+      "tile": [
+        89,
+        31
+      ],
+      "atlas_index": 12
+    },
+    {
+      "tile": [
+        48,
+        41
+      ],
+      "atlas_index": 9
+    }
+  ],
+  "monster_allocations": [
+    {
+      "id": "coast_01",
+      "zone": "coast",
+      "cell": [
+        38,
+        158
+      ],
+      "species_ids": [
+        "fox",
+        "tidal_fox",
+        "crystal_crab"
+      ]
+    },
+    {
+      "id": "coast_02",
+      "zone": "coast",
+      "cell": [
+        50,
+        182
+      ],
+      "species_ids": [
+        "salt_wolf",
+        "coral_turtle",
+        "reef_lizard"
+      ]
+    },
+    {
+      "id": "coast_03",
+      "zone": "coast",
+      "cell": [
+        78,
+        190
+      ],
+      "species_ids": [
+        "lumen_heron",
+        "lagoon_crocodile",
+        "lumen_frog"
+      ]
+    },
+    {
+      "id": "coast_04",
+      "zone": "coast",
+      "cell": [
+        50,
+        138
+      ],
+      "species_ids": [
+        "crystal_slime",
+        "lumen_eel",
+        "turquoise_otter"
+      ]
+    },
+    {
+      "id": "forest_01",
+      "zone": "forest",
+      "cell": [
+        86,
+        110
+      ],
+      "species_ids": [
+        "wolf"
+      ]
+    },
+    {
+      "id": "forest_02",
+      "zone": "forest",
+      "cell": [
+        98,
+        102
+      ],
+      "species_ids": [
+        "root_boar"
+      ]
+    },
+    {
+      "id": "forest_03",
+      "zone": "forest",
+      "cell": [
+        110,
+        118
+      ],
+      "species_ids": [
+        "moss_deer"
+      ]
+    },
+    {
+      "id": "forest_04",
+      "zone": "forest",
+      "cell": [
+        122,
+        130
+      ],
+      "species_ids": [
+        "canopy_monkey"
+      ]
+    },
+    {
+      "id": "forest_05",
+      "zone": "forest",
+      "cell": [
+        94,
+        146
+      ],
+      "species_ids": [
+        "fruit_bat"
+      ]
+    },
+    {
+      "id": "forest_06",
+      "zone": "forest",
+      "cell": [
+        106,
+        158
+      ],
+      "species_ids": [
+        "root_snake"
+      ]
+    },
+    {
+      "id": "forest_07",
+      "zone": "forest",
+      "cell": [
+        126,
+        174
+      ],
+      "species_ids": [
+        "prismatic_spider"
+      ]
+    },
+    {
+      "id": "forest_08",
+      "zone": "forest",
+      "cell": [
+        142,
+        190
+      ],
+      "species_ids": [
+        "wolf"
+      ]
+    },
+    {
+      "id": "forest_09",
+      "zone": "forest",
+      "cell": [
+        74,
+        122
+      ],
+      "species_ids": [
+        "root_boar"
+      ]
+    },
+    {
+      "id": "forest_10",
+      "zone": "forest",
+      "cell": [
+        82,
+        134
+      ],
+      "species_ids": [
+        "moss_deer"
+      ]
+    },
+    {
+      "id": "forest_11",
+      "zone": "forest",
+      "cell": [
+        130,
+        90
+      ],
+      "species_ids": [
+        "canopy_monkey"
+      ]
+    },
+    {
+      "id": "forest_12",
+      "zone": "forest",
+      "cell": [
+        150,
+        102
+      ],
+      "species_ids": [
+        "fruit_bat"
+      ]
+    },
+    {
+      "id": "plateau_01",
+      "zone": "plateau",
+      "cell": [
+        178,
+        54
+      ],
+      "species_ids": [
+        "bear"
+      ]
+    },
+    {
+      "id": "plateau_02",
+      "zone": "plateau",
+      "cell": [
+        194,
+        42
+      ],
+      "species_ids": [
+        "prismatic_bear"
+      ]
+    },
+    {
+      "id": "plateau_03",
+      "zone": "plateau",
+      "cell": [
+        214,
+        46
+      ],
+      "species_ids": [
+        "crystal_golem"
+      ]
+    },
+    {
+      "id": "plateau_04",
+      "zone": "plateau",
+      "cell": [
+        234,
+        58
+      ],
+      "species_ids": [
+        "bear"
+      ]
+    },
+    {
+      "id": "plateau_05",
+      "zone": "plateau",
+      "cell": [
+        230,
+        150
+      ],
+      "species_ids": [
+        "prismatic_bear"
+      ]
+    },
+    {
+      "id": "plateau_06",
+      "zone": "plateau",
+      "cell": [
+        254,
+        158
+      ],
+      "species_ids": [
+        "crystal_golem"
+      ]
+    },
+    {
+      "id": "plateau_07",
+      "zone": "plateau",
+      "cell": [
+        274,
+        146
+      ],
+      "species_ids": [
+        "bear"
+      ]
+    },
+    {
+      "id": "plateau_08",
+      "zone": "plateau",
+      "cell": [
+        278,
+        166
+      ],
+      "species_ids": [
+        "prismatic_bear"
+      ]
+    },
+    {
+      "id": "corruption_01",
+      "zone": "corruption",
+      "cell": [
+        314,
+        66
+      ],
+      "species_ids": [
+        "violet_vine"
+      ]
+    },
+    {
+      "id": "corruption_02",
+      "zone": "corruption",
+      "cell": [
+        338,
+        78
+      ],
+      "species_ids": [
+        "obsidian_sentinel"
+      ]
+    },
+    {
+      "id": "corruption_03",
+      "zone": "corruption",
+      "cell": [
+        358,
+        102
+      ],
+      "species_ids": [
+        "corrupted_wanderer",
+        "obsidian_beetle"
+      ]
+    },
+    {
+      "id": "corruption_04",
+      "zone": "corruption",
+      "cell": [
+        346,
+        122
+      ],
+      "species_ids": [
+        "basalt_gargoyle"
+      ]
+    },
+    {
+      "id": "corruption_05",
+      "zone": "corruption",
+      "cell": [
+        354,
+        158
+      ],
+      "species_ids": [
+        "spectral_wolf",
+        "violet_serpent"
+      ]
+    },
+    {
+      "id": "corruption_06",
+      "zone": "corruption",
+      "cell": [
+        322,
+        182
+      ],
+      "species_ids": [
+        "corrupted_treant"
+      ]
+    }
+  ],
   "creature_spawns": [
-    {"id": "fox_1","species": "fox","cell": [27,24]},
-    {"id": "wolf_1","species": "wolf","cell": [40,22]},
-    {"id": "bear_1","species": "bear","cell": [56,22]},
-    {"id": "wolf_2","species": "wolf","cell": [68,19]},
-    {"id": "fox_2","species": "fox","cell": [76,44]},
-    {"id": "wolf_3","species": "wolf","cell": [82,66]},
-    {"id": "wolf_4","species": "wolf","cell": [94,34]},
-    {"id": "wolf_5","species": "wolf","cell": [106,103]},
-    {"id": "wolf_6","species": "wolf","cell": [117,17]},
-    {"id": "wolf_7","species": "wolf","cell": [128,59]},
-    {"id": "wolf_8","species": "wolf","cell": [139,90]},
-    {"id": "bear_2","species": "bear","cell": [68,115]},
-    {"id": "wolf_9","species": "wolf","cell": [151,121]},
-    {"id": "wolf_10","species": "wolf","cell": [167,33]},
-    {"id": "wolf_11","species": "wolf","cell": [177,75]},
-    {"id": "bear_3","species": "bear","cell": [112,71]},
-    {"id": "bear_4","species": "bear","cell": [165,95]},
-    {"id": "wolf_12","species": "wolf","cell": [184,112]},
-    {"id": "wolf_13","species": "wolf","cell": [204,22]},
-    {"id": "wolf_14","species": "wolf","cell": [235,53]},
-    {"id": "wolf_15","species": "wolf","cell": [211,88]},
-    {"id": "wolf_16","species": "wolf","cell": [239,116]},
-    {"id": "wolf_17","species": "wolf","cell": [205,146]},
-    {"id": "wolf_18","species": "wolf","cell": [237,180]},
-    {"id": "wolf_19","species": "wolf","cell": [172,153]},
-    {"id": "wolf_20","species": "wolf","cell": [143,181]},
-    {"id": "wolf_21","species": "wolf","cell": [112,150]},
-    {"id": "wolf_22","species": "wolf","cell": [81,180]},
-    {"id": "wolf_23","species": "wolf","cell": [49,152]},
-    {"id": "wolf_24","species": "wolf","cell": [25,185]}
+    {
+      "id": "fox_coast_01",
+      "species": "fox",
+      "cell": [
+        38,
+        158
+      ],
+      "zone": "coast"
+    },
+    {
+      "id": "fox_coast_02",
+      "species": "fox",
+      "cell": [
+        50,
+        182
+      ],
+      "zone": "coast"
+    },
+    {
+      "id": "fox_coast_03",
+      "species": "fox",
+      "cell": [
+        78,
+        190
+      ],
+      "zone": "coast"
+    },
+    {
+      "id": "fox_coast_04",
+      "species": "fox",
+      "cell": [
+        50,
+        138
+      ],
+      "zone": "coast"
+    },
+    {
+      "id": "wolf_forest_01",
+      "species": "wolf",
+      "cell": [
+        86,
+        110
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "wolf_forest_02",
+      "species": "wolf",
+      "cell": [
+        98,
+        102
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "wolf_forest_03",
+      "species": "wolf",
+      "cell": [
+        110,
+        118
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "wolf_forest_04",
+      "species": "wolf",
+      "cell": [
+        122,
+        130
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "wolf_forest_05",
+      "species": "wolf",
+      "cell": [
+        94,
+        146
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "wolf_forest_06",
+      "species": "wolf",
+      "cell": [
+        106,
+        158
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "wolf_forest_07",
+      "species": "wolf",
+      "cell": [
+        126,
+        174
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "wolf_forest_08",
+      "species": "wolf",
+      "cell": [
+        142,
+        190
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "wolf_forest_09",
+      "species": "wolf",
+      "cell": [
+        74,
+        122
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "wolf_forest_10",
+      "species": "wolf",
+      "cell": [
+        82,
+        134
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "wolf_forest_11",
+      "species": "wolf",
+      "cell": [
+        130,
+        90
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "wolf_forest_12",
+      "species": "wolf",
+      "cell": [
+        150,
+        102
+      ],
+      "zone": "forest"
+    },
+    {
+      "id": "bear_plateau_01",
+      "species": "bear",
+      "cell": [
+        178,
+        54
+      ],
+      "zone": "plateau"
+    },
+    {
+      "id": "bear_plateau_02",
+      "species": "bear",
+      "cell": [
+        194,
+        42
+      ],
+      "zone": "plateau"
+    },
+    {
+      "id": "bear_plateau_03",
+      "species": "bear",
+      "cell": [
+        214,
+        46
+      ],
+      "zone": "plateau"
+    },
+    {
+      "id": "bear_plateau_04",
+      "species": "bear",
+      "cell": [
+        234,
+        58
+      ],
+      "zone": "plateau"
+    },
+    {
+      "id": "bear_plateau_05",
+      "species": "bear",
+      "cell": [
+        230,
+        150
+      ],
+      "zone": "plateau"
+    },
+    {
+      "id": "bear_plateau_06",
+      "species": "bear",
+      "cell": [
+        254,
+        158
+      ],
+      "zone": "plateau"
+    },
+    {
+      "id": "bear_plateau_07",
+      "species": "bear",
+      "cell": [
+        274,
+        146
+      ],
+      "zone": "plateau"
+    },
+    {
+      "id": "bear_plateau_08",
+      "species": "bear",
+      "cell": [
+        278,
+        166
+      ],
+      "zone": "plateau"
+    },
+    {
+      "id": "wolf_corruption_01",
+      "species": "wolf",
+      "cell": [
+        314,
+        66
+      ],
+      "zone": "corruption"
+    },
+    {
+      "id": "bear_corruption_02",
+      "species": "bear",
+      "cell": [
+        338,
+        78
+      ],
+      "zone": "corruption"
+    },
+    {
+      "id": "wolf_corruption_03",
+      "species": "wolf",
+      "cell": [
+        358,
+        102
+      ],
+      "zone": "corruption"
+    },
+    {
+      "id": "bear_corruption_04",
+      "species": "bear",
+      "cell": [
+        346,
+        122
+      ],
+      "zone": "corruption"
+    },
+    {
+      "id": "wolf_corruption_05",
+      "species": "wolf",
+      "cell": [
+        354,
+        158
+      ],
+      "zone": "corruption"
+    },
+    {
+      "id": "bear_corruption_06",
+      "species": "bear",
+      "cell": [
+        322,
+        182
+      ],
+      "zone": "corruption"
+    }
   ],
   "harvest_nodes": [
-    {"id": "fiber_22_18","resource": "fiber","quantity": 5,"cell": [22,18]},
-    {"id": "fiber_29_27","resource": "fiber","quantity": 5,"cell": [29,27]},
-    {"id": "fiber_34_23","resource": "fiber","quantity": 5,"cell": [34,23]},
-    {"id": "fiber_39_31","resource": "fiber","quantity": 5,"cell": [39,31]},
-    {"id": "fiber_45_22","resource": "fiber","quantity": 5,"cell": [45,22]},
-    {"id": "fiber_48_34","resource": "fiber","quantity": 5,"cell": [48,34]},
-    {"id": "herb_20_20","resource": "herb","quantity": 1,"cell": [20,20]},
-    {"id": "herb_25_25","resource": "herb","quantity": 1,"cell": [25,25]},
-    {"id": "herb_35_21","resource": "herb","quantity": 1,"cell": [35,21]},
-    {"id": "herb_43_16","resource": "herb","quantity": 1,"cell": [43,16]},
-    {"id": "herb_49_30","resource": "herb","quantity": 1,"cell": [49,30]},
-    {"id": "herb_31_29","resource": "herb","quantity": 1,"cell": [31,29]},
-    {"id": "fiber_exp_01","resource": "fiber","quantity": 5,"cell": [63,29]},
-    {"id": "fiber_exp_02","resource": "fiber","quantity": 5,"cell": [76,81]},
-    {"id": "fiber_exp_03","resource": "fiber","quantity": 5,"cell": [85,24]},
-    {"id": "fiber_exp_04","resource": "fiber","quantity": 5,"cell": [94,58]},
-    {"id": "fiber_exp_05","resource": "fiber","quantity": 5,"cell": [101,89]},
-    {"id": "fiber_exp_06","resource": "fiber","quantity": 5,"cell": [110,36]},
-    {"id": "fiber_exp_07","resource": "fiber","quantity": 5,"cell": [116,92]},
-    {"id": "fiber_exp_08","resource": "fiber","quantity": 5,"cell": [126,18]},
-    {"id": "fiber_exp_09","resource": "fiber","quantity": 5,"cell": [135,67]},
-    {"id": "fiber_exp_10","resource": "fiber","quantity": 5,"cell": [144,105]},
-    {"id": "fiber_exp_11","resource": "fiber","quantity": 5,"cell": [152,47]},
-    {"id": "fiber_exp_12","resource": "fiber","quantity": 5,"cell": [160,24]},
-    {"id": "fiber_exp_13","resource": "fiber","quantity": 5,"cell": [170,89]},
-    {"id": "fiber_exp_14","resource": "fiber","quantity": 5,"cell": [178,47]},
-    {"id": "fiber_exp_15","resource": "fiber","quantity": 5,"cell": [183,82]},
-    {"id": "fiber_exp_16","resource": "fiber","quantity": 5,"cell": [95,119]},
-    {"id": "herb_exp_01","resource": "herb","quantity": 1,"cell": [71,61]},
-    {"id": "herb_exp_02","resource": "herb","quantity": 1,"cell": [83,101]},
-    {"id": "herb_exp_03","resource": "herb","quantity": 1,"cell": [91,47]},
-    {"id": "herb_exp_04","resource": "herb","quantity": 1,"cell": [99,29]},
-    {"id": "herb_exp_05","resource": "herb","quantity": 1,"cell": [108,81]},
-    {"id": "herb_exp_06","resource": "herb","quantity": 1,"cell": [119,48]},
-    {"id": "herb_exp_07","resource": "herb","quantity": 1,"cell": [130,101]},
-    {"id": "herb_exp_08","resource": "herb","quantity": 1,"cell": [141,40]},
-    {"id": "herb_exp_09","resource": "herb","quantity": 1,"cell": [150,111]},
-    {"id": "herb_exp_10","resource": "herb","quantity": 1,"cell": [160,69]},
-    {"id": "herb_exp_11","resource": "herb","quantity": 1,"cell": [175,17]},
-    {"id": "herb_exp_12","resource": "herb","quantity": 1,"cell": [181,119]},
-    {"id": "fiber_fixed_199_42","resource": "fiber","quantity": 5,"cell": [199,42]},
-    {"id": "fiber_fixed_222_106","resource": "fiber","quantity": 5,"cell": [222,106]},
-    {"id": "fiber_fixed_190_168","resource": "fiber","quantity": 5,"cell": [190,168]},
-    {"id": "fiber_fixed_122_172","resource": "fiber","quantity": 5,"cell": [122,172]},
-    {"id": "fiber_fixed_65_158","resource": "fiber","quantity": 5,"cell": [65,158]},
-    {"id": "fiber_fixed_34_175","resource": "fiber","quantity": 5,"cell": [34,175]}
+    {
+      "id": "fiber_island_01",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        154,
+        34
+      ]
+    },
+    {
+      "id": "fiber_island_02",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        166,
+        34
+      ]
+    },
+    {
+      "id": "fiber_island_03",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        178,
+        34
+      ]
+    },
+    {
+      "id": "fiber_island_04",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        226,
+        34
+      ]
+    },
+    {
+      "id": "fiber_island_05",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        238,
+        34
+      ]
+    },
+    {
+      "id": "fiber_island_06",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        250,
+        34
+      ]
+    },
+    {
+      "id": "fiber_island_07",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        262,
+        34
+      ]
+    },
+    {
+      "id": "fiber_island_08",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        274,
+        34
+      ]
+    },
+    {
+      "id": "fiber_island_09",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        286,
+        34
+      ]
+    },
+    {
+      "id": "fiber_island_10",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        298,
+        34
+      ]
+    },
+    {
+      "id": "fiber_island_11",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        310,
+        34
+      ]
+    },
+    {
+      "id": "fiber_island_12",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        130,
+        46
+      ]
+    },
+    {
+      "id": "fiber_island_13",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        142,
+        46
+      ]
+    },
+    {
+      "id": "fiber_island_14",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        154,
+        46
+      ]
+    },
+    {
+      "id": "fiber_island_15",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        166,
+        46
+      ]
+    },
+    {
+      "id": "fiber_island_16",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        250,
+        46
+      ]
+    },
+    {
+      "id": "fiber_island_17",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        262,
+        46
+      ]
+    },
+    {
+      "id": "fiber_island_18",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        274,
+        46
+      ]
+    },
+    {
+      "id": "fiber_island_19",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        286,
+        46
+      ]
+    },
+    {
+      "id": "fiber_island_20",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        298,
+        46
+      ]
+    },
+    {
+      "id": "fiber_island_21",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        310,
+        46
+      ]
+    },
+    {
+      "id": "fiber_island_22",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        322,
+        46
+      ]
+    },
+    {
+      "id": "fiber_island_23",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        106,
+        58
+      ]
+    },
+    {
+      "id": "fiber_island_24",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        118,
+        58
+      ]
+    },
+    {
+      "id": "fiber_island_25",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        130,
+        58
+      ]
+    },
+    {
+      "id": "fiber_island_26",
+      "resource": "fiber",
+      "quantity": 5,
+      "cell": [
+        142,
+        58
+      ]
+    },
+    {
+      "id": "herb_island_27",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        154,
+        58
+      ]
+    },
+    {
+      "id": "herb_island_28",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        202,
+        58
+      ]
+    },
+    {
+      "id": "herb_island_29",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        250,
+        58
+      ]
+    },
+    {
+      "id": "herb_island_30",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        262,
+        58
+      ]
+    },
+    {
+      "id": "herb_island_31",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        274,
+        58
+      ]
+    },
+    {
+      "id": "herb_island_32",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        286,
+        58
+      ]
+    },
+    {
+      "id": "herb_island_33",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        298,
+        58
+      ]
+    },
+    {
+      "id": "herb_island_34",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        334,
+        58
+      ]
+    },
+    {
+      "id": "herb_island_35",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        346,
+        58
+      ]
+    },
+    {
+      "id": "herb_island_36",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        82,
+        70
+      ]
+    },
+    {
+      "id": "herb_island_37",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        94,
+        70
+      ]
+    },
+    {
+      "id": "herb_island_38",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        106,
+        70
+      ]
+    },
+    {
+      "id": "herb_island_39",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        118,
+        70
+      ]
+    },
+    {
+      "id": "herb_island_40",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        130,
+        70
+      ]
+    },
+    {
+      "id": "herb_island_41",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        142,
+        70
+      ]
+    },
+    {
+      "id": "herb_island_42",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        154,
+        70
+      ]
+    },
+    {
+      "id": "herb_island_43",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        166,
+        70
+      ]
+    },
+    {
+      "id": "herb_island_44",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        178,
+        70
+      ]
+    },
+    {
+      "id": "herb_island_45",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        190,
+        70
+      ]
+    },
+    {
+      "id": "herb_island_46",
+      "resource": "herb",
+      "quantity": 1,
+      "cell": [
+        202,
+        70
+      ]
+    }
   ],
   "obstacles": [
-    {"kind": "tree","cell": [24,17]},
-    {"kind": "tree","cell": [27,21]},
-    {"kind": "tree","cell": [32,12]},
-    {"kind": "tree","cell": [38,19]},
-    {"kind": "tree","cell": [42,13]},
-    {"kind": "tree","cell": [44,27]},
-    {"kind": "tree","cell": [46,17]},
-    {"kind": "boulder","cell": [12,13]},
-    {"kind": "boulder","cell": [25,29]},
-    {"kind": "boulder","cell": [53,17]},
-    {"kind": "boulder","cell": [59,27]},
-    {"kind": "tree","cell": [72,22]},
-    {"kind": "tree","cell": [82,44]},
-    {"kind": "tree","cell": [88,79]},
-    {"kind": "tree","cell": [96,17]},
-    {"kind": "tree","cell": [102,116]},
-    {"kind": "tree","cell": [111,54]},
-    {"kind": "tree","cell": [121,86]},
-    {"kind": "tree","cell": [131,28]},
-    {"kind": "tree","cell": [137,113]},
-    {"kind": "tree","cell": [147,61]},
-    {"kind": "tree","cell": [154,101]},
-    {"kind": "tree","cell": [166,18]},
-    {"kind": "tree","cell": [171,49]},
-    {"kind": "tree","cell": [179,104]},
-    {"kind": "tree","cell": [104,74]},
-    {"kind": "tree","cell": [78,112]},
-    {"kind": "tree","cell": [144,20]},
-    {"kind": "tree","cell": [117,121]},
-    {"kind": "tree","cell": [91,91]},
-    {"kind": "tree","cell": [160,126]},
-    {"kind": "tree","cell": [187,42]},
-    {"kind": "tree","cell": [68,88]},
-    {"kind": "boulder","cell": [67,47]},
-    {"kind": "boulder","cell": [91,111]},
-    {"kind": "boulder","cell": [104,43]},
-    {"kind": "boulder","cell": [123,74]},
-    {"kind": "boulder","cell": [143,33]},
-    {"kind": "boulder","cell": [151,75]},
-    {"kind": "boulder","cell": [162,57]},
-    {"kind": "boulder","cell": [174,25]},
-    {"kind": "boulder","cell": [182,61]},
-    {"kind": "boulder","cell": [185,125]},
-    {"kind": "tree","cell": [202,44]},
-    {"kind": "tree","cell": [225,108]},
-    {"kind": "tree","cell": [193,170]},
-    {"kind": "tree","cell": [125,174]},
-    {"kind": "tree","cell": [68,160]},
-    {"kind": "tree","cell": [37,177]}
+    {
+      "kind": "boulder",
+      "cell": [
+        190,
+        18
+      ],
+      "tile": [
+        47,
+        4
+      ],
+      "atlas_index": 11
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        198,
+        18
+      ],
+      "tile": [
+        49,
+        4
+      ],
+      "atlas_index": 0
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        206,
+        18
+      ],
+      "tile": [
+        51,
+        4
+      ],
+      "atlas_index": 0
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        214,
+        18
+      ],
+      "tile": [
+        53,
+        4
+      ],
+      "atlas_index": 1
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        222,
+        18
+      ],
+      "tile": [
+        55,
+        4
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        230,
+        18
+      ],
+      "tile": [
+        57,
+        4
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        190,
+        26
+      ],
+      "tile": [
+        47,
+        6
+      ],
+      "atlas_index": 1
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        198,
+        26
+      ],
+      "tile": [
+        49,
+        6
+      ],
+      "atlas_index": 0
+    },
+    {
+      "kind": "boulder",
+      "cell": [
+        206,
+        26
+      ],
+      "tile": [
+        51,
+        6
+      ],
+      "atlas_index": 11
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        214,
+        26
+      ],
+      "tile": [
+        53,
+        6
+      ],
+      "atlas_index": 1
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        206,
+        34
+      ],
+      "tile": [
+        51,
+        8
+      ],
+      "atlas_index": 0
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        222,
+        66
+      ],
+      "tile": [
+        55,
+        16
+      ],
+      "atlas_index": 0
+    },
+    {
+      "kind": "boulder",
+      "cell": [
+        222,
+        74
+      ],
+      "tile": [
+        55,
+        18
+      ],
+      "atlas_index": 11
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        230,
+        74
+      ],
+      "tile": [
+        57,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        238,
+        74
+      ],
+      "tile": [
+        59,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        246,
+        74
+      ],
+      "tile": [
+        61,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        254,
+        74
+      ],
+      "tile": [
+        63,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        262,
+        74
+      ],
+      "tile": [
+        65,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        270,
+        74
+      ],
+      "tile": [
+        67,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        278,
+        74
+      ],
+      "tile": [
+        69,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        286,
+        74
+      ],
+      "tile": [
+        71,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        294,
+        74
+      ],
+      "tile": [
+        73,
+        18
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        302,
+        74
+      ],
+      "tile": [
+        75,
+        18
+      ],
+      "atlas_index": 12
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        358,
+        74
+      ],
+      "tile": [
+        89,
+        18
+      ],
+      "atlas_index": 12
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        62,
+        82
+      ],
+      "tile": [
+        15,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        70,
+        82
+      ],
+      "tile": [
+        17,
+        20
+      ],
+      "atlas_index": 0
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        214,
+        82
+      ],
+      "tile": [
+        53,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        222,
+        82
+      ],
+      "tile": [
+        55,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        230,
+        82
+      ],
+      "tile": [
+        57,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        238,
+        82
+      ],
+      "tile": [
+        59,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        246,
+        82
+      ],
+      "tile": [
+        61,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        254,
+        82
+      ],
+      "tile": [
+        63,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        262,
+        82
+      ],
+      "tile": [
+        65,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        270,
+        82
+      ],
+      "tile": [
+        67,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        278,
+        82
+      ],
+      "tile": [
+        69,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        286,
+        82
+      ],
+      "tile": [
+        71,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        294,
+        82
+      ],
+      "tile": [
+        73,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        302,
+        82
+      ],
+      "tile": [
+        75,
+        20
+      ],
+      "atlas_index": 12
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        310,
+        82
+      ],
+      "tile": [
+        77,
+        20
+      ],
+      "atlas_index": 12
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        318,
+        82
+      ],
+      "tile": [
+        79,
+        20
+      ],
+      "atlas_index": 12
+    },
+    {
+      "kind": "boulder",
+      "cell": [
+        358,
+        82
+      ],
+      "tile": [
+        89,
+        20
+      ],
+      "atlas_index": 11
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        366,
+        82
+      ],
+      "tile": [
+        91,
+        20
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        54,
+        90
+      ],
+      "tile": [
+        13,
+        22
+      ],
+      "atlas_index": 7
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        62,
+        90
+      ],
+      "tile": [
+        15,
+        22
+      ],
+      "atlas_index": 0
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        70,
+        90
+      ],
+      "tile": [
+        17,
+        22
+      ],
+      "atlas_index": 0
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        78,
+        90
+      ],
+      "tile": [
+        19,
+        22
+      ],
+      "atlas_index": 1
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        86,
+        90
+      ],
+      "tile": [
+        21,
+        22
+      ],
+      "atlas_index": 0
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        110,
+        90
+      ],
+      "tile": [
+        27,
+        22
+      ],
+      "atlas_index": 0
+    },
+    {
+      "kind": "tree",
+      "cell": [
+        158,
+        90
+      ],
+      "tile": [
+        39,
+        22
+      ],
+      "atlas_index": 7
+    }
   ],
   "map_expansion": {
-    "interpretation": "Mapa fixo 250x200, 50000 tiles base; região anterior preservada",
-    "baseline_grid_size": [64,44],
-    "legacy_region_preserved": {"origin_cell": [0,0],"grid_size": [64,44]},
-    "previous_grid_size": [192,132],
-    "total_base_tiles": 50000
+    "interpretation": "Ilha redesenhada em 400x250 = 100.000 células lógicas; cada peça isométrica cobre 4x4 células.",
+    "previous_grid_size": [
+      250,
+      200
+    ],
+    "logical_cell_count": 100000,
+    "tile_grid_size": [
+      100,
+      63
+    ],
+    "rendered_base_tile_count": 6300,
+    "monster_allocation_counts": {
+      "coast": 4,
+      "forest": 12,
+      "plateau": 8,
+      "corruption": 6
+    }
   }
 }

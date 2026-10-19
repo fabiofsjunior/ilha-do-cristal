@@ -7,7 +7,9 @@ signal ally_revive_completed(reviver_id: String)
 signal ally_revive_cancelled(reviver_id: String)
 
 const LAYOUT_PATH := "res://game/data/first_island_layout.json"
+const TILES_PATH := "res://game/data/first_island_tiles.json"
 const PLAYER_SCENE := preload("res://game/scenes/player.tscn")
+const CANDIDATE_TILESETS = preload("res://game/scripts/world/island_candidate_tileset_builder.gd")
 const COMBAT_RULES = preload("res://game/scripts/combat/combat_rules.gd")
 const COMBAT_GEOMETRY = preload("res://game/scripts/combat/combat_geometry.gd")
 const CREATURE_SCENES := {
@@ -36,6 +38,7 @@ var _hud
 var _beacon_position := Vector2.ZERO
 var _current_zoom_index := 1
 var _layout: Dictionary
+var _tile_data: Dictionary
 var _state: ExpeditionState
 var _resource_nodes: Array[Dictionary] = []
 var _creature_actors: Dictionary = {}
@@ -56,7 +59,8 @@ func _ready() -> void:
 	var save_root_override := OS.get_environment("GAMEPLAY_TEST_SAVE_DIR")
 	_state = EXPEDITION_STATE.open_for_character(selected_character_id, save_root_override, selected_vocation_id)
 	_layout = _load_json(LAYOUT_PATH)
-	if _layout.is_empty() or not _validate_tile_layers():
+	_tile_data = _load_json(TILES_PATH)
+	if _layout.is_empty() or _tile_data.is_empty() or not _configure_island_tiles() or not _validate_tile_layers():
 		return
 	_build_world_collision()
 	_build_beacon()
@@ -72,6 +76,7 @@ func _ready() -> void:
 	_build_creatures()
 	_change_zoom(_state.zoom_index - _current_zoom_index)
 	_iso_view = get_node("Isometric3DView")
+	_iso_view.isometric_tile_cover_scale = 1.0
 	_iso_view.configure(self)
 	_player.set_camera_ground_basis(_iso_view.camera.global_basis)
 	for layer_name in ["BaseTiles", "Transitions", "Paths", "ManualTerrain", "ManualProps", "Actors"]:
@@ -230,7 +235,63 @@ func _validate_tile_layers() -> bool:
 			push_error("Atlas tropical inválido em %s: esperado slice 128×128." % layer_name)
 			return false
 	return true
+
+
+func _configure_island_tiles() -> bool:
+	var tile_sets: Dictionary = CANDIDATE_TILESETS.build()
+	var terrain_tileset := tile_sets.get("terrain") as TileSet
+	var props_tileset := tile_sets.get("props") as TileSet
+	if terrain_tileset == null or props_tileset == null:
+		return false
+	var grid: Array = _layout.get("grid_size", [])
+	var tile_grid: Array = _tile_data.get("tile_grid_size", [])
+	var base_tiles: Array = _tile_data.get("base_tiles", [])
+	if grid.size() < 2 or tile_grid.size() < 2 or base_tiles.size() != int(tile_grid[0]) * int(tile_grid[1]):
+		push_error("Mapa da Ilha do Cristal: dimensões do bake não correspondem ao layout.")
+		return false
+	if _tile_data.get("grid_size", []) != grid:
+		push_error("Mapa da Ilha do Cristal: grid do bake diverge do layout de produção.")
+		return false
+	var base_layer := get_node("BaseTiles") as TileMapLayer
+	base_layer.tile_set = terrain_tileset
+	base_layer.clear()
+	for index in range(base_tiles.size()):
+		var atlas_index := int(base_tiles[index])
+		if atlas_index < 0 or atlas_index >= 64:
+			push_error("Mapa da Ilha do Cristal: índice de atlas inválido %d na peça %d." % [atlas_index, index])
+			return false
+		var cell := Vector2i(index % int(tile_grid[0]), int(index / int(tile_grid[0])))
+		base_layer.set_cell(cell, 0, Vector2i(atlas_index % 8, int(atlas_index / 8)))
+	for layer_name in ["Transitions", "Paths"]:
+		var layer := get_node(layer_name) as TileMapLayer
+		layer.clear()
+	var manual_terrain := get_node("ManualTerrain") as TileMapLayer
+	manual_terrain.tile_set = terrain_tileset
+	manual_terrain.clear()
+	for tile in _layout.get("path_tiles", []):
+		if tile.size() < 2:
+			continue
+		manual_terrain.set_cell(Vector2i(int(tile[0]), int(tile[1])), 0, Vector2i(0, 2))
+	var manual_props := get_node("ManualProps") as TileMapLayer
+	manual_props.tile_set = props_tileset
+	manual_props.clear()
+	for placement in _layout.get("prop_placements", []):
+		var tile: Array = placement.get("tile", [])
+		var atlas_index := int(placement.get("atlas_index", -1))
+		if tile.size() < 2 or atlas_index < 0 or atlas_index >= 16:
+			push_error("Mapa da Ilha do Cristal: prop inválido no layout: %s" % str(placement))
+			return false
+		manual_props.set_cell(Vector2i(int(tile[0]), int(tile[1])), 0, Vector2i(atlas_index % 4, int(atlas_index / 4)))
+	return true
+
+
 func _build_world_collision() -> void:
+	var outline: Array = _layout.get("island_outline", [])
+	if outline.size() >= 3:
+		_add_polygon_border(outline, "IslandShoreBoundary", 12.0)
+		for index in range(_layout.get("water_polygons", []).size()):
+			_add_polygon_border(_layout.water_polygons[index], "LagoonBoundary_%02d" % index, 10.0)
+		return
 	var size_data: Array = _layout.get("grid_size", [64, 44])
 	var map_width := float(size_data[0]) * TILE_SIZE
 	var map_height := float(size_data[1]) * TILE_SIZE
@@ -266,6 +327,34 @@ func _add_rect_collider(position: Vector2, dimensions: Vector2, label: String) -
 	shape_node.shape = shape
 	body.add_child(shape_node)
 	add_child(body)
+
+
+func _add_polygon_border(raw_points: Array, label: String, thickness: float) -> void:
+	var points := PackedVector2Array()
+	for value in raw_points:
+		if value is Array and value.size() >= 2:
+			points.append(Vector2(float(value[0]) * TILE_SIZE, float(value[1]) * TILE_SIZE))
+	if points.size() < 3:
+		push_error("Limite de terreno inválido no mapa: %s" % label)
+		return
+	for index in range(points.size()):
+		var start := points[index]
+		var finish := points[(index + 1) % points.size()]
+		var segment := finish - start
+		if segment.length() < 1.0:
+			continue
+		var body := StaticBody2D.new()
+		body.name = "%s_%02d" % [label, index]
+		body.position = (start + finish) * 0.5
+		body.rotation = segment.angle()
+		body.collision_layer = 1
+		body.collision_mask = 1
+		var shape_node := CollisionShape2D.new()
+		var shape := RectangleShape2D.new()
+		shape.size = Vector2(segment.length(), thickness)
+		shape_node.shape = shape
+		body.add_child(shape_node)
+		add_child(body)
 
 
 func _add_terrain_sprite(parent: Node2D, asset: String, pivot: Vector2) -> void:
@@ -938,7 +1027,12 @@ func _build_beacon() -> void:
 func _build_player() -> void:
 	_player = PLAYER_SCENE.instantiate() as CharacterBody2D
 	_player.selected_character_id = selected_character_id
-	_player.position = _state.player_position
+	var initial_position: Vector2 = _state.player_position
+	if not _is_walkable_world_position(initial_position):
+		var spawn_cell: Array = _layout.get("spawn_cell", [40, 140])
+		initial_position = Vector2((float(spawn_cell[0]) + 0.5) * TILE_SIZE, (float(spawn_cell[1]) + 0.5) * TILE_SIZE)
+		_state.player_position = initial_position
+	_player.position = initial_position
 	_player.facing = _state.player_facing
 	_player.set_input_enabled(_state.downed_remaining < 0.0)
 	_player.name = "LocalPlayer"
@@ -992,20 +1086,34 @@ func _build_minimap() -> void:
 					if minimap_cell.x >= 0 and minimap_cell.y >= 0 and minimap_cell.x < width and minimap_cell.y < height:
 						image.set_pixelv(minimap_cell, color)
 	_hud._minimap.set_map(ImageTexture.create_from_image(image))
+	var allocation_points := PackedVector2Array()
+	var allocation_colors := PackedColorArray()
+	for allocation in _layout.get("monster_allocations", []):
+		var cell: Array = allocation.get("cell", [])
+		if cell.size() < 2:
+			continue
+		allocation_points.append(Vector2((float(cell[0]) + 0.5) * TILE_SIZE, (float(cell[1]) + 0.5) * TILE_SIZE))
+		allocation_colors.append(_habitat_color(str(allocation.get("zone", ""))))
+	_hud._minimap.set_allocations(allocation_points, allocation_colors)
 
 func _base_minimap_color(atlas_cell: Vector2i) -> Color:
-	var tile_index := atlas_cell.y * 8 + atlas_cell.x
-	if tile_index <= 7:
-		return Color("28536c")
-	if tile_index <= 15:
-		return Color("528c98")
-	if tile_index <= 23 or tile_index == 32 or tile_index == 33 or tile_index == 34:
-		return Color("c7ad70")
-	if tile_index <= 28:
-		return Color("738955")
-	if tile_index <= 31 or (tile_index >= 35 and tile_index <= 37):
-		return Color("78634b")
-	return Color("52483e")
+	if atlas_cell.y == 0:
+		match atlas_cell.x:
+			6:
+				return Color("174b75")
+			7:
+				return Color("37a9bc")
+			3:
+				return Color("dfc17a")
+			2:
+				return Color("397c45")
+			5:
+				return Color("827f7b")
+			_:
+				return Color("75ab51")
+	if atlas_cell.y == 7 and atlas_cell.x < 2:
+		return Color("783f90")
+	return Color("75ab51")
 func _show_spell_vfx(skill_id: String, destination: Vector2) -> void:
 	if not is_instance_valid(_iso_view):
 		return
@@ -1057,15 +1165,41 @@ func _fire_precise_shot() -> void:
 
 
 func _manual_minimap_color(atlas_cell: Vector2i) -> Color:
-	match atlas_cell.y:
-		0:
-			return Color("28536c")
-		1:
-			return Color("528c98")
-		2:
-			return Color("c7ad70")
-		3:
-			return Color("738955") if atlas_cell.x <= 4 else Color("78634b")
-		4:
-			return Color("6e9c83")
+	if atlas_cell == Vector2i(0, 2):
+		return Color("ad8957")
 	return Color.TRANSPARENT
+
+
+func _habitat_color(zone: String) -> Color:
+	match zone:
+		"coast":
+			return Color("35ddf3")
+		"forest":
+			return Color("98df58")
+		"plateau":
+			return Color("ffc75e")
+		"corruption":
+			return Color("c986ff")
+	return Color("fff2d1")
+
+
+func _polygon_from_layout(raw_points: Array) -> PackedVector2Array:
+	var polygon := PackedVector2Array()
+	for point in raw_points:
+		if point is Array and point.size() >= 2:
+			polygon.append(Vector2(float(point[0]), float(point[1])))
+	return polygon
+
+
+func _is_walkable_world_position(position: Vector2) -> bool:
+	var outline := _polygon_from_layout(_layout.get("island_outline", []))
+	if outline.size() < 3:
+		return true
+	var logical_point := position / float(TILE_SIZE)
+	if not Geometry2D.is_point_in_polygon(logical_point, outline):
+		return false
+	for water in _layout.get("water_polygons", []):
+		var polygon := _polygon_from_layout(water)
+		if polygon.size() >= 3 and Geometry2D.is_point_in_polygon(logical_point, polygon):
+			return false
+	return true

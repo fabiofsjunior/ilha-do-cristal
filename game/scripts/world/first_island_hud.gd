@@ -145,7 +145,7 @@ func _build_hud() -> void:
 	_minimap = preload("res://game/scripts/ui/island_minimap.gd").new()
 	_minimap.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	_minimap.position = Vector2(-168, 12)
-	_minimap.size = Vector2(156, 146)
+	_minimap.size = Vector2(156, 206)
 	_root.add_child(_minimap)
 	var attributes_button := _hud_button("ATR", Vector2(128, 130), Vector2(52, 52), _toggle_attributes)
 	attributes_button.tooltip_text = "Atributos"
@@ -1293,7 +1293,7 @@ func _layout_edge_controls() -> void:
 			point = Vector2(safe_right - 116.0 + (index - 5) * 60.0, safe_top + 164.0)
 		_set_control_rect(_nav_buttons[index], point, Vector2(52.0, 52.0))
 	_set_control_rect(_status, Vector2(safe_left - EDGE_GAP + 16.0, safe_top - EDGE_GAP + 194.0), Vector2(330.0, 64.0))
-	_set_control_rect(_minimap, Vector2(safe_right - 156.0, safe_top), Vector2(156.0, 156.0))
+	_set_control_rect(_minimap, Vector2(safe_right - 156.0, safe_top), Vector2(156.0, 206.0))
 	_set_control_rect(_target_portrait.get_parent() as Control, Vector2(safe_right - 224.0, safe_top + 230.0), Vector2(64.0, 72.0))
 	_set_control_rect(_target_label, Vector2(safe_right - 160.0, safe_top + 234.0), Vector2(148.0, 44.0))
 	_set_control_rect(_target_bar, Vector2(safe_right - 220.0, safe_top + 300.0), Vector2(208.0, 28.0))
