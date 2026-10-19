@@ -5,6 +5,7 @@
 - Após o usuário aprovar o encaixe da amostra v0.2 e autorizar a implementação do protótipo v0.3, a cena principal passou a montar a ilha de 400×250 células lógicas (100.000), renderizadas em 6.300 tiles isométricos 4×4.
 - O layout associa os 30 IDs do bestiário a 30 pontos em quatro zonas (4 litoral, 12 floresta, 8 platôs/interior, 6 corrupção); o minimapa e o cenário mostram os marcadores com legenda. O loop instancia 30 atores a partir dos prefabs atuais de raposa, lobo e urso.
 - Validação: `tools/world/bake_first_island.py --check` passou. A cena principal rodou headless; confirmou 100.000 células, 6.300 tiles, 30 pontos/IDs, 30 atores, 165 px de deslocamento no loop de física e colisão real na costa e na lagoa. Commit da implementação em `Staging`: `8c2b6ba9a7392aa8fa52bcdd0682bbcef4477f3e`.
+- Publicação: commit funcional `8c2b6ba9a7392aa8fa52bcdd0682bbcef4477f3e`; follow-up `467e5ba5a8baf6218f6764793436e91133c71293` normalizou apenas quebras de linha para manter o diff legível.
 - Limite observado: o checkout local é esparso e não contém a folha da UI, o ícone e as imagens/metadata da aparência da Melissa. Por isso o teste confirma lógica, movimento e colisões, mas não a revisão visual completa em janela. A checagem de rampa, culling, desempenho Android e jogo em aparelho permanece pendente.
 
 ## 2026-10-18 — descoberta do Godot no launcher Web

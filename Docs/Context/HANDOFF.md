@@ -2,6 +2,7 @@
 
 **Branch:** `Staging`  
 **Commit da implementação:** `8c2b6ba9a7392aa8fa52bcdd0682bbcef4477f3e`  
+**Commit de normalização do diff:** `467e5ba5a8baf6218f6764793436e91133c71293` (apenas finais de linha)  
 **Base anterior:** `4c6cdd5a8dfc90963d1275c2c35320cf90862244`  
 **Cena principal:** `game/scenes/first_island.tscn`
 
