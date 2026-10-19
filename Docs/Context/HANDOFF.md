@@ -1,24 +1,24 @@
-# Handoff — Ilha do Cristal, amostra técnica v0.2
+# Handoff — mapa de 100.000 células no loop jogável
 
 **Branch:** `Staging`  
-**Commit da amostra em Staging:** `66fbf6fdf14e1272f6df2dbddd60595239618895`  
-**Base anterior:** `8c70debdab37f0589298354c847828e7b17eb8f7`  
-**Artefato de revisão:** `tools/world/ilha_cristal_tilemap_review_v0_2.tscn`  
-**Captura local:** `outputs/ilha-cristal-tilemap-review-v0.2.png`
+**Commit da implementação:** `8c2b6ba9a7392aa8fa52bcdd0682bbcef4477f3e`  
+**Base anterior:** `4c6cdd5a8dfc90963d1275c2c35320cf90862244`  
+**Cena principal:** `game/scenes/first_island.tscn`
 
 ## Próxima ação exata
 
-Apresentar a captura da amostra v0.2 ao usuário e pedir revisão do encaixe entre as faces, das transições de costa e da leitura dos quatro habitats. O usuário já aprovou o protótipo de composição v0.3 (400×250 e distribuição 4/12/8/6); aguardar validação explícita da amostra de arte antes de expandir os atlas ou alterar cenas e dados de runtime.
+Abrir o checkout completo no Godot 4.5.1 e validar a primeira ilha no Play normal: conferir encaixe dos tiles durante movimento, leitura dos 30 pontos e da legenda, câmera/zoom, interação e combate. Depois medir culling e desempenho em Android e revisar as rotas/rampas.
 
-## Estado e limites
+## Estado verificado
 
-- O jogo mantém o mapa de produção de 250×200 = 50.000 células. Não houve alteração de mapa, colisões, saves ou spawns.
-- A cena candidata é isolada, usa um patch 16×10 no renderer 2.5D e mostra 30 alocações por habitat sem atribuir espécies.
-- A cena recorta as imagens-fonte versionadas e compõe os TileSets candidatos em memória; a face de terreno alinha ao UV 128×64. A cobertura 1.0 fica isolada nessa cena e o padrão 1.10 permanece nas demais.
-- A cena foi executada visualmente no Godot 4.5.1. A importação completa do checkout esparso registra a ausência de `assets/ui/app_icon.png` em uma tela não relacionada. Não houve teste Android ou de desempenho em 100.000 células.
+- Grade lógica de 400×250 = 100.000 células; 6.300 tiles isométricos agrupam 4×4 células.
+- `first_island_layout.json` contém 30 pontos ligados aos 30 IDs do catálogo nas zonas 4/12/8/6. O jogo desenha os pontos e a legenda no minimapa e os pontos coloridos no terreno.
+- A simulação instancia 30 atores com as cenas de combate disponíveis: raposa, lobo e urso. Os outros 27 IDs estão associados às áreas, mas ainda não têm prefabs de combate próprios.
+- O bake estático passou. A execução headless da cena principal validou deslocamento de 165 px, colisão em `IslandShoreBoundary_00` e `LagoonBoundary_00_00`, e jogador dentro da ilha após os testes.
+- Essa execução ocorreu no checkout local esparso, sem a folha UI `assets/ui/crystal_v2/sheet.b64`, `assets/ui/app_icon.png` e a aparência da Melissa. Os avisos são de assets ausentes dessa cópia; não foi feita revisão visual completa em janela nem em Android.
 
-## Bloqueios e perguntas abertas
+## Pendências
 
-- Aceite explícito da amostra corrigida ou novos ajustes de alinhamento/shoreline.
-- Após a aprovação, integrar a arte em lote; para expansão runtime a 100.000 células ainda validar colisões, rampas, culling e desempenho.
-- Associar os marcadores às 30 espécies e fixar coordenadas/quantidade de spawns somente em uma atualização própria do layout.
+- Validar visualmente a apresentação no Play com o checkout/assets completos.
+- Medir uso de memória, culling e desempenho do mapa em Android; testar rotas/rampas.
+- O fluxo separado de abrir um mapa global no minimapa continua pendente.
